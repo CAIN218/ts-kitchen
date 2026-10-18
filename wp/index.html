@@ -1,0 +1,479 @@
+<!-- Gluten Free T's Kitchen 新デザイン（GitHub: CAIN218/ts-kitchen の tools/build_wp.py で生成） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>(function(){var l='ja';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tsk-lang')||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en')}catch(e){}document.documentElement.setAttribute('data-lang',l)})();</script>
+<style>
+/* WordPressテーマの影響を打ち消す */
+body{margin:0!important;padding:0!important;background:#fff}
+.tsk-root h1,.tsk-root h2,.tsk-root h3,.tsk-root h4{font-family:inherit;margin:0;letter-spacing:normal;text-transform:none}
+.tsk-root p{margin:0}
+.tsk-root a{text-decoration-thickness:auto}
+.tsk-root img{height:auto}
+.tsk-root button{text-transform:none;letter-spacing:normal;box-shadow:none;min-height:0}
+/* ▼原宿店の写真：メディアにアップロードした画像のURLを url("...") の形で入れる（例：url("https://glutenfree.co.jp/wp-content/uploads/2026/10/harajuku.jpg")） */
+:root{--harajuku-photo:none}
+:root{--navy:#1d3557;--navy-d:#0f2238;--pink:#e0245e;--bg:#f5f7fa;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:"Noto Sans JP",system-ui,sans-serif;background:#fff;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+/* 言語切替：表示する言語だけを出す */
+html[data-lang=ja] [lang=en]{display:none!important}
+html[data-lang=en] [lang=ja]{display:none!important}
+
+/* ヘッダー */
+.hd{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff}
+.hd-in{max-width:1200px;margin:auto;display:flex;align-items:center;gap:24px;padding:12px 16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;white-space:nowrap;font-size:17px;letter-spacing:.01em}
+.logo img{width:38px;height:38px;border-radius:50%;background:#fff;flex:none}
+.nav{display:flex;gap:22px;font-size:14px;margin-left:auto}
+.nav a{text-decoration:none;opacity:.88;white-space:nowrap}
+.nav a:hover{opacity:1}
+.tools{display:flex;align-items:center;gap:6px}
+.sns{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:#fff;opacity:.88;transition:background .2s}
+.sns:hover{opacity:1;background:rgba(255,255,255,.12)}
+.lang{display:inline-flex;align-items:center;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);font:inherit;font-size:13px;font-weight:500;letter-spacing:.04em;cursor:pointer;padding:6px 16px;border-radius:999px;white-space:nowrap;transition:background .2s,border-color .2s}
+.lang:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+.hd-rsv{margin-left:6px}
+.menu-btn{display:none;width:36px;height:36px;background:transparent;border:0;cursor:pointer;position:relative}
+.menu-btn span{position:absolute;right:4px;height:1.5px;background:#fff;border-radius:2px;transition:.25s}
+.menu-btn span:nth-child(1){top:13px;width:28px}.menu-btn span:nth-child(2){top:22px;width:20px}
+.menu-btn[aria-expanded=true] span:nth-child(1){top:17px;width:24px;transform:rotate(45deg)}
+.menu-btn[aria-expanded=true] span:nth-child(2){top:17px;width:24px;transform:rotate(-45deg)}
+.btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:12px 22px;white-space:nowrap}
+.btn.sm{padding:8px 16px;font-size:14px}
+.btn.line{background:transparent;border:1.5px solid #fff}
+.drawer{display:none;background:var(--navy);border-top:1px solid rgba(255,255,255,.15)}
+.drawer>a{display:block;padding:14px 20px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.drawer-foot{display:flex;justify-content:flex-end;align-items:center;padding:14px 20px}
+.drawer.open{display:block}
+.fab{display:none}
+
+/* ヒーロー */
+.hero{background:linear-gradient(90deg,rgba(15,30,55,.85),rgba(15,30,55,.4) 60%,rgba(15,30,55,.12)),url("{{IMG:food.jpg}}") center/cover,#34465f;color:#fff}
+.hero-in{max-width:1120px;margin:auto;padding:96px 16px 88px}
+.hero h1{font-size:clamp(28px,4.4vw,48px);line-height:1.35;font-weight:900}
+.hero p.hero-sub{margin:14px 0 28px;font-size:clamp(20px,2.6vw,30px);font-weight:700;line-height:1.5}
+.hero .row{display:flex;gap:10px;flex-wrap:wrap}
+.hero .sub{font-size:13px;opacity:.85;margin-top:14px}
+
+/* 安心ポイント */
+.trust{border-bottom:1px solid var(--line)}
+.trust ul{max-width:1120px;margin:auto;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);padding:0 16px}
+.trust li{padding:20px 14px;border-right:1px solid var(--line);font-size:13px;color:var(--mute)}
+.trust li:last-child{border-right:0}
+.trust b{display:block;font-size:16px;color:var(--navy)}
+
+section.blk{padding:72px 16px}
+.wrap{max-width:1120px;margin:auto}
+h2{font-size:28px;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.lead{color:var(--mute);margin-bottom:32px}
+.about{display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
+.about img{width:200px}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.pt{background:var(--bg);border-radius:12px;padding:18px}
+.pt b{display:block;color:var(--navy);margin-bottom:4px}
+.pt p{font-size:14px;color:var(--mute)}
+
+/* 店舗 */
+.stores{background:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.card .ph{aspect-ratio:16/10;background:#dde3ea center/cover}
+.card .bd{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-size:20px;color:var(--navy);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;background:var(--pink);color:#fff;border-radius:4px;padding:2px 6px;font-weight:700}
+.tag.alt{background:#e8eef6;color:var(--navy)}
+.addr{font-size:13px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:first-child{color:var(--mute);width:7.5em}
+.closed{font-size:13px;color:var(--pink);font-weight:700}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.acts a{text-align:center;text-decoration:none;font-size:14px;border-radius:8px;padding:9px 6px;border:1px solid var(--line);color:var(--navy)}
+.acts a.r{grid-column:1/-1;background:var(--pink);border-color:var(--pink);color:#fff;font-weight:700}
+.small{font-size:12px;color:var(--mute)}
+.store-tabs{display:none}
+.store-tabs button{font:inherit;font-weight:700;font-size:14px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:9px 4px;cursor:pointer}
+.store-tabs button[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.policy{margin-top:24px;background:#fff4f7;border:1px solid #f5c2d1;border-left:5px solid var(--pink);border-radius:10px;padding:16px 20px;font-size:14px}
+.policy b{color:var(--pink)}
+
+/* ケータリング */
+.cater{display:grid;grid-template-columns:1fr 1fr;background:var(--navy);color:#fff;border-radius:18px;overflow:hidden}
+.cater .tx{padding:44px}
+.cater h2{color:#fff}
+.cater ul{margin:16px 0 24px 1.2em;font-size:15px}
+.cater{align-items:center}
+.cater .row{display:flex;gap:10px;flex-wrap:wrap}
+.cater .mail{font-size:13px;opacity:.75;margin-top:12px}
+.flyer{display:block;padding:32px;text-decoration:none;text-align:center}
+.flyer img{width:100%;max-width:340px;margin:auto;border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.35);transition:transform .2s}
+.flyer:hover img{transform:scale(1.02)}
+.flyer>span{display:block;font-size:12px;opacity:.7;margin-top:10px;color:#fff}
+.tag.soon{background:#fff1c2;color:#7a5a00;font-size:12px;vertical-align:middle}
+.tag.ok{background:#e3f4ea;color:#1d6b43}
+.shopbox{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.shopbox .ph{aspect-ratio:3/2;border-radius:16px;background:url("https://glutenfree.co.jp/wp-content/uploads/2021/08/210420_Ts_Hotsauce-4-scaled-1-1024x683.jpeg") center/cover,#eee}
+.shopbox .tag{display:inline-block;margin:4px 0 14px}
+.shopbox p{color:var(--mute)}
+
+/* Instagram */
+.ig{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ig a{aspect-ratio:1;background:#eee center/cover;border-radius:8px;transition:opacity .2s}
+.ig a:hover{opacity:.85}
+
+/* フッター */
+footer{background:var(--navy-d);color:#c9d3df;padding:48px 16px 24px;font-size:13px}
+.ft{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:28px}
+footer b{color:#fff;display:block;margin-bottom:6px;font-size:14px}
+.ft-logo{width:64px;height:64px;border-radius:50%;background:#fff;margin-bottom:12px}
+.ft-sns{display:flex;gap:4px;margin-top:10px}
+footer a{color:#fff}
+.copy{max-width:1120px;margin:32px auto 0;border-top:1px solid #2a3d55;padding-top:16px;opacity:.7}
+
+@media(max-width:1180px){
+ .nav{display:none}
+ .menu-btn{display:block}
+ .tools{margin-left:auto}
+}
+@media(max-width:640px){
+ .hd-in{gap:8px;padding:10px 12px}
+ .logo{font-size:15px;gap:8px}
+ .logo img{width:32px;height:32px}
+ .tools{gap:0}
+ .hd-rsv{display:none}
+ .tools .lang{padding:5px 12px;font-size:12px;margin:0 4px}
+ .sns{width:32px;height:32px}
+ .fab{display:block;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;background:var(--pink);color:#fff;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;box-shadow:0 6px 20px rgba(224,36,94,.4)}
+}
+@media(max-width:640px){.hero p.hero-sub{font-size:17px}}
+@media(max-width:400px){.logo{font-size:14px}.logo img{width:30px;height:30px}.tools .lang{padding:4px 10px;margin:0 2px}}
+@media(max-width:350px){.logo{font-size:12.5px;gap:6px}.tools .sns{display:none}}
+@media(max-width:900px){
+ .trust ul{grid-template-columns:1fr 1fr}
+ .trust li:nth-child(2){border-right:0}
+ .trust li:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .cards,.points{grid-template-columns:1fr}
+ .store-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:-12px 0 14px;position:sticky;top:56px;z-index:5;background:var(--bg);padding:8px 0}
+ .cards .card{display:none}
+ .cards .card.on{display:flex}
+ .about{grid-template-columns:1fr;gap:16px}
+ .about img{width:110px}
+ .cater{grid-template-columns:1fr}.cater .tx{padding:28px 28px 0}.flyer{padding:20px 28px 28px}
+ .shopbox{grid-template-columns:1fr;gap:20px}
+ .ig{grid-template-columns:repeat(3,1fr)}
+ .ft{grid-template-columns:1fr 1fr}
+ section.blk{padding:52px 16px}
+ .hero-in{padding:64px 16px 56px}
+}
+
+
+/* ===== 下層ページ共通 ===== */
+.nav a.on{opacity:1;box-shadow:inset 0 -2px 0 #fff}
+.drawer>a.on{background:rgba(255,255,255,.08)}
+.page-hero{background:linear-gradient(90deg,rgba(15,30,55,.9),rgba(15,30,55,.6)),url("{{IMG:food.jpg}}") center/cover;color:#fff;padding:64px 16px 56px}
+.page-hero .wrap{max-width:1120px;margin:auto}
+.page-hero h1{font-size:clamp(30px,4vw,44px);font-weight:900;line-height:1.3}
+.page-hero p{opacity:.9;margin-top:6px}
+.eyebrow{font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--pink);margin-bottom:6px}
+.page-hero .eyebrow{color:#ffb3c8}
+.muted{color:var(--mute);font-size:14px}
+
+/* 会社概要 */
+.profile{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start}
+.owner{margin:0}
+.owner img{width:100%;border-radius:16px;aspect-ratio:3/4;object-fit:cover}
+.owner figcaption{font-size:13px;color:var(--mute);margin-top:8px;text-align:center}
+.info-table{margin:12px 0 28px;font-size:15px}
+.info-table th{text-align:left;font-weight:500;color:var(--mute);width:8em;padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.info-table td{padding:12px 0;border-bottom:1px solid var(--line);width:auto}
+.info-table td:first-child{width:auto;color:inherit}
+.sub-h{font-size:18px;color:var(--navy);margin-bottom:10px}
+.awards{list-style:none;display:grid;gap:8px}
+.awards li{background:var(--bg);border-radius:10px;padding:12px 14px 12px 40px;position:relative;font-size:14px}
+.awards li::before{content:"★";position:absolute;left:14px;top:11px;color:#f4b400}
+.numbers{background:var(--navy);color:#fff;padding:40px 16px}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.nums div{font-size:13px;opacity:.95}
+.nums b{display:block;font-size:40px;font-weight:900;line-height:1.2;margin-bottom:4px}
+.nums b small{font-size:18px;margin-left:2px}
+.cv{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cv-box{background:var(--bg);border-radius:18px;padding:32px}
+.cv-box h2{font-size:24px}
+.cv-box>p{color:var(--mute);margin-bottom:16px}
+.ticks{list-style:none;display:grid;gap:10px}
+.ticks li{padding-left:28px;position:relative;font-size:15px}
+.ticks li::before{content:"";position:absolute;left:4px;top:7px;width:12px;height:7px;border-left:2.5px solid var(--pink);border-bottom:2.5px solid var(--pink);transform:rotate(-45deg)}
+.biz-sec{background:var(--bg)}
+.biz{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.biz>div{background:#fff;border-radius:14px;overflow:hidden}
+.biz .ph{aspect-ratio:4/3;background:#ddd center/cover}
+.biz .ph.prod{background:#fde8ee;display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:16px}
+.biz .ph.prod img{height:88%;width:auto;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))}
+.biz b{display:block;padding:14px 16px;color:var(--navy)}
+.timeline{list-style:none;position:relative;margin-top:24px}
+.timeline::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline li{display:grid;grid-template-columns:80px 1fr;gap:20px;padding-bottom:22px;position:relative}
+.timeline time{font-weight:900;color:var(--navy);font-size:18px;line-height:1.5}
+.timeline li::after{content:"";position:absolute;left:53px;top:8px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--pink)}
+.timeline li>div{padding-left:8px}
+.timeline p+p{margin-top:6px}
+.timeline .hl{color:var(--pink);font-weight:700}
+.media-sec{background:var(--bg)}
+.media{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:center}
+.clip img{border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.15);background:#fff}
+.media h2{font-family:Georgia,serif}
+.media p{margin-bottom:12px}
+
+/* メニュー */
+.notice{background:#fff8e6;border:1px solid #f3dc9d;border-radius:12px;padding:18px 20px;margin-bottom:28px;font-size:14px}
+.notice b{display:block;color:#7a5a00;margin-bottom:6px}
+.notice p+p{margin-top:8px}
+.menu-stores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:640px}
+.menu-stores button{font:inherit;font-weight:700;font-size:15px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:11px 6px;cursor:pointer}
+.menu-stores button[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.menu-cats{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 18px}
+.menu-cats button{font:inherit;font-size:14px;border:0;background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 16px;cursor:pointer}
+.menu-cats button[aria-selected=true]{background:var(--pink);color:#fff;font-weight:700}
+.menu-view{margin:0;background:var(--bg);border-radius:16px;padding:16px;text-align:center}
+.menu-view a{display:flex;align-items:center;justify-content:center;min-height:200px}
+.menu-view img{max-height:80vh;width:auto;height:auto;max-width:100%;margin:auto;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08);background:#fff}
+.menu-view.wide img{width:100%;max-height:none}
+.menu-view figcaption{font-size:12px;color:var(--mute);margin-top:10px}
+.menu-actions{text-align:center;margin-top:28px}
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(10,18,30,.92);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:56px 8px 24px}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:min(1400px,100%);height:auto}
+.lb-close{position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:18px;cursor:pointer}
+
+@media(max-width:900px){
+ .profile,.cv,.media{grid-template-columns:1fr;gap:28px}
+ .owner{max-width:260px}
+ .nums{grid-template-columns:1fr 1fr;gap:24px}
+ .biz{grid-template-columns:1fr 1fr}
+ .media .clip{max-width:300px}
+ .cv-box{padding:24px}
+ .timeline::before{left:44px}.timeline li{grid-template-columns:60px 1fr;gap:16px}.timeline li::after{left:39px}
+ .menu-view{padding:8px}
+}
+
+/* 原宿店の写真（{{IMG:harajuku.jpg}} を置くと表示） */
+.card .ph.ph-harajuku{background:var(--harajuku-photo) center/cover,url("{{IMG:logo.png}}") center/72px no-repeat,linear-gradient(135deg,#e8eef6,#dde3ea)}
+
+/* 受賞マーク */
+.awards-band{background:#fff;border-top:1px solid var(--line);padding:40px 16px}
+.badges{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:auto;text-align:center}
+.badges img{height:96px;width:auto;margin:0 auto 10px;object-fit:contain}
+.badges li{font-size:12px;color:var(--mute);line-height:1.5}
+@media(max-width:640px){.badges{grid-template-columns:1fr 1fr;row-gap:28px}.badges img{height:80px}}
+
+/* 会社概要：追加分 */
+ol.plain{margin:0;padding-left:1.3em}
+ol.plain li+li{margin-top:2px}
+.info-table a{color:var(--navy)}
+.philosophy{text-align:center}
+.philosophy .wrap{max-width:760px}
+.philosophy .motto{font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--navy);margin:8px 0 16px;line-height:1.5}
+.philosophy p:last-child{color:var(--mute)}
+
+</style>
+<div class="tsk-root" style="font-family:'Noto Sans JP',system-ui,sans-serif;color:#1f2933;line-height:1.7">
+<header class="hd">
+  <div class="hd-in">
+    <a class="logo" href="/"><img src="{{IMG:logo.png}}" alt=""><span>Gluten Free T's Kitchen</span></a>
+    <nav class="nav">
+      <a class="menu-link" href="/menu/"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>
+      <a href="/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
+      <a href="https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/"><span lang="ja">コンサルティング</span><span lang="en">Consulting</span></a>
+      <a href="https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/"><span lang="ja">取材のお問い合わせ</span><span lang="en">Media inquiries</span></a>
+    </nav>
+    <div class="tools">
+      <a class="sns" href="https://www.instagram.com/glutenfreetskitchen/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <button class="lang" type="button" data-lang-toggle aria-label="言語を切り替え / Switch language"><span lang="ja">English</span><span lang="en">日本語</span></button>
+      <a class="btn sm rsv hd-rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="メニュー" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="drawer" id="drawer">
+    <a class="menu-link" href="/menu/"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>
+      <a href="/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
+      <a href="https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/"><span lang="ja">コンサルティング</span><span lang="en">Consulting</span></a>
+      <a href="https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/"><span lang="ja">取材のお問い合わせ</span><span lang="en">Media inquiries</span></a>
+    <div class="drawer-foot"><a class="btn sm rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book a table</span></a></div>
+  </div>
+</header>
+<a class="fab rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
+
+<main id="top">
+<div class="hero"><div class="hero-in">
+  <h1 lang="ja">食の制限から、<br>可能性を味わうレストランです。</h1>
+  <h1 lang="en">From dietary restrictions<br>to delicious possibilities.</h1>
+  <p lang="ja" class="hero-sub">グルテンフリーを必要とする方々が、<br>笑顔になることを目指して。</p>
+  <p lang="en" class="hero-sub">Our goal is to bring smiles to everyone who needs gluten-free food.</p>
+  <div class="row">
+    <a class="btn rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">ご予約はこちらから</span><span lang="en">Make a reservation</span></a>
+    <a class="btn line" href="#stores"><span lang="ja">店舗を見る</span><span lang="en">See locations</span></a>
+  </div>
+  <div class="sub"><span lang="ja">8名以上のご予約の際は事前にご連絡ください</span><span lang="en">For groups of 8 or more, please contact us in advance.</span></div>
+</div></div>
+
+<section class="blk"><div class="wrap about">
+  <img src="https://glutenfree.co.jp/wp-content/uploads/2021/08/GIG1-1024x1024.png" alt="Gluten Free Safe Spot 認証マーク">
+  <div>
+    <h2><span lang="ja">私たちのレストランについて</span><span lang="en">About our restaurant</span></h2>
+    <p class="lead"><span lang="ja">アジアで初めて、グルテンフリーの認証を取得したレストランです。</span><span lang="en">We were the first restaurant in Asia to receive gluten-free certification.</span></p>
+    <div class="points">
+      <div class="pt"><b><span lang="ja">グルテンフリー</span><span lang="en">100% gluten-free</span></b><p><span lang="ja">小麦・大麦・ライ麦を使わない料理と飲み物を提供しています。</span><span lang="en">Every dish and drink is made without wheat, barley or rye.</span></p></div>
+      <div class="pt"><b><span lang="ja">他のアレルギーにも</span><span lang="en">Other allergies</span></b><p><span lang="ja">複数の食物アレルギーをお持ちの方は、スタッフにお申し出ください。</span><span lang="en">If you have multiple food allergies, please let our staff know.</span></p></div>
+      <div class="pt"><b><span lang="ja">材料についてのご注意</span><span lang="en">About our ingredients</span></b><p><span lang="ja">一部の材料は、小麦を扱う工場で製造されています。ご不明な点はお気軽にご質問ください。</span><span lang="en">Some ingredients are produced in facilities that also handle wheat. Please ask us if you have any questions.</span></p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="blk stores" id="stores"><div class="wrap">
+  <h2><span lang="ja">店舗・営業時間</span><span lang="en">Locations & Hours</span></h2>
+  <p class="lead"><span lang="ja">ご来店の店舗をお選びください。売り切れの場合は、早めに閉店することがあります。</span><span lang="en">Choose your location. We may close early if we sell out.</span></p>
+  <div class="store-tabs" role="tablist">
+    <button type="button" aria-selected="true" data-i="0"><span lang="ja">原宿</span><span lang="en">Harajuku</span></button>
+    <button type="button" aria-selected="false" data-i="1"><span lang="ja">六本木</span><span lang="en">Roppongi</span></button>
+    <button type="button" aria-selected="false" data-i="2"><span lang="ja">上野広小路</span><span lang="en">Ueno</span></button>
+  </div>
+  <div class="cards">
+    <article class="card on">
+      <div class="ph ph-harajuku" role="img" aria-label="原宿店"><!-- 原宿店の写真は {{IMG:harajuku.jpg}} を置くと自動で表示されます --></div>
+      <div class="bd">
+        <h3><span lang="ja">原宿店</span><span lang="en">Harajuku</span> <span class="tag">NEW</span></h3>
+        <div class="addr"><span lang="ja">東京都渋谷区神宮前4-28-14 シャンゼリゼ原宿 地下1階</span><span lang="en">B1F Champs-Élysées Harajuku, 4-28-14 Jingumae, Shibuya-ku, Tokyo</span></div>
+        <table>
+          <tr><td><span lang="ja">平日ランチ</span><span lang="en">Weekday lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td><span lang="ja">平日ディナー</span><span lang="en">Weekday dinner</span></td><td>17:00–22:00（L.O. 21:00）</td></tr>
+          <tr><td><span lang="ja">土・日</span><span lang="en">Sat & Sun</span></td><td>12:00–22:00（L.O. 21:00）</td></tr>
+        </table>
+        <div class="closed"><span lang="ja">定休日：水曜日</span><span lang="en">Closed on Wednesdays</span></div>
+        <div class="acts"><a href="tel:0368129222">📞 03-6812-9222</a><a href="https://share.google/OHyXkdn8FCZN2GU64">📍 <span lang="ja">地図</span><span lang="en">Map</span></a><a class="r rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">原宿店を予約</span><span lang="en">Book Harajuku</span></a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2021/08/DK1-bgpyibtm_b7uHHEiOOE7gp1xePLX2f8zZq8ejsgnq9Khu2uSkWiDRrdALCXxFmJ1loW6ySlpe_ovhAJ2g7yp1mznlIBHEAXgTkkCyZxfqL93qmUPY9EtKcN7Tk_qSjfBjX04jW0mpqjlVaU56M0SMSOyDtfzzd1khOGYmA7tTNa_uScuQZhvjAd_Jgmk-1.jpeg')"></div>
+      <div class="bd">
+        <h3><span lang="ja">六本木店</span><span lang="en">Roppongi</span></h3>
+        <div class="addr"><span lang="ja">〒106-0032 東京都港区六本木7-8-5 2階</span><span lang="en">2F, 7-8-5 Roppongi, Minato-ku, Tokyo 106-0032</span></div>
+        <table>
+          <tr><td><span lang="ja">ランチ</span><span lang="en">Lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td><span lang="ja">ディナー</span><span lang="en">Dinner</span></td><td>17:00–22:00（L.O. 20:30）</td></tr>
+        </table>
+        <div class="closed"><span lang="ja">定休日：火曜日</span><span lang="en">Closed on Tuesdays</span></div>
+        <div class="acts"><a href="tel:0368747719">📞 03-6874-7719</a><a href="https://maps.app.goo.gl/uj25dr64byr36bsq5">📍 <span lang="ja">地図</span><span lang="en">Map</span></a><a class="r rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">六本木店を予約</span><span lang="en">Book Roppongi</span></a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2025/10/S__104693771-1024x574.jpg')"></div>
+      <div class="bd">
+        <h3><span lang="ja">上野広小路店</span><span lang="en">Ueno-Hirokoji</span> <span class="tag alt"><span lang="ja">朝7時〜</span><span lang="en">Open from 7am</span></span></h3>
+        <div class="addr"><span lang="ja">〒101-0021 東京都千代田区外神田5-3-3</span><span lang="en">5-3-3 Sotokanda, Chiyoda-ku, Tokyo 101-0021</span></div>
+        <table>
+          <tr><td><span lang="ja">モーニング</span><span lang="en">Breakfast</span></td><td>7:00–9:30（L.O. 9:00）</td></tr>
+          <tr><td><span lang="ja">ランチ</span><span lang="en">Lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td><span lang="ja">ディナー</span><span lang="en">Dinner</span></td><td>17:00–22:00（L.O. 20:30）</td></tr>
+        </table>
+        <div class="closed"><span lang="ja">年中無休（水曜日はモーニングのみ）</span><span lang="en">Open daily (breakfast only on Wednesdays)</span></div>
+        <div class="acts"><a href="tel:0358264548">📞 03-5826-4548</a><a href="https://maps.app.goo.gl/ZyLXctcwvsKvToWAA">📍 <span lang="ja">地図</span><span lang="en">Map</span></a><a class="r rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">上野広小路店を予約</span><span lang="en">Book Ueno-Hirokoji</span></a></div>
+      </div>
+    </article>
+  </div>
+  <div class="policy">
+    <span lang="ja"><b>キャンセルポリシー：</b>席数が限られているため、ご予約日の7日前から、1組につき<b>3,000円</b>のキャンセル料がかかります。直前のキャンセル・人数変更は返金できませんのでご注意ください。</span>
+    <span lang="en"><b>Cancellation policy:</b> As seating is limited, a fee of <b>¥3,000 per group</b> applies from 7 days before your reservation date. Last-minute cancellations and changes in party size are non-refundable.</span>
+  </div>
+</div></section>
+
+<section class="blk" id="catering"><div class="wrap cater">
+  <div class="tx">
+    <h2><span lang="ja">ケータリング・お弁当</span><span lang="en">Catering & Bento</span></h2>
+    <p><span lang="ja">パーティー、会議、イベントに。みんなで同じものを、安心して食べられます。</span><span lang="en">For parties, meetings and events — so everyone can enjoy the same meal, worry-free.</span></p>
+    <ul lang="ja"><li>グルテンフリーが基本、他のアレルギーにも対応</li><li>ベジタリアン・ヴィーガンもご相談ください</li><li>ご予約は5日前まで</li></ul>
+    <ul lang="en"><li>Gluten-free at its core, with other allergies accommodated</li><li>Vegetarian and vegan options available</li><li>Please order at least 5 days in advance</li></ul>
+    <div class="row">
+      <a class="btn" href="mailto:glutenfree@glutenfree.co.jp?subject=%E3%82%B1%E3%83%BC%E3%82%BF%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%BB%E3%81%8A%E5%BC%81%E5%BD%93%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87"><span lang="ja">メールで相談する</span><span lang="en">Email us</span></a>
+      <a class="btn line" href="https://glutenfree.co.jp/wp-content/uploads/2025/12/S__181764119.jpg" target="_blank" rel="noopener"><span lang="ja">チラシを見る</span><span lang="en">View flyer</span></a>
+    </div>
+    <p class="mail">glutenfree@glutenfree.co.jp</p>
+  </div>
+  <a class="flyer" href="https://glutenfree.co.jp/wp-content/uploads/2025/12/S__181764119.jpg" target="_blank" rel="noopener">
+    <img src="https://glutenfree.co.jp/wp-content/uploads/2025/12/S__181764119.jpg" alt="ケータリング・お弁当のチラシ" loading="lazy">
+    <span><span lang="ja">タップで拡大</span><span lang="en">Tap to enlarge</span></span>
+  </a>
+</div></section>
+
+<section class="blk shop" id="shop"><div class="wrap shopbox">
+  <div class="ph" role="img" aria-label="T's ホットソース"></div>
+  <div class="tx">
+    <h2><span lang="ja">オンラインショップ</span><span lang="en">Online Shop</span></h2>
+    <span class="tag soon"><span lang="ja">準備中</span><span lang="en">Coming soon</span></span>
+    <p><span lang="ja">T'sオリジナルの商品を、ご自宅でも楽しめるオンラインショップを準備しています。オープンまで、もうしばらくお待ちください。</span><span lang="en">We're preparing an online shop so you can enjoy T's original products at home. Please stay tuned.</span></p>
+  </div>
+</div></section>
+
+<section class="blk" style="padding-top:0"><div class="wrap">
+  <h2>Instagram</h2>
+  <p class="lead"><a href="https://www.instagram.com/glutenfreetskitchen/">@glutenfreetskitchen</a> <span lang="ja">で最新情報を発信中</span><span lang="en">— follow us for the latest news</span></p>
+  <div class="ig">
+    <a href="https://www.instagram.com/p/DbQieC3T6Cr/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/755221053_18486724354101854_4297170275270906276_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DV-CwLJkzit/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/652051412_18461372236101854_7040317504226408058_n.heiclow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DO-7g7xk9vO/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/552863505_18430665562101854_8505285937546383651_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DLZGjMgztZf/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/504054200_18418009450101854_4435076772132804764_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DFUNR6szJlc/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/475263003_18394989121101854_8330718895587686097_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DEbZNxFz-3Y/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/472539324_18391873186101854_3132168944212505960_nlow.jpg')" aria-label="Instagram"></a>
+  </div>
+</div></section>
+</main>
+
+<section class="awards-band" aria-label="受賞・認証">
+  <div class="wrap">
+    <ul class="badges">
+      <li><img src="{{IMG:award-gig.png}}" alt="Validated Gluten Free Safe Spot"><span lang="ja">アジア初<br>GIG認証</span><span lang="en">First GIG-certified<br>in Asia</span></li>
+      <li><img src="{{IMG:award-gf-product-of-the-year.png}}" alt="Gluten-Free Product of the Year 2020"><span lang="ja">プロダクト・オブ・ザ・イヤー<br>2020 グランプリ</span><span lang="en">Product of the Year<br>2020 Grand Prix</span></li>
+      <li><img src="{{IMG:award-food-action-nippon.png}}" alt="Food Action Nippon Award 2019"><span lang="ja">フードアクションニッポン<br>アワード2019</span><span lang="en">Food Action Nippon<br>Award 2019</span></li>
+      <li><img src="{{IMG:award-tripadvisor.png}}" alt="Tripadvisor"><span lang="ja">トリップアドバイザー<br>東京No.1（2019）</span><span lang="en">Tripadvisor<br>No.1 in Tokyo (2019)</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div><img class="ft-logo" src="{{IMG:logo.png}}" alt="T's Kitchen"><b>Gluten Free T's Kitchen</b><span lang="ja">小麦を使わないグルテンフリーレストラン</span><span lang="en">Gluten-free restaurant in Tokyo</span><div class="ft-sns"><a class="sns" href="https://www.instagram.com/glutenfreetskitchen/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a></div></div>
+    <div><b><span lang="ja">原宿店</span><span lang="en">Harajuku</span></b><span lang="ja">渋谷区神宮前4-28-14 B1F</span><span lang="en">4-28-14 Jingumae, Shibuya</span><br><a href="tel:0368129222">03-6812-9222</a></div>
+    <div><b><span lang="ja">六本木店</span><span lang="en">Roppongi</span></b><span lang="ja">港区六本木7-8-5 2F</span><span lang="en">7-8-5 Roppongi, Minato</span><br><a href="tel:0368747719">03-6874-7719</a></div>
+    <div><b><span lang="ja">上野広小路店</span><span lang="en">Ueno-Hirokoji</span></b><span lang="ja">千代田区外神田5-3-3</span><span lang="en">5-3-3 Sotokanda, Chiyoda</span><br><a href="tel:0358264548">03-5826-4548</a></div>
+  </div>
+  <div class="copy">© 株式会社飯野 / 株式会社たいのいかこ</div>
+</footer>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  var RSV={ja:'https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true',
+           en:'https://www.tablecheck.com/en/glutenfree/reserve/landing?require_venue=true'};
+  var MENU={ja:'https://glutenfree.co.jp/menu/',en:'https://glutenfree.co.jp/menu-en/'};
+  function setLang(l){
+    root.setAttribute('data-lang',l); root.lang=l;
+    document.querySelectorAll('a.rsv').forEach(function(a){a.href=RSV[l]});
+    document.dispatchEvent(new CustomEvent('langchange',{detail:l}));
+    try{localStorage.setItem('tsk-lang',l)}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('tsk-lang')}catch(e){}
+  var q=new URLSearchParams(location.search).get('lang');
+  setLang(q||saved||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en'));
+  document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.addEventListener('click',function(){setLang(root.getAttribute('data-lang')==='ja'?'en':'ja')})});
+  var tabs=document.querySelectorAll('.store-tabs button'),cards=document.querySelectorAll('.cards .card');
+  tabs.forEach(function(t){t.addEventListener('click',function(){var i=+t.dataset.i;
+    tabs.forEach(function(x,j){x.setAttribute('aria-selected',j===i)});
+    cards.forEach(function(c,j){c.classList.toggle('on',j===i)});});});
+  var btn=document.getElementById('menuBtn'),dr=document.getElementById('drawer');
+  btn.addEventListener('click',function(){var o=dr.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+  dr.addEventListener('click',function(e){if(e.target.closest('a')){dr.classList.remove('open');btn.setAttribute('aria-expanded','false')}});
+})();
+
+</script>
