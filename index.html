@@ -42,7 +42,7 @@ html[data-lang=en] [lang=ja]{display:none!important}
 .hero{background:linear-gradient(90deg,rgba(15,30,55,.85),rgba(15,30,55,.4) 60%,rgba(15,30,55,.12)),url("https://glutenfree.co.jp/wp-content/uploads/2021/08/9a8a3577b0247160e4c9f8e3a4e369fe-4-scaled.jpg") center/cover,#34465f;color:#fff}
 .hero-in{max-width:1120px;margin:auto;padding:96px 16px 88px}
 .hero h1{font-size:clamp(28px,4.4vw,48px);line-height:1.35;font-weight:900}
-.hero p{margin:16px 0 28px;font-size:clamp(15px,1.6vw,18px);opacity:.95;max-width:34em}
+.hero p.hero-sub{margin:14px 0 28px;font-size:clamp(20px,2.6vw,30px);font-weight:700;line-height:1.5}
 .hero .row{display:flex;gap:10px;flex-wrap:wrap}
 .hero .sub{font-size:13px;opacity:.85;margin-top:14px}
 
@@ -82,6 +82,9 @@ td:first-child{color:var(--mute);width:7.5em}
 .acts a{text-align:center;text-decoration:none;font-size:14px;border-radius:8px;padding:9px 6px;border:1px solid var(--line);color:var(--navy)}
 .acts a.r{grid-column:1/-1;background:var(--pink);border-color:var(--pink);color:#fff;font-weight:700}
 .small{font-size:12px;color:var(--mute)}
+.store-tabs{display:none}
+.store-tabs button{font:inherit;font-weight:700;font-size:14px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:9px 4px;cursor:pointer}
+.store-tabs button[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
 .policy{margin-top:24px;background:#fff4f7;border:1px solid #f5c2d1;border-left:5px solid var(--pink);border-radius:10px;padding:16px 20px;font-size:14px}
 .policy b{color:var(--pink)}
 
@@ -90,7 +93,22 @@ td:first-child{color:var(--mute);width:7.5em}
 .cater .tx{padding:44px}
 .cater h2{color:#fff}
 .cater ul{margin:16px 0 24px 1.2em;font-size:15px}
-.cater .ph{background:url("https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/552863505_18430665562101854_8505285937546383651_nlow.jpg") center/cover,#2b4466;min-height:280px}
+.cater{align-items:center}
+.cater .row{display:flex;gap:10px;flex-wrap:wrap}
+.cater .mail{font-size:13px;opacity:.75;margin-top:12px}
+.flyer{display:block;padding:32px;text-decoration:none;text-align:center}
+.flyer img{width:100%;max-width:340px;margin:auto;border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.35);transition:transform .2s}
+.flyer:hover img{transform:scale(1.02)}
+.flyer>span{display:block;font-size:12px;opacity:.7;margin-top:10px;color:#fff}
+.tag.soon{background:#fff1c2;color:#7a5a00;font-size:12px;vertical-align:middle}
+.tag.ok{background:#e3f4ea;color:#1d6b43}
+.goods{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.good{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.good .ph{aspect-ratio:4/3;background:#eee center/cover}
+.good .gb{padding:18px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.good h3{font-size:17px;color:var(--navy)}
+.good p{font-size:14px;color:var(--mute)}
+.good .more{font-size:14px;color:var(--pink);font-weight:700;text-decoration:none;margin-top:auto}
 
 /* Instagram */
 .ig{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
@@ -104,18 +122,24 @@ footer b{color:#fff;display:block;margin-bottom:6px;font-size:14px}
 footer a{color:#fff}
 .copy{max-width:1120px;margin:32px auto 0;border-top:1px solid #2a3d55;padding-top:16px;opacity:.7}
 
-@media(max-width:900px){
+@media(max-width:1080px){
  .nav{display:none}
  .menu-btn{display:block}
  .hd-in{gap:10px}
  .hd-in .lang{margin-left:auto}
+}
+@media(max-width:900px){
  .trust ul{grid-template-columns:1fr 1fr}
  .trust li:nth-child(2){border-right:0}
  .trust li:nth-child(-n+2){border-bottom:1px solid var(--line)}
  .cards,.points{grid-template-columns:1fr}
+ .store-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:-12px 0 14px;position:sticky;top:60px;z-index:5;background:var(--bg);padding:8px 0}
+ .cards .card{display:none}
+ .cards .card.on{display:flex}
  .about{grid-template-columns:1fr;gap:16px}
  .about img{width:110px}
- .cater{grid-template-columns:1fr}.cater .tx{padding:28px}
+ .cater{grid-template-columns:1fr}.cater .tx{padding:28px 28px 0}.flyer{padding:20px 28px 28px}
+ .goods{grid-template-columns:1fr}
  .ig{grid-template-columns:repeat(3,1fr)}
  .ft{grid-template-columns:1fr 1fr}
  section.blk{padding:52px 16px}
@@ -137,6 +161,7 @@ footer a{color:#fff}
       <a href="#stores"><span lang="ja">店舗・営業時間</span><span lang="en">Locations</span></a>
       <a class="menu-link" href="https://glutenfree.co.jp/menu/"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>
       <a href="#catering"><span lang="ja">ケータリング</span><span lang="en">Catering</span></a>
+      <a href="#shop"><span lang="ja">ショップ</span><span lang="en">Shop</span></a>
       <a href="https://glutenfree.co.jp/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
       <a href="https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/"><span lang="ja">お問い合わせ</span><span lang="en">Contact</span></a>
     </nav>
@@ -148,6 +173,7 @@ footer a{color:#fff}
     <a href="#stores"><span lang="ja">店舗・営業時間</span><span lang="en">Locations & Hours</span></a>
     <a class="menu-link" href="https://glutenfree.co.jp/menu/"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>
     <a href="#catering"><span lang="ja">ケータリング・お弁当</span><span lang="en">Catering & Bento</span></a>
+    <a href="#shop"><span lang="ja">オンラインショップ</span><span lang="en">Online Shop</span></a>
     <a href="https://glutenfree.co.jp/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
     <a href="https://glutenfree.co.jp/elementor-%e5%9b%ba%e5%ae%9a%e3%83%9a%e3%83%bc%e3%82%b8-3527/"><span lang="ja">日本グルテンフリー協会</span><span lang="en">Japan Gluten Free Association</span></a>
     <a href="https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/"><span lang="ja">コンサルティング</span><span lang="en">Consulting</span></a>
@@ -157,23 +183,16 @@ footer a{color:#fff}
 
 <main id="top">
 <div class="hero"><div class="hero-in">
-  <h1 lang="ja">食の制限から、<br>可能性を味わうレストラン。</h1>
-  <h1 lang="en">From dietary limits<br>to delicious possibilities.</h1>
-  <p lang="ja">小麦・大麦・ライ麦を使わない料理と飲み物。<br>グルテンフリーを必要とする方が、笑顔になれる場所を。</p>
-  <p lang="en">Food and drinks made without wheat, barley or rye — a place where everyone who needs gluten-free can eat with a smile.</p>
+  <h1 lang="ja">食の制限から、<br>可能性を味わうレストランです。</h1>
+  <h1 lang="en">From dietary restrictions<br>to delicious possibilities.</h1>
+  <p lang="ja" class="hero-sub">グルテンフリーを必要とする方々が、<br>笑顔になることを目指して。</p>
+  <p lang="en" class="hero-sub">Our goal is to bring smiles to everyone who needs gluten-free food.</p>
   <div class="row">
-    <a class="btn rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">オンラインで予約する</span><span lang="en">Reserve online</span></a>
+    <a class="btn rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">ご予約はこちらから</span><span lang="en">Make a reservation</span></a>
     <a class="btn line" href="#stores"><span lang="ja">店舗を見る</span><span lang="en">See locations</span></a>
   </div>
-  <div class="sub"><span lang="ja">8名以上のご予約は、事前に店舗へお電話ください</span><span lang="en">For groups of 8 or more, please call the restaurant in advance.</span></div>
+  <div class="sub"><span lang="ja">8名以上のご予約の際は事前にご連絡ください</span><span lang="en">For groups of 8 or more, please contact us in advance.</span></div>
 </div></div>
-
-<div class="trust"><ul>
-  <li lang="ja"><b>アジア初</b>グルテンフリー認証を取得</li><li lang="en"><b>First in Asia</b>certified gluten-free restaurant</li>
-  <li lang="ja"><b>小麦・大麦・ライ麦</b>を使わないメニュー</li><li lang="en"><b>No wheat, barley or rye</b>on the entire menu</li>
-  <li lang="ja"><b>他のアレルギー</b>もご相談ください</li><li lang="en"><b>Other allergies</b>accommodated where possible</li>
-  <li lang="ja"><b>都内3店舗</b>原宿・六本木・上野広小路</li><li lang="en"><b>3 locations</b>Harajuku, Roppongi, Ueno-Hirokoji</li>
-</ul></div>
 
 <section class="blk"><div class="wrap about">
   <img src="https://glutenfree.co.jp/wp-content/uploads/2021/08/GIG1-1024x1024.png" alt="Gluten Free Safe Spot 認証マーク">
@@ -191,11 +210,16 @@ footer a{color:#fff}
 <section class="blk stores" id="stores"><div class="wrap">
   <h2><span lang="ja">店舗・営業時間</span><span lang="en">Locations & Hours</span></h2>
   <p class="lead"><span lang="ja">ご来店の店舗をお選びください。売り切れの場合は、早めに閉店することがあります。</span><span lang="en">Choose your location. We may close early if we sell out.</span></p>
+  <div class="store-tabs" role="tablist">
+    <button type="button" aria-selected="true" data-i="0"><span lang="ja">原宿</span><span lang="en">Harajuku</span></button>
+    <button type="button" aria-selected="false" data-i="1"><span lang="ja">六本木</span><span lang="en">Roppongi</span></button>
+    <button type="button" aria-selected="false" data-i="2"><span lang="ja">上野広小路</span><span lang="en">Ueno</span></button>
+  </div>
   <div class="cards">
-    <article class="card">
+    <article class="card on">
       <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2021/08/9a8a3577b0247160e4c9f8e3a4e369fe-4-scaled.jpg');background-position:70% 40%"><!-- TODO: 原宿店の店内・外観写真に差し替え --></div>
       <div class="bd">
-        <h3><span lang="ja">原宿店</span><span lang="en">Harajuku</span> <span class="tag">NEW</span> <span class="tag alt"><span lang="ja">居酒屋</span><span lang="en">Izakaya</span></span></h3>
+        <h3><span lang="ja">原宿店</span><span lang="en">Harajuku</span> <span class="tag">NEW</span></h3>
         <div class="addr"><span lang="ja">東京都渋谷区神宮前4-28-14 シャンゼリゼ原宿 地下1階</span><span lang="en">B1F Champs-Élysées Harajuku, 4-28-14 Jingumae, Shibuya-ku, Tokyo</span></div>
         <table>
           <tr><td><span lang="ja">平日ランチ</span><span lang="en">Weekday lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
@@ -244,11 +268,50 @@ footer a{color:#fff}
   <div class="tx">
     <h2><span lang="ja">ケータリング・お弁当</span><span lang="en">Catering & Bento</span></h2>
     <p><span lang="ja">パーティー、会議、イベントに。みんなで同じものを、安心して食べられます。</span><span lang="en">For parties, meetings and events — so everyone can enjoy the same meal, worry-free.</span></p>
-    <ul lang="ja"><li>グルテンフリーが基本、他のアレルギーにも対応</li><li>ベジタリアン・ヴィーガンもご相談ください</li><li>ご注文は5日前まで</li></ul>
+    <ul lang="ja"><li>グルテンフリーが基本、他のアレルギーにも対応</li><li>ベジタリアン・ヴィーガンもご相談ください</li><li>ご予約は5日前まで</li></ul>
     <ul lang="en"><li>Gluten-free at its core, with other allergies accommodated</li><li>Vegetarian and vegan options available</li><li>Please order at least 5 days in advance</li></ul>
-    <a class="btn" href="mailto:glutenfree@glutenfree.co.jp"><span lang="ja">メールで相談する</span><span lang="en">Email us</span></a>
+    <div class="row">
+      <a class="btn" href="mailto:glutenfree@glutenfree.co.jp?subject=%E3%82%B1%E3%83%BC%E3%82%BF%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%BB%E3%81%8A%E5%BC%81%E5%BD%93%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87"><span lang="ja">メールで相談する</span><span lang="en">Email us</span></a>
+      <a class="btn line" href="https://glutenfree.co.jp/wp-content/uploads/2025/12/S__181764119.jpg" target="_blank" rel="noopener"><span lang="ja">チラシを見る</span><span lang="en">View flyer</span></a>
+    </div>
+    <p class="mail">glutenfree@glutenfree.co.jp</p>
   </div>
-  <div class="ph" role="img" aria-label="グルテンフリー弁当"></div>
+  <a class="flyer" href="https://glutenfree.co.jp/wp-content/uploads/2025/12/S__181764119.jpg" target="_blank" rel="noopener">
+    <img src="https://glutenfree.co.jp/wp-content/uploads/2025/12/S__181764119.jpg" alt="ケータリング・お弁当のチラシ" loading="lazy">
+    <span><span lang="ja">タップで拡大</span><span lang="en">Tap to enlarge</span></span>
+  </a>
+</div></section>
+
+<section class="blk shop" id="shop"><div class="wrap">
+  <h2><span lang="ja">オンラインショップ</span><span lang="en">Online Shop</span> <span class="tag soon"><span lang="ja">準備中</span><span lang="en">Coming soon</span></span></h2>
+  <p class="lead"><span lang="ja">オンラインショップは現在準備中です。オープンまでは、店頭や配送でお楽しみください。</span><span lang="en">Our online shop is coming soon. Until then, our products are available in store and by delivery.</span></p>
+  <div class="goods">
+    <div class="good">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/475263003_18394989121101854_8330718895587686097_nlow.jpg')"></div>
+      <div class="gb">
+        <span class="tag ok"><span lang="ja">店頭販売・配送</span><span lang="en">In store & delivery</span></span>
+        <h3><span lang="ja">グルテンフリーラーメンセット</span><span lang="en">Gluten-free ramen set</span></h3>
+        <p><span lang="ja">3ステップでお家でも本格ラーメン。店舗限定の味もあります。配送はInstagramのDMでご注文ください。</span><span lang="en">Authentic ramen at home in 3 easy steps, with store-exclusive flavors. For delivery, order via Instagram DM.</span></p>
+        <a class="more" href="https://www.instagram.com/glutenfreetskitchen/"><span lang="ja">InstagramでDMする →</span><span lang="en">Message us on Instagram →</span></a>
+      </div>
+    </div>
+    <div class="good">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/504054200_18418009450101854_4435076772132804764_nlow.jpg')"></div>
+      <div class="gb">
+        <span class="tag ok"><span lang="ja">店頭販売</span><span lang="en">In store</span></span>
+        <h3><span lang="ja">T'sオリジナルTシャツ</span><span lang="en">T's original T-shirt</span></h3>
+        <p><span lang="ja">ひらがなの手書きロゴと家紋モチーフのデザイン。お土産にも人気です。</span><span lang="en">Hand-written hiragana logo and family-crest design. A popular souvenir.</span></p>
+      </div>
+    </div>
+    <div class="good">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2021/08/210420_Ts_Hotsauce-4-scaled-1-1024x683.jpeg')"></div>
+      <div class="gb">
+        <span class="tag soon"><span lang="ja">オンライン販売予定</span><span lang="en">Coming online</span></span>
+        <h3><span lang="ja">T'sホットソース</span><span lang="en">T's hot sauce</span></h3>
+        <p><span lang="ja">グルテンフリーのオリジナルホットソース。オンラインショップで販売予定です。</span><span lang="en">Our original gluten-free hot sauce, coming soon to our online shop.</span></p>
+      </div>
+    </div>
+  </div>
 </div></section>
 
 <section class="blk" style="padding-top:0"><div class="wrap">
@@ -291,6 +354,10 @@ footer a{color:#fff}
   var q=new URLSearchParams(location.search).get('lang');
   setLang(q||saved||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en'));
   document.getElementById('langBtn').addEventListener('click',function(){setLang(root.getAttribute('data-lang')==='ja'?'en':'ja')});
+  var tabs=document.querySelectorAll('.store-tabs button'),cards=document.querySelectorAll('.cards .card');
+  tabs.forEach(function(t){t.addEventListener('click',function(){var i=+t.dataset.i;
+    tabs.forEach(function(x,j){x.setAttribute('aria-selected',j===i)});
+    cards.forEach(function(c,j){c.classList.toggle('on',j===i)});});});
   var btn=document.getElementById('menuBtn'),dr=document.getElementById('drawer');
   btn.addEventListener('click',function(){var o=dr.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.textContent=o?'✕':'☰'});
   dr.addEventListener('click',function(e){if(e.target.closest('a')){dr.classList.remove('open');btn.textContent='☰';btn.setAttribute('aria-expanded','false')}});
