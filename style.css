@@ -223,7 +223,9 @@ footer a{color:#fff}
 .menu-cats button{font:inherit;font-size:14px;border:0;background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 16px;cursor:pointer}
 .menu-cats button[aria-selected=true]{background:var(--pink);color:#fff;font-weight:700}
 .menu-view{margin:0;background:var(--bg);border-radius:16px;padding:16px;text-align:center}
-.menu-view img{max-height:80vh;width:auto;max-width:100%;margin:auto;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08);background:#fff;min-height:200px}
+.menu-view a{display:flex;align-items:center;justify-content:center;min-height:200px}
+.menu-view img{max-height:80vh;width:auto;height:auto;max-width:100%;margin:auto;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08);background:#fff}
+.menu-view.wide img{width:100%;max-height:none}
 .menu-view figcaption{font-size:12px;color:var(--mute);margin-top:10px}
 .menu-actions{text-align:center;margin-top:28px}
 .lightbox{position:fixed;inset:0;z-index:200;background:rgba(10,18,30,.92);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:56px 8px 24px}

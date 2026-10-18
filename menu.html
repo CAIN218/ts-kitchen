@@ -92,6 +92,7 @@
     var list=M[store],l=lang();
     cats.innerHTML=list.map(function(it,i){return '<button type="button" data-i="'+i+'" aria-selected="'+(i===cat)+'">'+L[it[0]][l]+'</button>'}).join('');
     var u=src(list[cat]); img.src=u; img.alt=L[list[cat][0]][l]; link.href=u;
+    img.onload=function(){img.closest('.menu-view').classList.toggle('wide',img.naturalWidth>img.naturalHeight*1.8)};
   }
   document.querySelectorAll('.menu-stores button').forEach(function(b){b.addEventListener('click',function(){
     store=b.dataset.store;cat=0;
