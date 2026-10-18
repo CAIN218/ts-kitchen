@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gluten Free T's Kitchen｜グルテンフリーレストラン（原宿・六本木・上野広小路）</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="アジア初のグルテンフリー認証レストラン。小麦・大麦・ライ麦を使わない料理を、原宿・六本木・上野広小路の3店舗で。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1d3557;--navy-d:#0f2238;--pink:#e0245e;--bg:#f5f7fa;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:"Noto Sans JP",system-ui,sans-serif;background:#fff;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+/* 言語切替：表示する言語だけを出す */
+html[data-lang=ja] [lang=en]{display:none!important}
+html[data-lang=en] [lang=ja]{display:none!important}
+
+/* ヘッダー */
+.preview{background:#ffcf3f;color:#1f2933;text-align:center;font-size:13px;font-weight:700;padding:6px 16px}
+.hd{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff}
+.hd-in{max-width:1120px;margin:auto;display:flex;align-items:center;gap:20px;padding:12px 16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;white-space:nowrap}
+.logo img{width:36px;height:36px;border-radius:50%;background:#fff}
+.nav{display:flex;gap:22px;font-size:14px;margin-left:auto}
+.nav a{text-decoration:none;opacity:.9}
+.nav a:hover{opacity:1;text-decoration:underline}
+.lang{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+.lang b{font-weight:700}.lang span{opacity:.6}
+.menu-btn{display:none;background:transparent;border:0;color:#fff;font-size:24px;line-height:1;cursor:pointer;padding:4px}
+.btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:12px 22px;white-space:nowrap}
+.btn.sm{padding:8px 16px;font-size:14px}
+.btn.line{background:transparent;border:1.5px solid #fff}
+.drawer{display:none;background:var(--navy);border-top:1px solid rgba(255,255,255,.15)}
+.drawer a{display:block;padding:14px 16px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.drawer.open{display:block}
+
+/* ヒーロー */
+.hero{background:linear-gradient(90deg,rgba(15,30,55,.85),rgba(15,30,55,.4) 60%,rgba(15,30,55,.12)),url("https://glutenfree.co.jp/wp-content/uploads/2021/08/9a8a3577b0247160e4c9f8e3a4e369fe-4-scaled.jpg") center/cover,#34465f;color:#fff}
+.hero-in{max-width:1120px;margin:auto;padding:96px 16px 88px}
+.hero h1{font-size:clamp(28px,4.4vw,48px);line-height:1.35;font-weight:900}
+.hero p{margin:16px 0 28px;font-size:clamp(15px,1.6vw,18px);opacity:.95;max-width:34em}
+.hero .row{display:flex;gap:10px;flex-wrap:wrap}
+.hero .sub{font-size:13px;opacity:.85;margin-top:14px}
+
+/* 安心ポイント */
+.trust{border-bottom:1px solid var(--line)}
+.trust ul{max-width:1120px;margin:auto;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);padding:0 16px}
+.trust li{padding:20px 14px;border-right:1px solid var(--line);font-size:13px;color:var(--mute)}
+.trust li:last-child{border-right:0}
+.trust b{display:block;font-size:16px;color:var(--navy)}
+
+section.blk{padding:72px 16px}
+.wrap{max-width:1120px;margin:auto}
+h2{font-size:28px;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.lead{color:var(--mute);margin-bottom:32px}
+.about{display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
+.about img{width:200px}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.pt{background:var(--bg);border-radius:12px;padding:18px}
+.pt b{display:block;color:var(--navy);margin-bottom:4px}
+.pt p{font-size:14px;color:var(--mute)}
+
+/* 店舗 */
+.stores{background:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.card .ph{aspect-ratio:16/10;background:#dde3ea center/cover}
+.card .bd{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-size:20px;color:var(--navy);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;background:var(--pink);color:#fff;border-radius:4px;padding:2px 6px;font-weight:700}
+.tag.alt{background:#e8eef6;color:var(--navy)}
+.addr{font-size:13px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:first-child{color:var(--mute);width:7.5em}
+.closed{font-size:13px;color:var(--pink);font-weight:700}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.acts a{text-align:center;text-decoration:none;font-size:14px;border-radius:8px;padding:9px 6px;border:1px solid var(--line);color:var(--navy)}
+.acts a.r{grid-column:1/-1;background:var(--pink);border-color:var(--pink);color:#fff;font-weight:700}
+.small{font-size:12px;color:var(--mute)}
+.policy{margin-top:24px;background:#fff4f7;border:1px solid #f5c2d1;border-left:5px solid var(--pink);border-radius:10px;padding:16px 20px;font-size:14px}
+.policy b{color:var(--pink)}
+
+/* ケータリング */
+.cater{display:grid;grid-template-columns:1fr 1fr;background:var(--navy);color:#fff;border-radius:18px;overflow:hidden}
+.cater .tx{padding:44px}
+.cater h2{color:#fff}
+.cater ul{margin:16px 0 24px 1.2em;font-size:15px}
+.cater .ph{background:url("https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/552863505_18430665562101854_8505285937546383651_nlow.jpg") center/cover,#2b4466;min-height:280px}
+
+/* Instagram */
+.ig{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ig a{aspect-ratio:1;background:#eee center/cover;border-radius:8px;transition:opacity .2s}
+.ig a:hover{opacity:.85}
+
+/* フッター */
+footer{background:var(--navy-d);color:#c9d3df;padding:48px 16px 24px;font-size:13px}
+.ft{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:28px}
+footer b{color:#fff;display:block;margin-bottom:6px;font-size:14px}
+footer a{color:#fff}
+.copy{max-width:1120px;margin:32px auto 0;border-top:1px solid #2a3d55;padding-top:16px;opacity:.7}
+
+@media(max-width:900px){
+ .nav{display:none}
+ .menu-btn{display:block}
+ .hd-in{gap:10px}
+ .hd-in .lang{margin-left:auto}
+ .trust ul{grid-template-columns:1fr 1fr}
+ .trust li:nth-child(2){border-right:0}
+ .trust li:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .cards,.points{grid-template-columns:1fr}
+ .about{grid-template-columns:1fr;gap:16px}
+ .about img{width:110px}
+ .cater{grid-template-columns:1fr}.cater .tx{padding:28px}
+ .ig{grid-template-columns:repeat(3,1fr)}
+ .ft{grid-template-columns:1fr 1fr}
+ section.blk{padding:52px 16px}
+ .hero-in{padding:64px 16px 56px}
+}
+@media(max-width:420px){
+ .logo span.full{display:none}
+ .hd .btn.sm{padding:7px 12px;font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div class="preview"><span lang="ja">プレビュー版：新しいホームページの提案です。正式な情報は <a href="https://glutenfree.co.jp/">glutenfree.co.jp</a> をご覧ください。</span><span lang="en">Preview: proposed new website. For official information, visit <a href="https://glutenfree.co.jp/">glutenfree.co.jp</a>.</span></div>
+<header class="hd">
+  <div class="hd-in">
+    <a class="logo" href="#top"><img src="https://glutenfree.co.jp/wp-content/uploads/2022/06/f5c8999947a85abdda3e965be3473d76.png" alt=""><span><span class="full">Gluten Free </span>T's Kitchen</span></a>
+    <nav class="nav">
+      <a href="#stores"><span lang="ja">店舗・営業時間</span><span lang="en">Locations</span></a>
+      <a class="menu-link" href="https://glutenfree.co.jp/menu/"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>
+      <a href="#catering"><span lang="ja">ケータリング</span><span lang="en">Catering</span></a>
+      <a href="https://glutenfree.co.jp/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
+      <a href="https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/"><span lang="ja">お問い合わせ</span><span lang="en">Contact</span></a>
+    </nav>
+    <button class="lang" id="langBtn" type="button" aria-label="Switch language"><span lang="ja"><b>日</b> / <span>EN</span></span><span lang="en"><span>日</span> / <b>EN</b></span></button>
+    <a class="btn sm rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="メニュー" aria-expanded="false">☰</button>
+  </div>
+  <div class="drawer" id="drawer">
+    <a href="#stores"><span lang="ja">店舗・営業時間</span><span lang="en">Locations & Hours</span></a>
+    <a class="menu-link" href="https://glutenfree.co.jp/menu/"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>
+    <a href="#catering"><span lang="ja">ケータリング・お弁当</span><span lang="en">Catering & Bento</span></a>
+    <a href="https://glutenfree.co.jp/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
+    <a href="https://glutenfree.co.jp/elementor-%e5%9b%ba%e5%ae%9a%e3%83%9a%e3%83%bc%e3%82%b8-3527/"><span lang="ja">日本グルテンフリー協会</span><span lang="en">Japan Gluten Free Association</span></a>
+    <a href="https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/"><span lang="ja">コンサルティング</span><span lang="en">Consulting</span></a>
+    <a href="https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/"><span lang="ja">メディア・取材のお問い合わせ</span><span lang="en">Media inquiries</span></a>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero"><div class="hero-in">
+  <h1 lang="ja">食の制限から、<br>可能性を味わうレストラン。</h1>
+  <h1 lang="en">From dietary limits<br>to delicious possibilities.</h1>
+  <p lang="ja">小麦・大麦・ライ麦を使わない料理と飲み物。<br>グルテンフリーを必要とする方が、笑顔になれる場所を。</p>
+  <p lang="en">Food and drinks made without wheat, barley or rye — a place where everyone who needs gluten-free can eat with a smile.</p>
+  <div class="row">
+    <a class="btn rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">オンラインで予約する</span><span lang="en">Reserve online</span></a>
+    <a class="btn line" href="#stores"><span lang="ja">店舗を見る</span><span lang="en">See locations</span></a>
+  </div>
+  <div class="sub"><span lang="ja">8名以上のご予約は、事前に店舗へお電話ください</span><span lang="en">For groups of 8 or more, please call the restaurant in advance.</span></div>
+</div></div>
+
+<div class="trust"><ul>
+  <li lang="ja"><b>アジア初</b>グルテンフリー認証を取得</li><li lang="en"><b>First in Asia</b>certified gluten-free restaurant</li>
+  <li lang="ja"><b>小麦・大麦・ライ麦</b>を使わないメニュー</li><li lang="en"><b>No wheat, barley or rye</b>on the entire menu</li>
+  <li lang="ja"><b>他のアレルギー</b>もご相談ください</li><li lang="en"><b>Other allergies</b>accommodated where possible</li>
+  <li lang="ja"><b>都内3店舗</b>原宿・六本木・上野広小路</li><li lang="en"><b>3 locations</b>Harajuku, Roppongi, Ueno-Hirokoji</li>
+</ul></div>
+
+<section class="blk"><div class="wrap about">
+  <img src="https://glutenfree.co.jp/wp-content/uploads/2021/08/GIG1-1024x1024.png" alt="Gluten Free Safe Spot 認証マーク">
+  <div>
+    <h2><span lang="ja">私たちのレストランについて</span><span lang="en">About our restaurant</span></h2>
+    <p class="lead"><span lang="ja">アジアで初めて、グルテンフリーの認証を取得したレストランです。</span><span lang="en">We were the first restaurant in Asia to receive gluten-free certification.</span></p>
+    <div class="points">
+      <div class="pt"><b><span lang="ja">グルテンフリー</span><span lang="en">100% gluten-free</span></b><p><span lang="ja">小麦・大麦・ライ麦を使わない料理と飲み物を提供しています。</span><span lang="en">Every dish and drink is made without wheat, barley or rye.</span></p></div>
+      <div class="pt"><b><span lang="ja">他のアレルギーにも</span><span lang="en">Other allergies</span></b><p><span lang="ja">複数の食物アレルギーをお持ちの方は、スタッフにお申し出ください。</span><span lang="en">If you have multiple food allergies, please let our staff know.</span></p></div>
+      <div class="pt"><b><span lang="ja">材料についてのご注意</span><span lang="en">About our ingredients</span></b><p><span lang="ja">一部の材料は、小麦を扱う工場で製造されています。ご不明な点はお気軽にご質問ください。</span><span lang="en">Some ingredients are produced in facilities that also handle wheat. Please ask us if you have any questions.</span></p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="blk stores" id="stores"><div class="wrap">
+  <h2><span lang="ja">店舗・営業時間</span><span lang="en">Locations & Hours</span></h2>
+  <p class="lead"><span lang="ja">ご来店の店舗をお選びください。売り切れの場合は、早めに閉店することがあります。</span><span lang="en">Choose your location. We may close early if we sell out.</span></p>
+  <div class="cards">
+    <article class="card">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/652051412_18461372236101854_7040317504226408058_n.heiclow.jpg')"></div>
+      <div class="bd">
+        <h3><span lang="ja">原宿店</span><span lang="en">Harajuku</span> <span class="tag">NEW</span> <span class="tag alt"><span lang="ja">居酒屋</span><span lang="en">Izakaya</span></span></h3>
+        <div class="addr"><span lang="ja">東京都渋谷区神宮前4-28-14 シャンゼリゼ原宿 地下1階</span><span lang="en">B1F Champs-Élysées Harajuku, 4-28-14 Jingumae, Shibuya-ku, Tokyo</span></div>
+        <table>
+          <tr><td><span lang="ja">平日ランチ</span><span lang="en">Weekday lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td><span lang="ja">平日ディナー</span><span lang="en">Weekday dinner</span></td><td>17:00–22:00（L.O. 21:00）</td></tr>
+          <tr><td><span lang="ja">土・日</span><span lang="en">Sat & Sun</span></td><td>12:00–22:00（L.O. 21:00）</td></tr>
+        </table>
+        <div class="closed"><span lang="ja">定休日：水曜日</span><span lang="en">Closed on Wednesdays</span></div>
+        <div class="acts"><a href="tel:0368129222">📞 03-6812-9222</a><a href="https://share.google/OHyXkdn8FCZN2GU64">📍 <span lang="ja">地図</span><span lang="en">Map</span></a><a class="r rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">原宿店を予約</span><span lang="en">Book Harajuku</span></a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2021/08/DK1-bgpyibtm_b7uHHEiOOE7gp1xePLX2f8zZq8ejsgnq9Khu2uSkWiDRrdALCXxFmJ1loW6ySlpe_ovhAJ2g7yp1mznlIBHEAXgTkkCyZxfqL93qmUPY9EtKcN7Tk_qSjfBjX04jW0mpqjlVaU56M0SMSOyDtfzzd1khOGYmA7tTNa_uScuQZhvjAd_Jgmk-1.jpeg')"></div>
+      <div class="bd">
+        <h3><span lang="ja">六本木店</span><span lang="en">Roppongi</span></h3>
+        <div class="addr"><span lang="ja">〒106-0032 東京都港区六本木7-8-5 2階</span><span lang="en">2F, 7-8-5 Roppongi, Minato-ku, Tokyo 106-0032</span></div>
+        <table>
+          <tr><td><span lang="ja">ランチ</span><span lang="en">Lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td><span lang="ja">ディナー</span><span lang="en">Dinner</span></td><td>17:00–22:00（L.O. 20:30）</td></tr>
+        </table>
+        <div class="closed"><span lang="ja">定休日：火曜日</span><span lang="en">Closed on Tuesdays</span></div>
+        <div class="acts"><a href="tel:0368747719">📞 03-6874-7719</a><a href="https://maps.app.goo.gl/uj25dr64byr36bsq5">📍 <span lang="ja">地図</span><span lang="en">Map</span></a><a class="r rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">六本木店を予約</span><span lang="en">Book Roppongi</span></a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2025/10/S__104693771-1024x574.jpg')"></div>
+      <div class="bd">
+        <h3><span lang="ja">上野広小路店</span><span lang="en">Ueno-Hirokoji</span> <span class="tag alt"><span lang="ja">朝7時〜</span><span lang="en">Open from 7am</span></span></h3>
+        <div class="addr"><span lang="ja">〒101-0021 東京都千代田区外神田5-3-3</span><span lang="en">5-3-3 Sotokanda, Chiyoda-ku, Tokyo 101-0021</span></div>
+        <table>
+          <tr><td><span lang="ja">モーニング</span><span lang="en">Breakfast</span></td><td>7:00–9:30（L.O. 9:00）</td></tr>
+          <tr><td><span lang="ja">ランチ</span><span lang="en">Lunch</span></td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td><span lang="ja">ディナー</span><span lang="en">Dinner</span></td><td>17:00–22:00（L.O. 20:30）</td></tr>
+        </table>
+        <div class="closed"><span lang="ja">年中無休（水曜日はモーニングのみ）</span><span lang="en">Open daily (breakfast only on Wednesdays)</span></div>
+        <div class="acts"><a href="tel:0358264548">📞 03-5826-4548</a><a href="https://maps.app.goo.gl/ZyLXctcwvsKvToWAA">📍 <span lang="ja">地図</span><span lang="en">Map</span></a><a class="r rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">上野広小路店を予約</span><span lang="en">Book Ueno-Hirokoji</span></a></div>
+      </div>
+    </article>
+  </div>
+  <div class="policy">
+    <span lang="ja"><b>キャンセルポリシー：</b>席数が限られているため、ご予約日の7日前から、1組につき<b>3,000円</b>のキャンセル料がかかります。直前のキャンセル・人数変更は返金できませんのでご注意ください。</span>
+    <span lang="en"><b>Cancellation policy:</b> As seating is limited, a fee of <b>¥3,000 per group</b> applies from 7 days before your reservation date. Last-minute cancellations and changes in party size are non-refundable.</span>
+  </div>
+</div></section>
+
+<section class="blk" id="catering"><div class="wrap cater">
+  <div class="tx">
+    <h2><span lang="ja">ケータリング・お弁当</span><span lang="en">Catering & Bento</span></h2>
+    <p><span lang="ja">パーティー、会議、イベントに。みんなで同じものを、安心して食べられます。</span><span lang="en">For parties, meetings and events — so everyone can enjoy the same meal, worry-free.</span></p>
+    <ul lang="ja"><li>グルテンフリーが基本、他のアレルギーにも対応</li><li>ベジタリアン・ヴィーガンもご相談ください</li><li>ご注文は5日前まで</li></ul>
+    <ul lang="en"><li>Gluten-free at its core, with other allergies accommodated</li><li>Vegetarian and vegan options available</li><li>Please order at least 5 days in advance</li></ul>
+    <a class="btn" href="mailto:glutenfree@glutenfree.co.jp"><span lang="ja">メールで相談する</span><span lang="en">Email us</span></a>
+  </div>
+  <div class="ph" role="img" aria-label="グルテンフリー弁当"></div>
+</div></section>
+
+<section class="blk" style="padding-top:0"><div class="wrap">
+  <h2>Instagram</h2>
+  <p class="lead"><a href="https://www.instagram.com/glutenfreetskitchen/">@glutenfreetskitchen</a> <span lang="ja">で最新情報を発信中</span><span lang="en">— follow us for the latest news</span></p>
+  <div class="ig">
+    <a href="https://www.instagram.com/p/DbQieC3T6Cr/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/755221053_18486724354101854_4297170275270906276_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DV-CwLJkzit/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/652051412_18461372236101854_7040317504226408058_n.heiclow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DO-7g7xk9vO/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/552863505_18430665562101854_8505285937546383651_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DLZGjMgztZf/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/504054200_18418009450101854_4435076772132804764_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DFUNR6szJlc/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/475263003_18394989121101854_8330718895587686097_nlow.jpg')" aria-label="Instagram"></a>
+    <a href="https://www.instagram.com/p/DEbZNxFz-3Y/" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/sb-instagram-feed-images/472539324_18391873186101854_3132168944212505960_nlow.jpg')" aria-label="Instagram"></a>
+  </div>
+</div></section>
+</main>
+
+<footer>
+  <div class="ft">
+    <div><b>Gluten Free T's Kitchen</b><span lang="ja">小麦を使わないグルテンフリーレストラン</span><span lang="en">Gluten-free restaurant in Tokyo</span><br><a href="https://www.instagram.com/glutenfreetskitchen/">Instagram</a> ・ <a href="mailto:glutenfree@glutenfree.co.jp">Email</a></div>
+    <div><b><span lang="ja">原宿店</span><span lang="en">Harajuku</span></b><span lang="ja">渋谷区神宮前4-28-14 B1F</span><span lang="en">4-28-14 Jingumae, Shibuya</span><br><a href="tel:0368129222">03-6812-9222</a></div>
+    <div><b><span lang="ja">六本木店</span><span lang="en">Roppongi</span></b><span lang="ja">港区六本木7-8-5 2F</span><span lang="en">7-8-5 Roppongi, Minato</span><br><a href="tel:0368747719">03-6874-7719</a></div>
+    <div><b><span lang="ja">上野広小路店</span><span lang="en">Ueno-Hirokoji</span></b><span lang="ja">千代田区外神田5-3-3</span><span lang="en">5-3-3 Sotokanda, Chiyoda</span><br><a href="tel:0358264548">03-5826-4548</a></div>
+  </div>
+  <div class="copy">© 株式会社飯野 / 株式会社たいのいかこ</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var RSV={ja:'https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true',
+           en:'https://www.tablecheck.com/en/glutenfree/reserve/landing?require_venue=true'};
+  var MENU={ja:'https://glutenfree.co.jp/menu/',en:'https://glutenfree.co.jp/menu-en/'};
+  function setLang(l){
+    root.setAttribute('data-lang',l); root.lang=l;
+    document.querySelectorAll('a.rsv').forEach(function(a){a.href=RSV[l]});
+    document.querySelectorAll('a.menu-link').forEach(function(a){a.href=MENU[l]});
+    try{localStorage.setItem('tsk-lang',l)}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('tsk-lang')}catch(e){}
+  var q=new URLSearchParams(location.search).get('lang');
+  setLang(q||saved||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en'));
+  document.getElementById('langBtn').addEventListener('click',function(){setLang(root.getAttribute('data-lang')==='ja'?'en':'ja')});
+  var btn=document.getElementById('menuBtn'),dr=document.getElementById('drawer');
+  btn.addEventListener('click',function(){var o=dr.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.textContent=o?'✕':'☰'});
+  dr.addEventListener('click',function(e){if(e.target.closest('a')){dr.classList.remove('open');btn.textContent='☰';btn.setAttribute('aria-expanded','false')}});
+})();
+</script>
+</body>
+</html>
