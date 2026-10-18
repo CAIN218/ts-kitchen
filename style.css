@@ -241,3 +241,22 @@ footer a{color:#fff}
  .timeline::before{left:44px}.timeline li{grid-template-columns:60px 1fr;gap:16px}.timeline li::after{left:39px}
  .menu-view{padding:8px}
 }
+
+/* 原宿店の写真（images/harajuku.jpg を置くと表示） */
+.card .ph.ph-harajuku{background:url("images/harajuku.jpg") center/cover,url("images/logo.png") center/72px no-repeat,linear-gradient(135deg,#e8eef6,#dde3ea)}
+
+/* 受賞マーク */
+.awards-band{background:#fff;border-top:1px solid var(--line);padding:40px 16px}
+.badges{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:auto;text-align:center}
+.badges img{height:96px;width:auto;margin:0 auto 10px;object-fit:contain}
+.badges li{font-size:12px;color:var(--mute);line-height:1.5}
+@media(max-width:640px){.badges{grid-template-columns:1fr 1fr;row-gap:28px}.badges img{height:80px}}
+
+/* 会社概要：追加分 */
+ol.plain{margin:0;padding-left:1.3em}
+ol.plain li+li{margin-top:2px}
+.info-table a{color:var(--navy)}
+.philosophy{text-align:center}
+.philosophy .wrap{max-width:760px}
+.philosophy .motto{font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--navy);margin:8px 0 16px;line-height:1.5}
+.philosophy p:last-child{color:var(--mute)}
