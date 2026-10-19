@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#f7f7f4;--ink:#1c1d22;--indigo:#26335a;--sub:#5f6270;--rule:#d9d9d2;--pink:#e0245e}
+:root{--paper:#ffffff;--ink:#1c1d22;--indigo:#26335a;--sub:#5f6270;--rule:#d9d9d2;--pink:#e0245e}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Noto Sans JP",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -31,14 +31,14 @@ img{display:block;max-width:100%}
 /* 表紙：写真全面＋縦書きの見出し */
 .cover{position:relative;height:100svh;min-height:560px;background:#222 url("../images/food.jpg") center/cover;color:#fff;overflow:hidden}
 .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(15,18,32,.75),rgba(15,18,32,.15) 55%)}
-.cover h1{position:absolute;z-index:1;top:14%;bottom:14%;right:clamp(24px,8vw,120px);display:flex;align-items:center;writing-mode:vertical-rl;font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:clamp(34px,5.2vw,64px);line-height:1.6;letter-spacing:.12em}
-.cover h1 span{white-space:nowrap;display:block}
+.cover h1{position:absolute;z-index:1;top:14%;bottom:14%;right:clamp(24px,8vw,120px);writing-mode:vertical-rl;font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:clamp(34px,5.2vw,64px);line-height:1.6;letter-spacing:.12em}
+.cover h1 span{white-space:nowrap;display:block;margin-block:auto}
 .cover p{position:absolute;z-index:1;left:clamp(16px,4vw,48px);bottom:32px;font-size:14px;max-width:22em;opacity:.92}
 
 /* 章 */
 .chap{padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px)}
 .chap-in{max-width:1180px;margin:auto}
-.kicker{font-family:"Shippori Mincho B1",serif;font-size:15px;color:var(--sub);display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.unused-kicker{font-family:"Shippori Mincho B1",serif;font-size:15px;color:var(--sub);display:flex;align-items:center;gap:14px;margin-bottom:22px}
 .kicker::after{content:"";height:1px;background:var(--rule);flex:1}
 .chap h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(28px,3.8vw,46px);line-height:1.5;color:var(--indigo);max-width:16em}
 .lede{font-size:17px;max-width:34em;margin-top:22px;color:#33353d}
@@ -69,7 +69,7 @@ img{display:block;max-width:100%}
 /* 食卓の外へ */
 .dark{background:var(--indigo);color:#fff}
 .dark h2{color:#fff}
-.dark .kicker{color:#c3c8db}.dark .kicker::after{background:rgba(255,255,255,.25)}
+.dark .unused-kicker{color:#c3c8db}.dark .kicker::after{background:rgba(255,255,255,.25)}
 .dark .lede{color:#dfe2ec}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);margin-top:48px}
 .duo article img{width:100%;aspect-ratio:16/10;object-fit:cover;margin-bottom:18px}
@@ -87,7 +87,7 @@ footer{border-top:1px solid var(--rule);padding:40px clamp(16px,4vw,48px);font-s
  .story,.duo{grid-template-columns:1fr}
  .honors{grid-template-columns:1fr 1fr}
  .cover h1{right:20px;font-size:clamp(30px,8.4vw,44px)}
- .cover h1 span{white-space:nowrap;display:block}
+ .cover h1 span{white-space:nowrap;display:block;margin-block:auto}
 .cover p{right:16px;bottom:96px}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
@@ -117,7 +117,6 @@ footer{border-top:1px solid var(--rule);padding:40px clamp(16px,4vw,48px);font-s
 <main>
 <section class="chap" id="about"><div class="chap-in story">
   <div>
-    <p class="kicker">私たちのこと</p>
     <h2>グルテンフリーを必要とする方々が、笑顔になることを目指して。</h2>
     <p class="lede">小麦・大麦・ライ麦を使わない料理と飲み物をお出ししています。複数の食物アレルギーをお持ちの方は、スタッフにお申し出ください。</p>
     <dl class="facts">
@@ -130,7 +129,6 @@ footer{border-top:1px solid var(--rule);padding:40px clamp(16px,4vw,48px);font-s
 </div></section>
 
 <section class="chap" id="shops" style="padding-top:0"><div class="chap-in">
-  <p class="kicker">三つの店</p>
   <h2>近くの店をお選びください。</h2>
   <p class="hint">横にめくると、ほかの店舗が見られます。売り切れの場合は、早めに閉店することがあります。</p>
   <div class="shops">
@@ -154,7 +152,6 @@ footer{border-top:1px solid var(--rule);padding:40px clamp(16px,4vw,48px);font-s
 </div></section>
 
 <section class="chap dark" id="beyond"><div class="chap-in">
-  <p class="kicker">店の外へ</p>
   <h2>みんなで同じものを、安心して。</h2>
   <div class="duo">
     <article><img src="../images/bento.jpg" alt="お弁当"><h3>ケータリング・お弁当</h3><p>パーティー、会議、イベントに。グルテンフリーが基本で、他のアレルギーにも対応します。ベジタリアン・ヴィーガンもご相談ください。ご予約は5日前まで。</p><a href="mailto:glutenfree@glutenfree.co.jp">メールで相談する</a></article>
@@ -163,7 +160,7 @@ footer{border-top:1px solid var(--rule);padding:40px clamp(16px,4vw,48px);font-s
 </div></section>
 
 <section class="chap"><div class="chap-in">
-  <p class="kicker">受けた評価</p>
+  <h2>認証と受賞</h2>
   <div class="honors">
     <div><img src="../images/award-gig.png" alt=""><p>アジア初 GIG認証</p></div>
     <div><img src="../images/award-gf-product-of-the-year.png" alt=""><p>プロダクト・オブ・ザ・イヤー 2020 グランプリ</p></div>
