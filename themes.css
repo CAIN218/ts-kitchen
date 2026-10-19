@@ -1,0 +1,61 @@
+/* コンサルティングのデザイン案（プレビュー用）。a=信頼・認証 / b=食卓・あたたかさ / c=大胆・モダン */
+
+/* A：認証の信頼感。白地に細い線、見出しは明朝 */
+.t-a{--navy:#16324f;--pink:#c8325a}
+.t-a h1,.t-a h2,.t-a .only-text,.t-a .quote,.t-a .svc-row h3,.t-a .dl-grid h3,.t-a .steps h3{font-family:"Noto Serif JP","Hiragino Mincho ProN",serif;font-weight:700}
+.t-a .cons-hero{background:#fff;color:var(--navy);padding:104px 16px 80px;border-bottom:1px solid var(--line)}
+.t-a .cons-hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.5;font-weight:700}
+.t-a .cons-hero .cons-role{color:var(--pink);font-weight:700;letter-spacing:.06em}
+.t-a .cons-hero .cons-lead{color:var(--ink);opacity:1}
+.t-a .numbers{background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}
+.t-a .nums b{font-family:"Noto Serif JP",serif;font-weight:700}
+.t-a .only{background:var(--bg);color:var(--navy)}
+.t-a .only-text{border-left:0;padding:40px 0;border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);text-align:center;font-weight:700}
+.t-a .btn{border-radius:2px}
+.t-a .contact.dark{background:var(--bg);color:var(--ink)}
+.t-a .contact.dark h2{color:var(--navy)}
+.t-a .contact.dark .lead,.t-a .contact.dark .note{color:var(--mute)}
+.t-a .contact.dark .cf7 label,.t-a .contact.dark .wpcf7 label{color:var(--navy)}
+.t-a .contact.dark .cf7 label em{color:var(--pink)}
+.t-a .cf7 input[type=text],.t-a .cf7 input[type=email],.t-a .cf7 textarea{border-color:#b9c4d0;border-radius:2px}
+
+/* B：食卓のあたたかさ。深い緑と淡い緑、丸みのある書体 */
+.t-b{--navy:#1f4a3b;--navy-d:#14302a;--bg:#f1f7ef;--line:#dbe6d7;--mute:#4f6158}
+.t-b h1,.t-b h2,.t-b .only-text,.t-b .quote,.t-b .svc-row h3,.t-b .dl-grid h3,.t-b .steps h3{font-family:"Zen Maru Gothic","Noto Sans JP",sans-serif;font-weight:700}
+.t-b .cons-hero{background:linear-gradient(90deg,rgba(20,48,38,.9),rgba(20,48,38,.45)),url("images/food.jpg") center/cover}
+.t-b .cons-hero h1{font-weight:900}
+.t-b .numbers{background:#2f6b54}
+.t-b .only{background:var(--bg);color:var(--navy)}
+.t-b .only-text{border-left:6px solid #7bb38f}
+.t-b .btn{border-radius:999px}
+.t-b .sec.tint{background:var(--bg)}
+.t-b .quote{border-left-color:#7bb38f}
+.t-b .steps li{border-top-color:#7bb38f}
+.t-b .steps li::before{color:#2f6b54}
+.t-b .more,.t-b .book-card{border-radius:18px}
+.t-b .more{border-left-color:#7bb38f;background:#e8f2e5}
+.t-b .contact.dark{background:var(--navy)}
+.t-b .cf7 input[type=text],.t-b .cf7 input[type=email],.t-b .cf7 textarea{border-radius:14px}
+.t-b .cf7 input[type=submit],.t-b .cf7 button.btn{border-radius:999px}
+
+/* C：大胆でモダン。黒と白、ピンクの大きな面、巨大な見出し */
+.t-c{--navy:#111;--navy-d:#000;--bg:#f2f2f2;--line:#111;--mute:#555}
+.t-c .cons-hero{background:#fff;color:#111;padding:120px 16px 96px}
+.t-c .cons-hero h1{font-size:clamp(40px,7.6vw,104px);line-height:1.12;font-weight:900;max-width:none;letter-spacing:-.01em}
+.t-c .cons-hero .cons-role{color:var(--pink);font-weight:700}
+.t-c .cons-hero .cons-lead{color:#111;opacity:1;font-size:17px}
+.t-c .numbers{background:#111}
+.t-c .nums b{font-size:clamp(36px,5vw,64px)}
+.t-c .sec{border-top:3px solid #111}
+.t-c .sec.tint{background:var(--bg)}
+.t-c .only{background:var(--pink)}
+.t-c .only-text{border-left:0;padding-left:0;font-size:clamp(24px,4.2vw,52px);line-height:1.5}
+.t-c .btn,.t-c .cf7 input,.t-c .cf7 textarea,.t-c .book-card,.t-c .more{border-radius:0}
+.t-c .dl-grid>div,.t-c .svc-row{border-top:2px solid #111}
+.t-c .svc-row:first-child{border-top:2px solid #111;padding-top:28px}
+.t-c .award-list li{border-bottom-color:#111}
+.t-c .contact.dark{background:#111}
+.t-c .steps li{border-top-width:6px}
+.t-c .steps li::before{font-size:64px}
+.t-c .quote{border-left-color:var(--pink);border-left-width:8px}
+.t-c .more{background:#fff;border:2px solid #111}
