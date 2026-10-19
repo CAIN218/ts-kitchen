@@ -263,3 +263,57 @@ ol.plain li+li{margin-top:2px}
 .philosophy .wrap{max-width:760px}
 .philosophy .motto{font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--navy);margin:8px 0 16px;line-height:1.5}
 .philosophy p:last-child{color:var(--mute)}
+
+/* コンサルティング・取材お問い合わせ */
+.cons-hero .cons-role{font-size:14px;opacity:.85;margin:0 0 10px}
+.cons-hero h1{max-width:18em}
+.cons-hero .cons-lead{max-width:44em;margin-top:18px;font-size:15px;opacity:.92}
+.cons-hero .cons-cta{margin-top:26px}
+.only{background:var(--bg)}
+.only .motto{font-size:clamp(18px,2.6vw,26px)}
+.quote{font-size:18px;font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:16px}
+.quote.big{font-size:clamp(17px,2.2vw,22px)}
+.svc-grid,.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.why-grid.four{grid-template-columns:repeat(4,1fr)}
+.svc{background:#fff;border-radius:14px;padding:26px 24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.svc-no{font-size:13px;font-weight:900;color:var(--pink);letter-spacing:.12em}
+.svc h3{font-size:20px;color:var(--navy);line-height:1.45;margin:4px 0 2px}
+.svc-tag{font-size:12px;color:var(--mute);margin-bottom:12px}
+.svc p:last-child{font-size:14px;color:var(--ink)}
+.why-card{background:var(--bg);border-radius:14px;padding:22px}
+.media-sec .why-card{background:#fff}
+.why-card h3{font-size:16px;color:var(--navy);line-height:1.5;margin-bottom:8px}
+.why-card p{font-size:14px;color:var(--mute)}
+.book{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.book-card{background:var(--bg);border-radius:14px;padding:20px;margin-top:20px}
+.book-card b{display:block;color:var(--navy);margin-bottom:2px}
+.book-card p{font-size:14px;margin-top:10px;color:var(--mute)}
+.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+.steps li{counter-increment:s;background:#fff;border-radius:14px;padding:22px}
+.steps .step-no::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--pink);color:#fff;font-weight:900;margin-bottom:10px}
+.steps h3{font-size:16px;color:var(--navy);margin-bottom:6px;line-height:1.5}
+.steps p{font-size:14px;color:var(--mute)}
+.timeline small{font-size:13px;color:var(--mute);font-weight:400}
+.contact .narrow{max-width:720px}
+.contact .note{margin-top:16px;text-align:center}
+.cf7{display:grid;gap:14px;margin-top:8px}
+.cf7 p{margin:0}
+.cf7 label{display:block;font-size:14px;font-weight:700;color:var(--navy)}
+.cf7 label em{color:var(--pink);font-style:normal}
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 input:not([type]),.cf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px}
+.cf7 input:focus,.cf7 textarea:focus{outline:0;border-color:var(--navy)}
+.cf7 .chk label{font-weight:400;font-size:14px}
+.cf7 .chk input,.cf7 input[type=checkbox]{margin-right:8px}
+.cf7 .wpcf7-form-control-wrap{display:block}
+.cf7 input[type=submit],.cf7 button.btn{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:14px 32px;width:100%}
+.wpcf7-not-valid-tip,.wpcf7-response-output{font-size:13px}
+.contact .wpcf7{margin-top:8px}
+.contact .wpcf7 form{display:grid;gap:14px}
+.contact .wpcf7 form p{margin:0}
+.contact .wpcf7 label{display:block;font-size:14px;font-weight:700;color:var(--navy)}
+.contact .wpcf7 input[type=text],.contact .wpcf7 input[type=email],.contact .wpcf7 input[type=tel],.contact .wpcf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px}
+.contact .wpcf7 input[type=submit]{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:14px 32px;width:100%}
+@media(max-width:900px){
+ .svc-grid,.why-grid,.why-grid.four,.steps{grid-template-columns:1fr}
+ .book{grid-template-columns:1fr}
+}
