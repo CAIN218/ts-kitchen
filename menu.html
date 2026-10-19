@@ -8,7 +8,7 @@
 <meta name="description" content="原宿・六本木・上野広小路のグルテンフリーメニュー。小麦・大麦・ライ麦を使わない料理とドリンク。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261018c">
+<link rel="stylesheet" href="style.css?v=20261019a">
 </head>
 <body class="sub">
 
@@ -80,14 +80,14 @@
   var L={dish:{ja:'お料理',en:'Dishes'},dessert:{ja:'デザート',en:'Desserts'},drink:{ja:'ドリンク',en:'Drinks'},morning:{ja:'モーニング',en:'Breakfast'}};
   var M={
     harajuku:[['dish',{ja:'2026/04/2.png',en:'2026/04/2-1536x1086.jpg'}],['dessert','2026/04/sdk.png'],['drink','2026/04/Black-White-Natural-Rustic-Coffee-Shop-Drinks-and-Desserts-Cafe-Menu.jpg']],
-    roppongi:[['dish','2025/06/fc9ee8803aa874184e1b198155133939-1-2048x1440.png'],['dessert','2024/03/240325_GFC_food2-2048x1059.jpg'],['drink','2024/07/240314_GFC_drink-scaled.jpg']],
+    roppongi:[['dish','images/menu-roppongi-1.jpg'],['dessert','images/menu-roppongi-2.jpg'],['drink','2024/07/240314_GFC_drink-scaled.jpg']],
     ueno:[['dish',{ja:'2026/08/1.png',en:'2021/08/53b49d0a17bfe64697552c3bbb393fbe-2048x1448.jpg'}],['dessert','2024/12/4b6c78a547aebb8004987e864114fa1b.jpg'],['drink','2024/03/240321_A4_drink_lunch_dinner_ol-scaled.jpg'],['morning','2024/03/240313_A2_morning_poster_ol-scaled.jpg']]
   };
   var store='harajuku',cat=0;
   var cats=document.getElementById('menuCats'),img=document.getElementById('menuImg'),link=document.getElementById('menuLink');
   var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg');
   function lang(){return document.documentElement.getAttribute('data-lang')==='en'?'en':'ja'}
-  function src(item){var f=item[1];return U+(typeof f==='string'?f:f[lang()])}
+  function src(item){var f=item[1];f=(typeof f==='string'?f:f[lang()]);return /^(https?:|images\/)/.test(f)?f:U+f}
   function render(){
     var list=M[store],l=lang();
     cats.innerHTML=list.map(function(it,i){return '<button type="button" data-i="'+i+'" aria-selected="'+(i===cat)+'">'+L[it[0]][l]+'</button>'}).join('');
@@ -129,6 +129,6 @@
   <div class="copy">© 株式会社飯野 / 株式会社たいのいかこ</div>
 </footer>
 
-<script src="script.js?v=20261018c"></script>
+<script src="script.js?v=20261019a"></script>
 </body>
 </html>
