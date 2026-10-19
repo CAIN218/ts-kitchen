@@ -59,3 +59,74 @@
 .t-c .steps li::before{font-size:64px}
 .t-c .quote{border-left-color:var(--pink);border-left-width:8px}
 .t-c .more{background:#fff;border:2px solid #111}
+
+/* ===== サイト全体に当てはめる分（ホーム・メニュー・会社概要・取材） ===== */
+/* 案の切り替えバー（プレビュー用） */
+.vbar{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;display:flex;gap:4px;align-items:center;background:#fff;border:1px solid #cfd8e3;border-radius:999px;padding:4px 6px 4px 12px;font:700 12px/1 "Noto Sans JP",sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.18);color:#333}
+.vbar a{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#333}
+.vbar a.on{background:#111;color:#fff}
+
+/* A */
+.t-a h2,.t-a h3.sub-h,.t-a .motto,.t-a .card h3,.t-a .hero h1,.t-a .page-hero h1{font-family:"Noto Serif JP","Hiragino Mincho ProN",serif;font-weight:700}
+.t-a .hero{background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}
+.t-a .hero-in{padding:112px 16px 96px}
+.t-a .hero h1{font-weight:700;line-height:1.5}
+.t-a .hero p.hero-sub,.t-a .hero .sub{color:var(--ink);opacity:1}
+.t-a .hero .btn.line{border-color:var(--navy);color:var(--navy)}
+.t-a .page-hero{background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}
+.t-a .page-hero .eyebrow{color:var(--pink)}
+.t-a .page-hero p{color:var(--ink);opacity:1}
+.t-a .card,.t-a .pt,.t-a .menu-view,.t-a .cv-box,.t-a .biz>div{border-radius:2px;box-shadow:none;border:1px solid var(--line)}
+.t-a .btn,.t-a .acts a{border-radius:2px}
+.t-a .stores{background:var(--bg)}
+.t-a .numbers{background:#fff;color:var(--navy);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.t-a .nums b{font-family:"Noto Serif JP",serif;font-weight:700}
+.t-a .cater{border-radius:2px}
+
+/* B */
+.t-b h2,.t-b h3.sub-h,.t-b .motto,.t-b .card h3,.t-b .hero h1,.t-b .page-hero h1{font-family:"Zen Maru Gothic","Noto Sans JP",sans-serif;font-weight:700}
+.t-b .hero{background:linear-gradient(90deg,rgba(20,48,38,.9),rgba(20,48,38,.4) 60%,rgba(20,48,38,.1)),url("images/food.jpg") center/cover}
+.t-b .page-hero{background:linear-gradient(90deg,rgba(20,48,38,.92),rgba(20,48,38,.6)),url("images/food.jpg") center/cover}
+.t-b .stores,.t-b .biz-sec,.t-b .media-sec{background:var(--bg)}
+.t-b .card,.t-b .pt,.t-b .cv-box,.t-b .menu-view{border-radius:22px}
+.t-b .pt,.t-b .cv-box{background:var(--bg)}
+.t-b .card .ph{border-radius:0}
+.t-b .acts a,.t-b .menu-stores button,.t-b .menu-cats button{border-radius:999px}
+.t-b .acts a.r{border-radius:999px}
+.t-b .cater{background:var(--navy);border-radius:28px}
+.t-b .numbers{background:#2f6b54}
+.t-b .policy{border-radius:16px;background:#e8f2e5;border-color:#bcd9c4;border-left-color:#7bb38f}
+.t-b .policy b{color:#2f6b54}
+.t-b .tag{background:#2f6b54}
+.t-b .closed{color:#b3392f}
+.t-b .awards li::before{color:#7bb38f}
+.t-b .ticks li::before{border-color:#2f6b54}
+.t-b .menu-cats button[aria-selected=true]{background:#2f6b54}
+
+/* C */
+.t-c h2{font-weight:900;font-size:clamp(28px,4vw,44px);letter-spacing:-.01em}
+.t-c .hero{background:#fff;color:#111}
+.t-c .hero-in{padding:120px 16px 96px}
+.t-c .hero h1{font-size:clamp(36px,6.6vw,84px);line-height:1.15;font-weight:900;letter-spacing:-.01em}
+.t-c .hero p.hero-sub{font-size:clamp(18px,2.4vw,26px);color:#111}
+.t-c .hero .sub{color:#555;opacity:1}
+.t-c .hero .btn.line{border-color:#111;color:#111}
+.t-c .page-hero{background:#fff;color:#111;border-bottom:3px solid #111;padding:96px 16px 72px}
+.t-c .page-hero h1{font-size:clamp(36px,6vw,80px);font-weight:900;line-height:1.15}
+.t-c .page-hero p{color:#111;opacity:1}
+.t-c .page-hero .eyebrow{color:var(--pink)}
+.t-c *{border-radius:0!important}
+.t-c .logo img,.t-c .ft-logo,.t-c .lang,.t-c .fab,.t-c .menu-btn{border-radius:999px!important}
+.t-c .card,.t-c .pt,.t-c .cv-box,.t-c .biz>div,.t-c .menu-view{box-shadow:none;border:2px solid #111;background:#fff}
+.t-c .stores,.t-c .biz-sec,.t-c .media-sec{background:var(--bg)}
+.t-c .cater{background:#111}
+.t-c .numbers{background:#111}
+.t-c .nums b{font-size:clamp(36px,5vw,64px)}
+.t-c .policy{background:#fff;border:2px solid #111;border-left:8px solid var(--pink)}
+.t-c .tag{background:var(--pink)}
+.t-c .awards-band{border-top:3px solid #111}
+.t-c .menu-stores button,.t-c .menu-cats button,.t-c .store-tabs button{border:2px solid #111;color:#111}
+.t-c .menu-stores button[aria-selected=true],.t-c .store-tabs button[aria-selected=true]{background:#111;color:#fff}
+.t-c .menu-cats button[aria-selected=true]{background:var(--pink);border-color:var(--pink);color:#fff}
+.t-c .hero h1{font-size:clamp(34px,5.6vw,72px)}
+.hero h1,.page-hero h1,.hero p.hero-sub{text-wrap:balance;word-break:auto-phrase}
