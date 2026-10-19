@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>案A 今すぐ行ける｜Gluten Free T's Kitchen</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#10243e;--sub:#5b6b7f;--line:#e2e7ee;--paper:#ffffff;--wash:#f3f6f9;--pink:#e0245e;--open:#1f8a4c;--soon:#b7791f;--shut:#8a94a3}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans JP",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+
+/* ヘッダー：最小限。行き先は下のバーに集約 */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1080px;margin:auto;display:flex;align-items:center;gap:12px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:16px}
+.brand img{width:34px;height:34px;border-radius:50%}
+.top nav{margin-left:auto;display:flex;gap:20px;font-size:14px}
+.top nav a{text-decoration:none;color:var(--sub)}
+.top nav a:hover{color:var(--ink)}
+.lang{margin-left:8px;font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;color:var(--sub)}
+
+/* 今日の営業 */
+.today{max-width:1080px;margin:auto;padding:36px 16px 8px}
+.today h1{font-size:clamp(22px,3vw,30px);font-weight:900;line-height:1.45}
+.today .date{color:var(--sub);font-size:14px;margin-top:4px}
+.stores{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.st{border:1.5px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;background:#fff}
+.st .ph{aspect-ratio:16/9;background:#dfe5ec center/cover}
+.st .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.st h2{font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px}
+.st h2 small{font-size:12px;font-weight:700;color:var(--sub)}
+.status{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.status i{width:10px;height:10px;border-radius:50%;background:var(--shut);flex:none}
+.status.open{color:var(--open)}.status.open i{background:var(--open);box-shadow:0 0 0 4px rgba(31,138,76,.15)}
+.status.soon{color:var(--soon)}.status.soon i{background:var(--soon)}
+.status.shut{color:var(--shut)}
+.hours{font-size:13px;color:var(--sub)}
+.hours summary{cursor:pointer;list-style:none;font-weight:700;color:var(--ink)}
+.hours summary::-webkit-details-marker{display:none}
+.hours summary::after{content:"＋";margin-left:6px;color:var(--sub)}
+.hours[open] summary::after{content:"－"}
+.hours table{width:100%;border-collapse:collapse;margin-top:6px}
+.hours td{padding:4px 0;border-bottom:1px dashed var(--line)}
+.hours td:last-child{text-align:right;white-space:nowrap}
+.addr{font-size:13px;color:var(--sub)}
+.acts{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;margin-top:auto}
+.acts a{display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-size:14px;font-weight:700;border-radius:10px;padding:11px 6px;border:1.5px solid var(--line)}
+.acts a.rsv{background:var(--pink);border-color:var(--pink);color:#fff}
+.note{font-size:12px;color:var(--sub);margin-top:12px}
+
+/* 安心のための確認事項 */
+.blk{max-width:1080px;margin:auto;padding:48px 16px}
+.blk>h2{font-size:22px;font-weight:900;margin-bottom:14px}
+.qa{border-top:1.5px solid var(--ink)}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 2px;font-weight:700;font-size:16px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"";width:10px;height:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);transition:transform .2s;flex:none}
+.qa details[open] summary::after{transform:rotate(-135deg)}
+.qa p{padding:0 2px 18px;color:var(--sub);font-size:15px}
+.qa b{color:var(--pink)}
+
+/* 目的別の入口 */
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.door{position:relative;display:block;text-decoration:none;border-radius:16px;overflow:hidden;min-height:220px;background:#223 center/cover;color:#fff}
+.door::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,36,62,0) 30%,rgba(16,36,62,.85))}
+.door span{position:absolute;left:18px;right:18px;bottom:16px}
+.door b{display:block;font-size:20px;font-weight:900}
+.door small{font-size:13px;opacity:.9}
+
+.badges{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;padding:28px 16px;border-top:1px solid var(--line)}
+.badges img{height:64px;width:auto}
+footer{background:var(--wash);padding:28px 16px;font-size:13px;color:var(--sub);text-align:center}
+
+/* 画面下の固定バー（スマホでもPCでも同じ場所） */
+.dock{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;display:flex;gap:4px;background:var(--ink);border-radius:18px;padding:6px;box-shadow:0 10px 30px rgba(16,36,62,.35);width:min(520px,calc(100% - 24px))}
+.dock a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#c9d4e2;font-size:11px;font-weight:700;padding:8px 4px;border-radius:12px}
+.dock a svg{width:22px;height:22px}
+.dock a.main{background:var(--pink);color:#fff;flex:1.4}
+.dock a:hover{color:#fff}
+
+@media(max-width:860px){
+ .stores,.doors{grid-template-columns:1fr}
+ .top nav{display:none}
+ .lang{margin-left:auto}
+ .st{flex-direction:row}
+ .st .ph{aspect-ratio:auto;width:96px;flex:none}
+ .door{min-height:150px}
+}
+@media(max-width:420px){.st .ph{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand" href="#"><img src="../images/logo.png" alt="">Gluten Free T's Kitchen</a>
+  <nav><a href="#menu">メニュー</a><a href="#doors">ケータリング</a><a href="../consulting.html">法人の方</a><a href="../about.html">会社概要</a></nav>
+  <button class="lang" type="button">English</button>
+</div></header>
+
+<main>
+<section class="today" id="stores">
+  <h1>100%グルテンフリーのレストラン。<br>東京に3店舗あります。</h1>
+  <p class="date" id="now"></p>
+  <div class="stores">
+    <article class="st" data-store="harajuku">
+      <div class="ph" style="background-image:url('../images/harajuku.jpg')"></div>
+      <div class="bd">
+        <h2>原宿店 <small>NEW</small></h2>
+        <p class="status"><i></i><span></span></p>
+        <p class="addr">渋谷区神宮前4-28-14 シャンゼリゼ原宿 地下1階</p>
+        <details class="hours"><summary>営業時間</summary><table>
+          <tr><td>平日ランチ</td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td>平日ディナー</td><td>17:00–22:00（L.O. 21:00）</td></tr>
+          <tr><td>土・日</td><td>12:00–22:00（L.O. 21:00）</td></tr>
+          <tr><td>定休日</td><td>水曜日</td></tr></table></details>
+        <div class="acts"><a href="tel:0368129222">電話</a><a href="https://maps.google.com/?cid=15240598565852089391">地図</a><a class="rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">予約する</a></div>
+      </div>
+    </article>
+    <article class="st" data-store="roppongi">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2021/08/DK1-bgpyibtm_b7uHHEiOOE7gp1xePLX2f8zZq8ejsgnq9Khu2uSkWiDRrdALCXxFmJ1loW6ySlpe_ovhAJ2g7yp1mznlIBHEAXgTkkCyZxfqL93qmUPY9EtKcN7Tk_qSjfBjX04jW0mpqjlVaU56M0SMSOyDtfzzd1khOGYmA7tTNa_uScuQZhvjAd_Jgmk-1.jpeg')"></div>
+      <div class="bd">
+        <h2>六本木店</h2>
+        <p class="status"><i></i><span></span></p>
+        <p class="addr">港区六本木7-8-5 2階</p>
+        <details class="hours"><summary>営業時間</summary><table>
+          <tr><td>ランチ</td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td>ディナー</td><td>17:00–22:00（L.O. 20:30）</td></tr>
+          <tr><td>定休日</td><td>火曜日</td></tr></table></details>
+        <div class="acts"><a href="tel:0368747719">電話</a><a href="https://maps.app.goo.gl/uj25dr64byr36bsq5">地図</a><a class="rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">予約する</a></div>
+      </div>
+    </article>
+    <article class="st" data-store="ueno">
+      <div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2025/10/S__104693771-1024x574.jpg')"></div>
+      <div class="bd">
+        <h2>上野広小路店 <small>朝7時〜</small></h2>
+        <p class="status"><i></i><span></span></p>
+        <p class="addr">千代田区外神田5-3-3（アパホテル上野広小路 1階）</p>
+        <details class="hours"><summary>営業時間</summary><table>
+          <tr><td>モーニング</td><td>7:00–9:30（L.O. 9:00）</td></tr>
+          <tr><td>ランチ</td><td>12:00–16:00（L.O. 15:00）</td></tr>
+          <tr><td>ディナー</td><td>17:00–22:00（L.O. 20:30）</td></tr>
+          <tr><td>定休日</td><td>年中無休（水曜はモーニングのみ）</td></tr></table></details>
+        <div class="acts"><a href="tel:0358264548">電話</a><a href="https://maps.app.goo.gl/ZyLXctcwvsKvToWAA">地図</a><a class="rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">予約する</a></div>
+      </div>
+    </article>
+  </div>
+  <p class="note">売り切れの場合は、早めに閉店することがあります。8名以上のご予約の際は事前にご連絡ください。</p>
+</section>
+
+<section class="blk" id="safe">
+  <h2>ご来店の前に</h2>
+  <div class="qa">
+    <details open><summary>小麦は使っていますか？</summary><p>使っていません。小麦・大麦・ライ麦を使わない料理と飲み物を提供しています。アジアで初めて、グルテンフリーの認証を取得したレストランです。</p></details>
+    <details><summary>他のアレルギーにも対応できますか？</summary><p>複数の食物アレルギーをお持ちの方は、スタッフにお申し出ください。</p></details>
+    <details><summary>材料について注意することはありますか？</summary><p>一部の材料は、小麦を扱う工場で製造されています。ご不明な点はお気軽にご質問ください。</p></details>
+    <details><summary>キャンセル料はかかりますか？</summary><p>席数が限られているため、ご予約日の7日前から、1組につき<b>3,000円</b>のキャンセル料がかかります。直前のキャンセル・人数変更は返金できません。</p></details>
+  </div>
+</section>
+
+<section class="blk" id="doors">
+  <h2>目的から探す</h2>
+  <div class="doors" id="menu">
+    <a class="door" href="../menu.html" style="background-image:url('../images/food.jpg')"><span><b>メニューを見る</b><small>店舗ごとのメニュー</small></span></a>
+    <a class="door" href="mailto:glutenfree@glutenfree.co.jp" style="background-image:url('../images/bento.jpg')"><span><b>ケータリング・お弁当</b><small>会議やイベントに。5日前までにご予約</small></span></a>
+    <a class="door" href="../consulting.html" style="background-image:url('../images/world.jpg')"><span><b>法人の方へ</b><small>GFCO認証・商品開発のご相談</small></span></a>
+  </div>
+</section>
+</main>
+
+<div class="badges">
+  <img src="../images/award-gig.png" alt="Validated Gluten Free Safe Spot">
+  <img src="../images/award-gf-product-of-the-year.png" alt="Gluten-Free Product of the Year 2020">
+  <img src="../images/award-food-action-nippon.png" alt="Food Action Nippon Award 2019">
+  <img src="../images/award-tripadvisor.png" alt="Tripadvisor">
+</div>
+<footer>© 株式会社飯野 / 株式会社たいのいかこ</footer>
+
+<nav class="dock" aria-label="よく使う操作">
+  <a href="#stores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>店舗</a>
+  <a href="../menu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5z"/><path d="M9 9h6M9 13h6"/></svg>メニュー</a>
+  <a class="main" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>予約する</a>
+  <a href="#safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>安心情報</a>
+</nav>
+
+<script>
+// 東京時間で、各店がいま営業中かを表示する（祝日・臨時休業は反映しない）
+(function(){
+  var H={ // 曜日0=日 … 6=土。値は[開始,終了]（分）
+    harajuku:function(d){if(d===3)return[];return(d===0||d===6)?[[720,1320]]:[[720,960],[1020,1320]]},
+    roppongi:function(d){return d===2?[]:[[720,960],[1020,1320]]},
+    ueno:function(d){return d===3?[[420,570]]:[[420,570],[720,960],[1020,1320]]}
+  };
+  var p=new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',weekday:'short',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+  var g=function(t){var x=p.find(function(q){return q.type===t});return x?x.value:''};
+  var wd=['日','月','火','水','木','金','土'].indexOf(g('weekday')), m=(+g('hour')%24)*60+(+g('minute'));
+  document.getElementById('now').textContent='今日 '+g('month')+'月'+g('day')+'日（'+g('weekday')+'） '+g('hour')+':'+g('minute')+' 現在の営業状況';
+  var f=function(x){return Math.floor(x/60)+':'+('0'+x%60).slice(-2)};
+  document.querySelectorAll('.st').forEach(function(el){
+    var s=H[el.dataset.store](wd), st=el.querySelector('.status'), tx=st.querySelector('span'), cur=null, next=null;
+    s.forEach(function(r){if(m>=r[0]&&m<r[1])cur=r;else if(m<r[0]&&!next)next=r});
+    if(cur){st.className='status open';tx.textContent='営業中・'+f(cur[1])+'まで'}
+    else if(next){st.className='status soon';tx.textContent='準備中・'+f(next[0])+'から'}
+    else{st.className='status shut';tx.textContent=s.length?'本日の営業は終了しました':'本日は定休日です'}
+  });
+})();
+</script>
+<div style="position:fixed;right:8px;top:50%;transform:translateY(-50%);flex-direction:column;padding:8px 4px;border-radius:16px;z-index:99;display:flex;gap:4px;align-items:center;background:#fff;color:#222;border:1px solid #ccc;border-radius:999px;font:700 12px/1 sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.2)">案 <a href="a.html" style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#fff;background:#222">A</a><a href="b.html" style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#222;background:transparent">B</a><a href="c.html" style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#222;background:transparent">C</a></div>
+</body>
+</html>

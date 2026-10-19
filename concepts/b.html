@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>案B 物語｜Gluten Free T's Kitchen</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f7f7f4;--ink:#1c1d22;--indigo:#26335a;--sub:#5f6270;--rule:#d9d9d2;--pink:#e0245e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.serif{font-family:"Shippori Mincho B1",serif}
+
+/* ヘッダー：写真の上に重ねる。メニューは全画面で開く */
+.bar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,48px);color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.bar .name{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:18px;text-decoration:none;letter-spacing:.04em}
+.bar button{font:inherit;font-size:14px;background:none;border:0;color:#fff;cursor:pointer;display:flex;align-items:center;gap:10px}
+.bar button i{display:block;width:28px;height:2px;background:#fff;box-shadow:0 7px 0 #fff}
+.rsv-float{position:fixed;right:clamp(16px,4vw,48px);bottom:24px;z-index:30;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:2px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.sheet{position:fixed;inset:0;z-index:40;background:var(--indigo);color:#fff;display:none;padding:96px clamp(16px,6vw,96px) 40px;overflow:auto}
+.sheet.open{display:block}
+.sheet a{display:block;font-family:"Shippori Mincho B1",serif;font-size:clamp(28px,5vw,52px);font-weight:700;text-decoration:none;line-height:1.7}
+.sheet a small{font-family:"Noto Sans JP",sans-serif;font-size:14px;font-weight:400;opacity:.7;margin-left:14px}
+.sheet .close{position:absolute;top:18px;right:clamp(16px,4vw,48px);font:inherit;background:none;border:1px solid rgba(255,255,255,.5);color:#fff;padding:6px 16px;cursor:pointer}
+
+/* 表紙：写真全面＋縦書きの見出し */
+.cover{position:relative;height:100svh;min-height:560px;background:#222 url("../images/food.jpg") center/cover;color:#fff;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(15,18,32,.75),rgba(15,18,32,.15) 55%)}
+.cover h1{position:absolute;z-index:1;top:14%;bottom:14%;right:clamp(24px,8vw,120px);display:flex;align-items:center;writing-mode:vertical-rl;font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:clamp(34px,5.2vw,64px);line-height:1.6;letter-spacing:.12em}
+.cover h1 span{white-space:nowrap;display:block}
+.cover p{position:absolute;z-index:1;left:clamp(16px,4vw,48px);bottom:32px;font-size:14px;max-width:22em;opacity:.92}
+
+/* 章 */
+.chap{padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px)}
+.chap-in{max-width:1180px;margin:auto}
+.kicker{font-family:"Shippori Mincho B1",serif;font-size:15px;color:var(--sub);display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.kicker::after{content:"";height:1px;background:var(--rule);flex:1}
+.chap h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(28px,3.8vw,46px);line-height:1.5;color:var(--indigo);max-width:16em}
+.lede{font-size:17px;max-width:34em;margin-top:22px;color:#33353d}
+
+.story{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,5vw,72px);align-items:end}
+.story figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.story figcaption{font-size:12px;color:var(--sub);margin-top:8px}
+.facts{margin-top:36px;border-top:1px solid var(--ink)}
+.facts div{display:grid;grid-template-columns:7em 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);font-size:15px}
+.facts dt{font-family:"Shippori Mincho B1",serif;font-weight:700;color:var(--indigo)}
+
+/* 三つの店：横にめくる */
+.shops{display:grid;grid-auto-flow:column;grid-auto-columns:min(420px,82vw);gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px clamp(16px,4vw,48px) 24px;margin:40px calc(-1*clamp(16px,4vw,48px)) 0;scrollbar-width:thin}
+.shop{scroll-snap-align:start;background:#fff}
+.shop .ph{aspect-ratio:3/2;background:#ccc center/cover}
+.shop .bd{padding:22px 24px 26px}
+.shop h3{font-family:"Shippori Mincho B1",serif;font-size:26px;font-weight:700;color:var(--indigo)}
+.shop .tag{font-size:12px;color:var(--pink);font-weight:700;margin-left:8px;vertical-align:middle}
+.shop .addr{font-size:13px;color:var(--sub);margin:4px 0 14px}
+.shop dl{font-size:14px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px}
+.shop dt{color:var(--sub)}
+.shop .off{font-size:13px;margin-top:10px;color:var(--pink)}
+.shop .links{display:flex;gap:18px;margin-top:18px;font-size:14px;font-weight:700}
+.shop .links a{text-decoration:none;border-bottom:1px solid currentColor}
+.hint{font-size:13px;color:var(--sub);margin-top:4px}
+.policy{margin-top:32px;max-width:46em;font-size:14px;padding-left:18px;border-left:2px solid var(--pink)}
+
+/* 食卓の外へ */
+.dark{background:var(--indigo);color:#fff}
+.dark h2{color:#fff}
+.dark .kicker{color:#c3c8db}.dark .kicker::after{background:rgba(255,255,255,.25)}
+.dark .lede{color:#dfe2ec}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);margin-top:48px}
+.duo article img{width:100%;aspect-ratio:16/10;object-fit:cover;margin-bottom:18px}
+.duo h3{font-family:"Shippori Mincho B1",serif;font-size:24px;font-weight:700}
+.duo p{font-size:15px;color:#dfe2ec;margin-top:8px}
+.duo a{display:inline-block;margin-top:14px;font-weight:700;text-decoration:none;border-bottom:1px solid #fff}
+
+.honors{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px;text-align:center}
+.honors img{height:96px;width:auto;margin:0 auto 12px}
+.honors p{font-size:13px;color:var(--sub);line-height:1.6}
+
+footer{border-top:1px solid var(--rule);padding:40px clamp(16px,4vw,48px);font-size:13px;color:var(--sub);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media(max-width:860px){
+ .story,.duo{grid-template-columns:1fr}
+ .honors{grid-template-columns:1fr 1fr}
+ .cover h1{right:20px;font-size:clamp(30px,8.4vw,44px)}
+ .cover h1 span{white-space:nowrap;display:block}
+.cover p{right:16px;bottom:96px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="name" href="#">T's Kitchen</a>
+  <button type="button" id="open" aria-expanded="false" aria-controls="sheet">目次<i></i></button>
+</header>
+<nav class="sheet" id="sheet" aria-label="目次">
+  <button class="close" type="button" id="close">閉じる</button>
+  <a href="#about">私たちのこと<small>About</small></a>
+  <a href="#shops">三つの店<small>Locations</small></a>
+  <a href="../menu.html">献立<small>Menu</small></a>
+  <a href="#beyond">店の外へ<small>Catering &amp; Business</small></a>
+  <a href="../about.html">会社概要<small>Company</small></a>
+  <a href="../media.html">取材のお問い合わせ<small>Press</small></a>
+</nav>
+<a class="rsv-float" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">席を予約する</a>
+
+<header class="cover">
+  <h1><span>食の制限から、</span><span>可能性を味わう。</span></h1>
+  <p>アジアで初めてグルテンフリー認証を受けたレストラン。原宿・六本木・上野広小路の三店舗で、小麦を使わない料理をお出ししています。</p>
+</header>
+
+<main>
+<section class="chap" id="about"><div class="chap-in story">
+  <div>
+    <p class="kicker">私たちのこと</p>
+    <h2>グルテンフリーを必要とする方々が、笑顔になることを目指して。</h2>
+    <p class="lede">小麦・大麦・ライ麦を使わない料理と飲み物をお出ししています。複数の食物アレルギーをお持ちの方は、スタッフにお申し出ください。</p>
+    <dl class="facts">
+      <div><dt>認証</dt><dd>アジア初のグルテンフリー認証レストラン</dd></div>
+      <div><dt>レシピ</dt><dd>700を超えるオリジナルレシピ・商品</dd></div>
+      <div><dt>ご注意</dt><dd>一部の材料は、小麦を扱う工場で製造されています。ご不明な点はお気軽にご質問ください。</dd></div>
+    </dl>
+  </div>
+  <figure><img src="../images/owner.jpg" alt="オーナー兼シェフ 飯野孝子"><figcaption>オーナー兼シェフ　飯野孝子</figcaption></figure>
+</div></section>
+
+<section class="chap" id="shops" style="padding-top:0"><div class="chap-in">
+  <p class="kicker">三つの店</p>
+  <h2>近くの店をお選びください。</h2>
+  <p class="hint">横にめくると、ほかの店舗が見られます。売り切れの場合は、早めに閉店することがあります。</p>
+  <div class="shops">
+    <article class="shop"><div class="ph" style="background-image:url('../images/harajuku.jpg')"></div><div class="bd">
+      <h3>原宿<span class="tag">NEW</span></h3><p class="addr">渋谷区神宮前4-28-14 シャンゼリゼ原宿 地下1階</p>
+      <dl><dt>平日ランチ</dt><dd>12:00–16:00（L.O. 15:00）</dd><dt>平日ディナー</dt><dd>17:00–22:00（L.O. 21:00）</dd><dt>土・日</dt><dd>12:00–22:00（L.O. 21:00）</dd></dl>
+      <p class="off">定休日　水曜日</p>
+      <p class="links"><a href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">予約する</a><a href="https://maps.google.com/?cid=15240598565852089391">地図</a><a href="tel:0368129222">03-6812-9222</a></p></div></article>
+    <article class="shop"><div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2021/08/DK1-bgpyibtm_b7uHHEiOOE7gp1xePLX2f8zZq8ejsgnq9Khu2uSkWiDRrdALCXxFmJ1loW6ySlpe_ovhAJ2g7yp1mznlIBHEAXgTkkCyZxfqL93qmUPY9EtKcN7Tk_qSjfBjX04jW0mpqjlVaU56M0SMSOyDtfzzd1khOGYmA7tTNa_uScuQZhvjAd_Jgmk-1.jpeg')"></div><div class="bd">
+      <h3>六本木</h3><p class="addr">港区六本木7-8-5 2階</p>
+      <dl><dt>ランチ</dt><dd>12:00–16:00（L.O. 15:00）</dd><dt>ディナー</dt><dd>17:00–22:00（L.O. 20:30）</dd></dl>
+      <p class="off">定休日　火曜日</p>
+      <p class="links"><a href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">予約する</a><a href="https://maps.app.goo.gl/uj25dr64byr36bsq5">地図</a><a href="tel:0368747719">03-6874-7719</a></p></div></article>
+    <article class="shop"><div class="ph" style="background-image:url('https://glutenfree.co.jp/wp-content/uploads/2025/10/S__104693771-1024x574.jpg')"></div><div class="bd">
+      <h3>上野広小路<span class="tag">朝7時から</span></h3><p class="addr">千代田区外神田5-3-3</p>
+      <dl><dt>モーニング</dt><dd>7:00–9:30（L.O. 9:00）</dd><dt>ランチ</dt><dd>12:00–16:00（L.O. 15:00）</dd><dt>ディナー</dt><dd>17:00–22:00（L.O. 20:30）</dd></dl>
+      <p class="off">年中無休（水曜日はモーニングのみ）</p>
+      <p class="links"><a href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true">予約する</a><a href="https://maps.app.goo.gl/ZyLXctcwvsKvToWAA">地図</a><a href="tel:0358264548">03-5826-4548</a></p></div></article>
+  </div>
+  <p class="policy">キャンセルポリシー：席数が限られているため、ご予約日の7日前から、1組につき3,000円のキャンセル料がかかります。直前のキャンセル・人数変更は返金できません。</p>
+</div></section>
+
+<section class="chap dark" id="beyond"><div class="chap-in">
+  <p class="kicker">店の外へ</p>
+  <h2>みんなで同じものを、安心して。</h2>
+  <div class="duo">
+    <article><img src="../images/bento.jpg" alt="お弁当"><h3>ケータリング・お弁当</h3><p>パーティー、会議、イベントに。グルテンフリーが基本で、他のアレルギーにも対応します。ベジタリアン・ヴィーガンもご相談ください。ご予約は5日前まで。</p><a href="mailto:glutenfree@glutenfree.co.jp">メールで相談する</a></article>
+    <article><img src="../images/world.jpg" alt=""><h3>法人の方へ</h3><p>GFCO認証の取得支援、グルテンフリー商品の開発、現状診断。アジア初のGFCO認証レストラン創業者がご相談に応じます。</p><a href="../consulting.html">コンサルティングを見る</a></article>
+  </div>
+</div></section>
+
+<section class="chap"><div class="chap-in">
+  <p class="kicker">受けた評価</p>
+  <div class="honors">
+    <div><img src="../images/award-gig.png" alt=""><p>アジア初 GIG認証</p></div>
+    <div><img src="../images/award-gf-product-of-the-year.png" alt=""><p>プロダクト・オブ・ザ・イヤー 2020 グランプリ</p></div>
+    <div><img src="../images/award-food-action-nippon.png" alt=""><p>フードアクションニッポン アワード2019</p></div>
+    <div><img src="../images/award-tripadvisor.png" alt=""><p>トリップアドバイザー 東京No.1（2019）</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer><span>Gluten Free T's Kitchen</span><span>© 株式会社飯野 / 株式会社たいのいかこ</span></footer>
+
+<script>
+(function(){var s=document.getElementById('sheet'),o=document.getElementById('open'),c=document.getElementById('close');
+function set(v){s.classList.toggle('open',v);o.setAttribute('aria-expanded',v);if(v)c.focus();else o.focus()}
+o.onclick=function(){set(true)};c.onclick=function(){set(false)};
+s.addEventListener('click',function(e){if(e.target.closest('a'))s.classList.remove('open')});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&s.classList.contains('open'))set(false)});})();
+</script>
+<div style="position:fixed;right:8px;top:50%;transform:translateY(-50%);flex-direction:column;padding:8px 4px;border-radius:16px;z-index:99;display:flex;gap:4px;align-items:center;background:#fff;color:#222;border:1px solid #ccc;border-radius:999px;font:700 12px/1 sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.2)">案 <a href="a.html" style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#222;background:transparent">A</a><a href="b.html" style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#fff;background:#222">B</a><a href="c.html" style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;text-decoration:none;color:#222;background:transparent">C</a></div>
+</body>
+</html>
