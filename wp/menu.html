@@ -284,58 +284,108 @@ ol.plain li+li{margin-top:2px}
 .philosophy p:last-child{color:var(--mute)}
 
 /* コンサルティング・取材お問い合わせ */
-.cons-hero .cons-role{font-size:14px;opacity:.85;margin:0 0 10px}
-.cons-hero h1{max-width:18em}
-.cons-hero .cons-lead{max-width:44em;margin-top:18px;font-size:15px;opacity:.92}
-.cons-hero .cons-cta{margin-top:26px}
-.only{background:var(--bg)}
-.only .motto{font-size:clamp(18px,2.6vw,26px)}
-.quote{font-size:18px;font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:16px}
-.quote.big{font-size:clamp(17px,2.2vw,22px)}
-.svc-grid,.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.why-grid.four{grid-template-columns:repeat(4,1fr)}
-.svc{background:#fff;border-radius:14px;padding:26px 24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.svc-no{font-size:13px;font-weight:900;color:var(--pink);letter-spacing:.12em}
-.svc h3{font-size:20px;color:var(--navy);line-height:1.45;margin:4px 0 2px}
-.svc-tag{font-size:12px;color:var(--mute);margin-bottom:12px}
-.svc p:last-child{font-size:14px;color:var(--ink)}
-.why-card{background:var(--bg);border-radius:14px;padding:22px}
-.media-sec .why-card{background:#fff}
-.why-card h3{font-size:16px;color:var(--navy);line-height:1.5;margin-bottom:8px}
-.why-card p{font-size:14px;color:var(--mute)}
-.book{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
-.book-card{background:var(--bg);border-radius:14px;padding:20px;margin-top:20px}
-.book-card b{display:block;color:var(--navy);margin-bottom:2px}
-.book-card p{font-size:14px;margin-top:10px;color:var(--mute)}
-.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
-.steps li{counter-increment:s;background:#fff;border-radius:14px;padding:22px}
-.steps .step-no::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--pink);color:#fff;font-weight:900;margin-bottom:10px}
+.cons-hero{padding:88px 16px 72px}
+.cons-hero .cons-role{font-size:14px;opacity:.85;margin:0 0 14px}
+.cons-hero h1{font-size:clamp(32px,5.4vw,60px);line-height:1.25;max-width:14em;letter-spacing:.01em}
+.cons-hero .cons-lead{max-width:40em;margin-top:22px;font-size:16px;line-height:1.9;opacity:.92}
+.cons-hero .cons-cta{margin-top:30px}
+.cons-hero .btn{padding:14px 28px}
+
+/* 左に見出し、右に内容。区切りは上の線だけ */
+.sec{padding:72px 16px;border-top:1px solid var(--line)}
+.sec.tint{background:var(--bg)}
+.sec-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:56px;align-items:start}
+.sec-in>h2,.sec-head h2{font-size:clamp(24px,2.6vw,32px);line-height:1.5;margin:0}
+.sec-head{position:sticky;top:96px}
+.sec-head .muted{margin-top:14px;font-size:14px;line-height:1.9}
+.sec.tint .timeline{grid-column:2}
+.body-lg{font-size:17px;line-height:2;margin-bottom:22px}
+.quote{font-size:20px;font-weight:900;color:var(--navy);line-height:1.7;margin:0 0 22px;padding-left:18px;border-left:4px solid var(--pink)}
+.quote.big{font-size:clamp(20px,2.6vw,28px);border-left:0;padding-left:0;line-height:1.6;margin-bottom:12px}
+.award-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.award-list li{padding:16px 0;border-bottom:1px solid var(--line);font-size:15px;font-weight:700;color:var(--navy)}
+.award-list li:last-child{border-bottom:0}
+
+/* 「日本に私だけです」 */
+.only{background:var(--navy);color:#fff;padding:88px 16px}
+.only-text{max-width:1120px;margin:auto;font-size:clamp(22px,3.4vw,40px);font-weight:900;line-height:1.7;letter-spacing:.02em;padding-left:clamp(16px,3vw,32px);border-left:6px solid var(--pink)}
+
+/* サービス：番号なしの横長の行 */
+.svc-list{display:grid}
+.svc-row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;padding:28px 0;border-top:1px solid #cfd8e3}
+.svc-row:first-child{border-top:0;padding-top:0}
+.svc-row h3{font-size:21px;line-height:1.5;color:var(--navy)}
+.svc-tag{font-size:13px;color:var(--mute);margin-top:6px}
+.svc-row>p{font-size:15px;line-height:1.95}
+
+/* 理由・実績：線で区切る2列 */
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.dl-grid>div{padding:22px 0;border-top:1px solid var(--line)}
+.dl-grid h3{font-size:17px;line-height:1.6;color:var(--navy);margin-bottom:8px}
+.dl-grid p{font-size:14px;line-height:1.9;color:var(--mute)}
+.sec.tint .dl-grid>div{border-top-color:#cfd8e3}
+.more{margin-top:28px;padding:20px 22px;background:#fff4f7;border-left:4px solid var(--pink);display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.more b{color:var(--navy)}
+
+.book-card{border:1.5px solid var(--navy);border-radius:4px;padding:22px 24px}
+.book-card b{display:block;font-size:18px;color:var(--navy);margin-bottom:2px}
+.book-card p{font-size:14px;margin-top:12px;color:var(--mute);line-height:1.9}
+
+/* 流れ：順番があるので番号つき */
+.steps{list-style:none;counter-reset:s;grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.steps li{counter-increment:s;padding:20px 24px 0 0;border-top:3px solid var(--navy);position:relative}
+.steps li::before{content:counter(s);display:block;font-size:44px;font-weight:900;line-height:1;color:var(--pink);margin-bottom:12px}
 .steps h3{font-size:16px;color:var(--navy);margin-bottom:6px;line-height:1.5}
-.steps p{font-size:14px;color:var(--mute)}
+.steps p{font-size:14px;color:var(--mute);line-height:1.9}
+.sec-in:has(.steps){grid-template-columns:1fr}
 .timeline small{font-size:13px;color:var(--mute);font-weight:400}
-.contact .narrow{max-width:720px}
-.contact .note{margin-top:16px;text-align:center}
-.cf7{display:grid;gap:14px;margin-top:8px}
+.sec.founder .profile{padding:0}
+
+/* お問い合わせフォーム */
+.contact{padding:72px 16px}
+.contact .narrow{max-width:720px;margin:auto}
+.contact .note{margin-top:16px;text-align:center;font-size:13px}
+.contact .lead{color:var(--mute)}
+.contact.dark{background:var(--navy);color:#fff;padding:88px 16px}
+.contact.dark h2{color:#fff;font-size:clamp(26px,3.4vw,38px)}
+.contact.dark .lead,.contact.dark .note{color:#c9d3df}
+.contact.dark .cf7 label,.contact.dark .wpcf7 label{color:#fff}
+.contact.dark .cf7 label em{color:#ff8fb0}
+.contact.dark input:focus,.contact.dark textarea:focus{border-color:#ff8fb0}
+.cf7{display:grid;gap:16px;margin-top:8px}
 .cf7 p{margin:0}
 .cf7 label{display:block;font-size:14px;font-weight:700;color:var(--navy)}
 .cf7 label em{color:var(--pink);font-style:normal}
-.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 input:not([type]),.cf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px}
-.cf7 input:focus,.cf7 textarea:focus{outline:0;border-color:var(--navy)}
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:13px 14px}
+.cf7 input:focus,.cf7 textarea:focus{outline:2px solid transparent;border-color:var(--navy)}
 .cf7 .chk label{font-weight:400;font-size:14px}
-.cf7 .chk input,.cf7 input[type=checkbox]{margin-right:8px}
+.cf7 input[type=checkbox]{margin-right:8px}
 .cf7 .wpcf7-form-control-wrap{display:block}
-.cf7 input[type=submit],.cf7 button.btn{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:14px 32px;width:100%}
+.cf7 input[type=submit],.cf7 button.btn{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:15px 32px;width:100%}
 .wpcf7-not-valid-tip,.wpcf7-response-output{font-size:13px}
-.contact .wpcf7{margin-top:8px}
-.contact .wpcf7 form{display:grid;gap:14px}
+.contact .wpcf7 form{display:grid;gap:16px}
 .contact .wpcf7 form p{margin:0}
 .contact .wpcf7 label{display:block;font-size:14px;font-weight:700;color:var(--navy)}
-.contact .wpcf7 input[type=text],.contact .wpcf7 input[type=email],.contact .wpcf7 input[type=tel],.contact .wpcf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px}
-.contact .wpcf7 input[type=submit]{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:14px 32px;width:100%}
+.contact .wpcf7 input[type=text],.contact .wpcf7 input[type=email],.contact .wpcf7 input[type=tel],.contact .wpcf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:13px 14px}
+.contact .wpcf7 input[type=submit]{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:15px 32px;width:100%}
+.contact.dark .wpcf7-response-output,.contact.dark .wpcf7-not-valid-tip{color:#fff}
+
 @media(max-width:900px){
- .svc-grid,.why-grid,.why-grid.four,.steps{grid-template-columns:1fr}
- .book{grid-template-columns:1fr}
+ .sec{padding:52px 16px}
+ .sec-in{grid-template-columns:1fr;gap:24px}
+ .sec-head{position:static}
+ .sec.tint .timeline{grid-column:1}
+ .award-list,.dl-grid,.svc-row{grid-template-columns:1fr}
+ .svc-row{gap:10px}
+ .steps{grid-template-columns:1fr 1fr;gap:28px 20px}
+ .only{padding:56px 16px}
+ .contact.dark{padding:56px 16px}
+ .cons-hero{padding:64px 16px 52px}
 }
+@media(max-width:480px){.steps{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.only-text,.cons-hero h1,.sec-in>h2,.sec-head h2,.quote{text-wrap:balance}
+.page-hero h1,.only-text{text-wrap:balance;word-break:auto-phrase}
 
 </style>
 <div class="tsk-root" style="font-family:'Noto Sans JP',system-ui,sans-serif;color:#1f2933;line-height:1.7">
