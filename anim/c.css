@@ -1,0 +1,47 @@
+/* 案C「スクロールで動く」：スクロール量に合わせて写真が動き、画像が幕のように開き、ヘッダーが締まる */
+@media(prefers-reduced-motion:no-preference){
+  .hd{transition:padding .3s,box-shadow .3s,background .3s}
+  .hd-in{transition:padding .3s}
+  .hd.scrolled{box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .hd.scrolled .hd-in{padding-top:7px;padding-bottom:7px}
+  .logo img{transition:width .3s,height .3s}
+  .hd.scrolled .logo img{width:32px;height:32px}
+
+  /* ヒーロー：写真はゆっくり、文字は少し速く動き、スクロールで薄くなる */
+  .hero,.page-hero{position:relative;overflow:hidden}
+  .hero::before,.page-hero::before{content:"";position:absolute;inset:-8% 0;background:inherit;transform:translate3d(0,calc(var(--sy,0)*.28px),0) scale(1.06);will-change:transform}
+  .hero-in,.page-hero .wrap{position:relative;transform:translate3d(0,calc(var(--sy,0)*.12px),0);opacity:calc(1 - var(--sy,0)/620);will-change:transform,opacity}
+  .anim-c .hero h1,.anim-c .hero-sub,.anim-c .hero .row,.anim-c .hero .sub,.anim-c .page-hero .wrap>*{clip-path:inset(0 100% 0 0);animation:c-wipe 1.1s cubic-bezier(.7,0,.2,1) forwards}
+  .anim-c .page-hero .wrap>*{animation-delay:calc(.1s + var(--k,0)*.15s)}
+  .anim-c .hero h1{animation-delay:.1s}.anim-c .hero-sub{animation-delay:.4s}.anim-c .hero .row{animation-delay:.6s}.anim-c .hero .sub{animation-delay:.7s}
+  @keyframes c-wipe{to{clip-path:inset(0 -2% 0 0)}}
+  .anim-c .hero .row .btn,.anim-c .cons-cta .btn{animation:c-btn 1.1s .6s both}
+  @keyframes c-btn{from{transform:translateX(-24px)}}
+
+  /* 画像が幕のように開く */
+  [data-c]{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s cubic-bezier(.7,0,.2,1) var(--d,0ms)}
+  [data-c].in{clip-path:inset(0 0 0 0)}
+  img[data-c]{clip-path:circle(0% at 50% 50%)}
+  img[data-c].in{clip-path:circle(75% at 50% 50%)}
+  .ig a[data-c]{clip-path:inset(50% 50% 50% 50% round 8px)}
+  .ig a[data-c].in{clip-path:inset(0 0 0 0 round 8px)}
+  .cater .flyer[data-c]{clip-path:inset(0 0 0 100%)}
+  .cater .flyer[data-c].in{clip-path:inset(0)}
+  .card .ph[data-c].in,.shopbox .ph[data-c].in{animation:c-settle 1.6s cubic-bezier(.2,.6,.2,1) both}
+  @keyframes c-settle{from{transform:scale(1.12)}}
+
+  /* 見出し・文章 */
+  [data-t]{opacity:0;letter-spacing:.14em;transition:opacity .9s ease var(--d,0ms),letter-spacing 1.1s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+  [data-t].in{opacity:1;letter-spacing:normal}
+  [data-s]{opacity:0;transform:translateY(28px);transition:opacity .8s var(--d,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+  [data-s].in{opacity:1;transform:none}
+
+  /* 店舗タブ：選んだ店舗に合わせて丸がスライドする */
+  .store-tabs{position:relative}
+  .store-tabs button[aria-selected=true]{background:transparent;border-color:transparent;position:relative;z-index:1}
+  .store-tabs button{position:relative;z-index:1;border-color:var(--line)}
+  .store-tabs .ind{position:absolute;z-index:0;top:8px;bottom:8px;left:0;width:0;border-radius:999px;background:var(--navy);transition:transform .45s cubic-bezier(.6,0,.2,1),width .45s cubic-bezier(.6,0,.2,1)}
+  .cards .card.on{animation:c-card .6s cubic-bezier(.2,.7,.2,1)}
+  @keyframes c-card{from{opacity:0;clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+
+}

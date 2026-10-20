@@ -1,0 +1,34 @@
+/* 案A「ふわっと」：写真がゆっくり寄り、見出しが一行ずつ現れ、各ブロックが静かに浮かび上がる */
+@media(prefers-reduced-motion:no-preference){
+  /* ヘッダーとボタン */
+  .hd{animation:a-hd .7s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes a-hd{from{transform:translateY(-100%)}}
+  .btn,.acts a,.store-tabs button{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background .2s}
+  .btn:hover,.acts a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,34,56,.18)}
+  .btn:active,.acts a:active{transform:none}
+  .fab{animation:a-fab 1.2s 2.4s ease-out 2 both}
+  @keyframes a-fab{50%{box-shadow:0 0 0 12px rgba(224,36,94,.0),0 6px 20px rgba(224,36,94,.4);transform:scale(1.06)}}
+
+  /* ヒーロー：背景写真を少しずつ引いていく */
+  .hero,.page-hero{position:relative;overflow:hidden}
+  .hero::before,.page-hero::before{content:"";position:absolute;inset:0;background:inherit;transform:scale(1.14);transform-origin:70% 50%;animation:a-zoom 3.2s cubic-bezier(.2,.6,.2,1) forwards}
+  @keyframes a-zoom{to{transform:scale(1)}}
+  .hero-in,.page-hero .wrap{position:relative}
+  .anim-a .page-hero .wrap>:not(h1){opacity:0;transform:translateY(14px);animation:a-up .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.6s + var(--k,0)*.14s)}
+  .anim-a .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+  .anim-a .ln>span{display:block;transform:translateY(105%);animation:a-line 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.25s + var(--i)*.14s)}
+  @keyframes a-line{to{transform:none}}
+  .anim-a .hero-sub,.anim-a .hero .row,.anim-a .hero .sub{opacity:0;transform:translateY(14px);animation:a-up .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .anim-a .hero-sub{animation-delay:.75s}.anim-a .hero .row{animation-delay:.95s}.anim-a .hero .sub{animation-delay:1.1s}
+  @keyframes a-up{to{opacity:1;transform:none}}
+
+  /* スクロールで現れる */
+  [data-a]{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+  [data-a].in{opacity:1;transform:none}
+  /* 店舗タブを切り替えたとき、カードがふわっと入れ替わる */
+  .cards .card.on{animation:a-card .55s cubic-bezier(.2,.7,.2,1)}
+  @keyframes a-card{from{opacity:0;transform:translateY(10px)}}
+  /* ドロワー */
+  .drawer.open{animation:a-drawer .35s cubic-bezier(.2,.7,.2,1)}
+  @keyframes a-drawer{from{opacity:0;transform:translateY(-8px)}}
+}
