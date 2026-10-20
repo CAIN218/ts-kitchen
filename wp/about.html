@@ -3,14 +3,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script>(function(){var l='ja';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tsk-lang')||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en')}catch(e){}document.documentElement.setAttribute('data-lang',l)})();</script>
 <style>
-/* WordPressテーマの影響を打ち消す */
+/* WordPressテーマの影響を打ち消す（:where で詳細度を最小にし、各ページ用のクラス指定が打ち消されないようにする） */
 body{margin:0!important;padding:0!important;background:#fff}
-.tsk-root h1,.tsk-root h2,.tsk-root h3,.tsk-root h4{font-family:inherit;margin:0;letter-spacing:normal;text-transform:none}
-.tsk-root p{margin:0}
+.tsk-root{background:#fff;font-size:16px;font-weight:400}
+:where(.tsk-root) h1,:where(.tsk-root) h2,:where(.tsk-root) h3,:where(.tsk-root) h4{font-family:inherit;margin:0;letter-spacing:normal;text-transform:none;font-weight:700;line-height:inherit}
+:where(.tsk-root) p{margin:0}
+:where(.tsk-root) p,:where(.tsk-root) li,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) div,:where(.tsk-root) span,:where(.tsk-root) a,:where(.tsk-root) label,:where(.tsk-root) small,:where(.tsk-root) figcaption,:where(.tsk-root) dd,:where(.tsk-root) dt,:where(.tsk-root) address{font-family:inherit;font-weight:inherit;font-size:inherit;line-height:inherit}
 .tsk-root a{text-decoration-thickness:auto}
 .tsk-root img{height:auto}
 .tsk-root button{text-transform:none;letter-spacing:normal;box-shadow:none;min-height:0}
-.tsk-root{background:#fff}
 /* 新デザインのページでは、サイト共通のチラシのポップアップとreCAPTCHAバッジを出さない（チラシはケータリング欄に掲載） */
 .pum,.pum-overlay{display:none!important}
 .grecaptcha-badge{visibility:hidden!important}
