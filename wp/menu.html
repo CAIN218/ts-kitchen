@@ -7,11 +7,11 @@
 body{margin:0!important;padding:0!important;background:#fff}
 .tsk-root{background:#fff;font-size:16px;font-weight:400}
 :where(.tsk-root) h1,:where(.tsk-root) h2,:where(.tsk-root) h3,:where(.tsk-root) h4{font-family:inherit;margin:0;letter-spacing:normal;text-transform:none;font-weight:700;line-height:inherit}
-:where(.tsk-root) p{margin:0}
+:where(.tsk-root) p,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) label{margin:0}
 :where(.tsk-root) p,:where(.tsk-root) li,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) div,:where(.tsk-root) span,:where(.tsk-root) a,:where(.tsk-root) label,:where(.tsk-root) small,:where(.tsk-root) figcaption,:where(.tsk-root) dd,:where(.tsk-root) dt,:where(.tsk-root) address{font-family:inherit;font-weight:inherit;font-size:inherit;line-height:inherit}
 .tsk-root a{text-decoration-thickness:auto}
 .tsk-root img{height:auto}
-.tsk-root button{text-transform:none;letter-spacing:normal;box-shadow:none;min-height:0}
+:where(.tsk-root) button{text-transform:none;letter-spacing:normal;box-shadow:none;min-height:0;margin:0}
 /* 新デザインのページでは、サイト共通のチラシのポップアップとreCAPTCHAバッジを出さない（チラシはケータリング欄に掲載） */
 .pum,.pum-overlay{display:none!important}
 .grecaptcha-badge{visibility:hidden!important}
@@ -47,14 +47,14 @@ html[data-lang=en] [lang=ja]{display:none!important}
 .menu-btn span:nth-child(1){top:13px;width:28px}.menu-btn span:nth-child(2){top:22px;width:20px}
 .menu-btn[aria-expanded=true] span:nth-child(1){top:17px;width:24px;transform:rotate(45deg)}
 .menu-btn[aria-expanded=true] span:nth-child(2){top:17px;width:24px;transform:rotate(-45deg)}
-.btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:12px 22px;white-space:nowrap}
-.btn.sm{padding:8px 16px;font-size:14px}
-.btn.line{background:transparent;border:1.5px solid #fff}
+.tk-btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:12px 22px;white-space:nowrap}
+.tk-btn.sm{padding:8px 16px;font-size:14px}
+.tk-btn.line{background:transparent;border:1.5px solid #fff}
 .drawer{display:none;background:var(--navy);border-top:1px solid rgba(255,255,255,.15)}
 .drawer>a{display:block;padding:14px 20px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
 .drawer-foot{display:flex;justify-content:flex-end;align-items:center;padding:14px 20px}
 .drawer.open{display:block}
-.fab{display:none}
+.tk-fab{display:none}
 
 /* ヒーロー */
 .hero{background:linear-gradient(90deg,rgba(15,30,55,.85),rgba(15,30,55,.4) 60%,rgba(15,30,55,.12)),url("{{IMG:food.jpg}}") center/cover,#34465f;color:#fff}
@@ -74,7 +74,7 @@ html[data-lang=en] [lang=ja]{display:none!important}
 section.blk{padding:72px 16px}
 .wrap{max-width:1120px;margin:auto}
 h2{font-size:28px;color:var(--navy);margin-bottom:8px;line-height:1.4}
-.lead{color:var(--mute);margin-bottom:32px}
+.tk-lead{color:var(--mute);margin-bottom:32px}
 .about{display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
 .about img{width:200px}
 .points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
@@ -152,7 +152,7 @@ footer a{color:#fff}
  .hd-rsv{display:none}
  .tools .lang{padding:5px 12px;font-size:12px;margin:0 4px}
  .sns{width:32px;height:32px}
- .fab{display:block;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;background:var(--pink);color:#fff;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;box-shadow:0 6px 20px rgba(224,36,94,.4)}
+ .tk-fab{display:block;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;background:var(--pink);color:#fff;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;box-shadow:0 6px 20px rgba(224,36,94,.4)}
 }
 @media(max-width:640px){.hero p.hero-sub{font-size:17px}}
 @media(max-width:400px){.logo{font-size:14px}.logo img{width:30px;height:30px}.tools .lang{padding:4px 10px;margin:0 2px}}
@@ -290,7 +290,7 @@ ol.plain li+li{margin-top:2px}
 .cons-hero h1{font-size:clamp(32px,5.4vw,60px);line-height:1.25;max-width:14em;letter-spacing:.01em}
 .cons-hero .cons-lead{max-width:40em;margin-top:22px;font-size:16px;line-height:1.9;opacity:.92}
 .cons-hero .cons-cta{margin-top:30px}
-.cons-hero .btn{padding:14px 28px}
+.cons-hero .tk-btn{padding:14px 28px}
 
 /* 左に見出し、右に内容。区切りは上の線だけ */
 .sec{padding:72px 16px;border-top:1px solid var(--line)}
@@ -346,10 +346,10 @@ ol.plain li+li{margin-top:2px}
 .contact{padding:72px 16px}
 .contact .narrow{max-width:720px;margin:auto}
 .contact .note{margin-top:16px;text-align:center;font-size:13px}
-.contact .lead{color:var(--mute)}
+.contact .tk-lead{color:var(--mute)}
 .contact.dark{background:var(--navy);color:#fff;padding:88px 16px}
 .contact.dark h2{color:#fff;font-size:clamp(26px,3.4vw,38px)}
-.contact.dark .lead,.contact.dark .note{color:#c9d3df}
+.contact.dark .tk-lead,.contact.dark .note{color:#c9d3df}
 .contact.dark .cf7 label,.contact.dark .wpcf7 label{color:#fff}
 .contact.dark .cf7 label em{color:#ff8fb0}
 .contact.dark input:focus,.contact.dark textarea:focus{border-color:#ff8fb0}
@@ -362,7 +362,7 @@ ol.plain li+li{margin-top:2px}
 .cf7 .chk label{font-weight:400;font-size:14px}
 .cf7 input[type=checkbox]{margin-right:8px}
 .cf7 .wpcf7-form-control-wrap{display:block}
-.cf7 input[type=submit],.cf7 button.btn{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:15px 32px;width:100%}
+.cf7 input[type=submit],.cf7 button.tk-btn{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:15px 32px;width:100%}
 .wpcf7-not-valid-tip,.wpcf7-response-output{font-size:13px}
 .contact .wpcf7 form{display:grid;gap:16px}
 .contact .wpcf7 form p{margin:0}
@@ -407,7 +407,7 @@ ol.plain li+li{margin-top:2px}
  .dl-grid>div{padding:16px 0}
  .dl-grid h3{font-size:16px;margin-bottom:4px}
  .more{padding:16px}
- .more .btn{width:100%;text-align:center}
+ .more .tk-btn{width:100%;text-align:center}
  .steps{grid-template-columns:1fr;gap:0}
  .steps li{display:grid;grid-template-columns:36px 1fr;column-gap:8px;padding:16px 0;border-top-width:2px}
  .steps li::before{grid-row:1/3;font-size:28px;margin:0}
@@ -440,7 +440,7 @@ ol.plain li+li{margin-top:2px}
     <div class="tools">
       <a class="sns" href="https://www.instagram.com/glutenfreetskitchen/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a>
       <button class="lang" type="button" data-lang-toggle aria-label="言語を切り替え / Switch language"><span lang="ja">English</span><span lang="en">日本語</span></button>
-      <a class="btn sm rsv hd-rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
+      <a class="tk-btn sm rsv hd-rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
       <button class="menu-btn" id="menuBtn" type="button" aria-label="メニュー" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
@@ -449,10 +449,10 @@ ol.plain li+li{margin-top:2px}
       <a href="/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/"><span lang="ja">会社概要</span><span lang="en">About us</span></a>
       <a href="https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/"><span lang="ja">コンサルティング</span><span lang="en">Consulting</span></a>
       <a href="https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/"><span lang="ja">取材のお問い合わせ</span><span lang="en">Media inquiries</span></a>
-    <div class="drawer-foot"><a class="btn sm rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book a table</span></a></div>
+    <div class="drawer-foot"><a class="tk-btn sm rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book a table</span></a></div>
   </div>
 </header>
-<a class="fab rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
+<a class="tk-fab rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">予約する</span><span lang="en">Book</span></a>
 
 <main id="top">
 <div class="page-hero"><div class="wrap">
@@ -480,7 +480,7 @@ ol.plain li+li{margin-top:2px}
     <figcaption><span lang="ja">画像をタップすると拡大します</span><span lang="en">Tap the image to enlarge</span></figcaption>
   </figure>
   <div class="menu-actions">
-    <a class="btn rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">ご予約はこちらから</span><span lang="en">Make a reservation</span></a>
+    <a class="tk-btn rsv" href="https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true"><span lang="ja">ご予約はこちらから</span><span lang="en">Make a reservation</span></a>
   </div>
 </div></section>
 </main>
