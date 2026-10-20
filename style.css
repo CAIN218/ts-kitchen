@@ -1,7 +1,7 @@
-:root{--navy:#1d3557;--navy-d:#0f2238;--pink:#e0245e;--bg:#f5f7fa;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
+:root{--f-body:"Figtree","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;--f-head:"Fraunces","Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;--navy:#1d3557;--navy-d:#0f2238;--pink:#e0245e;--bg:#f5f7fa;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{font-family:"Noto Sans JP",system-ui,sans-serif;background:#fff;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+body{font-family:var(--f-body);background:#fff;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:inherit}
 /* 言語切替：表示する言語だけを出す */
@@ -210,7 +210,7 @@ footer a{color:#fff}
 .media-sec{background:var(--bg)}
 .media{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:center}
 .clip img{border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.15);background:#fff}
-.media h2{font-family:Georgia,serif}
+
 .media p{margin-bottom:12px}
 
 /* メニュー */
@@ -405,3 +405,11 @@ ol.plain li+li{margin-top:2px}
 .free-note{margin-top:12px;font-size:14px;font-weight:700;color:#fff}
 .free-badge{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:14px 0 4px;font-size:15px;color:#fff}
 .free-badge b{background:var(--pink);color:#fff;font-size:18px;padding:6px 16px;border-radius:999px;line-height:1.4}
+
+/* 書体：見出し・数字・引用は明朝＋Fraunces、本文はゴシック */
+h1,h2,h3,.nums b,.quote{font-family:var(--f-head);font-weight:700}
+.hero h1,.page-hero h1,.cons-hero h1{font-weight:700;letter-spacing:0}
+h2,.quote{font-weight:600}
+.card h3,.svc-row h3,.dl-grid h3,.steps h3{font-weight:700}
+.nums b{font-weight:600;letter-spacing:0}
+h1,h2,h3{word-break:auto-phrase;text-wrap:balance}
