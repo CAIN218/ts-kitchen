@@ -5,8 +5,8 @@
   .b-prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none}
 
   /* ヒーロー：小麦が揺れながら現れ、1本ずつ斜線で消される */
-  .hero{position:relative;overflow:hidden}
-  .hero-in{position:relative;z-index:1}
+  .hero,.page-hero{position:relative;overflow:hidden}
+  .hero-in,.page-hero .wrap{position:relative;z-index:1}
   .b-field{position:absolute;inset:0;pointer-events:none;z-index:0}
   .b-w{position:absolute;bottom:-4%;width:clamp(34px,5vw,64px);color:#fff;opacity:0;transform-origin:50% 100%;animation:b-in 1s cubic-bezier(.2,.7,.2,1) forwards,b-sway 4s ease-in-out infinite alternate,b-out .9s ease-in forwards;animation-delay:var(--t),var(--t),var(--o)}
   .b-w .gr{fill:currentColor;opacity:.85}
@@ -16,15 +16,16 @@
   @keyframes b-out{to{opacity:0;transform:translateY(30px) rotate(var(--r))}}
   @keyframes b-slash{to{stroke-dashoffset:0}}
   .b-w.s0{right:6%;height:46%}.b-w.s1{right:15%;height:62%}.b-w.s2{right:24%;height:40%}.b-w.s3{right:33%;height:54%}.b-w.s4{right:42%;height:34%}
-  .anim-b .hero h1,.anim-b .hero-sub,.anim-b .hero .row,.anim-b .hero .sub{opacity:0;transform:translateY(12px);animation:b-up .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .anim-b .hero h1,.anim-b .hero-sub,.anim-b .hero .row,.anim-b .hero .sub,.anim-b .page-hero .wrap>*{opacity:0;transform:translateY(12px);animation:b-up .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .anim-b .page-hero .wrap>*{animation-delay:calc(.15s + var(--k,0)*.12s)}
   .anim-b .hero h1{animation-delay:.1s}.anim-b .hero-sub{animation-delay:.35s}.anim-b .hero .row{animation-delay:.55s}.anim-b .hero .sub{animation-delay:.7s}
   @keyframes b-up{to{opacity:1;transform:none}}
 
   /* 見出しの下に線が引かれる */
-  section.blk h2{position:relative;padding-bottom:12px;width:fit-content}
-  section.blk h2::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:56px;background:var(--pink);border-radius:2px;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.6,0,.2,1) .15s}
-  section.blk h2.in::after{transform:none}
-  .cater h2::after{background:#fff}
+  main h2{position:relative;padding-bottom:12px;width:fit-content}
+  main h2::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:56px;background:var(--pink);border-radius:2px;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.6,0,.2,1) .15s}
+  main h2.in::after{transform:none}
+  .cater h2::after,.contact.dark h2::after{background:#ff8fb0}
 
   /* 「小麦を使わない」ポイントのアイコン */
   .pt .ico{width:34px;height:46px;margin-bottom:10px;color:var(--navy)}

@@ -10,10 +10,11 @@
   @keyframes a-fab{50%{box-shadow:0 0 0 12px rgba(224,36,94,.0),0 6px 20px rgba(224,36,94,.4);transform:scale(1.06)}}
 
   /* ヒーロー：背景写真を少しずつ引いていく */
-  .hero{position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:0;background:inherit;transform:scale(1.14);transform-origin:70% 50%;animation:a-zoom 3.2s cubic-bezier(.2,.6,.2,1) forwards}
+  .hero,.page-hero{position:relative;overflow:hidden}
+  .hero::before,.page-hero::before{content:"";position:absolute;inset:0;background:inherit;transform:scale(1.14);transform-origin:70% 50%;animation:a-zoom 3.2s cubic-bezier(.2,.6,.2,1) forwards}
   @keyframes a-zoom{to{transform:scale(1)}}
-  .hero-in{position:relative}
+  .hero-in,.page-hero .wrap{position:relative}
+  .anim-a .page-hero .wrap>:not(h1){opacity:0;transform:translateY(14px);animation:a-up .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.6s + var(--k,0)*.14s)}
   .anim-a .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
   .anim-a .ln>span{display:block;transform:translateY(105%);animation:a-line 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.25s + var(--i)*.14s)}
   @keyframes a-line{to{transform:none}}

@@ -8,13 +8,14 @@
   .hd.scrolled .logo img{width:32px;height:32px}
 
   /* ヒーロー：写真はゆっくり、文字は少し速く動き、スクロールで薄くなる */
-  .hero{position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:-8% 0;background:inherit;transform:translate3d(0,calc(var(--sy,0)*.28px),0) scale(1.06);will-change:transform}
-  .hero-in{position:relative;transform:translate3d(0,calc(var(--sy,0)*.12px),0);opacity:calc(1 - var(--sy,0)/620);will-change:transform,opacity}
-  .anim-c .hero h1,.anim-c .hero-sub,.anim-c .hero .row,.anim-c .hero .sub{clip-path:inset(0 100% 0 0);animation:c-wipe 1.1s cubic-bezier(.7,0,.2,1) forwards}
+  .hero,.page-hero{position:relative;overflow:hidden}
+  .hero::before,.page-hero::before{content:"";position:absolute;inset:-8% 0;background:inherit;transform:translate3d(0,calc(var(--sy,0)*.28px),0) scale(1.06);will-change:transform}
+  .hero-in,.page-hero .wrap{position:relative;transform:translate3d(0,calc(var(--sy,0)*.12px),0);opacity:calc(1 - var(--sy,0)/620);will-change:transform,opacity}
+  .anim-c .hero h1,.anim-c .hero-sub,.anim-c .hero .row,.anim-c .hero .sub,.anim-c .page-hero .wrap>*{clip-path:inset(0 100% 0 0);animation:c-wipe 1.1s cubic-bezier(.7,0,.2,1) forwards}
+  .anim-c .page-hero .wrap>*{animation-delay:calc(.1s + var(--k,0)*.15s)}
   .anim-c .hero h1{animation-delay:.1s}.anim-c .hero-sub{animation-delay:.4s}.anim-c .hero .row{animation-delay:.6s}.anim-c .hero .sub{animation-delay:.7s}
   @keyframes c-wipe{to{clip-path:inset(0 -2% 0 0)}}
-  .anim-c .hero .row .btn{animation:c-btn 1.1s .6s both}
+  .anim-c .hero .row .btn,.anim-c .cons-cta .btn{animation:c-btn 1.1s .6s both}
   @keyframes c-btn{from{transform:translateX(-24px)}}
 
   /* 画像が幕のように開く */
