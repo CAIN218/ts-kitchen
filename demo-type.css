@@ -1,0 +1,13 @@
+/* フォント・配色の比較用デモ（本番には入れない） */
+html[data-ft="gothic"]{--f-head:"Figtree","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif}
+html[data-ft="maru"]{--f-head:"Figtree","Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif}
+html[data-ft="oldmincho"]{--f-head:"Fraunces","Zen Old Mincho","Hiragino Mincho ProN",serif}
+html[data-pl="coral"]{--pink:#ee6a55}
+html[data-pl="gold"]{--pink:#c98f2f}
+html[data-pl="gold"] .btn,html[data-pl="gold"] .tk-btn{color:#0f2238}
+html[data-pl="forest"]{--navy:#1f4a3d;--navy-d:#12302a;--pink:#e8604c}
+html[data-ft="gothic"] h1,html[data-ft="maru"] h1,html[data-ft="gothic"] h2,html[data-ft="maru"] h2{font-weight:700}
+#dt{position:fixed;left:8px;right:8px;bottom:8px;z-index:9999;background:#fff;color:#1f2933;border:1px solid #ccd;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.25);padding:8px 10px;font:12px/1.4 system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+#dt b{margin-right:2px}
+#dt button{font:inherit;border:1px solid #99a;background:#fff;border-radius:999px;padding:4px 10px;cursor:pointer}
+#dt button[aria-pressed=true]{background:#1d3557;color:#fff;border-color:#1d3557}
