@@ -8,8 +8,8 @@
   window.TSK_SUB='.sec-in > h2, .sec-head, .body-lg, .quote, .ticks li, .svc-row, .dl-grid > div, .more, .book-card, .sub-h, .steps li, .only-text, .nums > div, .owner, .founder .muted, .contact .wrap > *, .blk .profile > *, .cv-box, .biz > div, .awards li, .menu-sec .wrap > *, .philosophy .wrap > *';
   window.TSK_HERO='.hero-in, .page-hero .wrap';
   var bar=document.createElement('nav');bar.className='demo-bar';bar.setAttribute('aria-label','アニメーション案の切り替え');
-  [['a','案A ふわっと'],['b','案B 小麦をぬく'],['c','案C スクロール']].forEach(function(x){
-    var a=document.createElement('a');a.href='anim-'+x[0]+(pg==='index'?'':'-'+pg)+'.html'+location.search;a.innerHTML=x[1].replace(/^(案.) (.*)$/,'$1<span class="dn"> $2</span>');
+  [['a','案A ふわっと'],['a2','案A+ 追加版'],['b','案B 小麦をぬく'],['c','案C スクロール']].forEach(function(x){
+    var a=document.createElement('a');a.href='anim-'+x[0]+(pg==='index'?'':'-'+pg)+'.html'+location.search;a.innerHTML=x[1].replace(/^(案[A-C]\+?) (.*)$/,'$1<span class="dn"> $2</span>');
     if(x[0]===cur)a.setAttribute('aria-current','page');bar.appendChild(a)});
   var r=document.createElement('button');r.type='button';r.textContent='↻ もう一度';
   r.addEventListener('click',function(){scrollTo(0,0);location.reload()});bar.appendChild(r);

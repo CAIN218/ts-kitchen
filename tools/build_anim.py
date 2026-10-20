@@ -3,7 +3,9 @@
 import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
-NAMES = {'a': 'ふわっと', 'b': '小麦をぬく', 'c': 'スクロール'}
+NAMES = {'a': 'ふわっと', 'a2': 'ふわっと＋', 'b': '小麦をぬく', 'c': 'スクロール'}
+# 案A+ は 案A に anim/plus.* を重ねる（a.css / a.js を先に読み込む）
+EXTRA = {'a2': ['a', 'plus']}
 CSS = '<link rel="stylesheet" href="style.css?v=20261019a">'
 JS = '<script src="script.js?v=20261019a"></script>'
 for k, label in NAMES.items():
@@ -11,10 +13,10 @@ for k, label in NAMES.items():
     for page in PAGES:
         h = (root/f'{page}.html').read_text(encoding='utf-8')
         assert CSS in h and JS in h, page
-        h = re.sub(r'<html lang="ja" data-lang="ja"[^>]*>', f'<html lang="ja" data-lang="ja" data-anim="{k}" data-page="{page}" class="anim-{k}">', h, count=1)
-        h = re.sub(r'<title>', f'<title>【アニメーション案{k.upper()} {label}】', h, count=1)
-        h = h.replace(CSS, CSS + f'\n<link rel="stylesheet" href="anim/common.css">\n<link rel="stylesheet" href="anim/{k}.css">')
-        h = h.replace(JS, JS + f'\n<script src="anim/common.js"></script>\n<script src="anim/{k}.js"></script>')
+        h = re.sub(r'<html lang="ja" data-lang="ja"[^>]*>', f'<html lang="ja" data-lang="ja" data-anim="{k}" data-page="{page}" class="anim-{k[0]}{" anim-"+k if k != k[0] else ""}">', h, count=1)
+        h = re.sub(r'<title>', f'<title>【アニメーション案{k.upper().replace("2", "+")} {label}】', h, count=1)
+        h = h.replace(CSS, CSS + '\n<link rel="stylesheet" href="anim/common.css">' + ''.join(f'\n<link rel="stylesheet" href="anim/{f}.css">' for f in EXTRA.get(k, [k])))
+        h = h.replace(JS, JS + '\n<script src="anim/common.js"></script>' + ''.join(f'\n<script src="anim/{f}.js"></script>' for f in EXTRA.get(k, [k])))
         # 上のメニューのリンクも、同じ案のデモページに向ける
         for p in PAGES:
             h = h.replace(f'href="{p}.html"', f'href="{out(p)}"')
