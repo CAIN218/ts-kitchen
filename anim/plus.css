@@ -1,0 +1,42 @@
+/* 案A+：案Aに、小麦の演出（B）と、スクロールで効く動き（C）の一部を足したもの */
+.tsk-wheat{display:block;overflow:visible}
+@media(prefers-reduced-motion:no-preference){
+  /* ヘッダーがスクロールで少し細くなる */
+  .hd{transition:padding .3s,box-shadow .3s}
+  .hd-in{transition:padding .3s}
+  .hd.scrolled{box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .hd.scrolled .hd-in{padding-top:7px;padding-bottom:7px}
+  .logo img{transition:width .3s,height .3s}
+  .hd.scrolled .logo img{width:32px;height:32px}
+
+  /* ヒーローに小麦が3本。ピンクの斜線で消される（案B より控えめ） */
+  .p-field{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .hero-in,.page-hero .wrap{z-index:1}
+  .p-w{position:absolute;bottom:-4%;width:clamp(30px,4.4vw,56px);color:#fff;opacity:0;transform-origin:50% 100%;animation:p-in 1s cubic-bezier(.2,.7,.2,1) forwards,p-sway 4s ease-in-out infinite alternate,p-out .9s ease-in forwards;animation-delay:var(--t),var(--t),var(--o)}
+  .p-w .gr{fill:currentColor;opacity:.85}
+  .p-w .sl{stroke:var(--pink);stroke-width:5;stroke-linecap:round;fill:none;stroke-dasharray:150;stroke-dashoffset:150;animation:p-slash .5s cubic-bezier(.6,0,.2,1) forwards;animation-delay:var(--s)}
+  @keyframes p-in{from{opacity:0;transform:translateY(40px) rotate(var(--r))}to{opacity:.5;transform:translateY(0) rotate(var(--r))}}
+  @keyframes p-sway{from{rotate:-3deg}to{rotate:3deg}}
+  @keyframes p-out{to{opacity:0;transform:translateY(30px) rotate(var(--r))}}
+  @keyframes p-slash{to{stroke-dashoffset:0}}
+  .p-w.s0{right:8%;height:44%}.p-w.s1{right:17%;height:58%}.p-w.s2{right:26%;height:38%}
+  @media(max-width:640px){.p-w.s2{display:none}}
+
+  /* 見出しの下にピンクの線が引かれる（見出しが現れたあと） */
+  main h2{position:relative;padding-bottom:12px;width:fit-content}
+  main h2::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:56px;background:var(--pink);border-radius:2px;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.6,0,.2,1) .35s}
+  main h2.in::after,main .in h2::after{transform:none}
+  .cater h2::after,.contact.dark h2::after{background:#ff8fb0}
+
+  /* 店舗タブ：選んだ店舗に合わせて丸がスライドする */
+  .store-tabs{position:relative}
+  .store-tabs button{position:relative;z-index:1}
+  .store-tabs button[aria-selected=true]{background:transparent;border-color:transparent}
+  .store-tabs .ind{position:absolute;z-index:0;top:8px;bottom:8px;left:0;width:0;border-radius:999px;background:var(--navy);transition:transform .45s cubic-bezier(.6,0,.2,1),width .45s cubic-bezier(.6,0,.2,1)}
+
+  /* 店舗の写真：近づくとゆっくり寄る */
+  .card .ph{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .ph{transform:scale(1.05)}
+  .card{overflow:hidden}
+  .card .ph{transform-origin:50% 60%}
+}

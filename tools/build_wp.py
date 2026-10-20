@@ -2,8 +2,9 @@
 画像は {{IMG:ファイル名}} の形で残し、WordPressにアップロードしたURLに置き換えて使う。"""
 import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
-css = (root/'style.css').read_text(encoding='utf-8')
+css = (root/'style.css').read_text(encoding='utf-8') + '\n' + (root/'anim'/'site.css').read_text(encoding='utf-8')
 js = (root/'script.js').read_text(encoding='utf-8')
+site_js = (root/'anim'/'site.js').read_text(encoding='utf-8')
 ABOUT = '/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/'
 CONSULTING = 'https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/'
 MEDIA = 'https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/'
@@ -32,6 +33,6 @@ for name in ['index', 'about', 'menu', 'consulting', 'media']:
     body = re.search(r'<body[^>]*>(.*?)<script src="script\.js[^"]*"></script>', html, re.S).group(1)
     out = ('<!-- Gluten Free T\'s Kitchen 新デザイン（GitHub: CAIN218/ts-kitchen の tools/build_wp.py で生成） -->\n'
            + head + '<div class="tsk-root" style="font-family:var(--f-body);color:#1f2933;line-height:1.7">\n'
-           + rename_html(links(body)).strip() + '\n</div>\n<script>\n' + js + '\n</script>\n')
+           + rename_html(links(body)).strip() + '\n</div>\n<script>\n' + js + '\n' + rename_css(site_js) + '\n</script>\n')
     (root/'wp'/f'{name}.html').write_text(out, encoding='utf-8')
     print(name, len(out), sorted(set(re.findall(r'\{\{IMG:([^}]+)\}\}', out))))
