@@ -1,4 +1,4 @@
-:root{--f-body:"Figtree","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;--f-head:"Fraunces","Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;--navy:#1d3557;--navy-d:#0f2238;--pink:#e0245e;--bg:#f5f7fa;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
+:root{--f-body:"Figtree","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;--f-head:"Fraunces","Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--navy:#1d3557;--navy-d:#0f2238;--pink:#e0245e;--bg:#f5f7fa;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{font-family:var(--f-body);background:#fff;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
