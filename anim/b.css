@@ -1,0 +1,56 @@
+/* 案B「小麦をぬく」：グルテンフリーの意味を動きにする。小麦に斜線が引かれて消え、見出しの下にピンクの線が引かれる */
+.tsk-wheat{display:block;overflow:visible}
+@media(prefers-reduced-motion:no-preference){
+  /* 画面上部の進み具合 */
+  .b-prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:0 50%;z-index:60;pointer-events:none}
+
+  /* ヒーロー：小麦が揺れながら現れ、1本ずつ斜線で消される */
+  .hero{position:relative;overflow:hidden}
+  .hero-in{position:relative;z-index:1}
+  .b-field{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .b-w{position:absolute;bottom:-4%;width:clamp(34px,5vw,64px);color:#fff;opacity:0;transform-origin:50% 100%;animation:b-in 1s cubic-bezier(.2,.7,.2,1) forwards,b-sway 4s ease-in-out infinite alternate,b-out .9s ease-in forwards;animation-delay:var(--t),var(--t),var(--o)}
+  .b-w .gr{fill:currentColor;opacity:.85}
+  .b-w .sl{stroke:var(--pink);stroke-width:5;stroke-linecap:round;fill:none;stroke-dasharray:150;stroke-dashoffset:150;animation:b-slash .5s cubic-bezier(.6,0,.2,1) forwards;animation-delay:var(--s)}
+  @keyframes b-in{from{opacity:0;transform:translateY(40px) rotate(var(--r))}to{opacity:.55;transform:translateY(0) rotate(var(--r))}}
+  @keyframes b-sway{from{rotate:-3deg}to{rotate:3deg}}
+  @keyframes b-out{to{opacity:0;transform:translateY(30px) rotate(var(--r))}}
+  @keyframes b-slash{to{stroke-dashoffset:0}}
+  .b-w.s0{right:6%;height:46%}.b-w.s1{right:15%;height:62%}.b-w.s2{right:24%;height:40%}.b-w.s3{right:33%;height:54%}.b-w.s4{right:42%;height:34%}
+  .anim-b .hero h1,.anim-b .hero-sub,.anim-b .hero .row,.anim-b .hero .sub{opacity:0;transform:translateY(12px);animation:b-up .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .anim-b .hero h1{animation-delay:.1s}.anim-b .hero-sub{animation-delay:.35s}.anim-b .hero .row{animation-delay:.55s}.anim-b .hero .sub{animation-delay:.7s}
+  @keyframes b-up{to{opacity:1;transform:none}}
+
+  /* 見出しの下に線が引かれる */
+  section.blk h2{position:relative;padding-bottom:12px;width:fit-content}
+  section.blk h2::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:56px;background:var(--pink);border-radius:2px;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.6,0,.2,1) .15s}
+  section.blk h2.in::after{transform:none}
+  .cater h2::after{background:#fff}
+
+  /* 「小麦を使わない」ポイントのアイコン */
+  .pt .ico{width:34px;height:46px;margin-bottom:10px;color:var(--navy)}
+  .pt .ico .gr{fill:currentColor;opacity:.8;transition:opacity .6s 1s}
+  .pt .ico .sl{stroke:var(--pink);stroke-width:5;stroke-linecap:round;fill:none;stroke-dasharray:150;stroke-dashoffset:150;transition:stroke-dashoffset .6s cubic-bezier(.6,0,.2,1) .7s}
+  .pt.in .ico .sl{stroke-dashoffset:0}
+  .pt.in .ico .gr{opacity:.22}
+
+  /* ブロックの現れ方：下からではなく、線に沿って左から */
+  [data-b]{opacity:0;transform:translateX(-16px);transition:opacity .7s ease var(--d,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+  [data-b].in{opacity:1;transform:none}
+  .card[data-b]{transform:translateY(16px)}
+  .card[data-b].in{transform:none}
+  /* カードの上端にピンクの線 */
+  .card{position:relative}
+  .card::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--pink);z-index:1;transform:scaleX(0);transform-origin:0 50%;transition:transform .9s cubic-bezier(.6,0,.2,1) .3s}
+  .card.in::before{transform:none}
+  /* 受賞バッジはぽんと現れる */
+  .badges li[data-b]{transform:scale(.8)}
+  .badges li[data-b].in{transform:none;transition-timing-function:ease,cubic-bezier(.3,1.6,.5,1)}
+  /* キャンセルポリシーの左線が伸びる */
+  .policy{position:relative}
+  /* ボタン */
+  .btn{position:relative;overflow:hidden}
+  .btn:not(.line)::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%)}
+  .btn:not(.line):hover::after{transform:translateX(120%);transition:transform .7s}
+  .cards .card.on{animation:b-card .5s cubic-bezier(.2,.7,.2,1)}
+  @keyframes b-card{from{opacity:0;transform:translateX(14px)}}
+}

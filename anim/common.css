@@ -1,0 +1,7 @@
+/* アニメーション案デモ共通：切り替えバー（デモ専用・本番には入れない） */
+.demo-bar{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:90;display:flex;gap:2px;padding:4px;background:rgba(15,34,56,.92);backdrop-filter:blur(8px);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.28);font-size:13px}
+.demo-bar a,.demo-bar button{font:inherit;color:#fff;background:transparent;border:0;text-decoration:none;padding:7px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;opacity:.8}
+.demo-bar a:hover,.demo-bar button:hover{opacity:1;background:rgba(255,255,255,.12)}
+.demo-bar a[aria-current=page]{background:#e0245e;opacity:1;font-weight:700}
+.demo-bar :focus-visible{outline:2px solid #fff;outline-offset:1px}
+@media(max-width:640px){.demo-bar .dn{display:none}.demo-bar{left:8px;right:auto;font-size:12px}.demo-bar a,.demo-bar button{padding:7px 9px}}
