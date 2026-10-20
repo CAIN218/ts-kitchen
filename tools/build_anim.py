@@ -13,6 +13,8 @@ for k, label in NAMES.items():
     for page in PAGES:
         h = (root/f'{page}.html').read_text(encoding='utf-8')
         assert CSS in h and JS in h, page
+        # 本番用アニメーション（anim/site.*）は、デモ案とぶつかるので外す
+        h = re.sub(r'\n<link rel="stylesheet" href="anim/site\.css[^>]*>|\n<script src="anim/site\.js[^>]*></script>', '', h)
         h = re.sub(r'<html lang="ja" data-lang="ja"[^>]*>', f'<html lang="ja" data-lang="ja" data-anim="{k}" data-page="{page}" class="anim-{k[0]}{" anim-"+k if k != k[0] else ""}">', h, count=1)
         h = re.sub(r'<title>', f'<title>【アニメーション案{k.upper().replace("2", "+")} {label}】', h, count=1)
         h = h.replace(CSS, CSS + '\n<link rel="stylesheet" href="anim/common.css">' + ''.join(f'\n<link rel="stylesheet" href="anim/{f}.css">' for f in EXTRA.get(k, [k])))
