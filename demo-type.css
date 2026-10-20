@@ -1,5 +1,7 @@
 /* 配色の比較用デモ（本番には入れない）。書体はやわらかい明朝に決定済み */
 html[data-pl]{--bg:var(--c-bg)}
+html[data-pl="orange"]{--pink:#ea770c}
+html[data-pl="orange-d"]{--navy:#1c2b45;--navy-d:#111c30;--pink:#ea770c;--c-bg:#f7f3ec;--ov:17,28,48}
 html[data-pl="sumi"]{--navy:#1c2b45;--navy-d:#111c30;--pink:#c8532a;--c-bg:#f7f3ec;--ov:17,28,48}
 html[data-pl="forest"]{--navy:#23443a;--navy-d:#152b24;--pink:#b98a3e;--c-bg:#f5f2e9;--ov:20,40,33}
 html[data-pl="forest"] .btn{color:#152b24}
