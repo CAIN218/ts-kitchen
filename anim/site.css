@@ -9,10 +9,10 @@
   .logo img{transition:width .3s,height .3s}
   .hd.scrolled .logo img{width:32px;height:32px}
   .btn,.acts a,.store-tabs button{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background .2s}
-  .btn:hover,.acts a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,34,56,.18)}
+  .btn:hover,.acts a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(17,28,48,.18)}
   .btn:active,.acts a:active{transform:none}
   .fab{animation:tsk-fab 1.2s 2.4s ease-out 2 both}
-  @keyframes tsk-fab{50%{box-shadow:0 0 0 12px rgba(224,36,94,0),0 6px 20px rgba(224,36,94,.4);transform:scale(1.06)}}
+  @keyframes tsk-fab{50%{box-shadow:0 0 0 12px rgba(234,119,12,0),0 6px 20px rgba(234,119,12,.4);transform:scale(1.06)}}
 
   /* ヒーロー：背景写真がゆっくり引き、見出しが1行ずつ現れる */
   .hero,.page-hero{position:relative;overflow:hidden}
@@ -37,7 +37,7 @@
   main h2{position:relative;padding-bottom:12px;width:fit-content}
   main h2::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:56px;background:var(--pink);border-radius:2px;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.6,0,.2,1) .35s}
   main h2.in::after,main .in h2::after{transform:none}
-  .cater h2::after,.contact.dark h2::after{background:#ff8fb0}
+  .cater h2::after,.contact.dark h2::after{background:#ff9a3d}
 
   /* 店舗タブ：丸がスライドして切り替わり、カードがふわっと入れ替わる */
   .store-tabs{position:relative}
