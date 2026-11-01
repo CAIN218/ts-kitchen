@@ -196,3 +196,34 @@ footer a:hover{color:var(--orange)}
   [data-a]{opacity:1!important;transform:none!important}
   .js .cards .card{transform:none!important}
 }
+
+/* ───── サブページ（メニュー／コンサル／会社概要／取材）の作り込み ───── */
+.page-hero{padding:88px 24px 72px;position:relative}
+.page-hero h1{font-size:clamp(32px,4.6vw,52px);letter-spacing:.03em;text-shadow:0 2px 24px rgba(17,28,48,.5)}
+.page-hero p{opacity:.95;font-size:17px;max-width:46em;margin-top:12px}
+.page-hero .eyebrow{color:#ffc48a;display:flex;align-items:center;gap:12px}
+.page-hero .eyebrow::before{content:"";width:28px;height:2px;background:var(--orange)}
+.notice{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:8px;padding:20px 24px;font-size:15px;line-height:1.9;box-shadow:none}
+.notice b{color:var(--navy);font-size:16px}
+.menu-sec{padding-top:56px}
+.menu-stores,.menu-cats{max-width:none}
+.menu-stores{display:inline-grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:4px;padding:5px;background:var(--white);border:1px solid var(--greige-d);border-radius:999px;max-width:100%}
+.menu-stores button{border:0;background:transparent;padding:12px 18px;transition:background-color .25s var(--ease),color .25s var(--ease)}
+.menu-stores button:not([aria-selected=true]):hover{background:var(--greige)}
+.menu-cats{margin:20px 0 22px}
+.menu-cats button{background:var(--white);border:1px solid var(--greige-d);border-radius:999px;padding:9px 20px;font-size:15px;transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
+.menu-cats button:not([aria-selected=true]):hover{background:var(--greige)}
+.menu-view{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px}
+.menu-view img{box-shadow:none;border-radius:4px}
+.menu-view.sw img{animation:v2-swap .35s var(--ease) both}
+@keyframes v2-swap{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cf7{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:28px}
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 textarea{border-color:var(--greige-d);border-radius:8px;transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.cf7 input:focus,.cf7 textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,138,31,.25)}
+.contact.dark .cf7{background:transparent;border:0;padding:0}
+.svc-row,.dl-grid>div{transition:background-color .25s var(--ease)}
+.svc-row:hover{background:rgba(255,255,255,.55)}
+.sec.tint{background:var(--greige)}
+.sec:not(.tint):not(.founder){background:var(--ivory)}
+@media(max-width:900px){.page-hero{padding:64px 20px 52px}.menu-stores{display:grid;width:100%}.menu-stores button{padding:11px 4px;font-size:14px}.cf7{padding:20px}}
+@media(max-width:900px){.menu-stores{box-sizing:border-box;grid-template-columns:repeat(3,minmax(0,1fr))}}
