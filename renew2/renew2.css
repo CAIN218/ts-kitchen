@@ -1,0 +1,185 @@
+/* RENEW 第2次：温かい色・柔らかい形・動き。renew/renew.css の後に重ねる。紺（--navy / --navy-d）は style.css の値のまま再定義しない。 */
+:root{
+  --milk:#f6ecdc;--cream:#fff7e8;--oat:#ebdfc6;--peach:#fadfc9;--peach-l:#fcebdd;
+  --terra:#a94f33;--honey:#f2b63d;--sage:#e3e9d8;--sage-d:#4f6347;
+  --ease2:cubic-bezier(.22,.72,.2,1);
+}
+body{background:var(--white)}
+.eyebrow,.page-hero .eyebrow{color:var(--terra)}
+::selection{background:var(--honey);color:var(--navy)}
+
+/* ───────── ボタン：丸く、浮いて、押すと沈む ───────── */
+.btn,.fab,.acts a.r,.cf7 button.btn,.cf7 input[type=submit]{border-radius:999px;
+  transition:background-color .2s var(--ease),border-color .2s var(--ease),transform .24s var(--ease2),box-shadow .24s var(--ease2)}
+.btn:not(.line):not(.sm),.acts a.r,.cf7 button.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px}
+.btn:not(.line):not(.sm)::after,.acts a.r::after,.cf7 button.btn::after{content:"";width:7px;height:7px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);transition:transform .24s var(--ease2)}
+.btn:hover,.acts a.r:hover,.fab:hover,.cf7 button.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(169,79,51,.55)}
+.btn:hover::after,.acts a.r:hover::after,.cf7 button.btn:hover::after{transform:translateX(4px) rotate(45deg)}
+.btn:active,.acts a.r:active,.fab:active,.cf7 button.btn:active{transform:translateY(0) scale(.98);box-shadow:none;transition-duration:.08s}
+.btn.line:hover{transform:none;box-shadow:inset 0 -2px 0 var(--accent)}
+.hd .btn.sm:hover{box-shadow:0 8px 18px -8px rgba(0,0,0,.5)}
+.btn.sm{border-radius:999px}
+body[data-page=about] .hd-rsv{border-radius:999px}
+
+/* ───────── ファーストビュー A案：左に温かいミルクベージュの文字、右に大きな料理写真 ───────── */
+.hero{background:var(--milk);color:var(--navy);grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:min(90vh,800px);overflow:hidden;position:relative}
+.hero::before{display:block;content:"";position:absolute;left:-9%;bottom:-30%;width:min(46vw,620px);aspect-ratio:1;border-radius:50%;background:var(--peach);opacity:.6;z-index:0}
+.hero::after{position:relative;z-index:1;min-height:0;border-radius:200px 0 0 200px;background:url("../images/food.jpg") 56% 50%/cover}
+.hero-in{position:relative;z-index:2;animation:none;padding:72px 24px 72px max(32px,calc((100vw - 1120px)/2))}
+.hero h1{font-size:clamp(22px,2.3vw,32px)}
+.hero h1{color:var(--navy)}
+.hero p.hero-sub{color:var(--ink)}
+.hero .sub{color:var(--mute);opacity:1}
+.hero .btn.line{color:var(--navy);box-shadow:inset 0 -1px 0 var(--navy)}
+.hero .btn.line:hover{box-shadow:inset 0 -2px 0 var(--accent)}
+.hero :focus-visible{outline-color:var(--navy)}
+/* B案：全幅の料理写真に、読みやすいクリーム色の面を重ねる（?hero=b で切り替え） */
+html[data-hero=b] .hero{grid-template-columns:minmax(0,1fr);background:var(--navy)}
+html[data-hero=b] .hero::before{display:none}
+html[data-hero=b] .hero::after{grid-area:1/1;border-radius:0;background-position:50% 50%}
+html[data-hero=b] .hero-in{grid-area:1/1;align-self:center;background:rgba(255,247,232,.95);border-radius:36px;width:min(540px,calc(100% - 2*var(--gutter)));margin-left:max(var(--gutter),calc((100vw - 1120px)/2 + var(--gutter)));padding:48px 48px 44px}
+
+/* ───────── 色の面と、ゆるやかな曲線の切り替え ───────── */
+.stores,#catering,.awards-band,.contact.dark,.biz-sec{position:relative;border-top-left-radius:50% 56px;border-top-right-radius:50% 56px;margin-top:-56px;padding-top:calc(clamp(56px,8vw,104px) + 40px)}
+.stores{background:var(--cream)}
+#catering{background:var(--peach-l)}
+.awards-band{background:var(--sage);padding-top:calc(clamp(44px,6vw,72px) + 40px);padding-bottom:calc(clamp(44px,6vw,72px) + 40px)}
+.biz-sec{background:var(--sage)}
+.philosophy{background:var(--cream)}
+.only{background:var(--milk)}
+.sec.tint{background:var(--cream)}
+footer{position:relative;margin-top:-56px;border-top-left-radius:50% 56px;border-top-right-radius:50% 56px;padding-top:calc(clamp(48px,6vw,72px) + 28px)}
+.shop{padding:clamp(56px,7vw,88px) 0 clamp(72px,8vw,112px)}
+
+/* ───────── トップ：形をやわらげる（写真と、意味のある所だけ） ───────── */
+.about>img{width:120px;height:120px;object-fit:contain;padding:22px;background:var(--peach);border-radius:50%}
+.card .ph{border-radius:28px 140px 28px 28px}
+.card .ph,.shopbox .ph,.flyer img,.biz .ph,.clip img,.menu-view img,.owner img{transition:transform .5s var(--ease2)}
+.tag{background:var(--peach);color:var(--terra);border:0;border-radius:999px;padding:2px 11px}
+.tag.alt{background:var(--sage);color:var(--sage-d)}
+.tag.soon{background:var(--cream);color:var(--ink);border:1px solid var(--oat)}
+.flyer img{border-radius:20px;border-color:var(--oat)}
+.shopbox .ph{border-radius:28px 28px 28px 140px}
+.ig a{border-radius:14px}
+.badges li img{background:#fff;border-radius:50%;padding:12px;height:104px;width:104px;object-fit:contain}
+.cater li::marker{color:var(--honey)}
+.policy{border-top-color:var(--oat)}
+
+/* ───────── 下層ページの見出し：ページごとの色と、下がやわらかい曲線 ───────── */
+.page-hero{position:relative;overflow:hidden;background:var(--milk);border-bottom:0;border-bottom-left-radius:50% 48px;border-bottom-right-radius:50% 48px;padding-bottom:clamp(56px,6vw,84px)}
+.page-hero::after{content:"";position:absolute;right:-90px;top:-70px;width:clamp(220px,28vw,380px);aspect-ratio:1;border-radius:50%;background:var(--peach);opacity:.65}
+.page-hero .wrap{position:relative;z-index:1}
+body[data-page=menu] .page-hero{background:var(--peach-l)}
+body[data-page=menu] .page-hero::after{background:var(--honey);opacity:.35}
+body[data-page=about] .page-hero{background:var(--sage)}
+body[data-page=about] .page-hero::after{background:var(--cream);opacity:.8}
+body[data-page=media] .page-hero{background:var(--oat)}
+body[data-page=media] .page-hero::after{background:var(--cream);opacity:.7}
+.cons-hero{background:var(--navy);border-bottom-left-radius:50% 64px;border-bottom-right-radius:50% 64px;padding-bottom:clamp(72px,8vw,112px)}
+.cons-hero::after{background:var(--peach);opacity:.08;right:-60px;top:auto;bottom:-120px;width:clamp(260px,34vw,460px)}
+.menu-sec{padding-top:clamp(48px,6vw,72px)}
+
+/* ───────── メニュー ───────── */
+.notice{background:var(--cream);border:0;border-left:5px solid var(--navy);border-radius:0 18px 18px 0}
+.menu-cats button{border-radius:999px;border-color:var(--oat);background:var(--cream);padding:9px 22px}
+.menu-cats button:hover{border-color:var(--navy);transform:translateY(-1px)}
+.menu-view a{background:var(--cream);border:0;border-radius:20px;padding:clamp(8px,1.4vw,18px)}
+.menu-view img{border-radius:12px}
+.menu-view.sw img{animation:rn2-swap .45s var(--ease2) both}
+@keyframes rn2-swap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.menu-actions{border-top-color:var(--oat)}
+.lightbox,.lightbox[hidden]{display:flex!important}
+.lightbox{opacity:1;visibility:visible;transition:opacity .28s var(--ease2),visibility 0s;animation:none}
+.lightbox[hidden]{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s var(--ease2),visibility 0s .25s}
+.lightbox img{border-radius:12px;transform:none;transition:transform .35s var(--ease2)}
+.lightbox[hidden] img{transform:scale(.96)}
+.lb-close{border-radius:50%;transition:transform .2s var(--ease2)}
+.lb-close:hover{transform:rotate(90deg)}
+
+/* ───────── 会社概要・コンサル：人物はアーチ型、年表は蜜色の印 ───────── */
+.owner img{border-radius:150px 150px 22px 22px;aspect-ratio:4/5}
+.info-table th,.info-table td,.awards li,.timeline li{border-color:var(--oat)}
+.timeline li{border-top-color:var(--oat)}
+.timeline li:last-child{border-bottom-color:var(--oat)}
+.timeline .hl::before{background:var(--honey);border-radius:50%;width:9px;height:9px;vertical-align:.1em}
+.ticks li::before{background:var(--honey);border-radius:50%;width:8px;height:8px;top:.8em}
+.biz .ph{border-radius:20px}
+.biz>div:nth-child(even) .ph{border-radius:80px 20px 20px 20px}
+.biz .ph.prod{background:var(--peach)}
+.clip img{border-radius:16px}
+.nums>div{border-left-color:var(--oat)}
+.numbers{border-bottom-color:var(--oat)}
+.cv-box+.cv-box{border-left-color:var(--oat)}
+.svc-row,.dl-grid>div{border-top-color:var(--oat)}
+.sec.tint .dl-grid>div{border-top-color:var(--oat)}
+.steps li{border-top:2px solid var(--honey)}
+.book-card{border-left-color:var(--honey)}
+.quote{border-left-color:var(--honey)}
+.only-text{border-left-color:var(--honey)}
+.svc-row{transition:background-color .3s var(--ease2),padding .3s var(--ease2)}
+
+/* ───────── フォーム ───────── */
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 textarea{border-radius:14px;border-color:var(--oat);background:#fff}
+.cf7 label{transition:color .2s var(--ease)}
+.cf7 label:focus-within{color:var(--terra)}
+.contact.dark .cf7 label:focus-within{color:#ffd2a8}
+body[data-page=media] .contact{background:var(--white)}
+.wpcf7-response-output{animation:rn2-swap .4s var(--ease2) both;border-radius:12px}
+.wpcf7-spinner{margin-left:12px}
+
+/* ───────── 写真にマウスを合わせると、そっと拡大 ───────── */
+@media(hover:hover){
+  .card .ph:hover,.shopbox .ph:hover,.biz>div:hover .ph,.flyer:hover img,.clip:hover img,.owner:hover img,.menu-view a:hover img{transform:scale(1.03)}
+  .ig a{transition:transform .5s var(--ease2),opacity .3s}
+  .ig a:hover{transform:scale(1.04);opacity:1}
+}
+
+/* ───────── 店舗・メニューのタブ：オレンジの線が動く ───────── */
+.js .store-tabs,.menu-stores{position:relative}
+.store-tabs button,.menu-stores button{border-bottom-color:transparent!important}
+.tab-ind{position:absolute;left:0;bottom:-1px;height:3px;border-radius:3px;background:var(--accent);pointer-events:none}
+.tab-ind.on{transition:transform .38s var(--ease2),width .38s var(--ease2)}
+.js .cards .card{transform:translateY(16px);transition:opacity .35s var(--ease2),transform .45s var(--ease2),visibility 0s .35s}
+.js .cards .card.on{transform:none;transition-delay:0s}
+
+/* ───────── 動き（動きを減らす設定の人には出さない） ───────── */
+@media(prefers-reduced-motion:no-preference){
+  /* ファーストビュー：写真 → 見出し → 説明 → ボタン の順にひとつながりで */
+  .hero::after{animation:rn2-photo 1.2s var(--ease2) both}
+  @keyframes rn2-photo{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:none}}
+  .hero h1{animation:rn2-up .85s var(--ease2) .3s both}
+  .hero p.hero-sub{animation:rn2-up .75s var(--ease2) .45s both}
+  .hero .row{animation:rn2-up .65s var(--ease2) .6s both}
+  .hero .sub{animation:rn2-up .55s var(--ease2) .72s both}
+  @keyframes rn2-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .page-hero .wrap>*{animation:rn2-up .75s var(--ease2) both}
+  .page-hero .wrap>:nth-child(1){animation-delay:.08s}.page-hero .wrap>:nth-child(2){animation-delay:.2s}.page-hero .wrap>:nth-child(3){animation-delay:.34s}
+  .page-hero .wrap>:nth-child(4){animation-delay:.48s}.page-hero .wrap>:nth-child(5){animation-delay:.6s}
+  .page-hero::after{animation:rn2-pop 1.1s var(--ease2) .2s both}
+  @keyframes rn2-pop{from{opacity:0;transform:scale(.88)}}
+  /* スクロール：まとまりごとに、下からふわっと（一度だけ） */
+  .js [data-rv]{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease2) var(--d,0ms),transform .8s var(--ease2) var(--d,0ms)}
+  .js [data-rv].in{opacity:1;transform:none}
+  .tab-ind.on{transition:transform .38s var(--ease2),width .38s var(--ease2)}
+}
+@media(prefers-reduced-motion:reduce){
+  .js [data-rv]{opacity:1!important;transform:none!important}
+  .tab-ind{transition:none!important}
+}
+
+/* ───────── スマホ ───────── */
+@media(max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;background:var(--milk)}
+  .hero::before{left:auto;right:-20%;bottom:-8%;width:80vw}
+  .hero::after{grid-column:1;grid-row:1;aspect-ratio:1/.95;border-radius:0 0 44px 44px;background-position:54% 48%}
+  .hero-in{grid-row:2;padding:34px var(--gutter) 56px}
+  html[data-hero=b] .hero-in{grid-area:2/1;width:auto;margin:-48px var(--gutter) 40px;padding:32px 28px 36px;border-radius:28px}
+  html[data-hero=b] .hero::after{grid-area:1/1;aspect-ratio:1/1.05}
+  .card .ph{border-radius:24px 80px 24px 24px}
+  .shopbox .ph{border-radius:24px 24px 24px 80px}
+  .owner img{border-radius:120px 120px 20px 20px}
+  .stores,#catering,.awards-band,.contact.dark,.biz-sec,footer{border-top-left-radius:50% 32px;border-top-right-radius:50% 32px;margin-top:-32px}
+  .stores,#catering,.biz-sec,.contact.dark{padding-top:calc(clamp(56px,8vw,104px) + 24px)}
+  .page-hero{border-bottom-left-radius:50% 28px;border-bottom-right-radius:50% 28px}
+  .cons-hero{border-bottom-left-radius:50% 36px;border-bottom-right-radius:50% 36px}
+}
