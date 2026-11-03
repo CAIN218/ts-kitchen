@@ -1,0 +1,111 @@
+/* RENEW 第4次：装飾を減らし、自然な読みやすさを優先する調整。renew → renew2 → renew3 の後に重ねる。
+   紺（--navy / --navy-d）、オレンジ、アイボリー等の配色は変更しない。文章・数値・リンクは一切変更しない（見た目のみ）。 */
+:root{--sh-soft:0 10px 26px -18px rgba(28,43,69,.28);--r:8px}
+
+/* ───────── 装飾的な縦線をなくす ───────── */
+.notice,.only-text,.quote,.book-card,.pt:nth-child(n+2),.policy,.cert-note{border-left:0!important}
+.nums>div,.nums>div:first-child,.cv-box+.cv-box{border-left:0!important}
+.nums>div{border-top:1px solid var(--oat);padding-left:0}
+.cv-box+.cv-box{padding-left:0}
+.only-text,.quote{padding-left:0}
+.drawer>a,.drawer>a.on{border-left:0!important}
+.drawer>a.on{background:rgba(255,255,255,.08);font-weight:700}
+.book-card{padding:22px 24px;background:var(--cream);border-radius:var(--r)}
+.quote{font-size:clamp(19px,1.9vw,23px)}
+.only-text{max-width:var(--measure)}
+
+/* 補足の英語ラベルは、控えめな小さな文字に（既存の表記はそのまま） */
+.eyebrow,.page-hero .eyebrow{font-size:12px;letter-spacing:.1em;color:var(--mute);font-weight:500;margin-bottom:10px}
+
+/* ───────── 余計な図形・曲線をやめる（色の面は現状のまま） ───────── */
+.hero::before,.page-hero::after,.cons-hero::after{display:none!important}
+html:not([data-hero=b]) .hero::after{border-radius:120px 0 0 120px}
+.stores,#catering,.awards-band,.contact.dark,.biz-sec,footer,.page-hero,.cons-hero{border-radius:0!important;margin-top:0!important}
+.stores,#catering,.biz-sec,.contact.dark{padding-top:clamp(56px,8vw,104px)}
+.awards-band{padding-top:clamp(44px,6vw,72px)}
+footer{padding-top:clamp(48px,6vw,72px)}
+.page-hero{padding-bottom:clamp(48px,6vw,72px)}
+.cons-hero{padding-bottom:clamp(64px,8vw,104px)}
+@media(max-width:900px){
+  html:not([data-hero=b]) .hero::after{border-radius:0 0 28px 28px}
+  .stores,#catering,.awards-band,.contact.dark,.biz-sec,footer,.page-hero,.cons-hero{border-radius:0!important;margin-top:0!important}
+  .stores,#catering,.biz-sec,.contact.dark{padding-top:clamp(48px,8vw,72px)}
+}
+
+/* 角の丸みは、写真・パネルともに控えめに統一 */
+.card .ph,.shopbox .ph,.biz .ph,.biz>div:nth-child(even) .ph,.clip img,.flyer img,.menu-view a,.menu-view img,.ig a,.cater-ph,.about-ph img,.owner img,
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 textarea,.cf7 .chk label,.lightbox img{border-radius:var(--r)!important}
+.card .ph{border-radius:var(--r)!important}
+.cater-ph,.about-ph img,.shopbox .ph,.clip img,.owner img{box-shadow:none}
+.about-ph img{border:0}
+@media(max-width:900px){.card .ph,.shopbox .ph,.owner img,.about-ph .a1{border-radius:var(--r)!important}}
+
+/* ───────── トップ ───────── */
+.about-ph{padding-bottom:0!important}
+.about-ph .a1{width:100%;aspect-ratio:5/4;object-fit:cover}
+.about>.about-ph{grid-row:1/span 2}
+.about>img{border-radius:50%}
+.pt:nth-child(n+2){background:var(--cream);border:0;border-radius:var(--r);padding:16px 20px;margin-top:10px}
+.pt:nth-child(n+2) b{color:var(--navy)}
+.pt:last-child,.pt:nth-child(n+2):last-child{border-bottom:0}
+/* 店舗：カードで囲まず、紙面にそのまま置く */
+.js .cards .card{background:none;box-shadow:none;border-radius:0;padding:0}
+.js .store-tabs,.js .menu-stores{border-bottom:1px solid var(--rule-d)}
+.store-tabs button,.menu-stores button{border-radius:0;background:none!important}
+.store-tabs button[aria-selected=true],.menu-stores button[aria-selected=true]{background:none!important;color:var(--navy)}
+.acts a:not(.r){flex:none;text-align:left;border:0;border-radius:0;background:none;padding:0;text-decoration:underline;text-decoration-color:var(--rule-d);text-decoration-thickness:1px;font-weight:500}
+.acts a:not(.r):hover{background:none;transform:none;text-decoration-color:var(--navy)}
+.acts{gap:12px 28px}
+.acts a.r{order:-1;margin-top:0;padding:15px 24px}
+/* キャンセルポリシー・注意書き：枠線ではなく、淡い面で区切る */
+.policy,.notice{background:var(--cream);border:0;border-radius:var(--r);padding:20px 24px}
+.policy::before{content:none!important}
+.notice b::before{content:none}
+.notice b{display:block;color:var(--navy)}
+.policy b{color:var(--navy)}
+/* ケータリング：お弁当の写真を大きく。チラシは下に小さく */
+@media(min-width:901px){.cater{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}}
+.cater-vis{padding:0}
+.cater-ph{aspect-ratio:4/3}
+.cater-vis .flyer{position:static;width:44%;margin-top:16px;max-width:none;justify-self:auto}
+.cater-vis .flyer img{border:1px solid var(--oat);box-shadow:none}
+.cater-vis .flyer>span{position:static;display:block;text-align:left;margin-top:6px}
+@media(max-width:900px){.cater-vis .flyer{width:60%}}
+.ig a{border-radius:var(--r)!important}
+
+/* ───────── メニュー ───────── */
+.menu-actions{background:var(--peach-l);border-radius:var(--r);padding:clamp(24px,3vw,36px);display:flex;justify-content:flex-start}
+.menu-view a{background:var(--cream);padding:clamp(8px,1.4vw,16px)}
+
+/* ───────── 会社概要 ───────── */
+.awards li{padding:12px 0}
+.awards li::before{content:none!important}
+.timeline::before,.timeline li::after{display:none!important}
+.timeline{max-width:860px}
+.timeline li{grid-template-columns:110px minmax(0,1fr);gap:24px;padding:20px 0;border-top:1px solid var(--oat)!important}
+.timeline li:last-child{border-bottom:1px solid var(--oat)!important}
+.timeline time{text-align:left;font-size:22px}
+.timeline .hl span{background:none}
+.timeline .hl::before{display:inline-block;content:"";width:6px;height:6px;border-radius:50%;background:var(--honey);margin-right:10px;vertical-align:.2em}
+
+/* ───────── コンサルティング：3つのサービスは、同じカードにせず、並べて比べられる表組みに ───────── */
+.sec.tint .svc-list{gap:0 clamp(24px,3vw,48px)}
+.svc-row{background:none!important;border:0!important;border-top:2px solid var(--navy)!important;border-radius:0!important;padding:22px 0 0!important}
+.svc-row:first-child{padding-top:22px!important}
+.svc-row>div{border-bottom:0;padding-bottom:0}
+.svc-row:hover{background:none;transform:none}
+@media(max-width:900px){.sec.tint .svc-list{gap:32px 0}}
+.steps li::before{content:counter(s)!important}
+.steps{counter-reset:s}
+.steps li{counter-increment:s}
+
+/* ───────── フォーム：必須の印は元の「*」のまま ───────── */
+.cf7 label em{font-size:inherit;background:none;padding:0;margin-left:2px;color:var(--accent-ink);border-radius:0;vertical-align:baseline;line-height:inherit}
+.cf7 label em::before{content:none!important}
+.contact.dark .cf7 label em{background:none;color:#ffd2a8}
+.cf7 .chk label{background:none;border:0;padding:0}
+.contact.dark .cf7 .chk label{background:none;border:0}
+.cf7 input:focus,.cf7 textarea:focus{box-shadow:0 0 0 3px rgba(250,223,201,.9)}
+
+/* ヘッダー：言語切替は元の表示（English / 日本語）のまま、枠だけ整える */
+.lang{padding:5px 14px;font-size:13px}
