@@ -2,7 +2,7 @@
 本文・リンク・フォームの送信先は元ページのまま。足すのは写真・見出し枠・案内（新規の文言は renew3/NOTES に列挙）。"""
 import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
-V = '20261109a'
+V = '20261109b'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'
@@ -43,6 +43,12 @@ for name in PAGES:
     h = sub1(r'<link rel="stylesheet" href="\.\./anim/site\.css[^>]*>', LOADER_CSS + '\n' + BARCSS, h)
     h = sub1(r'<script src="\.\./anim/site\.js[^>]*></script>', LOADER_JS, h)
     h = sub1(r'<body( class="sub")?>', lambda m: f'<body{m.group(1) or ""} data-page="{name}">', h)
+    if name == 'consulting':
+        # 6) ヘッダー・ドロワーのボタン：レストラン予約ではなく、ページ内のお問い合わせフォームへ（文言は yuga の指示どおり）
+        h = sub1(r'<a class="btn sm rsv hd-rsv" href="[^"]*"><span lang="ja">予約する</span><span lang="en">Book</span></a>',
+                 '<a class="btn sm hd-rsv hd-consult" href="#contact"><span lang="ja">無料相談</span><span lang="en">Free consultation</span></a>', h)
+        h = sub1(r'<div class="drawer-foot"><a class="btn sm rsv" href="[^"]*"><span lang="ja">予約する</span><span lang="en">Book a table</span></a></div>',
+                 '<div class="drawer-foot"><a class="btn sm hd-consult" href="#contact"><span lang="ja">無料相談</span><span lang="en">Free consultation</span></a></div>', h)
     if name == 'media':
         h = h.replace('<section class="blk contact">', '<section class="blk contact" id="contact">', 1)
 

@@ -77,3 +77,45 @@ body[data-page=media] .page-hero::after{left:auto;right:6%;bottom:-62%;width:min
   @keyframes r8-drift-c{from{transform:translate(0,0) scale(1)}to{transform:translate(20px,-14px) scale(1.05)}}
 }
 @media(prefers-reduced-motion:reduce){.cater-vis .flyer{transition:none}}
+
+/* ───────── 5. 会社概要：沿革（HTMLの並びどおり、上から順に一度だけ） ───────── */
+.timeline.tl-line li{position:relative}
+/* 年と年をつなぐ線：マーカーの中心から次の年のマーカーまで */
+.timeline.tl-line li:not(:last-child)::after{content:"";display:block!important;position:absolute;left:5px;top:var(--mk,32px);height:100%;width:1.5px;border:0!important;border-radius:0!important;box-shadow:none!important;background:var(--honey)!important;opacity:.6;transform-origin:50% 0;pointer-events:none}
+.timeline.tl-line time::before{z-index:1}
+@media(max-width:900px){.timeline.tl-line li:not(:last-child)::after{left:4.25px}}
+@media(prefers-reduced-motion:no-preference){
+  /* 待機中：すべて未表示（表示済みと未表示が混ざらない）。この状態へは動きなしで入る */
+  .timeline.tl-wait li{opacity:0;transform:translateY(14px)}
+  .timeline.tl-wait time::before{transform:scale(0)!important}
+  .timeline.tl-wait li::after{transform:scaleY(0)}
+  /* 開始：上の年から順に（年 → マーカー → 次の年への線 → 次の年） */
+  .timeline.tl-wait.tl-go li{opacity:1;transform:none;transition:opacity .55s var(--ease2) calc(var(--i)*240ms),transform .55s var(--ease2) calc(var(--i)*240ms)}
+  .timeline.tl-wait.tl-go time::before{transform:none!important;transition:transform .45s var(--ease2) calc(var(--i)*240ms + .12s)!important}
+  .timeline.tl-wait.tl-go li::after{transform:none;transition:transform .3s cubic-bezier(.4,0,.6,1) calc(var(--i)*240ms + .24s)}
+}
+.timeline.tl-done li,.timeline.tl-done li::after,.timeline.tl-done time::before{transition:none!important}
+
+/* ───────── 6. ヘッダーのボタン：コンサルは無料相談（#contact）、メディアは出さない ───────── */
+body[data-page=consulting] .hd-rsv{background:var(--accent)!important;color:var(--navy)!important;border-color:var(--accent)!important}
+body[data-page=consulting] .hd-rsv:hover{background:var(--accent-d)!important;border-color:var(--accent-d)!important}
+body[data-page=media] .hd-rsv,body[data-page=media] .drawer-foot{display:none!important}
+
+/* ───────── 7. 日本語・英語の切り替えでレイアウトが動かないように ───────── */
+/* ナビ・ボタンは折り返さず、文字は中央に（幅は renew8.js が両言語の大きいほうに揃える） */
+.hd .nav a,.hd .lang,.hd-rsv,.fab,.cta-float,.hero .row .btn,.cons-cta .btn,.menu-cats button,.menu-actions .btn,.cater .row .btn{white-space:nowrap}
+.hd .nav a{display:inline-flex;justify-content:center;align-items:center}
+.hd .lang,.hd-rsv,.hero .row .btn,.cons-cta .btn,.menu-actions .btn,.cater .row .btn,.menu-cats button,.drawer-foot .btn{display:inline-flex;justify-content:center;align-items:center;text-align:center}
+.hd-in,.hd .nav{flex-wrap:nowrap}
+.hero .row .btn,.cons-cta .btn,.menu-actions .btn,.cater .row .btn,.fab,.cta-float{max-width:100%}
+@media(max-width:640px){.hero .row .btn,.cons-cta .btn,.menu-actions .btn,.cater .row .btn,.cta-float{white-space:normal}}
+/* 見出しの改行：日本語は文節で、英語は行の長さを揃えて */
+html[data-lang=ja] h1,html[data-lang=ja] h2,html[data-lang=ja] h3,h1:lang(ja),h2 :lang(ja),h3 :lang(ja){word-break:auto-phrase}
+html[data-lang=en] h1,html[data-lang=en] h2,html[data-lang=en] h3{text-wrap:balance}
+html[data-lang=en] .page-hero p,html[data-lang=en] .hero-sub{text-wrap:pretty}
+/* メニュー画像：表示する枠の大きさを固定し、画像は縦横比のまま枠に収める（切り替えでページが動かない） */
+.menu-view a{display:flex!important;align-items:center;justify-content:center;height:clamp(460px,calc(100vh - 170px),940px);box-sizing:border-box}
+.menu-view img,.menu-view.wide img{width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;object-fit:contain;margin:0 auto}
+@media(max-width:640px){.menu-view a{height:auto;aspect-ratio:4/5}}
+/* カテゴリータブ：幅と高さを揃える（店舗・言語の切り替えで作り直されても同じ大きさ） */
+.menu-cats button{min-width:124px;min-height:46px;line-height:1.3}
