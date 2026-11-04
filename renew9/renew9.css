@@ -1,0 +1,93 @@
+/* RENEW 第9次：スマートフォン表示だけの改修。renew8.css の後に重ねる。
+   すべて max-width:640px の中に書き、PC・タブレットの表示は変えない。
+   文章・数値・リンク・画像・フォームの送信先は変更しない（見た目と操作のみ）。 */
+@media(max-width:640px){
+
+/* ───────── 1. CTA：右下の固定ボタンだけを残す ───────── */
+/* ヘッダー・ドロワー・ファーストビュー・各セクション・店舗カード・メニュー末尾の予約／無料相談ボタンは隠す */
+.hd-rsv,.drawer-foot,
+.hero .row .btn.rsv,
+.cards .acts a.r,
+.menu-actions,
+.cons-cta,
+.more .btn{display:none!important}
+/* 固定ボタンを出さないページ */
+body[data-page=about] .fab,body[data-page=media] .fab,body[data-page=media] .cta-float,body[data-page=about] .cta-float{display:none!important}
+/* 固定ボタン：右下・同じ形（予約する／無料相談）。ホームインジケーターの上に置く */
+.fab,body[data-page=consulting] .cta-float{position:fixed;left:auto!important;right:16px;bottom:calc(14px + env(safe-area-inset-bottom))!important;z-index:90;
+  display:inline-flex!important;align-items:center;justify-content:center;min-height:52px;padding:0 26px!important;border-radius:999px;font-size:16px;font-weight:700;letter-spacing:.04em;
+  box-shadow:0 10px 26px -10px rgba(17,28,48,.55)!important;min-width:0!important}
+body[data-page=consulting] .cta-float{width:auto;margin:0}
+/* 入力中（キーボード表示中）は引っ込める */
+html.typing .fab,html.typing .cta-float{opacity:0!important;visibility:hidden!important;transform:translateY(16px)!important;transition-delay:0s!important}
+/* 本文の最後が固定ボタンに隠れないように */
+body[data-page=index] main,body[data-page=menu] main,body[data-page=consulting] main{padding-bottom:0}
+footer{padding-bottom:calc(32px + env(safe-area-inset-bottom))!important}
+body[data-page=index] footer,body[data-page=menu] footer,body[data-page=consulting] footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+
+/* ───────── 2. 共通：文字・見出し・ボタン ───────── */
+main h2{font-size:24px;line-height:1.45}
+.page-hero h1{font-size:28px;line-height:1.4}
+main .btn{min-height:52px;padding-top:0!important;padding-bottom:0!important;font-size:16px}
+.sec-head p,.sec-head .muted{font-size:15px;line-height:1.85}
+html{scroll-padding-top:84px}
+
+/* ───────── 3. トップ ───────── */
+/* 写真をもう少し大きく。見出しは写真の下 */
+html:not([data-hero=b]) .hero::after{aspect-ratio:1/1.2}
+.hero-in{padding-top:30px!important}
+/* 「店舗を見る」は文字のボタンとして左に（右下の固定ボタンと重ならない） */
+.hero .row{justify-content:flex-start;align-items:flex-start!important}
+.hero .row .btn.line{display:inline-flex!important;width:auto!important;min-width:0!important;padding:0 2px!important;min-height:48px}
+/* 店舗カード：予約ボタンを隠した分、電話・地図の行を整える */
+.cards .acts{margin-top:18px}
+
+/* ───────── 4. メニュー・店舗の切り替え：押しやすい切り替えボタン ───────── */
+.store-tabs,.menu-stores{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;background:var(--oat);border-radius:14px;border:0!important}
+.store-tabs .tab-ind,.menu-stores .tab-ind{display:none!important}
+.store-tabs button,.menu-stores button{min-height:48px!important;padding:6px 4px!important;border-radius:10px!important;font-size:15px;line-height:1.3;color:var(--ink);box-shadow:none;border:0!important;transition:background-color .2s var(--ease),color .2s var(--ease)}
+.store-tabs button[aria-selected=true],.menu-stores button[aria-selected=true]{background:#fff!important;color:var(--navy)!important;box-shadow:0 1px 3px rgba(28,43,69,.16)}
+.store-tabs button::before,.menu-stores button::before{display:none}
+.menu-cats{margin-top:18px}
+/* メニュー画像：左右いっぱいに近い幅で */
+.menu-view a{padding:4px!important}
+
+/* ───────── 5. 会社概要 ───────── */
+/* 会社情報：項目名の下に内容（縦配置） */
+.info-table,.info-table tbody,.info-table tr,.info-table th,.info-table td{display:block;width:auto!important}
+.info-table tr{padding:14px 0;border-bottom:1px solid var(--oat)}
+.info-table th,.info-table td{border:0!important;padding:0!important}
+.info-table th{font-size:13px;letter-spacing:.04em;margin-bottom:4px}
+.info-table td{font-size:15.5px;line-height:1.75}
+/* 受賞歴：情報はそのまま、行間を詰めて */
+.awards li{padding:10px 0!important;font-size:15px;line-height:1.7}
+/* 事業内容：1列、写真は小さく左に、名前を右に */
+.biz{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+.biz>div{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:16px}
+.biz .ph{width:96px;aspect-ratio:1;height:auto!important;border-radius:16px!important}
+.biz>div:nth-child(even) .ph{border-radius:16px!important}
+.biz .ph.prod img{max-height:70%}
+.biz b{padding:0!important;font-size:17px}
+
+/* ───────── 6. コンサルティング ───────── */
+/* 実績数字：数字と説明を横に並べた3行 */
+.nums.nums3{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+.nums.nums3>div{display:grid;grid-template-columns:7.2em minmax(0,1fr);align-items:baseline;column-gap:12px;padding:14px 0!important;border-top:1px solid var(--oat)!important;font-size:15px!important}
+.nums.nums3>div:first-child{border-top:0!important}
+.nums.nums3 b{font-size:40px!important;margin:0!important}
+.svc-row p{font-size:15px;line-height:1.85}
+.steps li p{font-size:15px;line-height:1.8}
+.book-card{padding:20px!important}
+.book-card img{max-width:180px;height:auto}
+
+/* ───────── 7. メディア・取材（フォーム） ───────── */
+.cf7{gap:20px}
+.cf7 label>input,.cf7 label>textarea{margin-top:8px}
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 textarea{width:100%;font-size:16px!important;scroll-margin:96px 0 140px}
+.cf7 textarea{min-height:160px}
+.cf7 .chk label{display:flex;align-items:center;gap:10px;min-height:44px}
+.cf7 button.btn{width:100%;min-height:54px!important;font-size:16px}
+}
+
+/* コンサルの固定ボタン（スマホ用に複製したもの）が、PCでページ最下部に表示されていた不具合を直す（RENEW7・8から） */
+@media(min-width:641px){.cta-float{display:none!important}}
