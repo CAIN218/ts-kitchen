@@ -5,11 +5,13 @@
 @media(min-width:901px){
   .cater{grid-template-columns:minmax(0,6.2fr) minmax(0,4.8fr);gap:clamp(40px,5vw,80px);align-items:center}
   /* 写真は幅の88%。チラシは幅28%で、写真の右下の角にだけかかる位置（料理の中心は隠さない） */
-  .cater-vis{position:relative;padding:0 12% 15% 0!important}
+  .cater-vis{position:relative;padding:0 12% calc(15% + 30px) 0!important}
   .cater-ph{width:100%;aspect-ratio:4/3}
-  .cater-vis .flyer{position:absolute!important;right:0;bottom:0;width:28%;margin:0!important;transform:rotate(2deg);transform-origin:50% 100%;transition:transform .35s var(--ease2)}
+  .cater-vis .flyer{position:absolute!important;right:0;bottom:30px;width:28%;margin:0!important;transform:rotate(2deg);transform-origin:50% 100%;transition:transform .35s var(--ease2)}
   .cater-vis .flyer:hover{transform:rotate(0deg) translateY(-4px)}
-  .cater-vis .flyer>span{position:absolute!important;right:calc(100% + 14px);bottom:4px;left:auto;margin:0;white-space:nowrap;text-align:right}
+  /* 「タップで拡大」はチラシのすぐ下に、チラシの説明として（傾きは打ち消して水平に） */
+  .cater-vis .flyer>span{position:absolute!important;left:0;right:0;top:calc(100% + 10px);bottom:auto;margin:0;white-space:nowrap;text-align:center;transform:rotate(-2deg)}
+  .cater-vis .flyer:hover>span{transform:none}
 }
 /* 紙のチラシ：白い外枠と控えめな影 */
 .cater-vis .flyer img{display:block;width:100%;background:#fff;padding:7px;border:0!important;border-radius:3px!important;box-shadow:0 1px 2px rgba(28,43,69,.12),0 14px 28px -14px rgba(28,43,69,.38)!important}
@@ -23,12 +25,12 @@
   .cater-vis{padding:0!important;display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr);align-items:end;column-gap:18px}
   .cater-ph{grid-column:1/-1;width:100%}
   .cater-vis .flyer{position:static!important;width:auto!important;margin:28px 0 8px!important;grid-column:1}
-  .cater-vis .flyer>span{position:static!important;margin-top:10px;text-align:left}
+  .cater-vis .flyer>span{position:static!important;margin-top:10px;text-align:center;transform:none}
   .cater>.tx{margin-top:12px}
 }
 
 /* ───────── 2. 下層ページのファーストビュー：同じブランドの円モチーフ（文字の後ろ・薄く・ゆっくり） ───────── */
-body[data-page=about] .page-hero::after,
+body[data-page=about] .page-hero::after,body[data-page=menu] .page-hero::after,
 body[data-page=consulting] .page-hero::after,body[data-page=consulting] .page-hero::before,
 body[data-page=media] .page-hero::after{content:"";display:block!important;position:absolute;z-index:0;border-radius:50%;pointer-events:none}
 .page-hero{position:relative;overflow:hidden;isolation:isolate}
@@ -38,6 +40,8 @@ body[data-page=about] .page-hero::after{right:-9%;top:-55%;width:min(48vw,620px)
 /* コンサル：右下に少し大きな円、右上に小さな円形ライン */
 body[data-page=consulting] .page-hero::after{right:-7%;bottom:-48%;top:auto;width:min(40vw,520px);aspect-ratio:1;background:var(--peach);opacity:.09}
 body[data-page=consulting] .page-hero::before{right:14%;top:12%;width:clamp(96px,11vw,150px);aspect-ratio:1;background:none;border:1.5px solid var(--peach);opacity:.32}
+/* メニュー：右側に大きな円を1つ（右端から少しはみ出す） */
+body[data-page=menu] .page-hero::after{right:-7%;top:-46%;width:min(40vw,520px);aspect-ratio:1;background:var(--cream);opacity:.85}
 /* メディア：左下にシンプルな円を1つ */
 body[data-page=media] .page-hero::after{left:auto;right:6%;bottom:-62%;width:min(34vw,440px);aspect-ratio:1;background:var(--cream);opacity:.8}
 @media(max-width:900px){
@@ -45,6 +49,7 @@ body[data-page=media] .page-hero::after{left:auto;right:6%;bottom:-62%;width:min
   body[data-page=consulting] .page-hero::after{right:-40%;bottom:-18%;width:82vw}
   body[data-page=consulting] .page-hero::before{right:-34px;top:-30px;width:96px}
   body[data-page=media] .page-hero::after{right:-30%;bottom:-40%;width:70vw}
+  body[data-page=menu] .page-hero::after{right:-64px;top:-70px;width:180px}
 }
 
 /* ───────── 3. メニュー末尾の予約：ページを締める余白 ───────── */
@@ -69,6 +74,8 @@ body[data-page=media] .page-hero::after{left:auto;right:6%;bottom:-62%;width:min
   body[data-page=about] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-a 16s ease-in-out 1.6s infinite alternate}
   body[data-page=consulting] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-b 18s ease-in-out 1.6s infinite alternate}
   body[data-page=consulting] .page-hero::before{animation:r8-in 1.2s var(--ease2) .45s both,r8-turn 14s ease-in-out 1.7s infinite alternate}
+  body[data-page=menu] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-d 16s ease-in-out 1.6s infinite alternate}
+  @keyframes r8-drift-d{from{transform:translate(0,0) scale(1)}to{transform:translate(-18px,16px) scale(1.05)}}
   body[data-page=media] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-c 15s ease-in-out 1.6s infinite alternate}
   @keyframes r8-in{from{opacity:0;transform:scale(.88)}}
   @keyframes r8-drift-a{from{transform:translate(0,0) scale(1)}to{transform:translate(-26px,18px) scale(1.06)}}
