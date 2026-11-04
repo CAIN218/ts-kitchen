@@ -1,0 +1,52 @@
+/* RENEW 第7次：RENEW6 の見た目はそのまま、細部の使いやすさを仕上げる。renew6.css の後に重ねる。
+   文章・数値・リンク・画像は変更しない（見た目と操作のみ）。 */
+
+/* ───────── キーボード操作：フォーカスの見え方を全ページで統一 ───────── */
+main a:focus-visible,main button:focus-visible,main input:focus-visible,main textarea:focus-visible,.fab:focus-visible,.lb-close:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+.cons-hero :focus-visible,.contact.dark :focus-visible,footer :focus-visible,.hd :focus-visible,.drawer :focus-visible,.cta-float:focus-visible{outline-color:#fff}
+.store-tabs button:focus-visible,.menu-stores button:focus-visible,.menu-cats button:focus-visible{outline-offset:-3px;border-radius:10px}
+.nav a[aria-current=page],.nav a.on{color:#fff;font-weight:700}
+
+/* ───────── トップ：料理写真の見える位置 ───────── */
+html:not([data-hero=b]) .hero::after{background-position:46% 52%}
+
+/* ───────── メニュー：カテゴリー・画像・閉じるボタン ───────── */
+.menu-cats{display:flex;flex-wrap:wrap;gap:10px}
+.menu-cats button{min-height:44px;padding:9px 22px;font-weight:700;transition:background-color .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease2)}
+.menu-cats button[aria-selected=true]{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+.store-tabs button,.menu-stores button{min-height:52px}
+.store-tabs button[aria-selected=true],.menu-stores button[aria-selected=true]{color:var(--navy);font-weight:700}
+.lb-close{position:fixed;top:14px;right:14px;z-index:5;width:52px!important;height:52px!important;border-radius:50%!important;background:#fff!important;color:var(--navy)!important;font-size:20px;font-weight:700;box-shadow:0 8px 22px -8px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;transition:transform .25s var(--ease2),background-color .2s}
+.lb-close:hover{transform:scale(1.06) rotate(90deg)}
+@media(max-width:640px){
+  .menu-cats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:calc(-1*var(--gutter));margin-right:calc(-1*var(--gutter));padding:2px var(--gutter) 6px}
+  .menu-cats::-webkit-scrollbar{display:none}
+  .menu-cats button{flex:none}
+  .menu-view a{padding:6px!important;border-radius:12px!important}
+  .menu-view img{border-radius:8px!important}
+  .lightbox{padding:72px 0 40px}
+  .lightbox img{border-radius:0!important}
+  .lb-close{top:12px;right:12px}
+}
+
+/* ───────── スマホの固定ボタン：ページの目的に合わせて ───────── */
+.cta-float{display:none}
+@media(max-width:640px){
+  /* 予約（トップ・メニュー）：ファーストビューを過ぎてから出し、フッターでは引っ込める */
+  .fab{display:block;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:90;padding:14px 26px;border-radius:999px;font-size:15px;
+    opacity:0;visibility:hidden;transform:translateY(16px);transition:opacity .3s var(--ease2),transform .3s var(--ease2),visibility 0s .3s}
+  html.fab-on .fab{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  /* 会社概要：控えめ（白地に紺の枠） */
+  body[data-page=about] .fab{background:#fff!important;color:var(--navy)!important;border:1.5px solid var(--navy)!important;padding:11px 20px;font-size:14px;box-shadow:0 6px 18px -10px rgba(0,0,0,.4)}
+  /* コンサル：予約ではなく、ページ内の無料相談ボタンを固定表示 */
+  body[data-page=consulting] .fab,body[data-page=media] .fab{display:none!important}
+  body[data-page=consulting] .cta-float{display:flex;position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:90;justify-content:center;margin:0;
+    opacity:0;visibility:hidden;transform:translateY(16px);transition:opacity .3s var(--ease2),transform .3s var(--ease2),visibility 0s .3s;box-shadow:0 10px 24px -10px rgba(0,0,0,.55)}
+  html.fab-on body[data-page=consulting] .cta-float{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  body[data-page=index] footer,body[data-page=menu] footer,body[data-page=consulting] footer{padding-bottom:96px}
+}
+@media(prefers-reduced-motion:reduce){.fab,.cta-float{transition:none!important}}
+
+/* ───────── フォーム：送信ボタンの反応 ───────── */
+.cf7 button.btn{transition:background-color .2s var(--ease),transform .24s var(--ease2),box-shadow .24s var(--ease2),opacity .2s}
+.cf7.sending button.btn{transform:scale(.98)}
