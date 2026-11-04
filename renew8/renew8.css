@@ -1,0 +1,79 @@
+/* RENEW 第8次：RENEW7 の見た目を保ったまま、4か所を整える。renew7.css の後に重ねる。
+   紺・オレンジ・アイボリー等の配色、文章・数値・リンク・画像は変更しない（見た目と操作のみ）。 */
+
+/* ───────── 1. トップ：ケータリング・お弁当（写真が主役、チラシは右下に少し重ねた紙面） ───────── */
+@media(min-width:901px){
+  .cater{grid-template-columns:minmax(0,6.2fr) minmax(0,4.8fr);gap:clamp(40px,5vw,80px);align-items:center}
+  /* 写真は幅の88%。チラシは幅28%で、写真の右下の角にだけかかる位置（料理の中心は隠さない） */
+  .cater-vis{position:relative;padding:0 12% 15% 0!important}
+  .cater-ph{width:100%;aspect-ratio:4/3}
+  .cater-vis .flyer{position:absolute!important;right:0;bottom:0;width:28%;margin:0!important;transform:rotate(2deg);transform-origin:50% 100%;transition:transform .35s var(--ease2)}
+  .cater-vis .flyer:hover{transform:rotate(0deg) translateY(-4px)}
+  .cater-vis .flyer>span{position:absolute!important;right:calc(100% + 14px);bottom:4px;left:auto;margin:0;white-space:nowrap;text-align:right}
+}
+/* 紙のチラシ：白い外枠と控えめな影 */
+.cater-vis .flyer img{display:block;width:100%;background:#fff;padding:7px;border:0!important;border-radius:3px!important;box-shadow:0 1px 2px rgba(28,43,69,.12),0 14px 28px -14px rgba(28,43,69,.38)!important}
+.cater-vis .flyer:hover img{opacity:1}
+/* メールでの相談を主な導線に。チラシは添える扱い */
+.cater .row{gap:14px 28px}
+.cater .row .btn:not(.line){padding:17px 36px;font-size:16px}
+.cater .mail{color:var(--navy);font-size:15px;letter-spacing:.02em;margin-top:14px;user-select:all}
+@media(max-width:900px){
+  /* スマホ：写真を大きく、チラシは写真の下に、余白を取って小さく */
+  .cater-vis{padding:0!important;display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr);align-items:end;column-gap:18px}
+  .cater-ph{grid-column:1/-1;width:100%}
+  .cater-vis .flyer{position:static!important;width:auto!important;margin:28px 0 8px!important;grid-column:1}
+  .cater-vis .flyer>span{position:static!important;margin-top:10px;text-align:left}
+  .cater>.tx{margin-top:12px}
+}
+
+/* ───────── 2. 下層ページのファーストビュー：同じブランドの円モチーフ（文字の後ろ・薄く・ゆっくり） ───────── */
+body[data-page=about] .page-hero::after,
+body[data-page=consulting] .page-hero::after,body[data-page=consulting] .page-hero::before,
+body[data-page=media] .page-hero::after{content:"";display:block!important;position:absolute;z-index:0;border-radius:50%;pointer-events:none}
+.page-hero{position:relative;overflow:hidden;isolation:isolate}
+.page-hero>.wrap{position:relative;z-index:1}
+/* 会社概要：背景の右端に大きな薄い円を1つ */
+body[data-page=about] .page-hero::after{right:-9%;top:-55%;width:min(48vw,620px);aspect-ratio:1;background:var(--cream);opacity:.75}
+/* コンサル：右下に少し大きな円、右上に小さな円形ライン */
+body[data-page=consulting] .page-hero::after{right:-7%;bottom:-48%;top:auto;width:min(40vw,520px);aspect-ratio:1;background:var(--peach);opacity:.09}
+body[data-page=consulting] .page-hero::before{right:14%;top:12%;width:clamp(96px,11vw,150px);aspect-ratio:1;background:none;border:1.5px solid var(--peach);opacity:.32}
+/* メディア：左下にシンプルな円を1つ */
+body[data-page=media] .page-hero::after{left:auto;right:6%;bottom:-62%;width:min(34vw,440px);aspect-ratio:1;background:var(--cream);opacity:.8}
+@media(max-width:900px){
+  body[data-page=about] .page-hero::after{right:-38%;top:-30%;width:78vw}
+  body[data-page=consulting] .page-hero::after{right:-40%;bottom:-18%;width:82vw}
+  body[data-page=consulting] .page-hero::before{right:-34px;top:-30px;width:96px}
+  body[data-page=media] .page-hero::after{right:-30%;bottom:-40%;width:70vw}
+}
+
+/* ───────── 3. メニュー末尾の予約：ページを締める余白 ───────── */
+.menu-actions{justify-content:center;margin-bottom:clamp(40px,6vw,88px)}
+@media(min-width:901px){.menu-actions{padding:clamp(36px,4vw,52px)}}
+
+/* ───────── 4. 実績数字：後ろの円をやめ、文字の大きさ・余白で見せる ───────── */
+.nums>div::before{content:none!important;display:none!important;animation:none!important}
+.nums:not(.nums3){gap:0 clamp(20px,3vw,40px)}
+.nums:not(.nums3)>div{padding:clamp(28px,3.4vw,40px) 0 clamp(24px,3vw,32px)!important}
+.nums:not(.nums3) b{font-size:clamp(34px,3.6vw,50px);line-height:1.08;letter-spacing:-.005em;margin-bottom:10px}
+.nums:not(.nums3) b small{font-size:.44em;margin-left:3px}
+.nums.nums3 b{margin-bottom:12px}
+@media(max-width:900px){
+  .nums:not(.nums3){gap:0 20px}
+  .nums:not(.nums3)>div{padding:22px 0 20px!important}
+  .nums:not(.nums3) b{font-size:clamp(30px,8.6vw,38px)}
+}
+
+/* ───────── 動き（14〜18秒。動きを減らす設定では止める） ───────── */
+@media(prefers-reduced-motion:no-preference){
+  body[data-page=about] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-a 16s ease-in-out 1.6s infinite alternate}
+  body[data-page=consulting] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-b 18s ease-in-out 1.6s infinite alternate}
+  body[data-page=consulting] .page-hero::before{animation:r8-in 1.2s var(--ease2) .45s both,r8-turn 14s ease-in-out 1.7s infinite alternate}
+  body[data-page=media] .page-hero::after{animation:r8-in 1.4s var(--ease2) .15s both,r8-drift-c 15s ease-in-out 1.6s infinite alternate}
+  @keyframes r8-in{from{opacity:0;transform:scale(.88)}}
+  @keyframes r8-drift-a{from{transform:translate(0,0) scale(1)}to{transform:translate(-26px,18px) scale(1.06)}}
+  @keyframes r8-drift-b{from{transform:translate(0,0) scale(1)}to{transform:translate(-22px,-20px) scale(1.05)}}
+  @keyframes r8-turn{from{transform:translate(0,0) scale(1)}to{transform:translate(-14px,12px) scale(1.12)}}
+  @keyframes r8-drift-c{from{transform:translate(0,0) scale(1)}to{transform:translate(20px,-14px) scale(1.05)}}
+}
+@media(prefers-reduced-motion:reduce){.cater-vis .flyer{transition:none}}
