@@ -1,0 +1,99 @@
+/* RENEW 第6次：全ページ共通の最終ブラッシュアップ。renew → renew2 → renew3 → renew4 → renew5 の後に重ねる。
+   円形（〇）モチーフを、ページの目的に合わせて控えめに使う。紺・オレンジ・アイボリー等の配色は変更しない。
+   文章・数値・リンク・画像は変更しない（見た目のみ）。装飾的な縦線は使わない。 */
+@property --ring{syntax:'<angle>';inherits:false;initial-value:360deg}
+
+/* ───────── トップ：ファーストビュー ───────── */
+/* 文字のまとまり（見出し・説明・ボタン・店舗案内）を、ひとつのグループのまま少し左へ */
+html:not([data-hero=b]) .hero-in{padding-left:max(24px,calc((100vw - 1200px)/2 + 12px));padding-right:clamp(24px,3vw,44px)}
+/* 背景の大きな薄い円：写真の下・画面の端に2つだけ */
+html:not([data-hero=b]) .hero::before{display:block!important;content:"";position:absolute;left:-12%;bottom:-36%;width:min(44vw,600px);aspect-ratio:1;border-radius:50%;background:var(--peach);opacity:.42;z-index:0;pointer-events:none}
+html:not([data-hero=b]) .hero-in::after{content:"";position:absolute;z-index:-1;top:-120px;left:-110px;width:clamp(200px,22vw,320px);aspect-ratio:1;border-radius:50%;background:var(--cream);opacity:.9;pointer-events:none}
+@media(max-width:900px){
+  html:not([data-hero=b]) .hero-in{padding-left:var(--gutter);padding-right:var(--gutter)}
+  html:not([data-hero=b]) .hero::before{left:auto;right:-30%;bottom:-8%;width:80vw;opacity:.34}
+  html:not([data-hero=b]) .hero-in::after{top:auto;bottom:-60px;right:auto;left:-70px;width:180px}
+}
+
+/* ───────── 店舗・メニューのタブ：選んだ店の前に小さな円が現れる ───────── */
+.store-tabs button,.menu-stores button{position:relative}
+.store-tabs button>span,.menu-stores button>span{vertical-align:middle}
+.store-tabs button::before,.menu-stores button::before{content:"";display:inline-block;vertical-align:middle;width:0;height:8px;margin-right:0;border-radius:50%;background:var(--accent);transform:scale(0);transition:width .35s var(--ease2),margin .35s var(--ease2),transform .35s var(--ease2)}
+.store-tabs button[aria-selected=true]::before,.menu-stores button[aria-selected=true]::before{width:8px;margin-right:9px;transform:scale(1)}
+
+/* ───────── メニュー：画像の拡大は、押した位置から円形に開く ───────── */
+.lightbox{clip-path:circle(150% at var(--cx,50%) var(--cy,50%))}
+.lightbox[hidden]{clip-path:circle(0% at var(--cx,50%) var(--cy,50%))}
+.menu-actions{align-items:center}
+.menu-actions .btn{padding:18px 44px;font-size:16px}
+.notice{font-size:16px;line-height:2}
+.notice p+p{margin-top:12px}
+
+/* ───────── 実績数値：数字の後ろに薄い円（会社概要・コンサル） ───────── */
+.nums>div{position:relative;isolation:isolate}
+.nums>div::before{content:"";position:absolute;z-index:-1;left:-16px;top:-12px;width:clamp(76px,8vw,112px);aspect-ratio:1;border-radius:50%;background:var(--peach);opacity:.5;pointer-events:none}
+.nums.nums3>div::before{left:-22px;top:-18px;width:clamp(96px,10vw,140px);opacity:.55}
+.nums>div:nth-child(2)::before{background:var(--cream);opacity:.9}
+.nums>div:nth-child(3)::before{background:var(--sage);opacity:.7}
+.nums>div:nth-child(4)::before{background:var(--peach-l);opacity:.9}
+@media(max-width:900px){.nums>div::before{left:-8px;top:-8px;width:64px}.nums.nums3>div::before{left:-10px;top:-10px;width:72px}}
+
+/* ───────── 会社概要：沿革は年の前に円形のマーカー（重要な出来事は塗り） ───────── */
+.timeline .hl::before{display:none!important}
+.timeline time{position:relative;padding-left:24px}
+.timeline time::before{content:"";position:absolute;left:0;top:.62em;width:11px;height:11px;border-radius:50%;background:var(--white);box-shadow:inset 0 0 0 2px var(--honey)}
+.timeline li:has(.hl) time::before{background:var(--honey);box-shadow:none}
+@media(max-width:900px){.timeline li{grid-template-columns:76px minmax(0,1fr);gap:16px}.timeline time{font-size:19px;padding-left:20px}.timeline time::before{width:10px;height:10px}}
+
+/* ───────── コンサル：4段階の流れは、円形の番号と、描かれるリング ───────── */
+.steps li{border-top:0!important;padding-top:0!important;position:relative}
+.steps li::before{content:counter(s)!important;display:flex!important;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:var(--white);color:var(--terra);font-family:var(--f-head);font-size:24px!important;font-weight:700;line-height:1;margin:0 0 18px!important;box-shadow:inset 0 0 0 1.5px var(--oat)}
+.steps li::after{content:"";position:absolute;left:0;top:0;width:60px;height:60px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(var(--terra) var(--ring),transparent 0);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px))}
+@media(max-width:640px){
+  .steps li{display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:18px;padding:0 0 26px!important}
+  .steps li::before{grid-row:1/3;width:52px;height:52px;font-size:21px!important;margin:0!important}
+  .steps li::after{width:52px;height:52px}
+}
+
+/* ───────── フォーム（取材・コンサル）：操作に関わる部分だけ、はっきりと ───────── */
+.cf7 label em{font-weight:700}
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel]{height:54px;min-height:54px}
+.cf7 input:focus,.cf7 textarea:focus{border-color:var(--navy)!important}
+.cf7 button.btn:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+.contact.dark .cf7 button.btn:focus-visible{outline-color:#fff}
+.cf7.sending button.btn{opacity:.75}
+.cf7.sent .wpcf7-response-output{animation:r6-pop .45s var(--ease2) both}
+@keyframes r6-pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@media(max-width:640px){.cf7{gap:22px}.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel]{font-size:16px}}
+
+/* ───────── フッター：各ページへのリンク ───────── */
+.ft-nav a{font-weight:700}
+
+/* ───────── 動き（8〜16秒のゆっくりした円。動きを減らす設定では止める） ───────── */
+@media(prefers-reduced-motion:no-preference){
+  html:not([data-hero=b]) .hero::before{animation:r6-in 1.6s var(--ease2) .3s both,r6-float1 14s ease-in-out 1.9s infinite alternate}
+  html:not([data-hero=b]) .hero-in::after{animation:r6-in 1.4s var(--ease2) .6s both,r6-float2 16s ease-in-out 2s infinite alternate}
+  @keyframes r6-in{from{opacity:0;transform:scale(.85)}}
+  @keyframes r6-float1{from{transform:translate(0,0) scale(1)}to{transform:translate(22px,-16px) scale(1.07)}}
+  @keyframes r6-float2{from{transform:translate(0,0) scale(1)}to{transform:translate(-16px,12px) scale(.94)}}
+  .nums.nums3>div::before{animation:r6-breathe 12s ease-in-out infinite alternate}
+  .nums.nums3>div:nth-child(2)::before{animation-duration:14s;animation-delay:-4s}
+  .nums.nums3>div:nth-child(3)::before{animation-duration:16s;animation-delay:-8s}
+  @keyframes r6-breathe{from{transform:scale(1)}to{transform:scale(1.1) translate(6px,-4px)}}
+  .js .nums>div[data-rv]::before{opacity:0;transform:scale(.6);transition:opacity .9s var(--ease2) calc(var(--d,0ms) + .15s),transform .9s var(--ease2) calc(var(--d,0ms) + .15s)}
+  .js .nums>div[data-rv].in::before{opacity:.55;transform:none}
+  .js .nums>div:nth-child(2)[data-rv].in::before,.js .nums>div:nth-child(4)[data-rv].in::before{opacity:.9}
+  .js .nums>div:nth-child(3)[data-rv].in::before{opacity:.7}
+  .js .timeline li[data-rv] time::before{transform:scale(0);transition:transform .6s var(--ease2) calc(var(--d,0ms) + .3s)}
+  .js .timeline li[data-rv].in time::before{transform:none}
+  .js .steps li[data-rv]::after{--ring:0deg;transition:--ring 1.3s var(--ease2) calc(var(--d,0ms) + .25s)}
+  .js .steps li[data-rv].in::after{--ring:360deg}
+  .lightbox{transition:clip-path .55s var(--ease2),opacity .3s var(--ease2),visibility 0s}
+  .lightbox[hidden]{transition:clip-path .45s var(--ease2),opacity .35s var(--ease2),visibility 0s .45s}
+}
+@media(prefers-reduced-motion:reduce){
+  .lightbox,.lightbox[hidden]{clip-path:none}
+  .steps li::after{--ring:360deg}
+}
