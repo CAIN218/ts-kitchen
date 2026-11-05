@@ -1,0 +1,70 @@
+/* RENEW 第11次：renew10.css の後に重ねる（最終改善）。
+   PCで変えるのは「TOPファーストビューの文字位置」と、ガクつきの原因（ヘッダーの縮み・表示アニメの移動量）だけ。
+   それ以外はすべて max-width:640px の中。文章・数値・リンク・画像・PDF・フォームの送信先は変更しない。 */
+
+/* ───────── ガクつき対策（全幅） ───────── */
+/* ヘッダー：スクロールしても高さ・ロゴを変えない（PCでも 82px→66px に縮んで本文が跳ねていた）。影だけ付ける */
+.hd.scrolled .hd-in{padding-top:16px;padding-bottom:16px}
+.hd-in{transition:none}
+.hd.scrolled .logo img{width:40px;height:40px}
+.logo img{transition:none}
+/* 表示アニメーション：移動量を小さく、時間を短く（最後の位置は今までと同じ） */
+@media(prefers-reduced-motion:no-preference){
+  .js [data-rv]:not(.in){transform:translate3d(0,16px,0)!important}
+  .js [data-rv]{transition:opacity .6s var(--ease2) var(--d,0ms),transform .6s var(--ease2) var(--d,0ms)!important}
+}
+
+/* ───────── TOP：PCファーストビューの文字ブロックを少し左へ ───────── */
+/* 広い画面ほど文字が写真側へ寄って窮屈だったため、左の余白を約半分に（1280px以下は今までどおり） */
+@media(min-width:901px){
+  html:not([data-hero=b]) .hero-in{padding-left:max(24px,calc((100vw - 1200px)/4 + 32px))}
+}
+
+@media(max-width:640px){
+/* スマホの表示アニメ（renew10 の指定を動きを減らす設定のときは外す） */
+@media(prefers-reduced-motion:no-preference){.js [data-rv]:not(.in){transform:translate3d(0,12px,0)!important}}
+
+/* ───────── TOP：ケータリング（写真が主役、その下に控えめなチラシのリンク） ───────── */
+/* 白いカードと小さなサムネイルはやめ、写真の下に「書類アイコン＋チラシを見る」の1行だけ */
+.cater-vis .flyer{display:none!important}
+.cater-ph{aspect-ratio:3/2!important}
+.cater .row .btn.line{order:4;grid-column:1/-1!important;justify-self:start;display:inline-flex!important;align-items:center;gap:10px;
+  min-height:48px!important;margin:10px 0 0!important;padding:0 4px 0 0!important;background:none!important;border-radius:0!important;font-size:16px;font-weight:700;color:var(--navy)}
+.cater .row .btn.line::before{content:"";flex:none;width:22px;height:26px;border-radius:3px;border:1.5px solid var(--navy);
+  background:linear-gradient(var(--navy),var(--navy)) 4px 9px/11px 1.5px no-repeat,linear-gradient(var(--navy),var(--navy)) 4px 14px/11px 1.5px no-repeat,linear-gradient(var(--navy),var(--navy)) 4px 19px/7px 1.5px no-repeat;opacity:.85}
+.cater .row .btn.line>span{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
+.cater ul{margin-top:22px!important}
+
+/* ───────── TOP：店舗情報（まとまり・押しやすさ） ───────── */
+.cards .card h3{margin-bottom:10px}
+.cards .acts{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px!important}
+.cards .acts a:not(.r){display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:0 12px;border-radius:999px;
+  background:#fff;box-shadow:inset 0 0 0 1px var(--oat);text-decoration:none;font-size:16px;font-weight:600;color:var(--navy);white-space:nowrap}
+.store-tabs{background:var(--oat)!important}
+
+/* ───────── メニュー：切り替え・画像の拡大 ───────── */
+/* 料理・デザート・ドリンクの切り替えは3等分（横にはみ出して切れない） */
+.menu-cats{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible!important}
+.menu-cats button{min-width:0!important;width:100%;min-height:46px;padding:6px 4px!important;font-size:15px}
+/* 拡大表示：背景を濃くして画像だけに集中。画像は画面幅に収め、閉じるボタンはホームインジケーター等と重ならない位置に */
+.lightbox{background:rgba(17,28,48,.97)!important;padding:calc(76px + env(safe-area-inset-top)) 12px calc(64px + env(safe-area-inset-bottom))!important}
+.lightbox:not(.zoom) img{width:100%;max-width:100%}
+.lb-close{top:calc(14px + env(safe-area-inset-top))!important;right:14px!important;width:52px!important;height:52px!important;font-size:20px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+html:has(.lightbox:not([hidden])) .fab{opacity:0!important;visibility:hidden!important}
+
+/* ───────── 会社概要：受賞・認証ロゴは控えめに同じ大きさで ───────── */
+.badges{column-gap:12px!important;row-gap:24px!important}
+.badges li img{width:76px!important;height:76px!important;padding:9px!important;margin-bottom:8px!important}
+.badges li{font-size:12.5px;line-height:1.55;word-break:auto-phrase}
+
+/* ───────── コンサルティング：最後の流れ → お問い合わせ → フッターの区切り ───────── */
+body[data-page=consulting] .steps li{padding-bottom:6px}
+body[data-page=consulting] .contact .cf7 button.btn{margin-top:8px}
+
+/* ───────── メディア：フォーム ───────── */
+.cf7 label{font-size:15px}
+.cf7 textarea{min-height:180px}
+.cf7 .chk label{font-size:15px;line-height:1.6}
+.cf7 .chk input[type=checkbox]{width:22px;height:22px;flex:none}
+body[data-page=media] .contact,body[data-page=media] main>section:last-child{padding-bottom:72px}
+}
