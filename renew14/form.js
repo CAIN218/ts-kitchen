@@ -1,17 +1,7 @@
-/* デモ専用（本番には入れない）：改修前／前回／今回、ファーストビュー、アクセント色の切り替え。フォームの入力チェックと「送信中→送信完了」の見た目の確認用。
-   フォームの送信先・送信機能は変えていない（本番では Contact Form 7 がこの役目をする）。 */
+/* プレビュー用のフォーム確認：入力チェックと「送信中→送信完了」の見た目だけ（送信はしない）。
+   本番では Contact Form 7 がこの役目をするので、WordPress には入れない。 */
 (function(){
-  var r=document.documentElement,mode=r.getAttribute('data-mode'),acc=r.getAttribute('data-accent'),hero=r.getAttribute('data-hero');
-  document.querySelectorAll('.rn-bar [data-mode]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.mode===mode)});
-  document.querySelectorAll('.rn-bar [data-hero]').forEach(function(b){b.setAttribute('aria-pressed',false)});
-  document.querySelectorAll('.rn-bar [data-accent]').forEach(function(b){b.setAttribute('aria-pressed',mode!=='before'&&b.dataset.accent===acc)});
-  function go(p){var u=new URL(location.href);Object.keys(p).forEach(function(k){u.searchParams.set(k,p[k])});location.href=u.toString()}
-  document.querySelectorAll('.rn-bar [data-mode]').forEach(function(b){b.addEventListener('click',function(){go({mode:b.dataset.mode})})});
-  document.querySelectorAll('.rn-bar [data-hero]').forEach(function(b){b.addEventListener('click',function(){go({mode:'renew14'})})});
-  document.querySelectorAll('.rn-bar [data-accent]').forEach(function(b){b.addEventListener('click',function(){go({mode:mode==='before'?'renew14':mode,accent:b.dataset.accent})})});
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
-    if(/^[\w-]+\.html(#.*)?$/.test(h)||h==='./'){var u=new URL(h,location.href);u.searchParams.set('accent',acc);u.searchParams.set('mode',mode);u.searchParams.set('hero',hero);a.href=u.toString()}});
-
+  var r=document.documentElement;
   /* ── フォームの見た目確認（デモ） ── */
   var T={req:{ja:'この項目は必須です。',en:'This field is required.'},mail:{ja:'メールアドレスの形式をご確認ください。',en:'Please check the email address.'},
     agree:{ja:'同意が必要です。',en:'Consent is required.'},sending:{ja:'送信中…',en:'Sending…'},ok:{ja:'送信しました。ありがとうございます。（デモ表示）',en:'Sent. Thank you. (demo)'},
