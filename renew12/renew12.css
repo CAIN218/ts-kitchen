@@ -24,7 +24,7 @@
   /* アイコンを左に固定し、文字はその右で自然に折り返す */
   .sns-acct{display:block;position:relative;padding-left:40px;min-height:0;font-size:15.5px;line-height:1.8}
   .sns-acct .sns-ic{position:absolute;left:0;top:1px}
-  .sns-yt{display:block}
+  .sns-yt{display:block;position:static}
   .sns-yt .sns-h{display:inline-block;margin-right:10px}
   .sns-go{margin-top:2px;min-height:32px}
   .sns-acct>span[lang]{display:inline-block}
