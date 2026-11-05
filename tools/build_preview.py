@@ -18,10 +18,10 @@ NAV = ('<nav class="ft-nav" aria-label="サイト内リンク / Site links">'
 # フッターの会社情報・認証（文言は会社概要・トップの既存の文言のみ）
 FT_EXTRA = ('<div class="ft-co r3"><div><b><span lang="ja">株式会社飯野</span><span lang="en">Iino Co., Ltd.</span></b>'
             '<span lang="ja">〒135-0034 東京都江東区永代2-35-8</span><span lang="en">2-35-8 Eitai, Koto-ku, Tokyo 135-0034</span></div>'
-            '<ul class="ft-aw"><li><img src="../images/award-gig.png" alt="Validated Gluten Free Safe Spot"><span lang="ja">アジア初 GIG認証</span><span lang="en">First GIG-certified in Asia</span></li>'
-            '<li><img src="../images/award-gf-product-of-the-year.png" alt="Gluten-Free Product of the Year 2020"><span lang="ja">プロダクト・オブ・ザ・イヤー2020</span><span lang="en">Product of the Year 2020</span></li>'
-            '<li><img src="../images/award-food-action-nippon.png" alt="Food Action Nippon Award 2019"><span lang="ja">フードアクションニッポン2019</span><span lang="en">Food Action Nippon 2019</span></li>'
-            '<li><img src="../images/award-tripadvisor.png" alt="Tripadvisor"><span lang="ja">トリップアドバイザー東京No.1（2019）</span><span lang="en">Tripadvisor No.1 Tokyo (2019)</span></li></ul></div>')
+            '<ul class="ft-aw"><li><img src="../src/images/award-gig.png" alt="Validated Gluten Free Safe Spot"><span lang="ja">アジア初 GIG認証</span><span lang="en">First GIG-certified in Asia</span></li>'
+            '<li><img src="../src/images/award-gf-product-of-the-year.png" alt="Gluten-Free Product of the Year 2020"><span lang="ja">プロダクト・オブ・ザ・イヤー2020</span><span lang="en">Product of the Year 2020</span></li>'
+            '<li><img src="../src/images/award-food-action-nippon.png" alt="Food Action Nippon Award 2019"><span lang="ja">フードアクションニッポン2019</span><span lang="en">Food Action Nippon 2019</span></li>'
+            '<li><img src="../src/images/award-tripadvisor.png" alt="Tripadvisor"><span lang="ja">トリップアドバイザー東京No.1（2019）</span><span lang="en">Tripadvisor No.1 Tokyo (2019)</span></li></ul></div>')
 SEND_NOTE = '<p class="req-note r3"><span lang="ja"><em>*</em> は必須項目です</span><span lang="en"><em>*</em> Required</span></p>'
 
 def sub1(pat, rep, s, **kw):
@@ -30,11 +30,11 @@ def sub1(pat, rep, s, **kw):
     return n
 
 for name in PAGES:
-    h = (root/f'{name}.html').read_text(encoding='utf-8')
-    h = re.sub(r'(href|src)="(style\.css|script\.js|anim/|images/)', r'\1="../\2', h)
-    h = re.sub(r"url\('(images/)", r"url('../\1", h)
-    h = sub1(r'<link rel="stylesheet" href="\.\./anim/site\.css[^>]*>', LOADER_CSS, h)
-    h = sub1(r'<script src="\.\./anim/site\.js[^>]*></script>', LOADER_JS, h)
+    h = (root/'src'/f'{name}.html').read_text(encoding='utf-8')
+    h = re.sub(r'(href|src)="(style\.css|script\.js|anim/|images/)', r'\1="../src/\2', h)
+    h = re.sub(r"url\('(images/)", r"url('../src/\1", h)
+    h = sub1(r'<link rel="stylesheet" href="\.\./src/anim/site\.css[^>]*>', LOADER_CSS, h)
+    h = sub1(r'<script src="\.\./src/anim/site\.js[^>]*></script>', LOADER_JS, h)
     h = sub1(r'<body( class="sub")?>', lambda m: f'<body{m.group(1) or ""} data-page="{name}">', h)
     if name == 'consulting':
         # 6) ヘッダー・ドロワーのボタン：レストラン予約ではなく、ページ内のお問い合わせフォームへ（文言は yuga の指示どおり）
@@ -43,19 +43,19 @@ for name in PAGES:
         h = sub1(r'<div class="drawer-foot"><a class="btn sm rsv" href="[^"]*"><span lang="ja">予約する</span><span lang="en">Book a table</span></a></div>',
                  '<div class="drawer-foot"><a class="btn sm hd-consult" href="#contact"><span lang="ja">無料相談</span><span lang="en">Free consultation</span></a></div>', h)
     if name == 'menu':
-        # デモはフォルダが1段深いので、メニュー切り替えのスクリプト内の画像パス（六本木店のお料理・デザート）も ../images/ に合わせる
+        # デモはフォルダが1段深いので、メニュー切り替えのスクリプト内の画像パス（六本木店のお料理・デザート）も ../src/images/ に合わせる
         # （以前のデモでは renewN/images/ を探して表示されなかった。本番用の build_wp.py は別の方法で置き換えているので影響なし）
-        h = h.replace("'images/menu-roppongi", "'../images/menu-roppongi")
-        h = sub1(r"/\^\(https\?:\|images\\/\)/", lambda m: r"/^(https?:|(\.\.\/)?images\/)/", h)
+        h = h.replace("'images/menu-roppongi", "'../src/images/menu-roppongi")
+        h = sub1(r"/\^\(https\?:\|images\\/\)/", lambda m: r"/^(https?:|(\.\.\/src\/)?images\/)/", h)
     if name == 'media':
         h = h.replace('<section class="blk contact">', '<section class="blk contact" id="contact">', 1)
 
     if name == 'index':
         # 1) レストラン紹介：料理・店内の写真を添える
         h = sub1(r'(<section class="blk"><div class="wrap about">)',
-                 r'\1\n  <div class="about-ph r3"><img class="a1" src="../images/entrance.jpg" alt="" loading="lazy"></div>', h)
+                 r'\1\n  <div class="about-ph r3"><img class="a1" src="../src/images/entrance.jpg" alt="" loading="lazy"></div>', h)
         # 3) ケータリング：お弁当の写真を主役に、チラシは添える
-        h = sub1(r'(<a class="flyer")', r'<div class="cater-vis"><img class="cater-ph r3" src="../images/bento.jpg" alt="" loading="lazy">\n  \1', h)
+        h = sub1(r'(<a class="flyer")', r'<div class="cater-vis"><img class="cater-ph r3" src="../src/images/bento.jpg" alt="" loading="lazy">\n  \1', h)
         h = sub1(r'(<span><span lang="ja">タップで拡大</span><span lang="en">Tap to enlarge</span></span>\n  </a>)', r'\1\n  </div>', h)
         # 4) 公式SNS（yuga 承認：見出し「公式SNS」/"Follow Us"）：Instagram と YouTube を同じ形で並べる。
         #    Instagram の既存の文（@glutenfreetskitchen で最新情報を発信中）とリンク先・写真はそのまま。リンクの文言は案（yuga 確認待ち）
