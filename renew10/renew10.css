@@ -1,0 +1,122 @@
+/* RENEW 第10次：renew9.css の後に重ねる。スマートフォン中心の改修。
+   PC・タブレット（641px以上）の見た目は変えない。例外は「シェフ写真の固定（sticky）解除」だけ（指示書5）。
+   文章・数値・リンク・画像・PDF・フォームの送信先は変更しない（見た目と並び・動きのみ）。 */
+
+/* ───────── 会社概要：シェフ写真をスクロールに追従させない（全幅） ───────── */
+body[data-page=about] .owner{position:static!important;top:auto!important}
+
+@media(max-width:640px){
+
+/* ───────── 1. スクロール時のガクつき対策 ───────── */
+/* ヘッダー：スクロールしても高さ・ロゴの大きさを変えない（影だけ付ける）。
+   以前は 62px→54px に縮み、その分だけ本文が上へ跳ねていた */
+.hd-in,.hd.scrolled .hd-in{padding-top:12px!important;padding-bottom:12px!important;transition:none!important}
+.logo img,.hd.scrolled .logo img{width:34px!important;height:34px!important;transition:none!important}
+/* 表示アニメーション：移動量を小さく・短く。位置（レイアウト）は動かさず、opacity と transform だけ */
+.js [data-rv]:not(.in){transform:translate3d(0,12px,0)!important}
+.js [data-rv]{transition:opacity .55s var(--ease2) var(--d,0ms),transform .55s var(--ease2) var(--d,0ms)!important}
+.js .about-ph[data-rv] .a1,.js .about-ph[data-rv] .a2,.js .owner[data-rv] img{transform:none!important;transition:none!important}
+/* タップ後に残るホバーの拡大・浮き上がりを止める（スマホのみ） */
+.svc-row.in:hover,.svc-row:hover{transform:none!important;box-shadow:none!important}
+.card .ph:hover,.shopbox .ph:hover,.biz>div:hover .ph,.flyer:hover img,.clip:hover img,.owner:hover img,.menu-view a:hover img{transform:none!important}
+/* 画像：読み込み前から場所を確保（読み込み後に下の内容が押し下げられない） */
+.clip img{aspect-ratio:707/1000;height:auto}
+/* 背景の円：合成レイヤーで動かす（再描画を減らす） */
+body[data-page] .page-hero::after{will-change:transform;backface-visibility:hidden}
+/* コンサル：ファーストビューの円は1つに（輪の円は出さない） */
+body[data-page=consulting] .page-hero::before{display:none!important;animation:none!important}
+
+/* ───────── 2. ファーストビュー（トップ） ───────── */
+/* 写真が主役のまま、縦に長くなりすぎないよう正方形に */
+html:not([data-hero=b]) .hero::after{aspect-ratio:1/1}
+.hero-in{padding-top:26px!important}
+/* 最初の画面で、ご予約の注意書きが右下の固定ボタンに隠れないよう右側を空ける */
+.hero-in .sub{padding-right:118px}
+
+/* ───────── 3. 「私たちのレストランについて」：認証マークを写真の下に独立して置く ───────── */
+.about>.about-ph{grid-row:1!important;margin-bottom:0!important}
+.about>img{grid-row:2!important;position:relative;z-index:1;width:76px!important;height:76px!important;margin:22px 0 14px!important;align-self:start}
+.about>div{grid-row:3!important}
+
+/* ───────── 4. ケータリング：写真＋チラシを「ひとつの案内」に ───────── */
+/* 並び：見出し・説明 → 写真（大） → チラシの横長カード（サムネイル＋「チラシを見る」） → 内容の一覧 → メールで相談 */
+.cater{display:grid!important;grid-template-columns:96px minmax(0,1fr)!important;grid-auto-flow:row dense;gap:0!important;align-items:stretch!important}
+.cater>.tx,.cater>.cater-vis,.cater .tx>.row{display:contents!important}
+.cater .tx>*,.cater .tx>.row>*{grid-column:1/-1}
+.cater .tx>h2{order:1}
+.cater .tx>p:not(.mail){order:2;margin-bottom:22px}
+.cater-ph{order:3;grid-column:1/-1;width:100%!important;aspect-ratio:3/2!important;height:auto}
+/* チラシのカード：左にサムネイル、右に「チラシを見る」。白い一枚の帯としてまとめる */
+.cater-vis .flyer{order:4;grid-column:1!important;position:static!important;width:auto!important;margin:12px 0 0!important;padding:12px 0 10px 12px!important;
+  background:#fff;border-radius:14px 0 0 14px;transform:none!important;display:flex;flex-direction:column;align-items:center}
+.cater-vis .flyer img{width:72px!important;height:96px!important;object-fit:cover;object-position:center top;padding:0!important;border-radius:4px!important;
+  box-shadow:0 0 0 1px var(--oat)!important;background:var(--cream)}
+.cater-vis .flyer>span{position:static!important;margin:6px 0 0!important;font-size:11px!important;line-height:1.3;text-align:center;transform:none!important;white-space:normal!important;color:var(--mute)}
+.cater .row .btn.line{order:4;grid-column:2!important;margin:12px 0 0!important;min-height:0!important;min-width:0!important;width:auto!important;justify-content:flex-start!important;text-align:left!important;
+  padding:0 18px!important;background:#fff;border-radius:0 14px 14px 0!important;box-shadow:none!important;color:var(--navy);font-size:16px;font-weight:700}
+.cater .row .btn.line>span{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
+.cater ul{order:5;margin:26px 0 22px 1.2em!important}
+.cater .row .btn:not(.line){order:6;justify-self:start;width:auto}
+.cater .tx>.mail{order:7}
+
+/* ───────── 5. 会社概要：シェフ写真（固定解除・写真と名前のバランス） ───────── */
+body[data-page=about] .profile .owner{max-width:none!important;display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr);column-gap:18px;align-items:end;margin-bottom:8px}
+body[data-page=about] .owner img{aspect-ratio:4/5}
+body[data-page=about] .owner figcaption{margin:0 0 4px!important;font-family:var(--f-head);font-size:17px;line-height:1.7;color:var(--navy);text-align:left}
+
+/* ───────── 6. コンサルティング：カードを減らし、専門家の会社らしい落ち着いた構成に ───────── */
+/* 並び（表示のみ）：ファーストビュー → 実績数字 → 紹介文 → 代表（写真と言葉） → 以降は元の順番 */
+body[data-page=consulting] main{display:flex;flex-direction:column}
+body[data-page=consulting] main>*{order:5}
+body[data-page=consulting] main>.page-hero{order:0}
+body[data-page=consulting] main>.numbers{order:1}
+body[data-page=consulting] main>.only{order:2}
+body[data-page=consulting] main>.founder{order:3}
+/* 区切りの帯は「サービス」「実績のある取引先」だけ。流れは白地で */
+body[data-page=consulting] section.sec.tint:has(.steps){background:transparent}
+body[data-page=consulting] .sec{padding-top:60px!important;padding-bottom:60px!important}
+body[data-page=consulting] .sec-head{margin-bottom:28px}
+
+/* 紹介文：左の線はなく、大きめの明朝で読ませる */
+body[data-page=consulting] .only{padding:48px 0 52px!important}
+body[data-page=consulting] .only-text{font-size:19px;line-height:2}
+
+/* 代表：写真を大きく、言葉をその下に */
+body[data-page=consulting] .founder{padding-top:56px!important;padding-bottom:24px!important}
+body[data-page=consulting] .founder .profile{gap:22px!important;padding:0 var(--gutter,20px)!important}
+body[data-page=consulting] .founder .owner{max-width:none!important;width:78%;position:static}
+body[data-page=consulting] .founder .owner img{aspect-ratio:4/5;border-radius:18px!important;box-shadow:none!important}
+body[data-page=consulting] .founder .owner figcaption{text-align:left;margin-top:10px;font-size:14px}
+body[data-page=consulting] .quote.big{font-size:21px!important;line-height:1.8!important;margin-bottom:16px!important}
+
+/* 引用：色付きの箱をやめ、大きな文字だけで */
+body[data-page=consulting] .quote:not(.big){background:none!important;border-radius:0!important;padding:0!important;margin:0 0 26px!important;font-size:23px!important;line-height:1.6!important}
+
+/* サービス：白いカードをやめ、上に紺の細い線を引いた読み物の並びに */
+body[data-page=consulting] #services .svc-list{gap:36px!important}
+body[data-page=consulting] .svc-row{background:none!important;border:0!important;border-top:1.5px solid var(--navy)!important;border-radius:0!important;box-shadow:none!important;padding:18px 0 0!important;gap:8px!important}
+body[data-page=consulting] .svc-row h3{font-size:21px!important;line-height:1.5}
+/* 英語の見出しは改行を消すと単語がつながる（certificationsupport）ため、元の改行を残す */
+body[data-page=consulting] .svc-row h3 [lang=en] br{display:inline!important}
+body[data-page=consulting] .svc-tag{color:var(--mute)!important;font-weight:500!important;letter-spacing:.02em!important;font-size:13px!important;margin-top:4px}
+body[data-page=consulting] .svc-row>p{border-top:0!important;padding-top:0!important;margin-top:6px!important}
+
+/* 取引先：白いカードをやめ、細い罫で区切った一覧に */
+body[data-page=consulting] .sec.tint .dl-grid{gap:0!important}
+body[data-page=consulting] .sec.tint .dl-grid>div{background:none!important;border:0!important;border-top:1px solid rgba(28,43,69,.16)!important;border-radius:0!important;padding:18px 0!important;box-shadow:none!important}
+body[data-page=consulting] .sec.tint .dl-grid>div:first-child{border-top:0!important;padding-top:4px!important}
+body[data-page=consulting] .dl-grid h3{font-size:17px}
+
+/* 書籍：実物のまとまりとして囲みは残し、影と枠をなくす */
+body[data-page=consulting] .book-card{box-shadow:none!important;border:0!important;border-radius:16px!important}
+
+/* 流れ：番号は順番を示すので残し、余白を整える */
+body[data-page=consulting] section.sec:has(.steps){padding-bottom:72px!important}
+
+/* お問い合わせ：「初回30分 無料」はバッジではなく文字で。フォームの前後に余白 */
+body[data-page=consulting] .contact{padding-top:64px!important;padding-bottom:88px!important}
+body[data-page=consulting] .free-badge{margin:6px 0 18px!important}
+body[data-page=consulting] .free-badge b{background:none!important;padding:0!important;border-radius:0!important;color:var(--peach)!important;font-size:19px!important}
+body[data-page=consulting] .contact .cf7{margin-top:32px}
+body[data-page=consulting] .contact .note{margin-top:28px}
+}
