@@ -1,24 +1,15 @@
-"""
-※ 2026-11-05 yuga の指示で他のデモを削除し、RENEW14 だけを残した。読み込むCSS・JS（renew〜renew13 の分）は renew14/ にコピーして、このフォルダだけで完結させている。
-5ページから、RENEW第14次のデモ（renew14/：ヘッダー・フッターのInstagramアイコンの横にYouTubeアイコンを追加）を作る。?mode=before（改修前）／renew2（前回）／renew3（今回、既定）。
-本文・リンク・フォームの送信先は元ページのまま。足すのは写真・見出し枠・案内（新規の文言は renew3/NOTES に列挙）。"""
+"""5ページ（ルートの本番用HTML）から、プレビュー renew14/ を作る。
+読み込むCSS・JS（renew〜renew14 の改修分）はすべて renew14/ の中にある。デモ用の切り替えパネルは無し（2026-11-05 yuga の指示で削除）。
+本文・リンク・フォームの送信先は元ページのまま。"""
 import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
-V = '20261115a'
+V = '20261116a'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'
-              'm=m==="before"?m:"renew14";r.setAttribute("data-mode",m);r.classList.add("js");r.setAttribute("data-accent",/^(gold|yellow)$/.test(a)?a:"orange");r.setAttribute("data-hero",q.get("hero")==="b"?"b":"a");'
-              'var h=m==="before"?\'<link rel="stylesheet" href="../anim/site.css?v=20261020a">\':\'<link rel="stylesheet" href="renew.css?v=20261103a"><link rel="stylesheet" href="renew2.css?v=20261103b"><link rel="stylesheet" href="renew3.css?v=20261104a"><link rel="stylesheet" href="renew4.css?v=20261105a"><link rel="stylesheet" href="renew5.css?v=20261106a"><link rel="stylesheet" href="renew6.css?v=20261107a"><link rel="stylesheet" href="renew7.css?v=20261108a"><link rel="stylesheet" href="renew8.css?v=20261109c"><link rel="stylesheet" href="renew9.css?v=20261110a"><link rel="stylesheet" href="renew10.css?v=20261111a"><link rel="stylesheet" href="renew11.css?v=20261112a"><link rel="stylesheet" href="renew13.css?v=20261114a"><link rel="stylesheet" href="renew14.css?v=' + V + '">\';d.write(h)})()</script>')
-LOADER_JS = ('<script>(function(){var m=document.documentElement.getAttribute("data-mode"),h=m==="before"?\'<script src="../anim/site.js?v=20261020a"><\\/script>\':\'<script src="renew.js?v=20261103a"><\\/script><script src="renew2.js?v=20261103b"><\\/script><script src="renew4.js?v=20261105a"><\\/script><script src="renew5.js?v=20261106a"><\\/script><script src="renew6.js?v=20261107a"><\\/script><script src="renew14.js?v=' + V + '"><\\/script>\';document.write(h)})()</script>')
-BAR = ('<details class="rn-bar"><summary>デモ用（本番には出ません）</summary><div role="group" aria-label="デモの切り替え">'
-       '<button type="button" data-mode="renew14">今回のRENEW14</button>'
-       '</div></details>')
-BARCSS = ('<style>.rn-bar{position:fixed;left:12px;bottom:12px;z-index:300;background:#fffcf3;color:#1c2b45;border:2px solid #1c2b45;border-radius:10px;font:13px/1.5 system-ui,sans-serif;max-width:calc(100vw - 24px)}'
-          '.rn-bar summary{cursor:pointer;padding:6px 12px;font-size:12px;font-weight:700}.rn-bar>div{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:4px 10px 10px}'
-          '.rn-bar button,.rn-bar a{font:inherit;font-weight:700;border:1.5px solid #c9bfa3;background:#fff;color:#1c2b45;border-radius:999px;padding:4px 11px;cursor:pointer;text-decoration:none}'
-          '.rn-bar button[aria-pressed=true]{background:#1c2b45;border-color:#1c2b45;color:#fbf6e9}.rn-bar span{font-size:12px;opacity:.7;margin:0 2px 0 6px}'
-          'html[data-mode=before] .r3{display:none}</style>')
+              'm="renew14";r.setAttribute("data-mode",m);r.classList.add("js");r.setAttribute("data-accent","orange");r.setAttribute("data-hero","a");'
+              'var h=\'<link rel="stylesheet" href="renew.css?v=20261103a"><link rel="stylesheet" href="renew2.css?v=20261103b"><link rel="stylesheet" href="renew3.css?v=20261104a"><link rel="stylesheet" href="renew4.css?v=20261105a"><link rel="stylesheet" href="renew5.css?v=20261106a"><link rel="stylesheet" href="renew6.css?v=20261107a"><link rel="stylesheet" href="renew7.css?v=20261108a"><link rel="stylesheet" href="renew8.css?v=20261109c"><link rel="stylesheet" href="renew9.css?v=20261110a"><link rel="stylesheet" href="renew10.css?v=20261111a"><link rel="stylesheet" href="renew11.css?v=20261112a"><link rel="stylesheet" href="renew13.css?v=20261114a"><link rel="stylesheet" href="renew14.css?v=' + V + '">\';d.write(h)})()</script>')
+LOADER_JS = ('<script>(function(){var m=document.documentElement.getAttribute("data-mode"),h=\'<script src="renew.js?v=20261103a"><\\/script><script src="renew2.js?v=20261103b"><\\/script><script src="renew4.js?v=20261105a"><\\/script><script src="renew5.js?v=20261106a"><\\/script><script src="renew6.js?v=20261107a"><\\/script><script src="renew14.js?v=' + V + '"><\\/script>\';document.write(h)})()</script>')
 NAV = ('<nav class="ft-nav" aria-label="サイト内リンク / Site links">'
        '<a href="menu.html"><span lang="ja">メニュー</span><span lang="en">Menu</span></a>'
        '<a href="about.html"><span lang="ja">会社概要</span><span lang="en">About us</span></a>'
@@ -42,7 +33,7 @@ for name in PAGES:
     h = (root/f'{name}.html').read_text(encoding='utf-8')
     h = re.sub(r'(href|src)="(style\.css|script\.js|anim/|images/)', r'\1="../\2', h)
     h = re.sub(r"url\('(images/)", r"url('../\1", h)
-    h = sub1(r'<link rel="stylesheet" href="\.\./anim/site\.css[^>]*>', LOADER_CSS + '\n' + BARCSS, h)
+    h = sub1(r'<link rel="stylesheet" href="\.\./anim/site\.css[^>]*>', LOADER_CSS, h)
     h = sub1(r'<script src="\.\./anim/site\.js[^>]*></script>', LOADER_JS, h)
     h = sub1(r'<body( class="sub")?>', lambda m: f'<body{m.group(1) or ""} data-page="{name}">', h)
     if name == 'consulting':
@@ -95,6 +86,6 @@ for name in PAGES:
     assert n_yt == 2, (name, n_yt)
     # フッター：各ページへのリンク（ヘッダーと同じ既存の表記のみ）
     h = h.replace('<div class="copy">', NAV + '\n  <div class="copy">', 1)
-    h = h.replace('</body>', BAR + '\n<script src="demo.js?v=' + V + '"></script></body>', 1)
+    h = h.replace('</body>', '<script src="form.js?v=' + V + '"></script></body>', 1)
     (root/'renew14'/f'{name}.html').write_text(h, encoding='utf-8')
     print(name, len(h))

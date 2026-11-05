@@ -20,3 +20,9 @@
 
 ## 写真の差し替え
 - 原宿店の写真：`images/harajuku.jpg` という名前で置くと、トップページの原宿店カードに自動で表示されます（横長、1200×750px程度がおすすめ）。置くまではロゴが表示されます。
+
+## フォルダの構成（2026-11-05 整理）
+- ルートの `index.html` / `menu.html` / `about.html` / `consulting.html` / `media.html`、`style.css`、`script.js`、`anim/site.*`、`images/`：本番（WordPress）用の元データ
+- `tools/build_wp.py`：上の元データから WordPress に貼る断片（`wp/`）を作る
+- `renew14/`：新デザインのプレビュー（`python3 tools/build_preview.py` で作り直す）
+- 以前のデモ（concepts / refine / refresh / renew〜renew13 など）は削除済み。必要なら git の履歴から戻せます
