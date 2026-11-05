@@ -13,16 +13,17 @@
 
 ## 本番化の前にやること
 - [ ] お店に内容（特にアレルギー表記・営業時間）を確認してもらう
-- [ ] 写真をこのリポジトリの `images/` に移す（今は現行サイトから読み込み）
+- [ ] 写真をこのリポジトリの `src/images/` に移す（今は現行サイトから読み込み）
 - [ ] TableCheck英語版の予約URLが正しく開くか確認
 - [ ] メニュー・会社概要など他ページの扱いを決める
 - [ ] 公開先（Cloudflare Pages / Netlify など）とドメイン切替の方法を決める（メールのMXレコードに注意）
 
 ## 写真の差し替え
-- 原宿店の写真：`images/harajuku.jpg` という名前で置くと、トップページの原宿店カードに自動で表示されます（横長、1200×750px程度がおすすめ）。置くまではロゴが表示されます。
+- 原宿店の写真：`src/images/harajuku.jpg` という名前で置くと、トップページの原宿店カードに自動で表示されます（横長、1200×750px程度がおすすめ）。置くまではロゴが表示されます。
 
 ## フォルダの構成（2026-11-05 整理）
-- ルートの `index.html` / `menu.html` / `about.html` / `consulting.html` / `media.html`、`style.css`、`script.js`、`anim/site.*`、`images/`：本番（WordPress）用の元データ
-- `tools/build_wp.py`：上の元データから WordPress に貼る断片（`wp/`）を作る
-- `renew14/`：新デザインのプレビュー（`python3 tools/build_preview.py` で作り直す）
+- `src/`：本番（WordPress）用の元データ。`index.html` / `menu.html` / `about.html` / `consulting.html` / `media.html`、`style.css`、`script.js`、`anim/site.*`、`images/`
+- `tools/build_wp.py`：`src/` から WordPress に貼る断片（`wp/`）を作る
+- `renew14/`：新デザインのプレビュー（`python3 tools/build_preview.py` で `src/` から作り直す）
+- ルートの `index.html`：プレビュー（`renew14/`）へ転送するだけのページ
 - 以前のデモ（concepts / refine / refresh / renew〜renew13 など）は削除済み。必要なら git の履歴から戻せます

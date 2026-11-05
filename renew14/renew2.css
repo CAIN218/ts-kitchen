@@ -24,7 +24,7 @@ body[data-page=about] .hd-rsv{border-radius:999px}
 /* ───────── ファーストビュー A案：左に温かいミルクベージュの文字、右に大きな料理写真 ───────── */
 .hero{background:var(--milk);color:var(--navy);grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:min(90vh,800px);overflow:hidden;position:relative}
 .hero::before{display:block;content:"";position:absolute;left:-9%;bottom:-30%;width:min(46vw,620px);aspect-ratio:1;border-radius:50%;background:var(--peach);opacity:.6;z-index:0}
-.hero::after{position:relative;z-index:1;min-height:0;border-radius:200px 0 0 200px;background:url("../images/food.jpg") 56% 50%/cover}
+.hero::after{position:relative;z-index:1;min-height:0;border-radius:200px 0 0 200px;background:url("../src/images/food.jpg") 56% 50%/cover}
 .hero-in{position:relative;z-index:2;animation:none;padding:72px 24px 72px max(32px,calc((100vw - 1120px)/2))}
 .hero h1{font-size:clamp(22px,2.3vw,32px)}
 .hero h1{color:var(--navy)}
