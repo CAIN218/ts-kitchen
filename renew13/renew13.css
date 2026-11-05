@@ -1,0 +1,35 @@
+/* RENEW 第13次：renew11.css の後に重ねる（renew12.css は使わない）。
+   TOPの「公式SNS」：Instagram と YouTube を同じ形・同じ大きさで並べる。カードで囲まず、細い罫と余白で区切る。 */
+
+.vh{position:absolute!important;left:0;top:0;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* 前のセクション（オンラインショップ）とくっつかないように上の余白を取る */
+.sns-sec{padding-top:clamp(56px,7vw,96px)!important}
+.sns-sec h2{margin-bottom:clamp(20px,2.4vw,28px)}
+
+.sns-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,4vw,56px)}
+.sns-list li{margin:0;min-width:0}
+.sns-item{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:18px;align-items:start;
+  padding:22px 0;border-top:1px solid var(--oat);border-bottom:1px solid var(--oat);color:var(--ink);text-decoration:none;height:100%;box-sizing:border-box}
+.sns-logo{display:block;width:44px;height:44px;margin-top:2px}
+.sns-tx{display:flex;flex-direction:column;gap:4px;min-width:0}
+.sns-name{font-family:var(--f-head);font-weight:700;font-size:19px;line-height:1.4;color:var(--navy)}
+.sns-handle{font-size:15px;line-height:1.7;color:var(--mute);overflow-wrap:anywhere}
+.sns-handle>span[lang=ja]{display:inline-block}
+.sns-go{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:6px;font-size:15px;font-weight:600;color:var(--navy);
+  text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px;transition:text-decoration-color .2s var(--ease)}
+.sns-ext{flex:none;opacity:.7}
+.sns-item:hover .sns-go{text-decoration-color:var(--navy)}
+.sns-item:active{opacity:.85}
+.sns-item:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.sns-list+.ig{margin-top:32px}
+
+/* スマホ：縦に並べ、1件ずつ全体をタップできる行に */
+@media(max-width:640px){
+  .sns-list{grid-template-columns:minmax(0,1fr)}
+  .sns-list li+li .sns-item{border-top:0}
+  .sns-item{padding:18px 0;column-gap:16px}
+  .sns-name{font-size:18px}
+  .sns-list+.ig{margin-top:28px}
+}
+@media(prefers-reduced-motion:reduce){.sns-go{transition:none}}
