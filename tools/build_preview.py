@@ -3,7 +3,7 @@
 本文・リンク・フォームの送信先は元ページのまま。"""
 import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
-V = '20261116a'
+V = '20261117a'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'

@@ -1,2 +1,17 @@
 /* RENEW 第14次：ヘッダー・フッターの YouTube アイコン（Instagram と同じ見た目） */
 .tools .sns+.sns{margin-left:-6px}
+
+/* RENEW 第15次：セクションの境目の曲線を、端まで同じゆるやかさで描く。
+   以前は角の楕円（50% 横 × 数十px 縦）で、真ん中は平らで画面の端だけ急に落ちていた。
+   ここでは画面幅の3倍の楕円の一部（ほぼ円弧）を使い、端での深さは以前と同じ（--cv）にする。 */
+.page-hero,.cons-hero,.stores,.contact.dark,footer,#catering{border-radius:0!important;--cvr:calc(var(--cv)*71.5)}
+.page-hero{--cv:36px}.cons-hero{--cv:48px}.stores,.contact.dark,footer{--cv:40px}#catering{--cv:32px}
+@media(max-width:900px){.page-hero,.stores,.contact.dark,footer,#catering{--cv:22px}.cons-hero{--cv:28px}}
+/* 下の辺が丸い（ページ上部の見出しの帯） */
+.page-hero,.cons-hero{
+  -webkit-mask:radial-gradient(300% var(--cvr) at 50% calc(var(--cv)*2 - var(--cvr)),#000 99.97%,transparent 100%) bottom/100% calc(var(--cv)*2) no-repeat,linear-gradient(#000 0 0) top/100% calc(100% - var(--cv)*2 + 1px) no-repeat;
+  mask:radial-gradient(300% var(--cvr) at 50% calc(var(--cv)*2 - var(--cvr)),#000 99.97%,transparent 100%) bottom/100% calc(var(--cv)*2) no-repeat,linear-gradient(#000 0 0) top/100% calc(100% - var(--cv)*2 + 1px) no-repeat}
+/* 上の辺が丸い（店舗・お問い合わせ・ケータリング・フッター） */
+.stores,.contact.dark,footer,#catering{
+  -webkit-mask:radial-gradient(300% var(--cvr) at 50% var(--cvr),#000 99.97%,transparent 100%) top/100% calc(var(--cv)*2) no-repeat,linear-gradient(#000 0 0) bottom/100% calc(100% - var(--cv)*2 + 1px) no-repeat;
+  mask:radial-gradient(300% var(--cvr) at 50% var(--cvr),#000 99.97%,transparent 100%) top/100% calc(var(--cv)*2) no-repeat,linear-gradient(#000 0 0) bottom/100% calc(100% - var(--cv)*2 + 1px) no-repeat}
