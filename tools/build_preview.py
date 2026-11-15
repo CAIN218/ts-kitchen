@@ -4,6 +4,8 @@
 import re, pathlib
 root = pathlib.Path(__file__).resolve().parent.parent
 V = '20261117a'
+V15 = '20261115a'
+V16 = '20261115a'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'
@@ -87,5 +89,26 @@ for name in PAGES:
     # フッター：各ページへのリンク（ヘッダーと同じ既存の表記のみ）
     h = h.replace('<div class="copy">', NAV + '\n  <div class="copy">', 1)
     h = h.replace('</body>', '<script src="form.js?v=' + V + '"></script></body>', 1)
-    (root/'renew14'/f'{name}.html').write_text(h, encoding='utf-8')
-    print(name, len(h))
+    # デモの切り替え（フッターの一番下、目立たない文字リンク。浮いたパネルは使わない）
+    def switch(cur):
+        a = lambda v, label: (f'<b aria-current="true">{label}</b>' if v == cur else f'<a href="../{v}/{name}.html" data-keep-q>{label}</a>')
+        return ('<p class="demo-switch"><span lang="ja">デザイン案：</span><span lang="en">Design: </span>'
+                + ' / '.join(a(v, v.upper()) for v in ('renew16', 'renew15', 'renew14')) + '</p>'
+                '<script>document.querySelectorAll("[data-keep-q]").forEach(function(a){a.href+=location.search})</script>')
+    h14 = h.replace('</footer>', switch('renew14') + '\n</footer>', 1)
+    (root/'renew14'/f'{name}.html').write_text(h14, encoding='utf-8')
+    # RENEW15：RENEW14 の CSS・JS（../renew14/）の上に renew15.css を重ねる
+    h15 = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', r'\1=\2../renew14/\3', h)
+    h15 = sub1(r'(<link rel="stylesheet" href="\.\./renew14/renew14\.css\?v=[^"]*">)', r'\1<link rel="stylesheet" href="renew15.css?v=' + V15 + '">', h15)
+    h15 = h15.replace('r.setAttribute("data-hero","a");', 'r.setAttribute("data-hero","a");r.setAttribute("data-v","15");', 1)
+    # RENEW16：RENEW15 の上に、参考イメージの雰囲気（紺のヘッダー・金のボタン・大きな料理写真）の renew16.css を重ねる
+    h16 = h15.replace('href="renew15.css', 'href="../renew15/renew15.css')
+    _css = '<link rel="stylesheet" href="../renew15/renew15.css?v=' + V15 + '">'
+    assert h16.count(_css) == 1
+    h16 = h16.replace(_css, _css + '<link rel="stylesheet" href="renew16.css?v=' + V16 + '">')
+    h16 = h16.replace('r.setAttribute("data-v","15");', 'r.setAttribute("data-v","15");r.setAttribute("data-look","16");', 1)
+    h15 = h15.replace('</footer>', switch('renew15') + '\n</footer>', 1)
+    h16 = h16.replace('</footer>', switch('renew16') + '\n</footer>', 1)
+    (root/'renew15'/f'{name}.html').write_text(h15, encoding='utf-8')
+    (root/'renew16'/f'{name}.html').write_text(h16, encoding='utf-8')
+    print(name, len(h14), len(h15))
