@@ -25,5 +25,8 @@
 - `src/`：本番（WordPress）用の元データ。`index.html` / `menu.html` / `about.html` / `consulting.html` / `media.html`、`style.css`、`script.js`、`anim/site.*`、`images/`
 - `tools/build_wp.py`：`src/` から WordPress に貼る断片（`wp/`）を作る
 - `renew14/`：新デザインのプレビュー（`python3 tools/build_preview.py` で `src/` から作り直す）
+- `renew15/`：RENEW14 の上に `renew15.css` を重ねた改善案（横の余白を減らす・3店舗を並べて表示・カードや飾りを減らす）。同じスクリプトで作られる
+- `renew16/`：RENEW15 の上に `renew16.css` を重ねた、参考イメージの雰囲気の案（金のボタン・波形の料理写真）。同じスクリプトで作られる
+- 各案のフッター最下部に、RENEW16 / RENEW15 / RENEW14 を切り替える文字リンクがある
 - ルートの `index.html`：プレビュー（`renew14/`）へ転送するだけのページ
 - 以前のデモ（concepts / refine / refresh / renew〜renew13 など）は削除済み。必要なら git の履歴から戻せます
