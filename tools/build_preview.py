@@ -6,8 +6,9 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import langsplit as LS
 root = pathlib.Path(__file__).resolve().parent.parent
 V = '20261117a'
-V15 = '20261115a'
+V15 = '20261122a'
 V16 = '20261115a'
+V17 = '20261122a'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'
@@ -128,12 +129,16 @@ for name in PAGES:
     def switch(cur):
         a = lambda v, label: (f'<b aria-current="true">{label}</b>' if v == cur else f'<a href="../{v}/{name}.html" data-keep-q>{label}</a>')
         return ('<p class="demo-switch"><span lang="ja">デザイン案：</span><span lang="en">Design: </span>'
-                + ' / '.join(a(v, v.upper()) for v in ('renew16', 'renew15', 'renew14')) + '</p>'
+                + ' / '.join(a(v, v.upper()) for v in ('renew17', 'renew16', 'renew15', 'renew14')) + '</p>'
                 '<script>document.querySelectorAll("[data-keep-q]").forEach(function(a){a.href+=location.search})</script>')
     h14 = h.replace('</footer>', switch('renew14') + '\n</footer>', 1)
     (root/'renew14'/f'{name}.html').write_text(h14, encoding='utf-8')
     # RENEW15：RENEW14 の CSS・JS（../renew14/）の上に renew15.css を重ねる
     h15 = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', r'\1=\2../renew14/\3', h)
+    # 3店舗を並べる案（RENEW15〜17）：タブ向けの「ご来店の店舗をお選びください。」を削除（2026-11-22 yuga 承認）。残りの文はそのまま
+    if name == 'index':
+        h15 = sub1(r'<span lang="ja">ご来店の店舗をお選びください。(売り切れの場合は、早めに閉店することがあります。)</span><span lang="en">Choose your location\. (We may close early if we sell out\.)</span>',
+                   r'<span lang="ja">\1</span><span lang="en">\2</span>', h15)
     h15 = sub1(r'(<link rel="stylesheet" href="\.\./renew14/renew14\.css\?v=[^"]*">)', r'\1<link rel="stylesheet" href="renew15.css?v=' + V15 + '">', h15)
     h15 = h15.replace('r.setAttribute("data-hero","a");', 'r.setAttribute("data-hero","a");r.setAttribute("data-v","15");', 1)
     # RENEW16：RENEW15 の上に、参考イメージの雰囲気（紺のヘッダー・金のボタン・大きな料理写真）の renew16.css を重ねる
@@ -142,6 +147,12 @@ for name in PAGES:
     assert h16.count(_css) == 1
     h16 = h16.replace(_css, _css + '<link rel="stylesheet" href="renew16.css?v=' + V16 + '">')
     h16 = h16.replace('r.setAttribute("data-v","15");', 'r.setAttribute("data-v","15");r.setAttribute("data-look","16");', 1)
+    # RENEW17：RENEW15 の上に、カード・ボックスを一切使わない renew17.css を重ねる（RENEW16 の金色の見た目は使わない）
+    h17 = h16.replace('<link rel="stylesheet" href="renew16.css?v=' + V16 + '">', '<link rel="stylesheet" href="renew17.css?v=' + V17 + '">')
+    h17 = h17.replace('r.setAttribute("data-look","16");', 'r.setAttribute("data-look","17");', 1)
+    assert 'renew17.css' in h17 and 'renew16.css' not in h17
+    h17 = h17.replace('</footer>', switch('renew17') + '\n</footer>', 1)
+    (root/'renew17'/f'{name}.html').write_text(h17, encoding='utf-8')
     h15 = h15.replace('</footer>', switch('renew15') + '\n</footer>', 1)
     h16 = h16.replace('</footer>', switch('renew16') + '\n</footer>', 1)
     (root/'renew15'/f'{name}.html').write_text(h15, encoding='utf-8')
