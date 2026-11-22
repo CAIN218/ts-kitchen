@@ -1,6 +1,8 @@
 """GitHub版のページから、WordPress（WPCodeのHTMLスニペット）用の断片を作る。
 画像は {{IMG:ファイル名}} の形で残し、WordPressにアップロードしたURLに置き換えて使う。"""
-import re, pathlib
+import re, pathlib, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import langsplit as LS
 root = pathlib.Path(__file__).resolve().parent.parent
 css = (root/'src'/'style.css').read_text(encoding='utf-8') + '\n' + (root/'src'/'anim'/'site.css').read_text(encoding='utf-8')
 js = (root/'src'/'script.js').read_text(encoding='utf-8')
@@ -24,15 +26,23 @@ def links(s):
     return re.sub(r'images/([a-z0-9-]+\.(?:jpg|png))', r'{{IMG:\1}}', s)
 head = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
         '<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;600;700&family=Zen+Old+Mincho:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">\n'
-        "<script>(function(){var l='ja';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tsk-lang')||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en')}catch(e){}document.documentElement.setAttribute('data-lang',l)})();</script>\n"
+        "<script>document.documentElement.setAttribute('data-lang','@@LANG@@');document.documentElement.setAttribute('data-lang-fixed','@@LANG@@');document.documentElement.lang='@@LANG@@'</script>\n"
         '<style>\n/* WordPressテーマの影響を打ち消す（:where で詳細度を最小にし、各ページ用のクラス指定が打ち消されないようにする） */\nbody{margin:0!important;padding:0!important;background:#fff}\n.tsk-root{background:#fff;font-size:16px;font-weight:400}\n:where(.tsk-root) h1,:where(.tsk-root) h2,:where(.tsk-root) h3,:where(.tsk-root) h4{font-family:var(--f-head);margin:0;letter-spacing:normal;text-transform:none;font-weight:700;line-height:inherit}\n:where(.tsk-root) p,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) label{margin:0}\n:where(.tsk-root) p,:where(.tsk-root) li,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) div,:where(.tsk-root) span,:where(.tsk-root) a,:where(.tsk-root) label,:where(.tsk-root) small,:where(.tsk-root) figcaption,:where(.tsk-root) dd,:where(.tsk-root) dt,:where(.tsk-root) address{font-family:inherit;font-weight:inherit;font-size:inherit;line-height:inherit}\n.tsk-root h1,.tsk-root h2,.tsk-root h3{font-family:var(--f-head)}\n.tsk-root table:not(.info-table) td{padding:6px 0}\n.tsk-root a{text-decoration-thickness:auto}\n.tsk-root img{height:auto}\n:where(.tsk-root) button{text-transform:none;letter-spacing:normal;box-shadow:none;min-height:0;margin:0}\n/* 新デザインのページでは、サイト共通のチラシのポップアップとreCAPTCHAバッジを出さない（チラシはケータリング欄に掲載） */\n.pum,.pum-overlay{display:none!important}\n.grecaptcha-badge{visibility:hidden!important}\nhtml.pum-open,html.pum-open body{overflow:auto!important}\n'
         + '/* ▼原宿店の写真：メディアにアップロードした画像のURLを url("...") の形で入れる（例：url("https://glutenfree.co.jp/wp-content/uploads/2026/10/harajuku.jpg")） */\n:root{--harajuku-photo:url(\"{{IMG:harajuku.jpg}}\")}\n'
         + rename_css(links(css)).replace('url("{{IMG:harajuku.jpg}}")','var(--harajuku-photo)') + '\n</style>\n')
-for name in ['index', 'about', 'menu', 'consulting', 'media']:
-    html = (root/'src'/f'{name}.html').read_text(encoding='utf-8')
-    body = re.search(r'<body[^>]*>(.*?)<script src="script\.js[^"]*"></script>', html, re.S).group(1)
-    out = ('<!-- Gluten Free T\'s Kitchen 新デザイン（GitHub: CAIN218/ts-kitchen の tools/build_wp.py で生成） -->\n'
-           + head + '<div class="tsk-root" style="font-family:var(--f-body);color:#1f2933;line-height:1.7">\n'
-           + rename_html(links(body)).strip() + '\n</div>\n<script>\n' + rename_css(js) + '\n' + rename_css(site_js) + '\n</script>\n')
-    (root/'wp'/f'{name}.html').write_text(out, encoding='utf-8')
-    print(name, len(out), sorted(set(re.findall(r'\{\{IMG:([^}]+)\}\}', out))))
+for lang in ('ja', 'en'):
+    (root/'wp'/lang).mkdir(parents=True, exist_ok=True)
+    for name in LS.PAGES:
+        html = (root/'src'/f'{name}.html').read_text(encoding='utf-8')
+        body = re.search(r'<body[^>]*>(.*?)<script src="script\.js[^"]*"></script>', html, re.S).group(1)
+        # 日本語・英語を別ページにする：反対の言語の要素を取り除き、言語ボタンはもう一方のページへのリンクにする
+        body = LS.strip_other(body, lang)
+        body = LS.switch_button(body, lang, LS.site_path(name, 'en' if lang == 'ja' else 'ja'))
+        body = LS.fix_links(body, lang, LS.site_path)
+        if lang == 'en':
+            body = body.replace('tablecheck.com/ja/glutenfree', 'tablecheck.com/en/glutenfree')
+        out = ('<!-- Gluten Free T\'s Kitchen 新デザイン・' + ('日本語' if lang == 'ja' else '英語') + '版（GitHub: CAIN218/ts-kitchen の tools/build_wp.py で生成） -->\n'
+               + head.replace('@@LANG@@', lang) + '<div class="tsk-root" style="font-family:var(--f-body);color:#1f2933;line-height:1.7">\n'
+               + rename_html(links(body)).strip() + '\n</div>\n<script>\n' + rename_css(js) + '\n' + rename_css(site_js) + '\n</script>\n')
+        (root/'wp'/lang/f'{name}.html').write_text(out, encoding='utf-8')
+        print(lang, name, len(out), sorted(set(re.findall(r'\{\{IMG:([^}]+)\}\}', out))))
