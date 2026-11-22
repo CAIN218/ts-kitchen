@@ -103,6 +103,9 @@ for name in PAGES:
         # 店舗は選択式（タブ）をやめ、3店舗を常に並べて表示する（yuga・お店のフィードバック 2026-11-22）
         x = re.sub(r'  <div class="store-tabs" role="tablist">.*?</div>\n', '', x, count=1, flags=re.S)
         x = x.replace('<article class="card">', '<article class="card on">')
+        # タブをやめたので、店舗見出し下の「ご来店の店舗をお選びください。」「Choose your location.」は削除（yuga承認）。残りの文は元のまま
+        for t in ('ご来店の店舗をお選びください。', 'Choose your location. '):
+            x = x.replace(t, '', 1)
         x = LS.set_lang(x, lang)
         x = x.replace('<html lang=', '<html data-stores="3" lang=', 1)
         x = LS.switch_button(x, lang, rel(name, 'en' if lang == 'ja' else 'ja'))
