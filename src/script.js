@@ -2,7 +2,7 @@
   var root=document.documentElement;
   var RSV={ja:'https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true',
            en:'https://www.tablecheck.com/en/glutenfree/reserve/landing?require_venue=true'};
-  var MENU={ja:'https://glutenfree.co.jp/menu/',en:'https://glutenfree.co.jp/menu-en/'};
+  var MENU={ja:'https://glutenfree.co.jp/menu/',en:'https://glutenfree.co.jp/menu/?lang=en'};
   function setLang(l){
     root.setAttribute('data-lang',l); root.lang=l;
     document.querySelectorAll('a.rsv').forEach(function(a){a.href=RSV[l]});

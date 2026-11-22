@@ -5,9 +5,9 @@ root = pathlib.Path(__file__).resolve().parent.parent
 css = (root/'src'/'style.css').read_text(encoding='utf-8') + '\n' + (root/'src'/'anim'/'site.css').read_text(encoding='utf-8')
 js = (root/'src'/'script.js').read_text(encoding='utf-8')
 site_js = (root/'src'/'anim'/'site.js').read_text(encoding='utf-8')
-ABOUT = '/%e4%bc%9a%e7%a4%be%e6%a6%82%e8%a6%81/'
-CONSULTING = 'https://glutenfree.co.jp/%e3%82%b3%e3%83%b3%e3%82%b5%e3%83%ab%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0/'
-MEDIA = 'https://glutenfree.co.jp/%e3%83%a1%e3%83%87%e3%82%a3%e3%82%a2%e3%83%bb%e5%8f%96%e6%9d%90%e3%81%ae%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/'
+ABOUT = '/about/'
+CONSULTING = 'https://glutenfree.co.jp/consulting/'
+MEDIA = 'https://glutenfree.co.jp/media/'
 # お問い合わせフォーム：GitHubのプレビューでは見本の見た目だけ。WordPressではContact Form 7（問合せ）に置き換える
 CF7 = '[contact-form-7 id="8a2859b" title="問合せ"]'
 # テーマ（Bootstrap・Hestia・Font Awesome）と名前がぶつかるクラスは、WordPress用の出力だけ tk- を付けて別名にする
