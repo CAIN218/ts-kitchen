@@ -8,7 +8,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 V = '20261117a'
 V15 = '20261122a'
 V16 = '20261115a'
-V17 = '20261122a'
+V17 = '20261122b'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'
@@ -147,10 +147,17 @@ for name in PAGES:
     assert h16.count(_css) == 1
     h16 = h16.replace(_css, _css + '<link rel="stylesheet" href="renew16.css?v=' + V16 + '">')
     h16 = h16.replace('r.setAttribute("data-v","15");', 'r.setAttribute("data-v","15");r.setAttribute("data-look","16");', 1)
-    # RENEW17：RENEW15 の上に、カード・ボックスを一切使わない renew17.css を重ねる（RENEW16 の金色の見た目は使わない）
-    h17 = h16.replace('<link rel="stylesheet" href="renew16.css?v=' + V16 + '">', '<link rel="stylesheet" href="renew17.css?v=' + V17 + '">')
-    h17 = h17.replace('r.setAttribute("data-look","16");', 'r.setAttribute("data-look","17");', 1)
-    assert 'renew17.css' in h17 and 'renew16.css' not in h17
+    # RENEW17：今のHP（RENEW14）の見た目のまま、3店舗を常に表示（split/stores.css と同じ並べ方）し、
+    #          カード・ボックスの形の部分だけを箱でない見せ方に置き換える renew17.css を重ねる（yuga 2026-11-22）
+    h17 = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', r'\1=\2../renew14/\3', h)
+    if name == 'index':
+        h17 = re.sub(r'  <div class="store-tabs" role="tablist">.*?</div>\n', '', h17, count=1, flags=re.S)
+        h17 = h17.replace('<article class="card">', '<article class="card on">')
+        h17 = h17.replace('<span lang="ja">ご来店の店舗をお選びください。', '<span lang="ja">', 1).replace('<span lang="en">Choose your location. ', '<span lang="en">', 1)
+        assert 'ご来店の店舗をお選びください' not in h17 and 'Choose your location' not in h17
+    h17 = sub1(r'(<link rel="stylesheet" href="\.\./renew14/renew14\.css\?v=[^"]*">)',
+               r'\1<link rel="stylesheet" href="../split/stores.css?v=20261122a"><link rel="stylesheet" href="renew17.css?v=' + V17 + '">', h17)
+    h17 = h17.replace('r.setAttribute("data-hero","a");', 'r.setAttribute("data-hero","a");r.setAttribute("data-stores","3");r.setAttribute("data-look","17");', 1)
     h17 = h17.replace('</footer>', switch('renew17') + '\n</footer>', 1)
     (root/'renew17'/f'{name}.html').write_text(h17, encoding='utf-8')
     h15 = h15.replace('</footer>', switch('renew15') + '\n</footer>', 1)
