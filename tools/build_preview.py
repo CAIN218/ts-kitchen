@@ -1,14 +1,11 @@
-"""5ページ（ルートの本番用HTML）から、プレビュー renew14/ を作る。
-読み込むCSS・JS（renew〜renew14 の改修分）はすべて renew14/ の中にある。デモ用の切り替えパネルは無し（2026-11-05 yuga の指示で削除）。
+"""src/ の5ページから、プレビュー split/（日本語 / 、英語 /en/）を作る。
+読み込むCSS・JS（renew〜renew14 の改修分）はすべて assets/ の中にある。ほかのデモは 2026-11-22 yuga の指示で削除（git の履歴から戻せる）。
 本文・リンク・フォームの送信先は元ページのまま。"""
 import re, pathlib, os, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import langsplit as LS
 root = pathlib.Path(__file__).resolve().parent.parent
 V = '20261117a'
-V15 = '20261122a'
-V16 = '20261115a'
-V17 = '20261122b'
 PAGES = ['index', 'about', 'menu', 'consulting', 'media']
 CTA = {}
 LOADER_CSS = ('<script>(function(){var q=new URLSearchParams(location.search),m=q.get("mode"),d=document,r=d.documentElement,a=q.get("accent");'
@@ -111,7 +108,7 @@ for name in PAGES:
         x = x.replace('<html lang=', '<html data-stores="3" lang=', 1)
         x = LS.switch_button(x, lang, rel(name, 'en' if lang == 'ja' else 'ja'))
         x = LS.fix_links(x, lang, rel)
-        x = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', lambda m: f'{m.group(1)}={m.group(2)}{up}renew14/{m.group(3)}', x)
+        x = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', lambda m: f'{m.group(1)}={m.group(2)}{up}assets/{m.group(3)}', x)
         x = x.replace('../src/', up + 'src/')
         x = x.replace('</head>', f'<link rel="stylesheet" href="{up}split/stores.css?v=20261122a"></head>', 1)
         x = x.replace(r"(\.\.\/src\/)?images\/", r"(\.\.\/)*(src\/)?images\/")
@@ -125,43 +122,4 @@ for name in PAGES:
         x = x.replace('</head>', alt + '</head>', 1)
         d.mkdir(parents=True, exist_ok=True)
         (d/'index.html').write_text(x, encoding='utf-8')
-    # デモの切り替え（フッターの一番下、目立たない文字リンク。浮いたパネルは使わない）
-    def switch(cur):
-        a = lambda v, label: (f'<b aria-current="true">{label}</b>' if v == cur else f'<a href="../{v}/{name}.html" data-keep-q>{label}</a>')
-        return ('<p class="demo-switch"><span lang="ja">デザイン案：</span><span lang="en">Design: </span>'
-                + ' / '.join(a(v, v.upper()) for v in ('renew17', 'renew16', 'renew15', 'renew14')) + '</p>'
-                '<script>document.querySelectorAll("[data-keep-q]").forEach(function(a){a.href+=location.search})</script>')
-    h14 = h.replace('</footer>', switch('renew14') + '\n</footer>', 1)
-    (root/'renew14'/f'{name}.html').write_text(h14, encoding='utf-8')
-    # RENEW15：RENEW14 の CSS・JS（../renew14/）の上に renew15.css を重ねる
-    h15 = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', r'\1=\2../renew14/\3', h)
-    # 3店舗を並べる案（RENEW15〜17）：タブ向けの「ご来店の店舗をお選びください。」を削除（2026-11-22 yuga 承認）。残りの文はそのまま
-    if name == 'index':
-        h15 = sub1(r'<span lang="ja">ご来店の店舗をお選びください。(売り切れの場合は、早めに閉店することがあります。)</span><span lang="en">Choose your location\. (We may close early if we sell out\.)</span>',
-                   r'<span lang="ja">\1</span><span lang="en">\2</span>', h15)
-    h15 = sub1(r'(<link rel="stylesheet" href="\.\./renew14/renew14\.css\?v=[^"]*">)', r'\1<link rel="stylesheet" href="renew15.css?v=' + V15 + '">', h15)
-    h15 = h15.replace('r.setAttribute("data-hero","a");', 'r.setAttribute("data-hero","a");r.setAttribute("data-v","15");', 1)
-    # RENEW16：RENEW15 の上に、参考イメージの雰囲気（紺のヘッダー・金のボタン・大きな料理写真）の renew16.css を重ねる
-    h16 = h15.replace('href="renew15.css', 'href="../renew15/renew15.css')
-    _css = '<link rel="stylesheet" href="../renew15/renew15.css?v=' + V15 + '">'
-    assert h16.count(_css) == 1
-    h16 = h16.replace(_css, _css + '<link rel="stylesheet" href="renew16.css?v=' + V16 + '">')
-    h16 = h16.replace('r.setAttribute("data-v","15");', 'r.setAttribute("data-v","15");r.setAttribute("data-look","16");', 1)
-    # RENEW17：今のHP（RENEW14）の見た目のまま、3店舗を常に表示（split/stores.css と同じ並べ方）し、
-    #          カード・ボックスの形の部分だけを箱でない見せ方に置き換える renew17.css を重ねる（yuga 2026-11-22）
-    h17 = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', r'\1=\2../renew14/\3', h)
-    if name == 'index':
-        h17 = re.sub(r'  <div class="store-tabs" role="tablist">.*?</div>\n', '', h17, count=1, flags=re.S)
-        h17 = h17.replace('<article class="card">', '<article class="card on">')
-        h17 = h17.replace('<span lang="ja">ご来店の店舗をお選びください。', '<span lang="ja">', 1).replace('<span lang="en">Choose your location. ', '<span lang="en">', 1)
-        assert 'ご来店の店舗をお選びください' not in h17 and 'Choose your location' not in h17
-    h17 = sub1(r'(<link rel="stylesheet" href="\.\./renew14/renew14\.css\?v=[^"]*">)',
-               r'\1<link rel="stylesheet" href="../split/stores.css?v=20261122a"><link rel="stylesheet" href="renew17.css?v=' + V17 + '">', h17)
-    h17 = h17.replace('r.setAttribute("data-hero","a");', 'r.setAttribute("data-hero","a");r.setAttribute("data-stores","3");r.setAttribute("data-look","17");', 1)
-    h17 = h17.replace('</footer>', switch('renew17') + '\n</footer>', 1)
-    (root/'renew17'/f'{name}.html').write_text(h17, encoding='utf-8')
-    h15 = h15.replace('</footer>', switch('renew15') + '\n</footer>', 1)
-    h16 = h16.replace('</footer>', switch('renew16') + '\n</footer>', 1)
-    (root/'renew15'/f'{name}.html').write_text(h15, encoding='utf-8')
-    (root/'renew16'/f'{name}.html').write_text(h16, encoding='utf-8')
-    print(name, len(h14), len(h15))
+    print(name)
