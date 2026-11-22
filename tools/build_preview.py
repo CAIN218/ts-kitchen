@@ -127,6 +127,10 @@ for name in PAGES:
     (root/'renew14'/f'{name}.html').write_text(h14, encoding='utf-8')
     # RENEW15：RENEW14 の CSS・JS（../renew14/）の上に renew15.css を重ねる
     h15 = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', r'\1=\2../renew14/\3', h)
+    # 3店舗を並べる案（RENEW15〜17）：タブ向けの「ご来店の店舗をお選びください。」を削除（2026-11-22 yuga 承認）。残りの文はそのまま
+    if name == 'index':
+        h15 = sub1(r'<span lang="ja">ご来店の店舗をお選びください。(売り切れの場合は、早めに閉店することがあります。)</span><span lang="en">Choose your location\. (We may close early if we sell out\.)</span>',
+                   r'<span lang="ja">\1</span><span lang="en">\2</span>', h15)
     h15 = sub1(r'(<link rel="stylesheet" href="\.\./renew14/renew14\.css\?v=[^"]*">)', r'\1<link rel="stylesheet" href="renew15.css?v=' + V15 + '">', h15)
     h15 = h15.replace('r.setAttribute("data-hero","a");', 'r.setAttribute("data-hero","a");r.setAttribute("data-v","15");', 1)
     # RENEW16：RENEW15 の上に、参考イメージの雰囲気（紺のヘッダー・金のボタン・大きな料理写真）の renew16.css を重ねる
