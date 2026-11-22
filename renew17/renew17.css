@@ -1,0 +1,127 @@
+/* RENEW 第17次：カード・ボックスを一切使わない案（renew15.css の後に読み込む）
+   枠・影・角丸の面・色の帯で情報を囲まない。まとまりは「文字の大きさ・余白・細い罫線・写真」だけで作る。
+   地は白一色。色の面は、紺のヘッダーとフッターだけ。差し色のオレンジは、予約・相談・送信のボタンとリンクの下線だけ。
+   文章・写真・リンクは今のまま。 */
+
+html[data-look="17"]{--line:#d8d0c1;--line-d:#1c2b45;--paper:#fff}
+html[data-look="17"] body{background:#fff}
+
+/* ───────── 色の帯・曲線の境目をやめる（セクションは白のまま、余白と罫線で区切る） ───────── */
+html[data-look="17"] main section,html[data-look="17"] .stores,html[data-look="17"] #catering,html[data-look="17"] .awards-band,
+html[data-look="17"] .philosophy,html[data-look="17"] .numbers,html[data-look="17"] .biz-sec,html[data-look="17"] .only,
+html[data-look="17"] .sec,html[data-look="17"] .sec.tint,html[data-look="17"] .contact,html[data-look="17"] .contact.dark,
+html[data-look="17"] .page-hero,html[data-look="17"] .cons-hero,html[data-look="17"] .hero{
+  background:#fff!important;-webkit-mask:none!important;mask:none!important;border-radius:0!important;box-shadow:none!important;margin-top:0!important}
+html[data-look="17"] main>section+section,html[data-look="17"] main>section+.awards-band,html[data-look="17"] .awards-band{border-top:1px solid var(--line)}
+html[data-look="17"] main>section{padding-top:clamp(64px,8vw,112px)!important;padding-bottom:clamp(64px,8vw,112px)!important}
+html[data-look="17"] footer{-webkit-mask:none!important;mask:none!important;border-radius:0!important;margin-top:0!important;padding-top:clamp(56px,6vw,80px)!important}
+
+/* ───────── 見出し：大きさの差で階層をつくる ───────── */
+html[data-look="17"] main h2{font-size:clamp(28px,3.2vw,44px)!important;line-height:1.35!important;letter-spacing:.04em;color:var(--navy)!important}
+html[data-look="17"] .shop h2,html[data-look="17"] .sns-sec h2{font-size:clamp(22px,2.2vw,28px)!important}
+
+/* ───────── TOP：ファーストビュー（白地、写真は角を落とさず、画面の右端まで） ───────── */
+html[data-look="17"] .hero::after{border-radius:0!important;margin:0!important}
+html[data-look="17"] .hero h1{color:var(--navy)!important;font-size:clamp(30px,3.4vw,50px)!important;line-height:1.45!important}
+html[data-look="17"] .hero p.hero-sub,html[data-look="17"] .hero .sub{color:var(--ink)!important}
+@media(max-width:900px){html[data-look="17"] .hero::after{min-height:62vw!important}}
+
+/* 写真：角丸・影をやめる */
+html[data-look="17"] main img,html[data-look="17"] .about-ph .a1,html[data-look="17"] .cater-ph,html[data-look="17"] .card .ph,html[data-look="17"] .biz .ph,
+html[data-look="17"] .owner img,html[data-look="17"] .shopbox .ph,html[data-look="17"] .ig a,html[data-look="17"] .clip img{border-radius:0!important;box-shadow:none!important}
+html[data-look="17"] .about>img{border-radius:0!important}
+
+/* ───────── 店舗：3店舗を並べ、電話・地図は文字のリンクに ───────── */
+html[data-look="17"] .cards .card .ph{aspect-ratio:3/2!important}
+html[data-look="17"] .cards .acts{display:flex!important;flex-wrap:wrap;align-items:center;gap:12px 22px!important}
+html[data-look="17"] .cards .acts a:not(.r){display:inline-flex!important;min-height:44px;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;
+  color:var(--navy)!important;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:5px;text-decoration-thickness:1.5px;font-weight:700}
+html[data-look="17"] .cards .acts a.r{width:100%;order:-1}
+html[data-look="17"] .card .tag,html[data-look="17"] .tag,html[data-look="17"] .tag.soon{background:none!important;border:0!important;padding:0!important;border-radius:0!important;color:var(--accent-ink)!important;font-size:13px!important;font-weight:700;letter-spacing:.06em}
+@media(max-width:1000px) and (min-width:641px){html[data-look="17"] .cards .card{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+
+/* ───────── ケータリング：チラシの小さな額（白い台紙・影）をやめる ───────── */
+html[data-look="17"] .flyer img,html[data-look="17"] .cater-vis .flyer img{padding:0!important;background:none!important;box-shadow:none!important;border:1px solid var(--line)!important;border-radius:0!important}
+
+/* ───────── オンラインショップ：写真の灰色の面をやめ、文字だけで ───────── */
+html[data-look="17"] .shopbox .ph{background-color:transparent!important}
+
+/* ───────── 認証・受賞：地色なし ───────── */
+html[data-look="17"] .awards-band{padding:clamp(40px,5vw,64px) 0!important}
+
+/* ───────── 会社概要 ───────── */
+html[data-look="17"] .policy,html[data-look="17"] .stores .policy{background:none!important;border:0!important;border-top:1px solid var(--line)!important;border-radius:0!important;padding:18px 0 0!important;box-shadow:none!important}
+html[data-look="17"] .numbers{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+html[data-look="17"] .nums>div{border:0!important;background:none!important}
+html[data-look="17"] .cv-box{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+html[data-look="17"] .clip img{border:1px solid var(--line)!important}
+
+/* ───────── メニュー：注意書き・店舗の切り替え・分類・画像の面 ───────── */
+/* 注意書き：箱ではなく、左に見出し・右に本文の段落（アレルギーの文章はそのまま） */
+html[data-look="17"] .notice{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0 0 clamp(32px,4vw,48px)!important;margin-bottom:clamp(32px,4vw,48px)!important;border-bottom:1px solid var(--line)!important}
+@media(min-width:901px){
+  html[data-look="17"] .notice{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:0 clamp(32px,5vw,72px)}
+  html[data-look="17"] .notice b{grid-row:1/span 3;font-size:20px;line-height:1.6}
+  html[data-look="17"] .notice p{grid-column:2}
+}
+html[data-look="17"] .notice b{color:var(--navy)!important}
+html[data-look="17"] .notice b::before{display:none!important}
+/* 店舗の切り替え：灰色の台をやめ、文字と下線だけのタブに */
+html[data-look="17"] .menu-stores{background:none!important;padding:0!important;border-radius:0!important;border:0!important;border-bottom:1px solid var(--line)!important;display:flex!important;gap:clamp(20px,4vw,48px)!important}
+html[data-look="17"] .menu-stores button{flex:none;background:none!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:12px 0!important;min-height:48px!important;color:var(--mute)!important;font-size:clamp(16px,1.6vw,19px)!important;font-weight:700}
+html[data-look="17"] .menu-stores button[aria-selected=true]{color:var(--navy)!important;box-shadow:inset 0 -3px 0 var(--accent)!important}
+html[data-look="17"] .menu-stores button::before,html[data-look="17"] .menu-stores .tab-ind{display:none!important}
+/* 分類：丸い札をやめ、文字のリンクに */
+html[data-look="17"] .menu-cats{gap:8px 28px!important;margin:18px 0 20px!important}
+html[data-look="17"] .menu-cats button{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:8px 0!important;min-height:44px;color:var(--mute)!important;font-weight:700}
+html[data-look="17"] .menu-cats button[aria-selected=true],html[data-look="17"] .menu-cats button.on{color:var(--navy)!important;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:8px}
+/* 画像の面：地色・角丸をやめる。拡大の丸いボタンもやめ、画像の下の文で案内 */
+html[data-look="17"] .menu-view a,html[data-look="17"] .menu-view img{background:none!important;border-radius:0!important;box-shadow:none!important}
+html[data-look="17"] .menu-view a::after{display:none!important}
+@media(max-width:640px){
+  html[data-look="17"] .menu-stores{gap:0!important;justify-content:space-between}
+  html[data-look="17"] .menu-stores button{font-size:15px!important}
+}
+
+/* ───────── コンサルティング ───────── */
+/* 見出し帯：紺の面をやめ、白地に紺の大きな文字 */
+html[data-look="17"] .cons-hero{color:var(--navy)!important;border-bottom:1px solid var(--line)!important}
+html[data-look="17"] .cons-hero h1{color:var(--navy)!important;font-size:clamp(32px,4.2vw,60px)!important;line-height:1.35!important}
+html[data-look="17"] .cons-hero .cons-role,html[data-look="17"] .cons-hero .cons-lead{color:var(--ink)!important;opacity:1!important}
+html[data-look="17"] .cons-hero .free-note{color:var(--accent-ink)!important}
+html[data-look="17"] .cons-hero :focus-visible{outline-color:var(--navy)!important}
+/* 一言・書籍：面をやめる */
+html[data-look="17"] .only{border-top:1px solid var(--line)}
+html[data-look="17"] .only-text{color:var(--navy)!important}
+html[data-look="17"] .book-card{background:none!important;border:0!important;border-top:1px solid var(--line-d)!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important;padding:22px 0!important}
+/* 流れ：番号は大きな数字のまま、面なし */
+html[data-look="17"] .steps li{background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
+/* お問い合わせ：紺の面をやめ、白地に */
+html[data-look="17"] .contact.dark,html[data-look="17"] .contact.dark h2,html[data-look="17"] .contact.dark .lead,html[data-look="17"] .contact.dark label,html[data-look="17"] .contact.dark p{color:var(--navy)!important}
+html[data-look="17"] .contact.dark .lead,html[data-look="17"] .contact.dark p:not(.free-badge){color:var(--ink)!important}
+html[data-look="17"] .contact.dark :focus-visible{outline-color:var(--navy)!important}
+/* 「初回30分 無料」：オレンジの札をやめ、太字の文字に */
+html[data-look="17"] .free-badge b{background:none!important;color:var(--accent-ink)!important;padding:0!important;border-radius:0!important;margin-right:14px}
+html[data-look="17"] .free-badge{color:var(--ink)!important}
+
+/* ───────── フォーム：入力欄は箱ではなく、下線だけ ───────── */
+html[data-look="17"] .cf7 input[type=text],html[data-look="17"] .cf7 input[type=email],html[data-look="17"] .cf7 input[type=tel],html[data-look="17"] .cf7 textarea{
+  background:transparent!important;border:0!important;border-bottom:1.5px solid #9aa1ab!important;border-radius:0!important;box-shadow:none!important;padding:10px 0!important;color:var(--ink)!important}
+html[data-look="17"] .cf7 input:focus,html[data-look="17"] .cf7 textarea:focus{outline:none!important;border-bottom-color:var(--navy)!important;box-shadow:0 2px 0 var(--navy)!important}
+html[data-look="17"] .cf7 textarea{min-height:140px;resize:vertical}
+html[data-look="17"] .cf7 label{color:var(--navy)!important}
+html[data-look="17"] .cf7 .wpcf7-response-output,html[data-look="17"] .cf7 .tip,html[data-look="17"] .cf7 .r3-tip{background:none!important;border:0!important;box-shadow:none!important;padding:6px 0!important;border-radius:0!important}
+
+/* ───────── 下層ページの見出し：色の帯ではなく、大きな文字と罫線 ───────── */
+html[data-look="17"] .page-hero{border-bottom:1px solid var(--line)!important;padding-bottom:clamp(40px,5vw,64px)!important}
+html[data-look="17"] .page-hero:not(.cons-hero) h1{font-size:clamp(36px,5vw,72px)!important;line-height:1.2!important;letter-spacing:.04em}
+
+/* メニュー末尾の予約：色の面をやめ、ボタンだけを左に */
+html[data-look="17"] .menu-actions{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:clamp(28px,3vw,40px) 0 0!important;justify-content:flex-start!important;text-align:left!important}
+/* 代表の言葉：ほかの段と左端をそろえる */
+html[data-look="17"] .founder .profile{padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+html[data-look="17"] .cards .card .ph{border-radius:0!important}
+/* 商品開発の写真：後ろの色の面をやめる */
+html[data-look="17"] .biz .ph.prod{background-color:transparent!important}
+/* 数字の段：上下の余白を詰める */
+html[data-look="17"] main>section.numbers{padding-top:clamp(36px,4vw,56px)!important;padding-bottom:clamp(36px,4vw,56px)!important}
