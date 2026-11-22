@@ -17,8 +17,3 @@
   mask:radial-gradient(300% var(--cvr) at 50% var(--cvr),#000 99.97%,transparent 100%) top/100% calc(var(--cv)*2) no-repeat,linear-gradient(#000 0 0) bottom/100% calc(100% - var(--cv)*2 + 1px) no-repeat}
 
 /* デモの切り替え（フッター最下部の文字リンク） */
-.demo-switch{margin:0 auto;padding:14px var(--gutter,20px) 20px;max-width:1120px;font-size:12.5px;color:rgba(255,255,255,.6)}
-.demo-switch a{color:#fff;text-decoration:underline;text-underline-offset:3px}
-.demo-switch b,.demo-switch a,.demo-switch span{display:inline!important;margin:0!important;font-size:inherit!important}
-.demo-switch b{color:#fff}
-@media(max-width:640px){.demo-switch{padding-bottom:96px}}

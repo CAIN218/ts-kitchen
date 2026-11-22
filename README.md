@@ -24,10 +24,7 @@
 ## フォルダの構成（2026-11-05 整理）
 - `src/`：本番（WordPress）用の元データ。`index.html` / `menu.html` / `about.html` / `consulting.html` / `media.html`、`style.css`、`script.js`、`anim/site.*`、`images/`
 - `tools/build_wp.py`：`src/` から WordPress に貼る断片（`wp/`）を作る
-- `renew14/`：新デザインのプレビュー（`python3 tools/build_preview.py` で `src/` から作り直す）
-- `renew15/`：RENEW14 の上に `renew15.css` を重ねた改善案（横の余白を減らす・3店舗を並べて表示・カードや飾りを減らす）。同じスクリプトで作られる
-- `renew16/`：RENEW15 の上に `renew16.css` を重ねた、参考イメージの雰囲気の案（金のボタン・波形の料理写真）。同じスクリプトで作られる
-- `renew17/`：今のHP（RENEW14）の見た目のまま、3店舗を常に表示（`split/stores.css`）し、カード・ボックスの形の部分だけを `renew17.css` で箱でない見せ方に置き換えた案。同じスクリプトで作られる
-- 各案のフッター最下部に、RENEW17 / RENEW16 / RENEW15 / RENEW14 を切り替える文字リンクがある
-- ルートの `index.html`：プレビュー（`renew14/`）へ転送するだけのページ
-- 以前のデモ（concepts / refine / refresh / renew〜renew13 など）は削除済み。必要なら git の履歴から戻せます
+- `split/`：新デザインのプレビュー（日本語は `split/`、英語は `split/en/`）。`python3 tools/build_preview.py` で `src/` から作り直す
+- `assets/`：プレビューが読み込むCSS・JS（renew〜renew14 の改修分と form.js）
+- ルートの `index.html`：プレビュー（`split/`）へ転送するだけのページ
+- 以前のデモ（concepts / refine / refresh / renew〜renew17 など）は削除済み（2026-11-22）。必要なら git の履歴から戻せます
