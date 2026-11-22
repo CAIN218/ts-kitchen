@@ -100,11 +100,16 @@ for name in PAGES:
             return './' if r == '.' else r + '/'
         up = os.path.relpath(root, d).replace(os.sep, '/') + '/'
         x = LS.strip_other(h, lang)
+        # 店舗は選択式（タブ）をやめ、3店舗を常に並べて表示する（yuga・お店のフィードバック 2026-11-22）
+        x = re.sub(r'  <div class="store-tabs" role="tablist">.*?</div>\n', '', x, count=1, flags=re.S)
+        x = x.replace('<article class="card">', '<article class="card on">')
         x = LS.set_lang(x, lang)
+        x = x.replace('<html lang=', '<html data-stores="3" lang=', 1)
         x = LS.switch_button(x, lang, rel(name, 'en' if lang == 'ja' else 'ja'))
         x = LS.fix_links(x, lang, rel)
         x = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', lambda m: f'{m.group(1)}={m.group(2)}{up}renew14/{m.group(3)}', x)
         x = x.replace('../src/', up + 'src/')
+        x = x.replace('</head>', f'<link rel="stylesheet" href="{up}split/stores.css?v=20261122a"></head>', 1)
         x = x.replace(r"(\.\.\/src\/)?images\/", r"(\.\.\/)*(src\/)?images\/")
         title, desc = (None, None)
         if lang == 'en':
