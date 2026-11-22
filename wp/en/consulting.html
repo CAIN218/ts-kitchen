@@ -1,0 +1,740 @@
+<!-- Gluten Free T's Kitchen 新デザイン・英語版（GitHub: CAIN218/ts-kitchen の tools/build_wp.py で生成） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;600;700&family=Zen+Old+Mincho:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-lang','en');document.documentElement.setAttribute('data-lang-fixed','en');document.documentElement.lang='en'</script>
+<style>
+/* WordPressテーマの影響を打ち消す（:where で詳細度を最小にし、各ページ用のクラス指定が打ち消されないようにする） */
+body{margin:0!important;padding:0!important;background:#fff}
+.tsk-root{background:#fff;font-size:16px;font-weight:400}
+:where(.tsk-root) h1,:where(.tsk-root) h2,:where(.tsk-root) h3,:where(.tsk-root) h4{font-family:var(--f-head);margin:0;letter-spacing:normal;text-transform:none;font-weight:700;line-height:inherit}
+:where(.tsk-root) p,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) label{margin:0}
+:where(.tsk-root) p,:where(.tsk-root) li,:where(.tsk-root) ul,:where(.tsk-root) ol,:where(.tsk-root) div,:where(.tsk-root) span,:where(.tsk-root) a,:where(.tsk-root) label,:where(.tsk-root) small,:where(.tsk-root) figcaption,:where(.tsk-root) dd,:where(.tsk-root) dt,:where(.tsk-root) address{font-family:inherit;font-weight:inherit;font-size:inherit;line-height:inherit}
+.tsk-root h1,.tsk-root h2,.tsk-root h3{font-family:var(--f-head)}
+.tsk-root table:not(.info-table) td{padding:6px 0}
+.tsk-root a{text-decoration-thickness:auto}
+.tsk-root img{height:auto}
+:where(.tsk-root) button{text-transform:none;letter-spacing:normal;box-shadow:none;min-height:0;margin:0}
+/* 新デザインのページでは、サイト共通のチラシのポップアップとreCAPTCHAバッジを出さない（チラシはケータリング欄に掲載） */
+.pum,.pum-overlay{display:none!important}
+.grecaptcha-badge{visibility:hidden!important}
+html.pum-open,html.pum-open body{overflow:auto!important}
+/* ▼原宿店の写真：メディアにアップロードした画像のURLを url("...") の形で入れる（例：url("https://glutenfree.co.jp/wp-content/uploads/2026/10/harajuku.jpg")） */
+:root{--harajuku-photo:url("{{IMG:harajuku.jpg}}")}
+:root{--f-body:"Figtree","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;--f-head:"Fraunces","Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--navy:#1c2b45;--navy-d:#111c30;--pink:#ea770c;--bg:#f7f3ec;--line:#e3e8ef;--ink:#1f2933;--mute:#52606d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--f-body);background:#fff;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+/* 言語切替：表示する言語だけを出す */
+html[data-lang=ja] [lang=en]{display:none!important}
+html[data-lang=en] [lang=ja]{display:none!important}
+
+/* ヘッダー */
+.hd{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff}
+.hd-in{max-width:1200px;margin:auto;display:flex;align-items:center;gap:24px;padding:12px 16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;white-space:nowrap;font-size:17px;letter-spacing:.01em}
+.logo img{width:38px;height:38px;border-radius:50%;background:#fff;flex:none}
+.nav{display:flex;gap:22px;font-size:14px;margin-left:auto}
+.nav a{text-decoration:none;opacity:.88;white-space:nowrap}
+.nav a:hover{opacity:1}
+.tools{display:flex;align-items:center;gap:6px}
+.sns{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:#fff;opacity:.88;transition:background .2s}
+.sns:hover{opacity:1;background:rgba(255,255,255,.12)}
+.lang{display:inline-flex;align-items:center;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);font:inherit;font-size:13px;font-weight:500;letter-spacing:.04em;cursor:pointer;padding:6px 16px;border-radius:999px;white-space:nowrap;transition:background .2s,border-color .2s}
+.lang:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+.hd-rsv{margin-left:6px}
+.menu-btn{display:none;width:36px;height:36px;background:transparent;border:0;cursor:pointer;position:relative}
+.menu-btn span{position:absolute;right:4px;height:1.5px;background:#fff;border-radius:2px;transition:.25s}
+.menu-btn span:nth-child(1){top:13px;width:28px}.menu-btn span:nth-child(2){top:22px;width:20px}
+.menu-btn[aria-expanded=true] span:nth-child(1){top:17px;width:24px;transform:rotate(45deg)}
+.menu-btn[aria-expanded=true] span:nth-child(2){top:17px;width:24px;transform:rotate(-45deg)}
+.tk-btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:12px 22px;white-space:nowrap}
+.tk-btn.sm{padding:8px 16px;font-size:14px}
+.tk-btn.line{background:transparent;border:1.5px solid #fff}
+.drawer{display:none;background:var(--navy);border-top:1px solid rgba(255,255,255,.15)}
+.drawer>a{display:block;padding:14px 20px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.drawer-foot{display:flex;justify-content:flex-end;align-items:center;padding:14px 20px}
+.drawer.open{display:block}
+.tk-fab{display:none}
+
+/* ヒーロー */
+.hero{background:linear-gradient(90deg,rgba(17,28,48,.85),rgba(17,28,48,.4) 60%,rgba(17,28,48,.12)),url("{{IMG:food.jpg}}") center/cover,#2a3a58;color:#fff}
+.hero-in{max-width:1120px;margin:auto;padding:96px 16px 88px}
+.hero h1{font-size:clamp(28px,4.4vw,48px);line-height:1.35;font-weight:900}
+.hero p.hero-sub{margin:18px 0 30px;font-size:clamp(16px,1.8vw,21px);font-weight:500;line-height:1.85;letter-spacing:.04em;color:rgba(255,255,255,.92)}
+.hero .row{display:flex;gap:10px;flex-wrap:wrap}
+.hero .sub{font-size:13px;opacity:.85;margin-top:14px}
+
+/* 安心ポイント */
+.trust{border-bottom:1px solid var(--line)}
+.trust ul{max-width:1120px;margin:auto;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);padding:0 16px}
+.trust li{padding:20px 14px;border-right:1px solid var(--line);font-size:13px;color:var(--mute)}
+.trust li:last-child{border-right:0}
+.trust b{display:block;font-size:16px;color:var(--navy)}
+
+section.blk{padding:72px 16px}
+.wrap{max-width:1120px;margin:auto}
+h2{font-size:28px;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.tk-lead{color:var(--mute);margin-bottom:32px}
+.tk-about{display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
+.tk-about img{width:200px}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.pt{background:var(--bg);border-radius:12px;padding:18px}
+.pt b{display:block;color:var(--navy);margin-bottom:4px}
+.pt p{font-size:14px;color:var(--mute)}
+
+/* 店舗 */
+.stores{background:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tk-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.tk-card .ph{aspect-ratio:16/10;background:#dde3ea center/cover}
+.tk-card .bd{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.tk-card h3{font-size:20px;color:var(--navy);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;background:var(--pink);color:#fff;border-radius:4px;padding:2px 6px;font-weight:700}
+.tag.alt{background:#e8eef6;color:var(--navy)}
+.addr{font-size:13px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:first-child{color:var(--mute);width:7.5em}
+.closed{font-size:13px;color:var(--pink);font-weight:700}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.acts a{text-align:center;text-decoration:none;font-size:14px;border-radius:8px;padding:9px 6px;border:1px solid var(--line);color:var(--navy)}
+.acts a.r{grid-column:1/-1;background:var(--pink);border-color:var(--pink);color:#fff;font-weight:700}
+.small{font-size:12px;color:var(--mute)}
+.store-tabs{display:none}
+.store-tabs button{font:inherit;font-weight:700;font-size:14px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:9px 4px;cursor:pointer}
+.store-tabs button[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.policy{margin-top:24px;background:#fff6ec;border:1px solid #f4d3b0;border-left:5px solid var(--pink);border-radius:10px;padding:16px 20px;font-size:14px}
+.policy b{color:var(--pink)}
+
+/* ケータリング */
+.cater{display:grid;grid-template-columns:1fr 1fr;background:var(--navy);color:#fff;border-radius:18px;overflow:hidden}
+.cater .tx{padding:44px}
+.cater h2{color:#fff}
+.cater ul{margin:16px 0 24px 1.2em;font-size:15px}
+.cater{align-items:center}
+.cater .row{display:flex;gap:10px;flex-wrap:wrap}
+.cater .mail{font-size:13px;opacity:.75;margin-top:12px}
+.flyer{display:block;padding:32px;text-decoration:none;text-align:center}
+.flyer img{width:100%;max-width:340px;margin:auto;border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.35);transition:transform .2s}
+.flyer:hover img{transform:scale(1.02)}
+.flyer>span{display:block;font-size:12px;opacity:.7;margin-top:10px;color:#fff}
+.tag.soon{background:#fff1c2;color:#7a5a00;font-size:12px;vertical-align:middle}
+.tag.ok{background:#e3f4ea;color:#1d6b43}
+.shopbox{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.shopbox .ph{aspect-ratio:3/2;border-radius:16px;background:url("https://glutenfree.co.jp/wp-content/uploads/2021/08/210420_Ts_Hotsauce-4-scaled-1-1024x683.jpeg") center/cover,#eee}
+.shopbox .tag{display:inline-block;margin:4px 0 14px}
+.shopbox p{color:var(--mute)}
+
+/* Instagram */
+.ig{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ig a{aspect-ratio:1;background:#eee center/cover;border-radius:8px;transition:opacity .2s}
+.ig a:hover{opacity:.85}
+
+/* フッター */
+footer{background:var(--navy-d);color:#c9d3df;padding:48px 16px 24px;font-size:13px}
+.ft{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:28px}
+footer b{color:#fff;display:block;margin-bottom:6px;font-size:14px}
+.ft-logo{width:64px;height:64px;border-radius:50%;background:#fff;margin-bottom:12px}
+.ft-sns{display:flex;gap:4px;margin-top:10px}
+footer a{color:#fff}
+.copy{max-width:1120px;margin:32px auto 0;border-top:1px solid #2a3d55;padding-top:16px;opacity:.7}
+
+@media(max-width:1180px){
+ .nav{display:none}
+ .menu-btn{display:block}
+ .tools{margin-left:auto}
+}
+@media(max-width:640px){
+ .hd-in{gap:8px;padding:10px 12px}
+ .logo{font-size:15px;gap:8px}
+ .logo img{width:32px;height:32px}
+ .tools{gap:0}
+ .hd-rsv{display:none}
+ .tools .lang{padding:5px 12px;font-size:12px;margin:0 4px}
+ .sns{width:32px;height:32px}
+ .tk-fab{display:block;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;background:var(--pink);color:#fff;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;box-shadow:0 6px 20px rgba(234,119,12,.4)}
+}
+@media(max-width:640px){.hero p.hero-sub{font-size:17px}}
+@media(max-width:400px){.logo{font-size:14px}.logo img{width:30px;height:30px}.tools .lang{padding:4px 10px;margin:0 2px}}
+@media(max-width:350px){.logo{font-size:12.5px;gap:6px}.tools .sns{display:none}}
+@media(max-width:900px){
+ .trust ul{grid-template-columns:1fr 1fr}
+ .trust li:nth-child(2){border-right:0}
+ .trust li:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .cards,.points{grid-template-columns:1fr}
+ .store-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:-12px 0 14px;position:sticky;top:56px;z-index:5;background:var(--bg);padding:8px 0}
+ .cards .tk-card{display:none}
+ .cards .tk-card.on{display:flex}
+ .tk-about{grid-template-columns:1fr;gap:16px}
+ .tk-about img{width:110px}
+ .cater{grid-template-columns:1fr}.cater .tx{padding:28px 28px 0}.flyer{padding:20px 28px 28px}
+ .shopbox{grid-template-columns:1fr;gap:20px}
+ .ig{grid-template-columns:repeat(3,1fr)}
+ .ft{grid-template-columns:1fr 1fr}
+ section.blk{padding:52px 16px}
+ .hero-in{padding:64px 16px 56px}
+}
+
+
+/* ===== 下層ページ共通 ===== */
+.nav a.on{opacity:1;box-shadow:inset 0 -2px 0 #fff}
+.drawer>a.on{background:rgba(255,255,255,.08)}
+.page-hero{background:linear-gradient(90deg,rgba(17,28,48,.9),rgba(17,28,48,.6)),url("{{IMG:food.jpg}}") center/cover;color:#fff;padding:64px 16px 56px}
+.page-hero .wrap{max-width:1120px;margin:auto}
+.page-hero h1{font-size:clamp(30px,4vw,44px);font-weight:900;line-height:1.3}
+.page-hero p{opacity:.9;margin-top:6px}
+.eyebrow{font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--pink);margin-bottom:6px}
+.page-hero .eyebrow{color:#ffc48a}
+.muted{color:var(--mute);font-size:14px}
+
+/* 会社概要 */
+.profile{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start}
+.owner{margin:0}
+.owner img{width:100%;border-radius:16px;aspect-ratio:3/4;object-fit:cover}
+.owner figcaption{font-size:13px;color:var(--mute);margin-top:8px;text-align:center}
+.info-table{margin:12px 0 28px;font-size:15px}
+.info-table th{text-align:left;font-weight:500;color:var(--mute);width:8em;padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.info-table td{padding:12px 0;border-bottom:1px solid var(--line);width:auto}
+.info-table td:first-child{width:auto;color:inherit}
+.sub-h{font-size:18px;color:var(--navy);margin-bottom:10px}
+.awards{list-style:none;display:grid;gap:8px}
+.awards li{background:var(--bg);border-radius:10px;padding:12px 14px 12px 40px;position:relative;font-size:14px}
+.awards li::before{content:"★";position:absolute;left:14px;top:11px;color:#f4b400}
+.numbers{background:var(--navy);color:#fff;padding:40px 16px}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.nums div{font-size:13px;opacity:.95}
+.nums b{display:block;font-size:40px;font-weight:900;line-height:1.2;margin-bottom:4px}
+.nums b small{font-size:18px;margin-left:2px}
+.cv{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cv-box{background:var(--bg);border-radius:18px;padding:32px}
+.cv-box h2{font-size:24px}
+.cv-box>p{color:var(--mute);margin-bottom:16px}
+.ticks{list-style:none;display:grid;gap:10px}
+.ticks li{padding-left:28px;position:relative;font-size:15px}
+.ticks li::before{content:"";position:absolute;left:4px;top:7px;width:12px;height:7px;border-left:2.5px solid var(--pink);border-bottom:2.5px solid var(--pink);transform:rotate(-45deg)}
+.biz-sec{background:var(--bg)}
+.biz{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.biz>div{background:#fff;border-radius:14px;overflow:hidden}
+.biz .ph{aspect-ratio:4/3;background:#ddd center/cover}
+.biz .ph.prod{background:#fbe9d6;display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:16px}
+.biz .ph.prod img{height:88%;width:auto;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))}
+.biz b{display:block;padding:14px 16px;color:var(--navy)}
+.timeline{list-style:none;position:relative;margin-top:24px}
+.timeline::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline li{display:grid;grid-template-columns:80px 1fr;gap:20px;padding-bottom:22px;position:relative}
+.timeline time{font-weight:900;color:var(--navy);font-size:18px;line-height:1.5}
+.timeline li::after{content:"";position:absolute;left:53px;top:8px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--pink)}
+.timeline li>div{padding-left:8px}
+.timeline p+p{margin-top:6px}
+.timeline .hl{color:var(--pink);font-weight:700}
+.media-sec{background:var(--bg)}
+.media{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:center}
+.clip img{border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.15);background:#fff}
+
+.media p{margin-bottom:12px}
+
+/* メニュー */
+.notice{background:#fff8e6;border:1px solid #f3dc9d;border-radius:12px;padding:18px 20px;margin-bottom:28px;font-size:14px}
+.notice b{display:block;color:#7a5a00;margin-bottom:6px}
+.notice p+p{margin-top:8px}
+.menu-stores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:640px}
+.menu-stores button{font:inherit;font-weight:700;font-size:15px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:11px 6px;cursor:pointer}
+.menu-stores button[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.menu-cats{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 18px}
+.menu-cats button{font:inherit;font-size:14px;border:0;background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 16px;cursor:pointer}
+.menu-cats button[aria-selected=true]{background:var(--pink);color:#fff;font-weight:700}
+.menu-view{margin:0;background:var(--bg);border-radius:16px;padding:16px;text-align:center}
+.menu-view a{display:flex;align-items:center;justify-content:center;min-height:200px}
+.menu-view img{max-height:80vh;width:auto;height:auto;max-width:100%;margin:auto;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.08);background:#fff}
+.menu-view.wide img{width:100%;max-height:none}
+.menu-view figcaption{font-size:12px;color:var(--mute);margin-top:10px}
+.menu-actions{text-align:center;margin-top:28px}
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(10,18,30,.92);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:56px 8px 24px}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:min(1400px,100%);height:auto}
+.lb-close{position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:18px;cursor:pointer}
+
+@media(max-width:900px){
+ .profile,.cv,.media{grid-template-columns:1fr;gap:28px}
+ .owner{max-width:260px}
+ .nums{grid-template-columns:1fr 1fr;gap:24px}
+ .biz{grid-template-columns:1fr 1fr}
+ .media .clip{max-width:300px}
+ .cv-box{padding:24px}
+ .timeline::before{left:44px}.timeline li{grid-template-columns:60px 1fr;gap:16px}.timeline li::after{left:39px}
+ .menu-view{padding:8px}
+}
+
+/* 原宿店の写真（{{IMG:harajuku.jpg}} を置くと表示） */
+.tk-card .ph.ph-harajuku{background:var(--harajuku-photo) center/cover,url("{{IMG:logo.png}}") center/72px no-repeat,linear-gradient(135deg,#e8eef6,#dde3ea)}
+
+/* 受賞マーク */
+.awards-band{background:#fff;border-top:1px solid var(--line);padding:40px 16px}
+.badges{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:auto;text-align:center}
+.badges img{height:96px;width:auto;margin:0 auto 10px;object-fit:contain}
+.badges li{font-size:12px;color:var(--mute);line-height:1.5}
+@media(max-width:640px){.badges{grid-template-columns:1fr 1fr;row-gap:28px}.badges img{height:80px}}
+
+/* 会社概要：追加分 */
+ol.plain{margin:0;padding-left:1.3em}
+ol.plain li+li{margin-top:2px}
+.info-table a{color:var(--navy)}
+.philosophy{text-align:center}
+.philosophy .wrap{max-width:760px}
+.philosophy .motto{font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--navy);margin:8px 0 16px;line-height:1.5}
+.philosophy p:last-child{color:var(--mute)}
+
+/* コンサルティング・取材お問い合わせ */
+.cons-hero{padding:88px 16px 72px}
+.cons-hero .cons-role{font-size:14px;opacity:.85;margin:0 0 14px}
+.cons-hero h1{font-size:clamp(32px,5.4vw,60px);line-height:1.25;max-width:14em;letter-spacing:.01em}
+.cons-hero .cons-lead{max-width:40em;margin-top:22px;font-size:16px;line-height:1.9;opacity:.92}
+.cons-hero .cons-cta{margin-top:30px}
+.cons-hero .tk-btn{padding:14px 28px}
+
+/* 左に見出し、右に内容。区切りは上の線だけ */
+.sec{padding:72px 16px;border-top:1px solid var(--line)}
+.sec.tint{background:var(--bg)}
+.sec-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:56px;align-items:start}
+.sec-in>h2,.sec-head h2{font-size:clamp(24px,2.6vw,32px);line-height:1.5;margin:0}
+.sec-head{position:sticky;top:96px}
+.sec-head .muted{margin-top:14px;font-size:14px;line-height:1.9}
+.sec.tint .timeline{grid-column:2}
+.body-lg{font-size:17px;line-height:2;margin-bottom:22px}
+.quote{font-size:20px;font-weight:900;color:var(--navy);line-height:1.7;margin:0 0 22px;padding-left:18px;border-left:4px solid var(--pink)}
+.quote.big{font-size:clamp(20px,2.6vw,28px);border-left:0;padding-left:0;line-height:1.6;margin-bottom:12px}
+.award-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.award-list li{padding:16px 0;border-bottom:1px solid var(--line);font-size:15px;font-weight:700;color:var(--navy)}
+.award-list li:last-child{border-bottom:0}
+
+/* 「日本に私だけです」 */
+.only{background:var(--navy);color:#fff;padding:88px 16px}
+.only-text{max-width:880px;margin:auto;font-family:var(--f-head);font-size:clamp(19px,2.3vw,27px);font-weight:500;line-height:1.95;letter-spacing:.03em;padding-left:clamp(16px,3vw,28px);border-left:3px solid var(--pink)}
+
+/* サービス：番号なしの横長の行 */
+.svc-list{display:grid}
+.svc-row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;padding:28px 0;border-top:1px solid #cfd8e3}
+.svc-row:first-child{border-top:0;padding-top:0}
+.svc-row h3{font-size:21px;line-height:1.5;color:var(--navy)}
+.svc-tag{font-size:13px;color:var(--mute);margin-top:6px}
+.svc-row>p{font-size:15px;line-height:1.95}
+
+/* 理由・実績：線で区切る2列 */
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.dl-grid>div{padding:22px 0;border-top:1px solid var(--line)}
+.dl-grid h3{font-size:17px;line-height:1.6;color:var(--navy);margin-bottom:8px}
+.dl-grid p{font-size:14px;line-height:1.9;color:var(--mute)}
+.sec.tint .dl-grid>div{border-top-color:#cfd8e3}
+.more{margin-top:28px;padding:20px 22px;background:#fff6ec;border-left:4px solid var(--pink);display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.more b{color:var(--navy)}
+
+.book-card{border:1.5px solid var(--navy);border-radius:4px;padding:22px 24px}
+.book-card b{display:block;font-size:18px;color:var(--navy);margin-bottom:2px}
+.book-card p{font-size:14px;margin-top:12px;color:var(--mute);line-height:1.9}
+
+/* 流れ：順番があるので番号つき */
+.steps{list-style:none;counter-reset:s;grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.steps li{counter-increment:s;padding:20px 24px 0 0;border-top:3px solid var(--navy);position:relative}
+.steps li::before{content:counter(s);display:block;font-size:44px;font-weight:900;line-height:1;color:var(--pink);margin-bottom:12px}
+.steps h3{font-size:16px;color:var(--navy);margin-bottom:6px;line-height:1.5}
+.steps p{font-size:14px;color:var(--mute);line-height:1.9}
+.sec-in:has(.steps){grid-template-columns:1fr}
+.timeline small{font-size:13px;color:var(--mute);font-weight:400}
+.sec.founder .profile{padding:0}
+
+/* お問い合わせフォーム */
+.contact{padding:72px 16px}
+.contact .narrow{max-width:720px;margin:auto}
+.contact .note{margin-top:16px;text-align:center;font-size:13px}
+.contact .tk-lead{color:var(--mute)}
+.contact.dark{background:var(--navy);color:#fff;padding:88px 16px}
+.contact.dark h2{color:#fff;font-size:clamp(26px,3.4vw,38px)}
+.contact.dark .tk-lead,.contact.dark .note{color:#c9d3df}
+.contact.dark .cf7 label,.contact.dark .wpcf7 label{color:#fff}
+.contact.dark .cf7 label em{color:#ff9a3d}
+.contact.dark input:focus,.contact.dark textarea:focus{border-color:#ff9a3d}
+.cf7{display:grid;gap:16px;margin-top:8px}
+.cf7 p{margin:0}
+.cf7 label{display:block;font-size:14px;font-weight:700;color:var(--navy)}
+.cf7 label em{color:var(--pink);font-style:normal}
+.cf7 input[type=text],.cf7 input[type=email],.cf7 input[type=tel],.cf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:13px 14px}
+.cf7 input:focus,.cf7 textarea:focus{outline:2px solid transparent;border-color:var(--navy)}
+.cf7 .chk label{font-weight:400;font-size:14px}
+.cf7 input[type=checkbox]{margin-right:8px}
+.cf7 .wpcf7-form-control-wrap{display:block}
+.cf7 input[type=submit],.cf7 button.tk-btn{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:15px 32px;width:100%}
+.wpcf7-not-valid-tip,.wpcf7-response-output{font-size:13px}
+.contact .wpcf7 form{display:grid;gap:16px}
+.contact .wpcf7 form p{margin:0}
+.contact .wpcf7 label{display:block;font-size:14px;font-weight:700;color:var(--navy)}
+.contact .wpcf7 input[type=text],.contact .wpcf7 input[type=email],.contact .wpcf7 input[type=tel],.contact .wpcf7 textarea{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:13px 14px}
+.contact .wpcf7 input[type=submit]{font:inherit;font-weight:700;border:0;cursor:pointer;background:var(--pink);color:#fff;border-radius:8px;padding:15px 32px;width:100%}
+.contact.dark .wpcf7-response-output,.contact.dark .wpcf7-not-valid-tip{color:#fff}
+
+@media(max-width:900px){
+ .sec{padding:52px 16px}
+ .sec-in{grid-template-columns:1fr;gap:24px}
+ .sec-head{position:static}
+ .sec.tint .timeline{grid-column:1}
+ .award-list,.dl-grid,.svc-row{grid-template-columns:1fr}
+ .svc-row{gap:10px}
+ .steps{grid-template-columns:1fr 1fr;gap:28px 20px}
+ .only{padding:56px 16px}
+ .contact.dark{padding:56px 16px}
+ .cons-hero{padding:64px 16px 52px}
+}
+@media(max-width:640px){
+ .sec{padding:44px 16px}
+ .sec-in{gap:18px}
+ .sec-in>h2,.sec-head h2{font-size:22px}
+ .sec-in>h2,.sec-head h2,.svc-row h3,.dl-grid h3,.steps h3,.quote,.cons-hero h1{word-break:auto-phrase}
+ .cons-hero h1{font-size:30px;line-height:1.35}
+ .cons-hero .cons-lead{font-size:15px}
+ .numbers .nums{gap:20px 12px}
+ .nums b{font-size:30px}
+ .nums b small{font-size:15px}
+ .nums div{font-size:12px;line-height:1.6}
+ .only{padding:40px 16px}
+ .only-text{font-size:17px;line-height:1.9;border-left-width:3px;padding-left:14px}
+ .only-text br{display:none}
+ .body-lg{font-size:16px;line-height:1.9}
+ .quote{font-size:17px;padding-left:14px}
+ .quote.big{font-size:18px}
+ .svc-row{padding:22px 0;gap:6px}
+ .svc-row h3{font-size:18px}
+ .svc-row h3 br{display:none}
+ .svc-row>p{font-size:14.5px;line-height:1.9}
+ .dl-grid>div{padding:16px 0}
+ .dl-grid h3{font-size:16px;margin-bottom:4px}
+ .more{padding:16px}
+ .more .tk-btn{width:100%;text-align:center}
+ .steps{grid-template-columns:1fr;gap:0}
+ .steps li{display:grid;grid-template-columns:36px 1fr;column-gap:8px;padding:16px 0;border-top-width:2px}
+ .steps li::before{grid-row:1/3;font-size:28px;margin:0}
+ .steps h3{margin-bottom:2px}
+ .contact.dark{padding:44px 16px 96px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.only-text,.cons-hero h1,.sec-in>h2,.sec-head h2,.quote{text-wrap:balance}
+.page-hero h1,.only-text{text-wrap:balance;word-break:auto-phrase}
+
+.nums.nums3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.nums.nums3{grid-template-columns:repeat(3,1fr);gap:12px}}
+@media(max-width:640px){.numbers .nums.nums3{gap:12px 8px}.nums3 b{font-size:26px}.nums3 div{font-size:11.5px}}
+
+.free-note{margin-top:12px;font-size:14px;font-weight:700;color:#fff}
+.free-badge{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:14px 0 4px;font-size:15px;color:#fff}
+.free-badge b{background:var(--pink);color:#fff;font-size:18px;padding:6px 16px;border-radius:999px;line-height:1.4}
+
+/* 書体：見出し・数字・引用は明朝＋Fraunces、本文はゴシック */
+h1,h2,h3,.nums b,.quote{font-family:var(--f-head);font-weight:700}
+.hero h1,.page-hero h1,.cons-hero h1{font-weight:700;letter-spacing:0}
+h2,.quote{font-weight:600}
+.tk-card h3,.svc-row h3,.dl-grid h3,.steps h3{font-weight:700}
+.nums b{font-weight:600;letter-spacing:0}
+h1,h2,h3{word-break:auto-phrase;text-wrap:balance}
+
+/* ── 日本語・英語のページを別URLに分けたあとの言語ボタンと、英語版の案内 ── */
+a.lang{text-decoration:none}
+html[data-lang] .hd a.lang[lang]{display:inline-flex!important}
+html[data-lang] .langbar[lang]{display:flex!important}
+.langbar{align-items:center;justify-content:center;gap:6px 14px;flex-wrap:wrap;position:relative;padding:9px 48px 9px 16px;background:var(--ivory,#faf6ec);color:var(--navy,#1c2b45);border-bottom:1px solid var(--rule,#ddd3c0);font-size:13.5px;line-height:1.5}
+.langbar p{margin:0}
+.langbar a{color:inherit;font-weight:700;text-decoration:none;box-shadow:inset 0 -2px 0 var(--accent,#ff8a1f);padding:1px 1px 2px}
+.langbar a:hover{background:var(--accent,#ff8a1f)}
+.langbar button{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;background:none;color:inherit;font:inherit;font-size:20px;line-height:1;cursor:pointer;opacity:.6;border-radius:50%}
+.langbar button:hover{opacity:1;background:rgba(28,43,69,.08)}
+.langbar a:focus-visible,.langbar button:focus-visible{outline:2px solid var(--navy,#1c2b45);outline-offset:2px}
+
+/* 本番用アニメーション（案A+・小麦の演出なし）。style.css の後に読み込む。動きは「視差効果を減らす」設定の人には出ない */
+@media(prefers-reduced-motion:no-preference){
+  /* ヘッダーとボタン */
+  .hd{animation:tsk-hd .7s cubic-bezier(.2,.7,.2,1) both;transition:padding .3s,box-shadow .3s}
+  @keyframes tsk-hd{from{transform:translateY(-100%)}}
+  .hd-in{transition:padding .3s}
+  .hd.scrolled{box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .hd.scrolled .hd-in{padding-top:7px;padding-bottom:7px}
+  .logo img{transition:width .3s,height .3s}
+  .hd.scrolled .logo img{width:32px;height:32px}
+  .tk-btn,.acts a,.store-tabs button{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background .2s}
+  .tk-btn:hover,.acts a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(17,28,48,.18)}
+  .tk-btn:active,.acts a:active{transform:none}
+  .tk-fab{animation:tsk-fab 1.2s 2.4s ease-out 2 both}
+  @keyframes tsk-fab{50%{box-shadow:0 0 0 12px rgba(234,119,12,0),0 6px 20px rgba(234,119,12,.4);transform:scale(1.06)}}
+
+  /* ヒーロー：背景写真がゆっくり引き、見出しが1行ずつ現れる */
+  .hero,.page-hero{position:relative;overflow:hidden}
+  .hero::before,.page-hero::before{content:"";position:absolute;inset:0;background:inherit;transform:scale(1.14);transform-origin:70% 50%;animation:tsk-zoom 3.2s cubic-bezier(.2,.6,.2,1) forwards}
+  @keyframes tsk-zoom{to{transform:scale(1)}}
+  .hero-in,.page-hero .wrap{position:relative}
+  .hero h1,.page-hero h1{animation:tsk-fadein .3s .1s both}
+  @keyframes tsk-fadein{from{opacity:0}}
+  .ln{display:block;overflow:hidden;padding-bottom:.15em;margin-bottom:-.15em}
+  .ln>span{display:block;transform:translateY(105%);animation:tsk-line 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.25s + var(--i)*.14s)}
+  @keyframes tsk-line{to{transform:none}}
+  .hero-sub,.hero .row,.hero .sub,.page-hero .wrap>:not(h1){opacity:0;transform:translateY(14px);animation:tsk-up .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero-sub{animation-delay:.75s}.hero .row{animation-delay:.95s}.hero .sub{animation-delay:1.1s}
+  .page-hero .wrap>:not(h1){animation-delay:calc(.6s + var(--k,0)*.14s)}
+  @keyframes tsk-up{to{opacity:1;transform:none}}
+
+  /* スクロールで、ブロックが静かに現れる（data-a は script.js が付ける。スクリプトが動かなければ付かず、そのまま表示される） */
+  [data-a]{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+  [data-a].in{opacity:1;transform:none}
+
+  /* 見出しの下にピンクの線が引かれる */
+  main h2{position:relative;padding-bottom:12px;width:fit-content}
+  main h2::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:56px;background:var(--pink);border-radius:2px;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.6,0,.2,1) .35s}
+  main h2.in::after,main .in h2::after{transform:none}
+  .cater h2::after,.contact.dark h2::after{background:#ff9a3d}
+
+  /* 店舗タブ：丸がスライドして切り替わり、カードがふわっと入れ替わる */
+  .store-tabs{position:relative}
+  .store-tabs button{position:relative;z-index:1}
+  .store-tabs button[aria-selected=true]{background:transparent;border-color:transparent}
+  .store-tabs .ind{position:absolute;z-index:0;top:8px;bottom:8px;left:0;width:0;border-radius:999px;background:var(--navy);transition:transform .45s cubic-bezier(.6,0,.2,1),width .45s cubic-bezier(.6,0,.2,1)}
+  .cards .tk-card.on{animation:tsk-card .55s cubic-bezier(.2,.7,.2,1)}
+  @keyframes tsk-card{from{opacity:0;transform:translateY(10px)}}
+  .tk-card .ph{transition:transform .9s cubic-bezier(.2,.7,.2,1);transform-origin:50% 60%}
+  .tk-card:hover .ph{transform:scale(1.05)}
+  .drawer.open{animation:tsk-drawer .35s cubic-bezier(.2,.7,.2,1)}
+  @keyframes tsk-drawer{from{opacity:0;transform:translateY(-8px)}}
+}
+
+</style>
+<div class="tsk-root" style="font-family:var(--f-body);color:#1f2933;line-height:1.7">
+<header class="hd">
+  <div class="hd-in">
+    <a class="logo" href="/en/"><img src="{{IMG:logo.png}}" alt=""><span>Gluten Free T's Kitchen</span></a>
+    <nav class="nav">
+      <a class="menu-link" href="/en/menu/"><span lang="en">Menu</span></a>
+      <a href="/en/about/"><span lang="en">About us</span></a>
+      <a href="/en/consulting/" class="on" aria-current="page"><span lang="en">Consulting</span></a>
+      <a href="/en/media/"><span lang="en">Media inquiries</span></a>
+    </nav>
+    <div class="tools">
+      <a class="sns" href="https://www.instagram.com/glutenfreetskitchen/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a class="lang" href="/consulting/" lang="ja" hreflang="ja" aria-label="日本語のページへ"><span>日本語</span></a>
+      <a class="tk-btn sm rsv hd-rsv" href="https://www.tablecheck.com/en/glutenfree/reserve/landing?require_venue=true"><span lang="en">Book</span></a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="メニュー" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="drawer" id="drawer">
+    <a class="menu-link" href="/en/menu/"><span lang="en">Menu</span></a>
+      <a href="/en/about/"><span lang="en">About us</span></a>
+      <a href="/en/consulting/" class="on" aria-current="page"><span lang="en">Consulting</span></a>
+      <a href="/en/media/"><span lang="en">Media inquiries</span></a>
+    <div class="drawer-foot"><a class="tk-btn sm rsv" href="https://www.tablecheck.com/en/glutenfree/reserve/landing?require_venue=true"><span lang="en">Book a table</span></a></div>
+  </div>
+</header>
+<a class="tk-fab" href="#contact"><span lang="en">Free first consultation</span></a>
+
+<main id="top">
+<div class="page-hero cons-hero"><div class="wrap">
+  <p class="cons-role"><span lang="en">Founder of Asia's first GFFS-certified restaurant / Gluten-free consultant</span></p>
+  <h1><span lang="en">Grow your sales and competitiveness with gluten-free.</span></h1>
+  <p class="cons-lead"><span lang="en">We run three gluten-free restaurants and consult for businesses. From GFCO certification and product development to business reviews and inbound strategy, we tackle your challenges with first-hand know-how.</span></p>
+  <p class="cons-cta"><a class="tk-btn" href="#contact"><span lang="en">Book a free 30-minute consultation</span></a></p>
+  <p class="free-note"><span lang="en">First 30 minutes free · Online consultations available</span></p>
+</div></div>
+
+<section class="numbers"><div class="wrap nums nums3">
+  <div><b>700<small>+</small></b><span lang="en">recipes developed</span></div>
+  <div><b>3<small><span lang="en"></span></small></b><span lang="en">gluten-free restaurants managed</span></div>
+  <div><b>10<small><span lang="en">+ years</span></small></b><span lang="en">of R&amp;D and restaurant management</span></div>
+</div></section>
+
+<section class="only"><div class="wrap">
+  <p class="only-text"><span lang="en">Founder of Asia's first GFFS-certified restaurant, now running three gluten-free restaurants in Tokyo. With a recipe book published in 2025 and more than ten years of R&amp;D and restaurant management behind us, we help companies build their gluten-free business.</span></p>
+</div></section>
+
+<section class="sec"><div class="wrap sec-in">
+  <h2><span lang="en">Why companies choose Iino</span></h2>
+  <div>
+    <p class="body-lg"><span lang="en">We help companies earn certification, drawing on our own experience of international gluten-free certification and the expertise we have built running restaurants.</span></p>
+    <p class="quote"><span lang="en">"Know-how from the kitchen, not from textbooks."</span></p>
+    <ul class="ticks">
+      <li><span lang="en">As Asia's first GFFS-certified restaurant, we have been through the international certification process ourselves</span></li>
+      <li><span lang="en">More than 10 years of experience with diverse dietary needs: celiac disease, allergies, vegan, halal and more</span></li>
+      <li><span lang="en">Proven results from over 700 original recipes and product development (tempura mix, hot sauce and more)</span></li>
+      <li><span lang="en">A track record with, and the trust of, embassies, ministries, major companies and international artists</span></li>
+      <li><span lang="en">We understand what overseas gluten-free consumers look for, and can support the strategies of large companies</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="sec tint" id="services"><div class="wrap sec-in">
+  <div class="sec-head"><h2><span lang="en">Three areas of consulting</span></h2><p class="muted"><span lang="en">Use one or combine them, depending on your needs. Available in person or online.</span></p></div>
+  <div class="svc-list">
+    <article class="svc-row"><div><h3><span lang="en">GFCO certification<br>support</span></h3><p class="svc-tag">GFCO · Certification</p></div><p><span lang="en">Full support for obtaining GFCO (Gluten-Free Certification Organization) certification for your products. We begin with an analysis of where you stand, help prepare your documents, and can even be with you on the day of the final audit. As Asia's first GFFS (Gluten-Free Food Service) certified restaurant, we guide you with first-hand experience of the process.</span></p></article>
+    <article class="svc-row"><div><h3><span lang="en">Gluten-free<br>product development</span></h3><p class="svc-tag">R&amp;D</p></div><p><span lang="en">End-to-end support from market research and recipe development through prototyping and refinement to launch. We help you develop products for diverse dietary needs, from allergen considerations, including Japan's specified allergens, to vegan and halal. With more than 700 recipes behind us, we help you make products that never compromise on taste.</span></p></article>
+    <article class="svc-row"><div><h3><span lang="en">Business review &amp;<br>sales advisory</span></h3><p class="svc-tag">Advisory</p></div><p><span lang="en">We review your current gluten-free products and menu and tell you, specifically, what is missing, why they are not selling and how to sell more. If you are just getting started, we help you from your very first step into the market.</span></p></article>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap sec-in">
+  <div class="sec-head"><h2><span lang="en">Why go gluten-free now.</span></h2><p class="muted"><span lang="en">Gluten-free is not a "special accommodation." It is a business strategy that ties directly to sales, foot traffic and your brand. It starts with the right knowledge and doing it properly.</span></p></div>
+  <div>
+    <div class="dl-grid">
+      <div><h3><span lang="en">A direct answer to inbound demand</span></h3><p><span lang="en">Many visitors to Japan look for gluten-free options. With the right knowledge and a well-prepared gluten-free menu and service, you meet that demand head-on.</span></p></div>
+      <div><h3><span lang="en">More sales, new customers</span></h3><p><span lang="en">Gluten-free opens the door to customers you could not reach before. As diets diversify, it is a concrete way to grow your sales.</span></p></div>
+      <div><h3><span lang="en">Avoid risk with the right knowledge</span></h3><p><span lang="en">Calling something "gluten-free" takes accurate knowledge based on international standards. Mistakes in labeling or handling damage trust in your brand. Building that knowledge inside your company is the foundation for everything else.</span></p></div>
+      <div><h3><span lang="en">GFCO certification: trust and differentiation overseas</span></h3><p><span lang="en">With GFCO certification, we help you earn the trust of overseas buyers and set your products apart in overseas markets.</span></p></div>
+      <div><h3><span lang="en">Get ahead of the market with product development</span></h3><p><span lang="en">Japan's gluten-free market is still developing. Enter now and you can establish your brand while competition is limited. With more than 700 recipes of experience, we help you make products that sell.</span></p></div>
+    </div>
+    <p class="more"><b><span lang="en">Talk to the expert that embassies, ministries and major companies turn to.</span></b> <a class="tk-btn sm" href="#contact"><span lang="en">Book a free 30-minute consultation</span></a></p>
+  </div>
+</div></section>
+
+<section class="sec tint"><div class="wrap sec-in">
+  <div class="sec-head"><h2><span lang="en">Chosen by embassies, major companies and international artists.</span></h2><p class="muted"><span lang="en">People who want someone who truly knows gluten-free come to Iino. We believe that trust comes not from titles or credentials, but from what we do every day in our restaurants.</span></p></div>
+  <div class="dl-grid">
+      <div><h3><span lang="en">Embassies &amp; Ministry of Foreign Affairs</span></h3><p><span lang="en">Gluten-free service at diplomatic occasions, with a track record of meeting strict food standards.</span></p></div>
+      <div><h3><span lang="en">Ministries &amp; government agencies</span></h3><p><span lang="en">Trusted by public institutions, including work with the Ministry of Agriculture, Forestry and Fisheries.</span></p></div>
+      <div><h3><span lang="en">Major food &amp; restaurant companies</span></h3><p><span lang="en">Multi-year product development and strategy support for several major companies.</span></p></div>
+      <div><h3><span lang="en">International artists</span></h3><p><span lang="en">Top international artists visiting Japan have specifically ordered our food as their gluten-free meals.</span></p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap sec-in">
+  <div class="sec-head"><h2><span lang="en">Ten years of work, in one book.</span></h2><p class="muted"><span lang="en">I have been researching gluten-free cooking since 2015 and have created more than 700 recipes. That experience became a book in 2025, written especially for anyone who thinks gluten-free sounds difficult.</span></p></div>
+  <div>
+    <div class="book-card">
+      <b><span lang="en">Healthy Rice-Flour Plates from a Gluten-Free Chef (published in Japanese)</span></b>
+      <span class="muted"><span lang="en">By Takako Iino · Shufu to Seikatsu Sha</span></span>
+      <p><span lang="en">Distills independent research since 2015 and more than 700 recipes. A gluten-free professional explains, step by step, how to cook rice-flour dishes that balance flavor and nutrition.</span></p>
+    </div>
+    <h3 class="sub-h" style="margin-top:32px"><span lang="en">What only a working owner of three restaurants can tell you</span></h3>
+    <ul class="ticks">
+      <li><span lang="en">Three gluten-free restaurants run at the same time, and real insight from daily operations</span></li>
+      <li><span lang="en">Advice grounded in global standards and our own experience of certification</span></li>
+      <li><span lang="en">Products and menus proven in our restaurants to sell and to delight guests</span></li>
+      <li><span lang="en">Every step done daily: production, sourcing, serving and hospitality</span></li>
+      <li><span lang="en">Hearing directly from people who need gluten-free, every day we are open</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="sec founder"><div class="wrap profile">
+  <figure class="owner">
+    <img src="{{IMG:owner.jpg}}" alt="飯野孝子 / Takako Iino">
+    <figcaption><span lang="en">Owner &amp; Chef, Takako Iino</span></figcaption>
+  </figure>
+  <div>
+    <p class="quote big"><span lang="en">"Turning dietary restrictions into new possibilities to savor: that philosophy is at the core of our consulting. Gluten-free is not a risk. It is a new door for your business."</span></p>
+    <p class="muted"><span lang="en">Takako Iino, CEO, Iino Co., Ltd.</span></p>
+    <p class="muted" style="margin-top:20px"><a href="/en/about/"><span lang="en">For awards, history and profile, see About us →</span></a></p>
+  </div>
+</div></section>
+
+<section class="sec tint"><div class="wrap sec-in">
+  <h2><span lang="en">How it works</span></h2>
+  <ol class="steps">
+    <li><h3><span lang="en">Free 30-minute first consultation</span></h3><p><span lang="en">We listen to your challenges and goals, then recommend the service that fits best. Available in person or online.</span></p></li>
+    <li><h3><span lang="en">Analysis &amp; proposal</span></h3><p><span lang="en">We analyze your existing products, processes and certification status, then present a concrete roadmap and cost estimate.</span></p></li>
+    <li><h3><span lang="en">Project kickoff and support</span></h3><p><span lang="en">Certification support, product development and improvement advice move forward step by step, with regular progress reports.</span></p></li>
+    <li><h3><span lang="en">Certification and goals achieved</span></h3><p><span lang="en">Earn the certification mark, launch new products and improve sales, with ongoing support afterward.</span></p></li>
+  </ol>
+</div></section>
+
+<section class="contact dark" id="contact"><div class="wrap narrow">
+  <h2><span lang="en">Get in touch.</span></h2>
+  <p class="free-badge"><b><span lang="en">First 30 minutes free</span></b><span lang="en">Online consultations available</span></p>
+  <p class="tk-lead"><span lang="en">GFCO certification, product development, sales: whatever stage you are at, start by telling us about it.</span></p>
+  [contact-form-7 id="8a2859b" title="問合せ"]
+  <p class="note"><span lang="en">Free 30-minute first consultation · Online consultations available · We usually reply within 2 business days</span></p>
+</div></section>
+</main>
+
+<section class="awards-band" aria-label="受賞・認証">
+  <div class="wrap">
+    <ul class="badges">
+      <li><img src="{{IMG:award-gig.png}}" alt="Validated Gluten Free Safe Spot"><span lang="en">First GIG-certified<br>in Asia</span></li>
+      <li><img src="{{IMG:award-gf-product-of-the-year.png}}" alt="Gluten-Free Product of the Year 2020"><span lang="en">Product of the Year<br>2020 Grand Prix</span></li>
+      <li><img src="{{IMG:award-food-action-nippon.png}}" alt="Food Action Nippon Award 2019"><span lang="en">Food Action Nippon<br>Award 2019</span></li>
+      <li><img src="{{IMG:award-tripadvisor.png}}" alt="Tripadvisor"><span lang="en">Tripadvisor<br>No.1 in Tokyo (2019)</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div><img class="ft-logo" src="{{IMG:logo.png}}" alt="T's Kitchen"><b>Gluten Free T's Kitchen</b><span lang="en">Gluten-free restaurant in Tokyo, made without wheat, barley or rye</span><div class="ft-sns"><a class="sns" href="https://www.instagram.com/glutenfreetskitchen/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a></div></div>
+    <div><b><span lang="en">Harajuku</span></b><span lang="en">4-28-14 Jingumae, Shibuya</span><br><a href="tel:0368129222">03-6812-9222</a></div>
+    <div><b><span lang="en">Roppongi</span></b><span lang="en">7-8-5 Roppongi, Minato</span><br><a href="tel:0368747719">03-6874-7719</a></div>
+    <div><b><span lang="en">Ueno-Hirokoji</span></b><span lang="en">5-3-3 Sotokanda, Chiyoda</span><br><a href="tel:0358264548">03-5826-4548</a></div>
+  </div>
+  <div class="copy">© 株式会社飯野 / 株式会社たいのいかこ</div>
+</footer>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  var RSV={ja:'https://www.tablecheck.com/ja/glutenfree/reserve/landing?require_venue=true',
+           en:'https://www.tablecheck.com/en/glutenfree/reserve/landing?require_venue=true'};
+  /* 日本語ページ・英語ページが別URLのとき（data-lang-fixed）は、URLの言語を使う。ブラウザの言語や保存した言語では切り替えない */
+  var fixed=root.getAttribute('data-lang-fixed');
+  function setLang(l){
+    root.setAttribute('data-lang',l); root.lang=l;
+    document.querySelectorAll('a.rsv').forEach(function(a){a.href=RSV[l]});
+    document.dispatchEvent(new CustomEvent('langchange',{detail:l}));
+    if(!fixed)try{localStorage.setItem('tsk-lang',l)}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('tsk-lang')}catch(e){}
+  var q=new URLSearchParams(location.search).get('lang');
+  setLang(fixed||q||saved||((navigator.language||'ja').toLowerCase().indexOf('ja')===0?'ja':'en'));
+  /* 日本語ページを英語の端末で開いた人にだけ、英語版の案内を出す（自動では移動しない。閉じると、そのブラウザでは出さない） */
+  (function(){
+    if(fixed!=='ja')return;
+    var en=document.querySelector('a.lang[hreflang=en]'),hd=document.querySelector('.hd');if(!en||!hd)return;
+    var langs=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'ja'];
+    var force=/[?&]langbar=1/.test(location.search),closed=false;
+    try{closed=localStorage.getItem('tsk-langbar')==='1'}catch(e){}
+    if(!force&&(closed||String(langs[0]).toLowerCase().indexOf('ja')===0))return;
+    var bar=document.createElement('div');bar.className='langbar';bar.lang='en';bar.setAttribute('role','region');bar.setAttribute('aria-label','Language');
+    bar.innerHTML='<p>This site is also available in English.</p><a href="'+en.getAttribute('href')+'" hreflang="en">English version</a><button type="button" aria-label="Close">\u00d7</button>';
+    bar.querySelector('button').addEventListener('click',function(){bar.remove();try{localStorage.setItem('tsk-langbar','1')}catch(e){}});
+    hd.parentNode.insertBefore(bar,hd);
+  })();
+  document.querySelectorAll('[data-lang-toggle]').forEach(function(b){b.addEventListener('click',function(){setLang(root.getAttribute('data-lang')==='ja'?'en':'ja')})});
+  var tabs=document.querySelectorAll('.store-tabs button'),cards=document.querySelectorAll('.cards .tk-card');
+  tabs.forEach(function(t){t.addEventListener('click',function(){var i=+t.dataset.i;
+    tabs.forEach(function(x,j){x.setAttribute('aria-selected',j===i)});
+    cards.forEach(function(c,j){c.classList.toggle('on',j===i)});});});
+  var btn=document.getElementById('menuBtn'),dr=document.getElementById('drawer');
+  btn.addEventListener('click',function(){var o=dr.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+  dr.addEventListener('click',function(e){if(e.target.closest('a')){dr.classList.remove('open');btn.setAttribute('aria-expanded','false')}});
+})();
+
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  /* 見出しを1行ずつに分ける（言語ごとの span がある場合は、その中身を分ける） */
+  function lines(el){el.innerHTML=el.innerHTML.split(/<br\s*\/?>/i).map(function(t,i){return '<span class="ln"><span style="--i:'+i+'">'+t+'</span></span>'}).join('')}
+  document.querySelectorAll('.hero h1, .page-hero h1').forEach(function(h){var ls=h.querySelectorAll(':scope > [lang]');ls.length?ls.forEach(lines):lines(h)});
+  document.querySelectorAll('.page-hero .wrap > :not(h1)').forEach(function(e,i){e.style.setProperty('--k',i)});
+  /* スクロールで見えたブロックに .in を付ける */
+  var SEL='.tk-about > img, .pt, section.blk h2, section.blk .tk-lead, .policy, .tk-card, .cater .tx > *, .flyer, .shopbox .tx > *, .shopbox .ph, .ig a, .badges li, .sec-in > h2, .sec-head, .body-lg, .quote, .ticks li, .svc-row, .dl-grid > div, .more, .book-card, .sub-h, .steps li, .only-text, .nums > div, .owner, .founder .muted, .contact .wrap > *, .blk .profile > *, .cv-box, .biz > div, .awards li, .menu-sec .wrap > *, .philosophy .wrap > *';
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll(SEL).forEach(function(el){var n=0;for(var s=el.previousElementSibling;s;s=s.previousElementSibling)if(s.hasAttribute('data-a'))n++;el.setAttribute('data-a','');el.style.setProperty('--d',(n*80)+'ms');io.observe(el)});
+  }
+  /* ヘッダーがスクロールで少し細くなる */
+  var hd=document.querySelector('.hd'),tk=false;
+  function upd(){tk=false;if(hd)hd.classList.toggle('scrolled',scrollY>40)}
+  addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});upd();
+  /* 店舗タブのスライドする丸 */
+  var tabs=document.querySelector('.store-tabs');
+  if(tabs){
+    var ind=document.createElement('span');ind.className='ind';tabs.insertBefore(ind,tabs.firstChild);
+    var place=function(){var b=tabs.querySelector('[aria-selected=true]');if(!b||!b.offsetWidth)return;ind.style.width=b.offsetWidth+'px';ind.style.transform='translateX('+b.offsetLeft+'px)'};
+    tabs.addEventListener('click',function(){requestAnimationFrame(place)});
+    addEventListener('resize',place);document.fonts&&document.fonts.ready.then(place);place();
+  }
+  /* 実績の数字は0から数え上がる（数字そのものは変えない） */
+  document.querySelectorAll('.nums b').forEach(function(b){
+    var t=b.firstChild;if(!t||t.nodeType!==3)return;var to=parseInt(t.nodeValue,10);if(!to)return;t.nodeValue='0';
+    var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();var s=performance.now();(function f(n){var p=Math.min((n-s)/1400,1);t.nodeValue=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s)},{threshold:.6});o.observe(b)});
+})();
+
+</script>

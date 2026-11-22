@@ -1,7 +1,9 @@
 """5ページ（ルートの本番用HTML）から、プレビュー renew14/ を作る。
 読み込むCSS・JS（renew〜renew14 の改修分）はすべて renew14/ の中にある。デモ用の切り替えパネルは無し（2026-11-05 yuga の指示で削除）。
 本文・リンク・フォームの送信先は元ページのまま。"""
-import re, pathlib
+import re, pathlib, os, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import langsplit as LS
 root = pathlib.Path(__file__).resolve().parent.parent
 V = '20261117a'
 V15 = '20261115a'
@@ -89,6 +91,31 @@ for name in PAGES:
     # フッター：各ページへのリンク（ヘッダーと同じ既存の表記のみ）
     h = h.replace('<div class="copy">', NAV + '\n  <div class="copy">', 1)
     h = h.replace('</body>', '<script src="form.js?v=' + V + '"></script></body>', 1)
+    # ── 日本語・英語を別URLに分けた版（split/）：/ と /en/ の2系統。公開サイトと同じ並びのフォルダで、リンクは相対パス ──
+    for lang in ('ja', 'en'):
+        d = root/'split'/(('en'/pathlib.Path(LS.SLUG[name])) if lang == 'en' else pathlib.Path(LS.SLUG[name]))
+        def rel(page, l, _d=d):
+            t = root/'split'/(('en'/pathlib.Path(LS.SLUG[page])) if l == 'en' else pathlib.Path(LS.SLUG[page]))
+            r = os.path.relpath(t, _d).replace(os.sep, '/')
+            return './' if r == '.' else r + '/'
+        up = os.path.relpath(root, d).replace(os.sep, '/') + '/'
+        x = LS.strip_other(h, lang)
+        x = LS.set_lang(x, lang)
+        x = LS.switch_button(x, lang, rel(name, 'en' if lang == 'ja' else 'ja'))
+        x = LS.fix_links(x, lang, rel)
+        x = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', lambda m: f'{m.group(1)}={m.group(2)}{up}renew14/{m.group(3)}', x)
+        x = x.replace('../src/', up + 'src/')
+        x = x.replace(r"(\.\.\/src\/)?images\/", r"(\.\.\/)*(src\/)?images\/")
+        title, desc = (None, None)
+        if lang == 'en':
+            title, desc = LS.EN_META[name]
+            x = re.sub(r'<title>.*?</title>', lambda m: f'<title>{title}</title>', x, count=1)
+            if desc: x = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{desc}">', x, count=1)
+            else: x = re.sub(r'<meta name="description" content="[^"]*">\n?', '', x, count=1)
+        alt = ''.join(f'<link rel="alternate" hreflang="{l}" href="{rel(name, l)}">' for l in ('ja', 'en')) + f'<link rel="alternate" hreflang="x-default" href="{rel(name, "ja")}">'
+        x = x.replace('</head>', alt + '</head>', 1)
+        d.mkdir(parents=True, exist_ok=True)
+        (d/'index.html').write_text(x, encoding='utf-8')
     # デモの切り替え（フッターの一番下、目立たない文字リンク。浮いたパネルは使わない）
     def switch(cur):
         a = lambda v, label: (f'<b aria-current="true">{label}</b>' if v == cur else f'<a href="../{v}/{name}.html" data-keep-q>{label}</a>')
