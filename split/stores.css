@@ -1,0 +1,32 @@
+/* 店舗は選択式（タブ）ではなく、3店舗を常に表示する（RENEW15の並べ方をsplit/用に切り出したもの） */
+/* ───────── 5. TOP：3店舗を最初から並べる ───────── */
+html[data-stores="3"] .store-tabs,html[data-stores="3"] .stores .tab-ind{display:none!important}
+html[data-stores="3"] .stores h2{font-size:clamp(30px,3.4vw,42px)}
+html[data-stores="3"] .stores .lead{margin-bottom:clamp(28px,3.4vw,44px)}
+html[data-stores="3"] .cards{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0 clamp(24px,3vw,44px)!important}
+html[data-stores="3"] .cards .card,html[data-stores="3"].js .cards .card{grid-area:auto!important;display:flex!important;flex-direction:column;visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:none!important;transition:none!important;
+  background:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0!important;gap:0!important;align-items:stretch!important}
+html[data-stores="3"] .cards .card .ph{aspect-ratio:4/3!important;border-radius:4px!important;box-shadow:none!important;margin-bottom:20px}
+html[data-stores="3"] .cards .card .bd{display:flex;flex-direction:column;flex:1}
+html[data-stores="3"] .cards .card h3{font-size:clamp(22px,2vw,26px)!important;margin-bottom:8px!important}
+html[data-stores="3"] .cards .card .addr{min-height:3.2em}
+html[data-stores="3"] .cards .card table{font-size:15px}
+html[data-stores="3"] .cards .card td:first-child{width:7.4em}
+html[data-stores="3"] .cards .card .acts{margin-top:auto!important;padding-top:20px}
+/* 「NEW」「朝7時〜」：飾りの札ではなく、店名に添える小さな文字に */
+html[data-stores="3"] .card .tag{background:none!important;border:0!important;padding:0!important;color:var(--accent-ink,#b45309)!important;font-size:13px!important;letter-spacing:.06em;font-weight:700}
+@media(max-width:1000px){
+  html[data-stores="3"] .cards{grid-template-columns:minmax(0,1fr)!important;gap:44px!important}
+  html[data-stores="3"] .cards .card{display:grid!important;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:0 28px!important;align-items:start}
+  html[data-stores="3"] .cards .card .ph{margin-bottom:0}
+  html[data-stores="3"] .cards .card .addr{min-height:0}
+}
+@media(max-width:640px){
+  html[data-stores="3"] .cards{gap:36px!important}
+  html[data-stores="3"] .cards .card{display:flex!important}
+  html[data-stores="3"] .cards .card .ph{aspect-ratio:16/10!important;margin-bottom:16px}
+  html[data-stores="3"] .cards .card+.card{border-top:1px solid var(--rule);padding-top:32px!important}
+}
+
+/* キャンセルポリシー：箱ではなく、店舗の下に添える注記 */
+html[data-stores="3"] .stores .policy{background:none!important;border:0!important;border-top:1px solid var(--rule)!important;border-radius:0!important;padding:18px 0 0!important;margin-top:clamp(32px,4vw,48px)!important;max-width:none!important;box-shadow:none!important}
