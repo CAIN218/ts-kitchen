@@ -500,3 +500,48 @@ html[data-warm="a"] .awards-band .wrap:not(#_){max-width:1296px}
 html[data-warm="a"] .awards-band .badges:not(#_){column-gap:24px!important}
 html[data-warm="a"] .awards-band .badges li:not(#_){padding:0!important;gap:14px!important}
 html[data-warm="a"] .awards-band .badges li:not(#_) img{width:56px!important;height:56px!important}
+
+/* ════════════════ 2回目：SP（≤640px）共通指定（round2/sp-spec.md） ════════════════ */
+@media(max-width:640px){
+  /* 店舗欄：1店舗 約340px。写真 96px 角を店名の左、表は詰めて、予約は全幅 48px、電話・地図は 2等分 */
+  html[data-warm="a"][data-stores] .cards .card:not(#_){display:grid!important;grid-template-columns:96px minmax(0,1fr)!important;
+    grid-template-areas:"ph h3" "ph addr" "tbl tbl" "closed closed" "acts acts";grid-template-rows:auto 1fr auto auto auto;gap:0 14px!important;padding:20px 0!important;border-top:1px solid var(--rule)!important}
+  html[data-warm="a"][data-stores] .cards .card:not(#_):first-child{border-top:0!important;padding-top:8px!important}
+  html[data-warm="a"][data-stores] .cards:not(#_){border-bottom:1px solid var(--rule)}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) .ph{grid-area:ph;width:96px!important;height:96px!important;aspect-ratio:1/1!important;margin:0!important}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) .bd{display:contents!important}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) h3{grid-area:h3;margin:0 0 4px!important;font-size:22px!important;line-height:1.3}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) .addr{grid-area:addr;margin:0!important;font-size:13.5px;line-height:1.6}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) table{grid-area:tbl;margin:10px 0 0!important;font-size:14px}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) td{border:0!important;padding:0!important;height:26px;line-height:26px;vertical-align:middle}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) td:first-child{width:6em!important}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) .closed{grid-area:closed;margin:2px 0 0!important;font-size:14px;line-height:26px}
+  html[data-warm="a"] .cards .card:not(#_) .acts{grid-area:acts;display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important;margin:10px 0 0!important;padding:0!important}
+  html[data-warm="a"] .cards .card:not(#_) .acts a.r{grid-column:1/-1;order:-1;min-height:48px!important;height:48px;margin:0!important;max-width:none!important;width:100%;display:flex!important}
+  html[data-warm="a"] .cards .card:not(#_) .acts a:not(.r){display:flex!important;justify-content:center;align-items:center;min-height:44px;min-width:44px;border:1px solid var(--rule)!important;text-decoration:none!important}
+
+  /* 私たちのレストランについて：入口の写真（全幅・4:3・扉側）→ 見出し → 認証マーク64px＋導入文 → 3項目 */
+  html[data-warm="a"] .wrap.about:not(#_){grid-template-columns:64px minmax(0,1fr)!important;grid-template-areas:"ph ph" "h2 h2" "mark lead" "pts pts"!important;gap:0 16px!important}
+  html[data-warm="a"] .wrap.about:not(#_)>div:not(.about-ph){display:contents!important}
+  html[data-warm="a"] .wrap.about:not(#_) .about-ph{grid-area:ph!important;width:100%!important;max-width:none!important;aspect-ratio:4/3!important;margin:0 0 28px!important}
+  html[data-warm="a"] .wrap.about:not(#_) .about-ph img{object-position:left center!important}
+  html[data-warm="a"] .wrap.about:not(#_) h2{grid-area:h2;margin:0 0 16px!important}
+  html[data-warm="a"] .wrap.about:not(#_)>img{grid-area:mark!important;width:64px!important;height:64px!important;object-fit:contain;align-self:start}
+  html[data-warm="a"] .wrap.about:not(#_) .lead{grid-area:lead;margin:0 0 28px!important;font-size:18px}
+  html[data-warm="a"] .wrap.about:not(#_) .points{grid-area:pts}
+
+  /* ページの一番下に固定ボタン分の余白 */
+  html[data-warm="a"] footer:not(#_){padding-bottom:88px!important}
+}
+@media(max-width:640px){
+  html[data-warm="a"][data-stores] .cards .card:not(#_) td:first-child{width:84px!important;font-size:13px;letter-spacing:0;white-space:nowrap;padding-right:8px!important}
+  /* 入口の写真：4:3 の全幅でも黒板が入らないよう、写真の左側（扉側 約44%）だけを拡大して見せる */
+  html[data-warm="a"] .wrap.about:not(#_) .about-ph{position:relative;overflow:hidden}
+  html[data-warm="a"] .wrap.about:not(#_) .about-ph img{position:absolute!important;left:0;top:50%;width:227%!important;max-width:none!important;height:auto!important;aspect-ratio:3/2;object-fit:fill;margin-top:-75.7%!important}
+}
+/* 3回目：SP の店舗。写真の下と表のあきを 14px に、営業時間の左の列を 3店舗で同じ幅に */
+@media(max-width:640px){
+  html[data-warm="a"][data-stores] .cards .card:not(#_) table{margin-top:14px!important;table-layout:fixed;width:100%}
+  html[data-warm="a"][data-stores] .cards .card:not(#_) td:first-child{width:96px!important;overflow:hidden;text-overflow:clip}
+}
+@media(max-width:640px){html[data-warm="a"][lang="en"][data-stores] .cards .card:not(#_) td:first-child{white-space:normal;line-height:1.3;overflow:visible}}
