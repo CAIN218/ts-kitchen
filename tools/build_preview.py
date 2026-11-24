@@ -31,6 +31,79 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
+WARM_V = '20261124a'
+WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard')}
+def warm(x, look, name, lang, up, rel):
+    """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
+    並べ替えなどのHTML変換は warm_a_html / warm_b_html に書く。"""
+    x = x.replace('<html ', f'<html data-warm="{look}" ', 1)
+    x = x.replace('</head>', f'<link rel="stylesheet" href="{up}assets/warm-{look}.css?v={WARM_V}"></head>', 1)
+    x = warm_common(x, name, lang, up, rel)
+    x = (warm_a_html if look == 'a' else warm_b_html)(x, name, lang)
+    # 元のフォントURLは Fraunces の指定（opsz,wght@9..144,500;600;700）が書式違いで 400 エラーになり、4書体とも読み込まれない。デモでは正しい書き方に直す（本番は要確認）
+    x = x.replace('Fraunces:opsz,wght@9..144,500;600;700', 'Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700')
+    x = x.replace('</body>', f'<script src="{up}assets/warm.js?v={WARM_V}"></script></body>', 1)
+    cur = rel(name, lang)
+    sw = ('<p class="demo-switch">' + ('デザイン案：' if lang == 'ja' else 'Design: ')
+          + ' / '.join(
+              (f'<b aria-current="true">{lab}</b>' if k == look else f'<a href="{up}{d}/{cur_path(name, lang)}">{lab}</a>')
+              for k, d, lab in (('split', 'split', '今のデザイン' if lang == 'ja' else 'Current'),
+                                ('a', 'warm-a', 'A ' + WARM_NAME['a'][0 if lang == 'ja' else 1]),
+                                ('b', 'warm-b', 'B ' + WARM_NAME['b'][0 if lang == 'ja' else 1])))
+          + '</p>')
+    return x.replace('</footer>', sw + '\n</footer>', 1)
+
+def cur_path(name, lang):
+    return ('en/' if lang == 'en' else '') + LS.SLUG[name]
+
+def warm_common(x, name, lang, up, rel):
+    """両案共通のHTML変換（デザイン批評 H4：2案とも同じ情報設計にそろえ、違いは誌面で比べる）。文言は既存のものだけ。"""
+    if name != 'index':
+        return x
+    # 1) 店舗を「レストランについて」の前へ（SPで店舗・電話・地図・予約に早く着く）
+    m_about = re.search(r'<section class="blk"><div class="wrap about">.*?</div></section>\n', x, flags=re.S)
+    m_st = re.search(r'<section class="blk stores" id="stores">.*?\n</div></section>\n', x, flags=re.S)
+    assert m_about and m_st and m_about.start() < m_st.start()
+    about, stores = m_about.group(0), m_st.group(0)
+    x = x.replace(stores, '', 1).replace(about, stores + about, 1)
+    # 2) 受賞の帯を main の中、ケータリングの前へ（受賞をSNSより前に）
+    m_aw = re.search(r'\n<section class="awards-band".*?</section>\n', x, flags=re.S)
+    assert m_aw
+    aw = m_aw.group(0)
+    x = x.replace(aw, '\n', 1).replace('<section class="blk" id="catering">', aw.strip('\n') + '\n<section class="blk" id="catering">', 1)
+    # 3) コンサルティングへの入口（既存の文言だけ：コンサルページの見出しと、ナビの「コンサルティング」）
+    h = ('貴社の売上と競争力を、<br>グルテンフリーで伸ばす。' if lang == 'ja' else 'Grow your sales and competitiveness with gluten-free.')
+    nav = 'コンサルティング' if lang == 'ja' else 'Consulting'
+    band = (f'<section class="blk cons-band"><div class="wrap cons-band-in">'
+            f'<img src="{up}src/images/owner.jpg" alt="" loading="lazy" width="538" height="807">'
+            f'<div><h2>{h}</h2><a class="cons-link" href="{rel("consulting", lang)}">{nav}</a></div></div></section>\n')
+    x = x.replace('</main>', band + '</main>', 1)
+    return x
+
+def warm_a_html(x, name, lang):
+    """デモA「白い食卓」だけのHTML変換。文言・リンクは変えない。"""
+    # 📞 と 📍 の絵文字（とその後の空白）だけを消す。番号と「地図」/「Map」は残す（07：語は足さない）
+    x = re.sub(r'(?:📞|📍)[  ]?', '', x)
+    if name == 'index':
+        # ショップと SNS を1つの帯にまとめる（中身・id はそのまま、外側を div.shop-sns で包むだけ）
+        m = re.search(r'<section class="blk shop" id="shop">.*?</section>\n+<section class="blk sns-sec">.*?\n</div></section>\n', x, flags=re.S)
+        assert m, 'warm-a: #shop / .sns-sec が見つからない'
+        x = x.replace(m.group(0), '<div class="shop-sns">\n' + m.group(0) + '</div>\n', 1)
+    return x
+
+def warm_b_html(x, name, lang):
+    """デモB「黒板と赤い扉」。文言・並びは変えない。
+    元の Google Fonts の URL（Fraunces:opsz,wght@9..144,500;600;700）は書式の誤りで 400 が返り、4書体とも読み込まれていない。
+    このデモでは正しい書式の URL に差し替え、大きな数字用の Fraunces 斜体（300/400）を足す。"""
+    fonts = ('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700'
+             '&amp;family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400'
+             '&amp;family=Zen+Old+Mincho:wght@500;700&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700&amp;display=swap')
+    x, n = re.subn(r'<link href="https://fonts\.googleapis\.com/css2\?family=Figtree[^"]*" rel="stylesheet">',
+                   lambda m: f'<link href="{fonts}" rel="stylesheet">', x, count=1)
+    assert n == 1, name
+    return x
+
+
 for name in PAGES:
     h = (root/'src'/f'{name}.html').read_text(encoding='utf-8')
     h = re.sub(r'(href|src)="(style\.css|script\.js|anim/|images/)', r'\1="../src/\2', h)
@@ -90,36 +163,40 @@ for name in PAGES:
     h = h.replace('<div class="copy">', NAV + '\n  <div class="copy">', 1)
     h = h.replace('</body>', '<script src="form.js?v=' + V + '"></script></body>', 1)
     # ── 日本語・英語を別URLに分けた版（split/）：/ と /en/ の2系統。公開サイトと同じ並びのフォルダで、リンクは相対パス ──
-    for lang in ('ja', 'en'):
-        d = root/'split'/(('en'/pathlib.Path(LS.SLUG[name])) if lang == 'en' else pathlib.Path(LS.SLUG[name]))
-        def rel(page, l, _d=d):
-            t = root/'split'/(('en'/pathlib.Path(LS.SLUG[page])) if l == 'en' else pathlib.Path(LS.SLUG[page]))
-            r = os.path.relpath(t, _d).replace(os.sep, '/')
-            return './' if r == '.' else r + '/'
-        up = os.path.relpath(root, d).replace(os.sep, '/') + '/'
-        x = LS.strip_other(h, lang)
-        # 店舗は選択式（タブ）をやめ、3店舗を常に並べて表示する（yuga・お店のフィードバック 2026-11-22）
-        x = re.sub(r'  <div class="store-tabs" role="tablist">.*?</div>\n', '', x, count=1, flags=re.S)
-        x = x.replace('<article class="card">', '<article class="card on">')
-        # タブをやめたので、店舗見出し下の「ご来店の店舗をお選びください。」「Choose your location.」は削除（yuga承認）。残りの文は元のまま
-        for t in ('ご来店の店舗をお選びください。', 'Choose your location. '):
-            x = x.replace(t, '', 1)
-        x = LS.set_lang(x, lang)
-        x = x.replace('<html lang=', '<html data-stores="3" lang=', 1)
-        x = LS.switch_button(x, lang, rel(name, 'en' if lang == 'ja' else 'ja'))
-        x = LS.fix_links(x, lang, rel)
-        x = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', lambda m: f'{m.group(1)}={m.group(2)}{up}assets/{m.group(3)}', x)
-        x = x.replace('../src/', up + 'src/')
-        x = x.replace('</head>', f'<link rel="stylesheet" href="{up}split/stores.css?v=20261122a"></head>', 1)
-        x = x.replace(r"(\.\.\/src\/)?images\/", r"(\.\.\/)*(src\/)?images\/")
-        title, desc = (None, None)
-        if lang == 'en':
-            title, desc = LS.EN_META[name]
-            x = re.sub(r'<title>.*?</title>', lambda m: f'<title>{title}</title>', x, count=1)
-            if desc: x = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{desc}">', x, count=1)
-            else: x = re.sub(r'<meta name="description" content="[^"]*">\n?', '', x, count=1)
-        alt = ''.join(f'<link rel="alternate" hreflang="{l}" href="{rel(name, l)}">' for l in ('ja', 'en')) + f'<link rel="alternate" hreflang="x-default" href="{rel(name, "ja")}">'
-        x = x.replace('</head>', alt + '</head>', 1)
-        d.mkdir(parents=True, exist_ok=True)
-        (d/'index.html').write_text(x, encoding='utf-8')
+    #    Warm Editorial のデモ（warm-a/ 白い食卓、warm-b/ 夜の店）も、同じページに上乗せCSSとHTML変換（warm()）を足して作る（2026-11-24。yuga が選ぶまで src/ には入れない）
+    for out, look in (('split', None), ('warm-a', 'a'), ('warm-b', 'b')):
+        for lang in ('ja', 'en'):
+            d = root/out/(('en'/pathlib.Path(LS.SLUG[name])) if lang == 'en' else pathlib.Path(LS.SLUG[name]))
+            def rel(page, l, _d=d, _o=out):
+                t = root/_o/(('en'/pathlib.Path(LS.SLUG[page])) if l == 'en' else pathlib.Path(LS.SLUG[page]))
+                r = os.path.relpath(t, _d).replace(os.sep, '/')
+                return './' if r == '.' else r + '/'
+            up = os.path.relpath(root, d).replace(os.sep, '/') + '/'
+            x = LS.strip_other(h, lang)
+            # 店舗は選択式（タブ）をやめ、3店舗を常に並べて表示する（yuga・お店のフィードバック 2026-11-22）
+            x = re.sub(r'  <div class="store-tabs" role="tablist">.*?</div>\n', '', x, count=1, flags=re.S)
+            x = x.replace('<article class="card">', '<article class="card on">')
+            # タブをやめたので、店舗見出し下の「ご来店の店舗をお選びください。」「Choose your location.」は削除（yuga承認）。残りの文は元のまま
+            for t in ('ご来店の店舗をお選びください。', 'Choose your location. '):
+                x = x.replace(t, '', 1)
+            x = LS.set_lang(x, lang)
+            x = x.replace('<html lang=', '<html data-stores="3" lang=', 1)
+            x = LS.switch_button(x, lang, rel(name, 'en' if lang == 'ja' else 'ja'))
+            x = LS.fix_links(x, lang, rel)
+            x = re.sub(r'(href|src)=(\\?["\'])(renew\d*\.(?:css|js)|form\.js)', lambda m: f'{m.group(1)}={m.group(2)}{up}assets/{m.group(3)}', x)
+            x = x.replace('../src/', up + 'src/')
+            x = x.replace('</head>', f'<link rel="stylesheet" href="{up}split/stores.css?v=20261122a"></head>', 1)
+            x = x.replace(r"(\.\.\/src\/)?images\/", r"(\.\.\/)*(src\/)?images\/")
+            title, desc = (None, None)
+            if lang == 'en':
+                title, desc = LS.EN_META[name]
+                x = re.sub(r'<title>.*?</title>', lambda m: f'<title>{title}</title>', x, count=1)
+                if desc: x = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{desc}">', x, count=1)
+                else: x = re.sub(r'<meta name="description" content="[^"]*">\n?', '', x, count=1)
+            alt = ''.join(f'<link rel="alternate" hreflang="{l}" href="{rel(name, l)}">' for l in ('ja', 'en')) + f'<link rel="alternate" hreflang="x-default" href="{rel(name, "ja")}">'
+            x = x.replace('</head>', alt + '</head>', 1)
+            if look:
+                x = warm(x, look, name, lang, up, rel)
+            d.mkdir(parents=True, exist_ok=True)
+            (d/'index.html').write_text(x, encoding='utf-8')
     print(name)
