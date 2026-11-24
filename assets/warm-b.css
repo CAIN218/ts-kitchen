@@ -1,0 +1,531 @@
+/* Warm Editorial デモB「黒板と赤い扉」（warm-b/）。renew〜renew14・split/stores.css の後に重ねる。
+   暗い地は「夜」ではなく、店先の黒板。テラコッタは赤い扉。紺 #1c2b45 とオレンジは使わない（ロゴ画像はそのまま）。
+   セレクタはすべて html[data-warm=b] から。既存CSSが !important を多用しているため、配置・色の要所だけ !important を使う。
+   文字・数字・リンク先は変えない。 */
+
+/* ───────── 0. 色と書体の約束 ───────── */
+html[data-warm=b]{
+  --wb-board:#2E2119;   /* 黒板（焦げ茶）：暗い地・紙の上の文字 */
+  --wb-board2:#3A2B21;  /* 黒板の中の一段明るい面（入力欄の下地など） */
+  --wb-paper:#F7F1E5;   /* 紙 */
+  --wb-paper2:#EEE5D3;  /* 紙の帯の切り替え */
+  --wb-wheat:#D9A27A;   /* 小麦：暗い地の数字・強調 */
+  --wb-door:#9A4326;    /* 赤い扉（テラコッタ）：紙の上の主ボタン */
+  --wb-door-d:#7E3519;
+  --wb-olive:#5E6236;   /* オリーブ：法人（コンサル）の地 */
+  --wb-mute:#6A5848;    /* 紙の上の補足（6.0:1） */
+  --wb-chalk:#B3A792;   /* 黒板の上の補足（6.6:1） */
+  --wb-rule:rgba(46,33,25,.2);
+  --wb-rule-d:rgba(247,241,229,.2);
+  --wb-gut:clamp(20px,5vw,72px);
+  --wb-max:1240px;
+  /* 既存の変数を、この案の色に置き換える（紺・オレンジ・桃・影を消す） */
+  --navy:#2E2119;--navy-d:#2E2119;--pink:#9A4326;--accent:#9A4326;--accent-d:#7E3519;--accent-ink:#9A4326;
+  --terra:#9A4326;--honey:#D9A27A;--ink:#2E2119;--mute:#6A5848;--bg:#F7F1E5;--line:rgba(46,33,25,.2);
+  --ivory:#F7F1E5;--white:#F7F1E5;--milk:#F7F1E5;--cream:#F7F1E5;--greige:#E4D9C4;--oat:#E4D9C4;--peach:#EEE5D3;--peach-l:#EEE5D3;
+  --sage:#EEE5D3;--sage-d:#5E6236;--rule:rgba(46,33,25,.2);--rule-d:rgba(46,33,25,.32);
+  --sh-soft:none;--sh-card:none;--r:2px;--gutter:var(--wb-gut);
+  background:var(--wb-paper)}
+html[data-warm=b] body{background:var(--wb-paper)!important;color:var(--wb-board);font-size:16px;line-height:1.8}
+html[data-warm=b] ::selection{background:var(--wb-wheat);color:var(--wb-board)}
+
+/* 見出し：明朝（英語は Fraunces）を 500 で。日英で太さをそろえる */
+html[data-warm=b] h1,html[data-warm=b] h2,html[data-warm=b] h3{font-family:var(--f-head);font-weight:500!important;color:inherit;letter-spacing:.02em;font-synthesis:none}
+html[data-warm=b][lang=ja] h1,html[data-warm=b][lang=ja] h2,html[data-warm=b][lang=ja] h3,html[data-warm=b][lang=ja] .lead,html[data-warm=b][lang=ja] .logo,
+html[data-warm=b][lang=ja] .badges li,html[data-warm=b][lang=ja] .pt b,html[data-warm=b][lang=ja] .motto,html[data-warm=b][lang=ja] .only-text,html[data-warm=b][lang=ja] .quote{font-feature-settings:"palt";letter-spacing:.06em!important}
+html[data-warm=b] h2{font-size:clamp(28px,3vw,44px)!important;line-height:1.35!important;margin:0 0 .6em}
+html[data-warm=b][data-lang=en] h1,html[data-warm=b][data-lang=en] h2{line-height:1.1!important;letter-spacing:-.005em}
+html[data-warm=b] .lead{color:inherit}
+/* 英語の小さなラベル（eyebrow）は文字も見え方も変えない（07）。色だけこの案に */
+html[data-warm=b] .eyebrow{color:var(--wb-door)!important}
+
+/* 角丸・影・飾りの円をこの案では使わない */
+html[data-warm=b] *:not(svg):not(svg *),html[data-warm=b] *::before,html[data-warm=b] *::after{box-shadow:none!important;text-shadow:none!important}
+html[data-warm=b] .btn,html[data-warm=b] .fab,html[data-warm=b] .acts a,html[data-warm=b] .lang,html[data-warm=b] .lang .lg,
+html[data-warm=b] .tag,html[data-warm=b] .cf7 button.btn,html[data-warm=b] .menu-cats button,html[data-warm=b] .menu-stores button,
+html[data-warm=b] .free-badge b,html[data-warm=b] .cta-float,html[data-warm=b] .sns-item,html[data-warm=b] .ig a,
+html[data-warm=b] .card .ph,html[data-warm=b] img,html[data-warm=b] .ph,html[data-warm=b] .badges li img,html[data-warm=b] .ft-logo,
+html[data-warm=b] .ft-aw img,html[data-warm=b] .cf7 input,html[data-warm=b] .cf7 textarea,html[data-warm=b] .book-card,
+html[data-warm=b] .dl-grid>div,html[data-warm=b] .svc-row,html[data-warm=b] .notice,html[data-warm=b] .policy,html[data-warm=b] .more,
+html[data-warm=b] .menu-view a,html[data-warm=b] .clip img,html[data-warm=b] .owner img,html[data-warm=b] .about-ph img{border-radius:2px!important}
+html[data-warm=b] body[data-page] .page-hero::before,html[data-warm=b] body[data-page] .page-hero::after,html[data-warm=b] .steps li::after,
+html[data-warm=b] .hero::before,html[data-warm=b] .hero-in::after,html[data-warm=b] .nums>div::before,html[data-warm=b] .page-hero::after,html[data-warm=b] .cons-hero::after{display:none!important}
+/* 既存の曲線の境目（mask・負の余白）をやめ、まっすぐ切り替える */
+html[data-warm=b] .page-hero,html[data-warm=b] .cons-hero,html[data-warm=b] .stores,html[data-warm=b] .contact.dark,html[data-warm=b] footer,
+html[data-warm=b] #catering,html[data-warm=b] .awards-band,html[data-warm=b] .biz-sec{-webkit-mask:none!important;mask:none!important;border-radius:0!important;margin-top:0!important}
+
+/* 出現アニメ：FV 以外は常に表示（07・批評 M3）。沿革（.timeline）だけは残す */
+html[data-warm=b] [data-rv]:not(.timeline li){opacity:1!important;transform:none!important;transition:none!important}
+html[data-warm=b] [data-rv]:not(.timeline li) img,html[data-warm=b] [data-rv]:not(.timeline li)::before{opacity:1!important;transform:none!important}
+html[data-warm=b] .js .nums>div[data-rv]::before{opacity:0!important}
+
+/* フォーカス：紙の上は焦げ茶、暗い地の上は紙色の 2px の輪 */
+html[data-warm=b] :focus-visible{outline:2px solid var(--wb-board)!important;outline-offset:3px}
+/* 暗い地（黒板・オリーブ・写真に焦げ茶の層）の中だけ、紙色の輪にする */
+html[data-warm=b] .hero :focus-visible,html[data-warm=b] body:not([data-page=media]) .page-hero :focus-visible,html[data-warm=b] .cons-hero :focus-visible,
+html[data-warm=b] .contact.dark :focus-visible,html[data-warm=b] footer :focus-visible,html[data-warm=b] .numbers :focus-visible,
+html[data-warm=b] body[data-page=index] .awards-band :focus-visible,html[data-warm=b] .cons-band :focus-visible,html[data-warm=b] .founder :focus-visible,
+html[data-warm=b] body[data-page=index] .about :focus-visible,html[data-warm=b] .media :focus-visible,html[data-warm=b] .philosophy :focus-visible{outline-color:var(--wb-paper)!important}
+
+/* ───────── 1. ボタン ───────── */
+/* 紙の上：赤い扉の色に白文字（6.6:1）。矢印の飾りは付けない */
+html[data-warm=b] .btn,html[data-warm=b] .cf7 button.btn,html[data-warm=b] .acts a.r,html[data-warm=b] .fab,html[data-warm=b] .cta-float{
+  background:var(--wb-door)!important;color:#fff!important;border:1px solid var(--wb-door)!important;font-family:var(--f-body);font-weight:600!important;letter-spacing:.04em;
+  text-decoration:none!important;transform:none!important;transition:background-color .15s,color .15s,border-color .15s!important}
+html[data-warm=b] .btn::after,html[data-warm=b] .acts a.r::after,html[data-warm=b] .cf7 button.btn::after{display:none!important}
+html[data-warm=b] .btn:hover,html[data-warm=b] .cf7 button.btn:hover,html[data-warm=b] .acts a.r:hover,html[data-warm=b] .fab:hover,html[data-warm=b] .cta-float:hover{background:var(--wb-door-d)!important;border-color:var(--wb-door-d)!important}
+/* 文字だけのボタン（店舗を見る・チラシを見る） */
+html[data-warm=b] .btn.line{background:none!important;border:0!important;border-bottom:1px solid currentColor!important;border-radius:0!important;color:inherit!important;padding:6px 0!important;min-height:44px}
+html[data-warm=b] .btn.line:hover{background:none!important;border-bottom-width:2px!important}
+/* 黒板の上：紙色の地に焦げ茶の文字（テラコッタは暗い地で沈むため・04） */
+html[data-warm=b] .hero .btn:not(.line),html[data-warm=b] .cons-hero .btn,html[data-warm=b] .contact.dark .btn,html[data-warm=b] .cons-band .cons-link{
+  background:var(--wb-paper)!important;color:var(--wb-board)!important;border-color:var(--wb-paper)!important}
+html[data-warm=b] .hero .btn:not(.line):hover,html[data-warm=b] .cons-hero .btn:hover,html[data-warm=b] .contact.dark .btn:hover,html[data-warm=b] .cons-band .cons-link:hover{background:var(--wb-wheat)!important;border-color:var(--wb-wheat)!important}
+
+/* 固定予約ボタン：赤い扉の色。紙色の細い縁で暗い地でも輪郭が出る */
+html[data-warm=b] .fab{border:1px solid var(--wb-paper)!important;border-radius:2px!important;font-size:16px!important}
+html[data-warm=b].warm-stop .fab,html[data-warm=b].warm-stop body[data-page=consulting] .cta-float{display:none!important}
+
+/* ───────── 2. ヘッダー（紙の地。ロゴの紺は「店の印」として紙の上に置く） ───────── */
+html[data-warm=b] .hd{background:var(--wb-paper)!important;color:var(--wb-board)!important;border-bottom:1px solid var(--wb-rule)!important}
+html[data-warm=b] .hd-in{max-width:var(--wb-max)!important;padding:14px var(--wb-gut)!important}
+html[data-warm=b] .logo{color:var(--wb-board)!important;font-family:var(--f-head);font-weight:500;font-size:18px;letter-spacing:.01em}
+html[data-warm=b] .logo img{width:40px!important;height:40px!important}
+html[data-warm=b] .nav a{color:var(--wb-board)!important;font-size:14.5px;letter-spacing:.04em}
+html[data-warm=b] .nav a:hover,html[data-warm=b] .nav a.on{box-shadow:none!important;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+html[data-warm=b] .tools .sns{color:var(--wb-board)!important}
+html[data-warm=b] .lang{border:0!important;background:none!important;color:var(--wb-board)!important;padding:4px 2px!important;font-size:14px!important;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;text-decoration-color:var(--wb-rule)}
+html[data-warm=b] .lang:hover{text-decoration-color:currentColor}
+html[data-warm=b] .lang .lg{background:none!important;color:inherit!important;padding:0!important}
+html[data-warm=b] .hd .btn.sm{padding:10px 18px!important;font-size:14px!important;min-height:44px;display:inline-flex;align-items:center}
+html[data-warm=b] .menu-btn span{background:var(--wb-board)!important}
+html[data-warm=b] .drawer{background:var(--wb-paper)!important;border-top:1px solid var(--wb-rule)!important}
+html[data-warm=b] .drawer>a{color:var(--wb-board)!important;border-bottom:1px solid var(--wb-rule)!important;border-left:0!important;font-family:var(--f-head);font-size:19px!important}
+/* 会社概要・メディア・コンサルのヘッダーボタンも同じ形に */
+html[data-warm=b] body[data-page] .hd-rsv,html[data-warm=b] body[data-page] .drawer-foot .btn{background:var(--wb-door)!important;color:#fff!important;border:1px solid var(--wb-door)!important}
+
+/* ───────── 3. トップ：FV（左に料理の写真を比率のまま、右の黒板に見出し） ───────── */
+html[data-warm=b] .hero{display:grid!important;grid-template-columns:minmax(0,7fr) minmax(0,5fr)!important;min-height:0!important;background:var(--wb-board)!important;color:var(--wb-paper)!important;overflow:hidden}
+html[data-warm=b] .hero::after{content:""!important;display:block!important;grid-column:1!important;grid-row:1!important;aspect-ratio:auto!important;align-self:stretch!important;min-height:calc(100vw * 7 / 12 * 943 / 1464)!important;margin:0!important;
+  border-radius:0!important;background:url("../src/images/food.jpg") center/cover no-repeat!important;animation:none}
+html[data-warm=b] .hero-in{grid-column:2!important;grid-row:1!important;align-self:center!important;margin:0!important;max-width:none!important;width:auto!important;
+  padding:40px clamp(24px,2.4vw,36px) 40px clamp(24px,2.8vw,40px)!important;background:none!important;border-radius:0!important;animation:none}
+html[data-warm=b] .hero h1{font-size:clamp(34px,4.5vw,72px)!important;line-height:1.32!important;letter-spacing:.02em!important;color:var(--wb-paper)!important;margin:0 0 .6em!important;word-break:auto-phrase;animation:none}
+html[data-warm=b][data-lang=en] .hero h1{font-size:clamp(34px,4.5vw,72px)!important;line-height:1.08!important;letter-spacing:-.01em!important}
+html[data-warm=b] .hero p.hero-sub{color:var(--wb-paper)!important;opacity:.88;font-size:16px!important;line-height:1.9!important;margin:0 0 32px!important;animation:none}
+html[data-warm=b] .hero .row{display:flex!important;flex-wrap:wrap;align-items:center!important;gap:12px 28px!important;animation:none}
+html[data-warm=b] .hero .row .btn:not(.line){padding:0 28px!important;min-height:52px;display:inline-flex!important;align-items:center;font-size:16px!important}
+html[data-warm=b] .hero .row .btn.line{color:var(--wb-paper)!important}
+html[data-warm=b] .hero .sub{color:var(--wb-chalk)!important;opacity:1!important;font-size:13.5px!important;margin-top:22px!important;padding-right:0!important;animation:none}
+html[data-warm=b][lang=ja] .hero h1{font-size:clamp(34px,4.45vw,64px)!important;letter-spacing:0!important}
+/* FV だけ1回の動き：写真がうっすら現れ、見出しが続く */
+@media(prefers-reduced-motion:no-preference){
+  html[data-warm=b] .hero::after{animation:wb-fade 1s ease-out both!important}
+  html[data-warm=b] .hero-in{animation:wb-fade .8s ease-out .25s both!important}
+}
+@keyframes wb-fade{from{opacity:0}to{opacity:1}}
+
+/* ───────── 4. 店舗（紙の帯。3店舗を縦に、写真｜店名・住所｜時間 の3段組み、店の間は1本の線） ───────── */
+html[data-warm=b] .stores{background:var(--wb-paper)!important;padding:clamp(64px,8vw,112px) 0 clamp(56px,7vw,96px)!important}
+html[data-warm=b] .stores>.wrap,html[data-warm=b] .blk>.wrap,html[data-warm=b] .sec>.wrap{max-width:var(--wb-max)!important;padding-left:var(--wb-gut)!important;padding-right:var(--wb-gut)!important}
+html[data-warm=b][data-stores] .stores h2{font-size:clamp(28px,3vw,44px)!important;margin-bottom:.25em}
+html[data-warm=b][data-stores] .stores .lead{color:var(--wb-mute)!important;font-size:15px;margin-bottom:clamp(28px,4vw,48px)!important}
+html[data-warm=b][data-stores] .cards{display:block!important}
+html[data-warm=b][data-stores] .cards .card,html[data-warm=b][data-stores].js .cards .card{display:grid!important;grid-template-columns:minmax(0,9fr) minmax(0,6fr) minmax(0,8fr)!important;
+  grid-template-rows:auto auto 1fr auto;gap:0 clamp(24px,3.2vw,48px)!important;padding:clamp(28px,3vw,40px) 0!important;border-top:1px solid var(--wb-rule)!important;align-items:start!important}
+html[data-warm=b][data-stores] .cards .card:last-child{border-bottom:1px solid var(--wb-rule)!important}
+html[data-warm=b][data-stores] .cards .card .ph{grid-column:1;grid-row:1/-1;aspect-ratio:4/3!important;margin:0!important;background-color:var(--wb-paper2)}
+html[data-warm=b][data-stores] .cards .card .bd{display:contents!important}
+html[data-warm=b][data-stores] .cards .card h3{grid-column:2;grid-row:1;font-size:clamp(24px,2.2vw,32px)!important;line-height:1.3;margin:0 0 12px!important;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+html[data-warm=b][data-stores] .card .tag{color:var(--wb-door)!important;font-family:var(--f-body);font-size:13px!important;font-weight:600!important;letter-spacing:.06em}
+html[data-warm=b][data-stores] .cards .card .addr{grid-column:2;grid-row:2;min-height:0!important;font-size:15px;line-height:1.75;color:var(--wb-board)}
+html[data-warm=b][data-stores] .cards .card .closed{grid-column:2;grid-row:3;margin-top:14px;color:var(--wb-door)!important;font-size:14px;font-weight:600}
+html[data-warm=b][data-stores] .cards .card table{grid-column:3;grid-row:1/4;font-size:15px!important;width:100%;margin:0!important;font-variant-numeric:tabular-nums}
+html[data-warm=b][data-stores] .cards .card td{padding:7px 0!important;border-bottom:1px solid var(--wb-rule)!important;vertical-align:top}
+html[data-warm=b][data-stores] .cards .card tr:first-child td{padding-top:0!important}
+html[data-warm=b][data-stores] .cards .card td:first-child{color:var(--wb-mute)!important;width:6.4em!important;padding-right:12px!important;white-space:nowrap}
+html[data-warm=b][data-stores] .cards .card td:last-child{white-space:nowrap}
+html[data-warm=b][data-stores] .cards .card .acts{grid-column:2/4;grid-row:4;display:flex!important;flex-wrap:wrap;align-items:center;gap:10px 28px!important;margin:24px 0 0!important;padding:0!important}
+html[data-warm=b][data-stores] .cards .acts a:not(.r){white-space:nowrap!important;display:inline-flex!important;align-items:center;gap:6px;min-height:44px;padding:0!important;background:none!important;border:0!important;
+  color:var(--wb-board)!important;font-weight:500!important;font-size:15px!important;text-decoration:underline!important;text-decoration-color:var(--wb-rule)!important;text-underline-offset:5px}
+html[data-warm=b][data-stores] .cards .acts a:not(.r):hover{text-decoration-color:currentColor!important}
+html[data-warm=b][data-stores] .cards .acts a.r{order:3!important;margin-left:auto!important;flex-basis:auto!important;display:inline-flex!important;align-items:center;justify-content:center;min-height:48px;padding:0 26px!important;font-size:15px!important}
+html[data-warm=b][data-stores] .stores .policy{border-top:0!important;padding:0!important;margin-top:28px!important;font-size:14px;color:var(--wb-mute);max-width:68ch!important}
+html[data-warm=b] .policy b{color:var(--wb-board)!important}
+
+/* ───────── 5. トップ：レストランについて（黒板。赤い扉を細く切り出し、黒板の文字は写さない） ───────── */
+html[data-warm=b] body[data-page=index] .stores+.blk{background:var(--wb-board);color:var(--wb-paper);padding:clamp(64px,8vw,112px) 0 clamp(40px,5vw,64px)!important}
+html[data-warm=b] body[data-page=index] .about{display:grid!important;grid-template-columns:minmax(0,3fr) minmax(0,9fr)!important;gap:0 clamp(32px,6vw,96px)!important;align-items:start!important}
+html[data-warm=b] body[data-page=index] .about>.about-ph{grid-column:1!important;grid-row:1/span 2!important;margin:0!important;padding:0!important;position:static}
+/* entrance.jpg：左端の赤い扉だけ。幅 1:2 で切ると黒板・「Last order」の札・営業時間の貼り紙が入らない */
+html[data-warm=b] body[data-page=index] .about-ph .a1{width:100%!important;max-width:220px;aspect-ratio:1/2!important;object-fit:cover!important;object-position:0 50%!important;display:block;border-radius:2px!important}
+html[data-warm=b] body[data-page=index] .about-ph .a2{display:none!important}
+html[data-warm=b] body[data-page=index] .about>img{grid-column:2!important;grid-row:1!important;width:72px!important;height:72px!important;margin:0 0 24px!important;padding:8px!important;background:var(--wb-paper)!important;border-radius:2px!important;object-fit:contain}
+html[data-warm=b] body[data-page=index] .about>div{display:block!important;grid-column:2!important;grid-row:2!important}
+html[data-warm=b] body[data-page=index] .about h2{color:var(--wb-wheat)!important;font-size:clamp(18px,1.6vw,22px)!important;letter-spacing:.08em;margin:0 0 18px!important}
+html[data-warm=b] body[data-page=index] .about .lead{font-family:var(--f-head);font-size:clamp(28px,3.4vw,52px)!important;line-height:1.45;color:var(--wb-paper)!important;max-width:18em;margin:0 0 clamp(36px,4vw,56px)!important;word-break:auto-phrase;font-weight:500}
+html[data-warm=b][data-lang=en] body[data-page=index] .about .lead{line-height:1.15;max-width:20em}
+html[data-warm=b] body[data-page=index] .points{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,3vw,48px);margin:0!important}
+html[data-warm=b] body[data-page=index] .pt,html[data-warm=b] body[data-page=index] .pt:nth-child(n+2){display:block!important;background:none!important;border:0!important;border-top:1px solid var(--wb-rule-d)!important;border-radius:0!important;padding:18px 0 0!important;margin:0!important}
+html[data-warm=b] body[data-page=index] .pt b{display:block;color:var(--wb-paper)!important;font-family:var(--f-head);font-size:18px!important;font-weight:500;margin-bottom:8px!important}
+html[data-warm=b] body[data-page=index] .pt p{color:var(--wb-chalk)!important;font-size:15px!important;line-height:1.8;margin:0}
+
+/* ───────── 6. 受賞・認証（黒板の続き。マークは紙色の札に乗せ、文字は小麦色） ───────── */
+html[data-warm=b] .awards-band{background:var(--wb-board)!important;color:var(--wb-paper);padding:clamp(24px,3vw,40px) 0 clamp(64px,8vw,104px)!important;border:0!important}
+html[data-warm=b] .badges{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0 clamp(20px,3vw,44px)!important;max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important;text-align:left!important}
+html[data-warm=b] .awards-band>.wrap{max-width:var(--wb-max)!important;padding:0!important;margin:0 auto}
+html[data-warm=b] .badges li{display:grid!important;grid-template-columns:minmax(0,1fr);justify-items:start;align-content:start;gap:14px;padding-top:24px;border-top:1px solid var(--wb-rule-d);color:var(--wb-paper)!important;
+  font-family:var(--f-head);font-size:17px!important;line-height:1.55!important;font-weight:500!important;word-break:auto-phrase}
+html[data-warm=b] .badges li img{width:64px!important;height:64px!important;margin:0!important;padding:7px!important;background:var(--wb-paper)!important;object-fit:contain}
+/* 会社概要・メニュー・メディア・コンサルの最後の受賞帯は、紙の帯に（暗い地のフッターと分ける） */
+html[data-warm=b] body:not([data-page=index]) .awards-band{background:var(--wb-paper2)!important;color:var(--wb-board);padding:clamp(40px,5vw,64px) 0!important}
+html[data-warm=b] body:not([data-page=index]) .badges li{color:var(--wb-board)!important;border-top-color:var(--wb-rule)}
+
+/* ───────── 7. ケータリング（紙。お弁当の写真を大きく右に、文は左の細い列） ───────── */
+html[data-warm=b] #catering{background:var(--wb-paper)!important;padding:clamp(72px,9vw,128px) 0!important}
+html[data-warm=b] .cater{display:grid!important;grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;gap:0 clamp(32px,5vw,80px)!important;align-items:start!important}
+html[data-warm=b] .cater>.tx{display:block!important;grid-column:1;grid-row:1;padding-top:clamp(0px,2vw,24px)}
+html[data-warm=b] .cater .tx>.row{display:flex!important}
+html[data-warm=b] .cater .tx>*,html[data-warm=b] .cater .row>*{order:0!important}
+html[data-warm=b] .cater .row .btn.line::before{display:none!important}
+html[data-warm=b] .cater .row .btn.line>span{text-decoration:none!important}
+html[data-warm=b] .cater h2{margin-bottom:.5em}
+html[data-warm=b] .cater p{max-width:30em}
+html[data-warm=b] .cater ul{list-style:none;padding:0;margin:20px 0 28px!important;border-top:1px solid var(--wb-rule)}
+html[data-warm=b] .cater ul li{padding:10px 0!important;border-bottom:1px solid var(--wb-rule);font-size:15px}
+html[data-warm=b] .cater ul li::before{display:none!important}
+html[data-warm=b] .cater .row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px}
+html[data-warm=b] .cater .row .btn:not(.line){min-height:48px;padding:0 24px!important;display:inline-flex;align-items:center}
+html[data-warm=b] .cater .mail{color:var(--wb-mute);font-size:14px;margin-top:14px}
+html[data-warm=b] .cater-vis{grid-column:2!important;grid-row:1!important;position:relative;display:block!important;margin:0!important}
+html[data-warm=b] .cater-ph{width:100%!important;aspect-ratio:3/2!important;object-fit:cover;display:block;margin:0!important}
+/* チラシの縮小画像は split と同じく出さない（「チラシを見る」の文字リンクで開く） */
+/* チラシ：お弁当の写真の下に小さく添える（画像は削らない）。押すと元の大きさで開く */
+html[data-warm=b] .cater-vis .flyer{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:14px;position:static!important;width:auto!important;max-width:none!important;margin:16px 0 0!important;padding:0!important;
+  transform:none!important;color:var(--wb-mute)!important;text-decoration:none;font-size:13px}
+html[data-warm=b] .cater-vis .flyer img{display:block;width:80px!important;height:auto!important;aspect-ratio:3/4;object-fit:cover;object-position:50% 0;padding:0!important;border:1px solid var(--wb-rule)!important;background:var(--wb-paper2)!important;box-shadow:none!important}
+html[data-warm=b] .cater-vis .flyer>span{position:static!important;margin:0!important;font-size:13px!important;color:var(--wb-mute)!important;transform:none!important;white-space:nowrap!important;text-decoration:underline;text-underline-offset:4px}
+
+/* ───────── 8. オンラインショップ（紙の帯の切り替え。小さく、横に長く） ───────── */
+html[data-warm=b] .shop{background:var(--wb-paper2)!important;padding:clamp(48px,6vw,80px) 0!important}
+html[data-warm=b] .shopbox{display:grid!important;grid-template-columns:minmax(0,8fr) minmax(0,4fr)!important;gap:0 clamp(32px,5vw,72px)!important;align-items:center!important;background:none!important;padding-top:0!important;padding-bottom:0!important}
+html[data-warm=b] .shopbox .ph{grid-column:2!important;grid-row:1!important;aspect-ratio:4/3;background-color:var(--wb-paper)!important;border:0!important}
+html[data-warm=b] .shopbox .tx{grid-column:1!important;grid-row:1!important}
+html[data-warm=b] .shopbox{direction:ltr!important}
+html[data-warm=b] .shopbox h2{display:inline;margin-right:14px}
+html[data-warm=b] .tag.soon{background:none!important;border:1px solid var(--wb-board)!important;color:var(--wb-board)!important;font-size:13px!important;padding:2px 10px!important;vertical-align:.4em;font-weight:500!important}
+html[data-warm=b] .shopbox p{margin-top:16px;max-width:40em}
+
+/* ───────── 9. 公式SNS（紙。2つを線で区切る行、写真は6枚を横一列） ───────── */
+html[data-warm=b] .sns-sec{background:var(--wb-paper)!important;padding:clamp(64px,8vw,104px) 0!important}
+html[data-warm=b] .sns-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0 clamp(24px,4vw,56px)!important;border:0!important;margin:0 0 32px!important;padding:0!important}
+html[data-warm=b] .sns-item{background:none!important;border:0!important;border-top:1px solid var(--wb-rule)!important;border-bottom:1px solid var(--wb-rule)!important;padding:18px 0!important;color:var(--wb-board)!important}
+html[data-warm=b] .sns-item .sns-go{color:var(--wb-door)!important}
+html[data-warm=b] .sns-item .sns-handle{color:var(--wb-mute)!important}
+html[data-warm=b] .ig{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:8px!important}
+html[data-warm=b] .ig a{background-color:var(--wb-paper2)!important}
+
+/* ───────── 10. コンサルティングへの入口（オリーブ。法人向けの別の特集の扉） ───────── */
+html[data-warm=b] .cons-band{background:var(--wb-olive)!important;color:var(--wb-paper);padding:0!important;overflow:hidden}
+html[data-warm=b] .cons-band-in{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:0 clamp(32px,6vw,96px);align-items:end;max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important;margin:0 auto}
+html[data-warm=b] .cons-band-in>img{display:block;width:100%;height:auto!important;max-width:360px;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;margin-top:clamp(48px,6vw,80px);border-radius:0!important}
+html[data-warm=b] .cons-band-in>div{padding:clamp(48px,6vw,88px) 0}
+html[data-warm=b] .cons-band h2{color:var(--wb-paper)!important;font-size:clamp(28px,3vw,44px)!important;margin:0 0 32px!important;word-break:auto-phrase}
+html[data-warm=b] .cons-band .cons-link{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;text-decoration:none;font-weight:600;letter-spacing:.04em;border:1px solid}
+
+/* ───────── 11. フッター（黒板。ロゴは紙色の余白 8px の上に） ───────── */
+html[data-warm=b] footer{background:var(--wb-board)!important;color:var(--wb-paper)!important;padding:clamp(56px,7vw,88px) 0 32px!important;font-size:14px}
+html[data-warm=b] .ft,html[data-warm=b] .ft-nav,html[data-warm=b] .copy,html[data-warm=b] .ft-co,html[data-warm=b] footer .demo-switch{max-width:var(--wb-max)!important;padding-left:var(--wb-gut)!important;padding-right:var(--wb-gut)!important;margin-left:auto;margin-right:auto}
+html[data-warm=b] footer b{color:var(--wb-paper)!important;font-family:var(--f-head);font-weight:500;font-size:16px}
+html[data-warm=b] footer span,html[data-warm=b] footer .ft div{color:var(--wb-chalk)}
+html[data-warm=b] footer a{color:var(--wb-paper)!important;text-decoration-color:var(--wb-rule-d)!important}
+html[data-warm=b] .ft-logo{background:var(--wb-paper);padding:8px;width:64px!important;height:64px!important;border-radius:0!important;display:block;margin-bottom:16px}
+html[data-warm=b] .ft-sns .sns{color:var(--wb-paper)!important}
+html[data-warm=b] .ft-nav::before{background:var(--wb-rule-d)!important}
+html[data-warm=b] .ft-nav a{color:var(--wb-paper)!important;font-weight:500!important}
+html[data-warm=b] .ft-aw li{color:var(--wb-chalk)!important}
+html[data-warm=b] .ft-aw img{background:var(--wb-paper)!important}
+html[data-warm=b] .copy{color:var(--wb-chalk);opacity:1!important}
+/* デモの切り替え：目立たない文字リンク */
+html[data-warm=b] footer .demo-switch{margin-top:20px;font-size:12.5px;color:var(--wb-chalk)}
+html[data-warm=b] footer .demo-switch a{color:var(--wb-chalk)!important;text-decoration:underline;text-underline-offset:3px}
+html[data-warm=b] footer .demo-switch b{font-family:var(--f-body);font-size:12.5px;font-weight:600;color:var(--wb-paper)!important}
+
+/* ───────── 12. 下層ページ共通：見出しの帯は黒板（短く、大きな明朝で左寄せ） ───────── */
+html[data-warm=b] .page-hero{background:var(--wb-board)!important;color:var(--wb-paper)!important;border:0!important;padding:clamp(56px,7vw,104px) 0 clamp(48px,6vw,80px)!important;overflow:visible}
+html[data-warm=b] .page-hero .wrap{max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important}
+html[data-warm=b] .page-hero .eyebrow{color:var(--wb-wheat)!important}
+html[data-warm=b] .page-hero h1{font-size:clamp(44px,6vw,92px)!important;line-height:1.15!important;color:var(--wb-paper)!important;margin:0!important}
+html[data-warm=b] .page-hero p:not(.eyebrow){color:var(--wb-chalk)!important;font-size:16px!important;margin-top:18px!important;max-width:40em}
+html[data-warm=b] .blk,html[data-warm=b] .sec{padding-top:clamp(64px,8vw,112px);padding-bottom:clamp(64px,8vw,112px)}
+
+/* ───────── 13. メニュー（紙。注意書きは紙の帯で2段、店の切り替えは下線の文字） ───────── */
+html[data-warm=b] .menu-sec{background:var(--wb-paper)!important}
+html[data-warm=b] .notice{display:grid!important;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:8px clamp(24px,4vw,64px);background:var(--wb-paper2)!important;border:0!important;border-top:2px solid var(--wb-board)!important;
+  padding:clamp(24px,3vw,40px) clamp(20px,3vw,40px)!important;margin:0 0 clamp(48px,6vw,80px)!important;color:var(--wb-board)}
+html[data-warm=b] .notice b{grid-column:1;grid-row:1/span 3;font-family:var(--f-head);font-weight:500;font-size:clamp(19px,1.6vw,23px);word-break:auto-phrase;line-height:1.45;color:var(--wb-board)!important}
+html[data-warm=b] .notice b::before{display:none!important}
+html[data-warm=b] .notice p{grid-column:2;font-size:15px!important;line-height:1.9;margin:0 0 10px!important;color:var(--wb-board)!important;max-width:60ch}
+html[data-warm=b] .menu-stores{border-radius:0!important;display:flex!important;flex-wrap:wrap;gap:0 clamp(20px,3vw,40px)!important;background:none!important;border:0!important;border-bottom:1px solid var(--wb-rule)!important;padding:0!important;margin:0 0 20px!important;width:auto!important}
+html[data-warm=b] .menu-stores button{background:none!important;border:0!important;border-bottom:3px solid transparent!important;border-radius:0!important;color:var(--wb-mute)!important;
+  font-family:var(--f-head);font-size:clamp(20px,2vw,26px)!important;font-weight:500!important;padding:10px 0!important;margin:0 0 -1px!important;min-height:48px;flex:none!important}
+html[data-warm=b] .menu-stores button::before,html[data-warm=b] .menu-stores button::after{display:none!important}
+html[data-warm=b] .menu-stores button[aria-selected=true]{color:var(--wb-board)!important;border-bottom-color:var(--wb-door)!important}
+html[data-warm=b] .menu-cats{display:flex!important;flex-wrap:wrap;gap:8px!important;margin:0 0 28px!important;background:none!important;padding:0!important}
+html[data-warm=b] .menu-cats button{background:none!important;border:1px solid var(--wb-rule)!important;color:var(--wb-board)!important;font-weight:500!important;font-size:14.5px!important;padding:8px 16px!important;min-height:44px}
+html[data-warm=b] .menu-cats button[aria-selected=true]{background:var(--wb-board)!important;border-color:var(--wb-board)!important;color:var(--wb-paper)!important}
+html[data-warm=b] .menu-view{max-width:1000px!important;margin:0 auto!important;background:none!important;padding:0!important;border:0!important}
+html[data-warm=b] .menu-view a{display:block;background:var(--wb-paper2)!important;border:1px solid var(--wb-rule)!important}
+html[data-warm=b] .menu-view figcaption{color:var(--wb-mute)!important;font-size:13px;margin-top:10px}
+html[data-warm=b] .menu-actions{margin-top:36px!important;text-align:center;background:none!important;border:0!important;padding:0!important}
+html[data-warm=b] .menu-actions .btn{min-height:52px;padding:0 32px!important}
+
+/* ───────── 14. 会社概要（紙の読み物。理念と数字だけ黒板の章にする） ───────── */
+html[data-warm=b] body[data-page=about] .profile{grid-template-columns:minmax(0,4fr) minmax(0,7fr)!important;gap:0 clamp(40px,6vw,96px)!important}
+html[data-warm=b] body[data-page=about] .profile .owner{display:block!important;position:sticky!important;top:96px!important;margin:0!important}
+html[data-warm=b] body[data-page=about] .owner img{width:100%;aspect-ratio:3/4!important;object-fit:cover;object-position:50% 15%}
+html[data-warm=b] body[data-page=about] .owner figcaption{font-family:var(--f-head);font-size:17px;color:var(--wb-board)!important;margin-top:12px!important}
+html[data-warm=b] .info-table th{color:var(--wb-mute)!important;font-weight:500!important}
+html[data-warm=b] .info-table th,html[data-warm=b] .info-table td{border-bottom:1px solid var(--wb-rule)!important}
+html[data-warm=b] .info-table a,html[data-warm=b] .awards a{color:var(--wb-board)!important}
+html[data-warm=b] .sub-h{font-size:clamp(20px,1.8vw,24px)!important;margin-top:8px}
+html[data-warm=b] ul.awards li{border-bottom:1px solid var(--wb-rule)!important;background:none!important}
+html[data-warm=b] ul.awards li::before{background:var(--wb-door)!important;border-radius:0!important}
+/* 理念：原宿店の写真に焦げ茶の層（文字は紙色 12:1 以上） */
+html[data-warm=b] .philosophy{background:linear-gradient(rgba(46,33,25,.84),rgba(46,33,25,.84)),url("../src/images/harajuku.jpg") center 40%/cover!important;color:var(--wb-paper)!important;padding:clamp(88px,11vw,160px) 0!important}
+html[data-warm=b] .philosophy .wrap{max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important;grid-template-columns:minmax(0,4fr) minmax(0,8fr)!important}
+html[data-warm=b] .philosophy .eyebrow{color:var(--wb-wheat)!important}
+html[data-warm=b] .philosophy h2{color:var(--wb-paper)!important;font-size:clamp(22px,2vw,28px)!important}
+html[data-warm=b] .philosophy .motto{color:var(--wb-paper)!important;font-size:clamp(30px,3.6vw,54px)!important;line-height:1.45!important;font-weight:500!important;margin:0 0 28px!important;word-break:auto-phrase}
+html[data-warm=b] .philosophy .motto~p{color:var(--wb-paper)!important;opacity:.88;max-width:36em}
+/* 数字：この案の見せ場。Fraunces の細い斜体を小麦色で大きく */
+html[data-warm=b] .numbers{background:var(--wb-board)!important;color:var(--wb-paper)!important;border:0!important;padding:clamp(56px,7vw,96px) 0!important}
+html[data-warm=b] .nums{max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important;gap:0 clamp(24px,3vw,48px)!important}
+html[data-warm=b] .nums>div,html[data-warm=b] .nums.nums3>div{border:0!important;border-top:1px solid var(--wb-rule-d)!important;padding:20px 0 0!important;color:var(--wb-chalk)!important;font-size:14.5px!important;line-height:1.6}
+html[data-warm=b] .nums b,html[data-warm=b] .nums.nums3 b{display:block;font-family:"Fraunces",var(--f-head);font-style:italic;font-weight:300!important;font-variation-settings:"opsz" 144;
+  font-size:clamp(56px,7.4vw,112px)!important;line-height:1!important;letter-spacing:-.02em!important;color:var(--wb-wheat)!important;margin:0 0 14px!important;font-synthesis:none;white-space:nowrap}
+html[data-warm=b] .nums b small{font-size:.3em!important;font-style:normal;font-family:var(--f-head);font-weight:500!important;letter-spacing:.04em;margin-left:6px!important;color:var(--wb-paper)}
+html[data-warm=b] .nums b span[lang=ja]{font-style:normal;font-size:.5em;letter-spacing:.04em;font-feature-settings:"palt"}
+html[data-warm=b][data-lang=en] .nums>div:first-child b small{font-size:.3em!important}
+/* 考え方・ビジョン：紙の2段 */
+html[data-warm=b] .cv-box+.cv-box{border-left:0!important}
+html[data-warm=b] .cv{column-gap:clamp(40px,6vw,96px)!important}
+html[data-warm=b] .cv-box h2{font-size:clamp(26px,2.6vw,38px)!important}
+html[data-warm=b] .ticks li::before{background:var(--wb-door)!important;border:0!important;width:6px!important;height:6px!important;transform:none!important;border-radius:0!important;top:.8em!important}
+/* 事業内容：色の帯をやめ、写真を縦長にそろえて一列に */
+html[data-warm=b] .biz-sec{background:var(--wb-paper)!important;border-top:1px solid var(--wb-rule)}
+html[data-warm=b] .biz{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:clamp(16px,2vw,32px)!important}
+html[data-warm=b] .biz>div{background:none!important;border:0!important;padding:0!important}
+html[data-warm=b] .biz .ph,html[data-warm=b] .biz>div:nth-child(n) .ph{aspect-ratio:4/5!important;background-color:var(--wb-paper2)!important;border-radius:2px!important;overflow:hidden}
+html[data-warm=b] .biz .ph.prod img{max-height:62%!important;width:auto!important;max-width:44%!important;object-fit:contain;transform:none!important;position:static!important}
+html[data-warm=b] .biz .ph.prod{display:flex;align-items:center;justify-content:center;gap:8%}
+html[data-warm=b] .biz b{display:block;font-family:var(--f-head);font-weight:500;font-size:19px!important;padding-top:14px!important}
+/* 沿革：年は Fraunces の斜体。縦線と丸は消し、年ごとの横線で区切る（現れる動きは残す） */
+html[data-warm=b] .timeline{max-width:960px!important}
+html[data-warm=b] .timeline::before,html[data-warm=b] .timeline li::after,html[data-warm=b] .timeline li::before,html[data-warm=b] .timeline time::before,html[data-warm=b] .timeline time::after,html[data-warm=b] .timeline .hl::before{display:none!important}
+html[data-warm=b] .timeline li{grid-template-columns:120px minmax(0,1fr)!important;gap:28px!important;padding:22px 0!important;border-top:1px solid var(--wb-rule)!important;margin:0!important}
+html[data-warm=b] .timeline time{font-family:"Fraunces",var(--f-head);font-style:italic;font-weight:300!important;font-variation-settings:"opsz" 144;font-size:36px!important;line-height:1!important;color:var(--wb-door)!important;padding:0!important;font-synthesis:none}
+html[data-warm=b] .timeline li>div{padding:0!important}
+/* 年をつなぐ縦線とマーカーは消す（年ごとの横線で足りる）。上から順に現れる動き（tl-wait / tl-go）はそのまま */
+html[data-warm=b] .timeline.tl-line li:not(:last-child)::after,html[data-warm=b] .timeline.tl-line time::before{display:none!important}
+html[data-warm=b] .timeline .hl{color:var(--wb-board)!important;font-weight:700!important}
+/* ジャパンタイムズ：黒板の上に紙面を置く */
+html[data-warm=b] .media-sec{background:var(--wb-board)!important;color:var(--wb-paper)}
+html[data-warm=b] .media{grid-template-columns:minmax(0,340px) minmax(0,1fr)!important;align-items:center!important}
+html[data-warm=b] .media .eyebrow{color:var(--wb-wheat)!important}
+html[data-warm=b] .media h2{color:var(--wb-paper)!important;font-size:clamp(28px,3vw,44px)!important}
+html[data-warm=b] .media p{color:var(--wb-paper)!important;max-width:36em}
+html[data-warm=b] .media p.muted{color:var(--wb-chalk)!important}
+html[data-warm=b] .clip img{border:0!important}
+html[data-warm=b] body[data-page=about] .policy{background:none!important;border:0!important;padding:0!important;color:var(--wb-mute);font-size:14px}
+html[data-warm=b] body[data-page=about] .media-sec+.blk{padding-top:40px!important;padding-bottom:40px!important}
+
+/* ───────── 15. コンサルティング（法人の入口はオリーブ：扉と数字 → 紙の本文 → オリーブの創業者とお問い合わせ） ───────── */
+html[data-warm=b] .cons-hero{background:var(--wb-olive)!important;color:var(--wb-paper)!important;padding:clamp(64px,8vw,120px) 0 clamp(56px,7vw,96px)!important}
+html[data-warm=b] .cons-hero .wrap{max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important}
+html[data-warm=b] .cons-role{color:var(--wb-paper)!important;font-size:14px!important;letter-spacing:.04em;margin-bottom:24px!important;border:0!important;background:none!important;padding:0!important}
+html[data-warm=b] .cons-hero h1{font-size:clamp(36px,5vw,76px)!important;line-height:1.3!important;color:var(--wb-paper)!important;max-width:15em;word-break:auto-phrase}
+html[data-warm=b] .cons-lead{color:var(--wb-paper)!important;max-width:44em;font-size:16px!important;margin:28px 0 32px!important}
+html[data-warm=b] .cons-cta .btn{min-height:52px;padding:0 30px!important;display:inline-flex;align-items:center}
+html[data-warm=b] .free-note{color:var(--wb-paper)!important;font-size:14px;margin-top:14px!important}
+html[data-warm=b] body[data-page=consulting] .numbers{padding-top:0!important;background:var(--wb-olive)!important}
+html[data-warm=b] body[data-page=consulting] .nums>div{color:var(--wb-paper)!important;border-top-color:rgba(247,241,229,.35)!important}
+html[data-warm=b] body[data-page=consulting] .nums b{color:var(--wb-paper)!important}
+html[data-warm=b] .only{background:var(--wb-paper)!important;padding:clamp(64px,8vw,112px) 0 0!important}
+html[data-warm=b] .only .wrap{max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important}
+html[data-warm=b] .only-text{border:0!important;padding:0!important;margin:0!important;max-width:30em!important;font-size:clamp(22px,2.4vw,32px)!important;line-height:1.8!important;color:var(--wb-board)}
+html[data-warm=b] .sec{background:var(--wb-paper)!important}
+html[data-warm=b] .sec.tint{background:var(--wb-paper2)!important}
+html[data-warm=b] .sec-in{max-width:var(--wb-max)!important}
+html[data-warm=b] .sec-in>h2,html[data-warm=b] .sec-head h2{font-size:clamp(26px,2.5vw,38px)!important;word-break:auto-phrase}
+html[data-warm=b] .sec .muted,html[data-warm=b] .muted{color:var(--wb-mute)!important}
+html[data-warm=b] .quote{border:0!important;padding:0!important;color:var(--wb-door)!important;font-family:var(--f-head);font-weight:500!important;font-size:clamp(24px,2.4vw,34px)!important;line-height:1.5!important;background:none!important}
+html[data-warm=b] .quote::before,html[data-warm=b] .quote::after{display:none!important}
+html[data-warm=b] .svc-list{border-top:1px solid var(--wb-board)!important;gap:0!important;display:block!important}
+html[data-warm=b] .svc-row{background:none!important;border:0!important;border-bottom:1px solid var(--wb-rule)!important;padding:clamp(24px,3vw,36px) 0!important;margin:0!important;display:grid!important;grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;gap:16px clamp(24px,4vw,64px)!important}
+html[data-warm=b] .svc-row h3{font-size:clamp(24px,2.4vw,34px)!important;line-height:1.35!important;color:var(--wb-board)!important}
+html[data-warm=b] .svc-tag{color:var(--wb-door)!important;background:none!important;border:0!important;padding:0!important;font-size:13px!important;letter-spacing:.04em}
+html[data-warm=b] .dl-grid>div,html[data-warm=b] body[data-page=consulting] .sec.tint .dl-grid>div{background:none!important;border:0!important;border-top:1px solid var(--wb-rule)!important;padding:20px 0 0!important}
+html[data-warm=b] .dl-grid h3{font-size:clamp(19px,1.6vw,22px)!important;color:var(--wb-board)!important}
+html[data-warm=b] .more{background:none!important;border:0!important;border-top:2px solid var(--wb-board)!important;padding:24px 0 0!important}
+html[data-warm=b] .book-card{background:var(--wb-paper2)!important;border:0!important;padding:clamp(24px,3vw,36px)!important}
+html[data-warm=b] .book-card b{font-family:var(--f-head);font-weight:500;font-size:clamp(20px,1.8vw,24px)}
+html[data-warm=b] .sec.founder{background:var(--wb-olive)!important;color:var(--wb-paper)!important}
+html[data-warm=b] .sec.founder .profile{grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;align-items:center!important;gap:0 clamp(40px,6vw,96px)!important;max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important}
+html[data-warm=b] body[data-page=consulting] .founder .owner{width:100%!important;max-width:460px!important}
+html[data-warm=b] body[data-page=consulting] .founder .owner img{aspect-ratio:3/4!important;border-radius:0!important;width:100%;object-fit:cover}
+html[data-warm=b] .founder figcaption{color:var(--wb-paper)!important}
+html[data-warm=b] .founder .quote{color:var(--wb-paper)!important;font-size:clamp(24px,2.6vw,38px)!important}
+html[data-warm=b] .founder .muted{color:var(--wb-paper)!important;opacity:.9}
+html[data-warm=b] .founder a{color:var(--wb-paper)!important}
+html[data-warm=b] .steps{counter-reset:s;gap:clamp(20px,3vw,40px)!important}
+html[data-warm=b] .steps li{background:none!important;border:0!important;border-top:1px solid var(--wb-board)!important;padding:18px 0 0!important}
+html[data-warm=b] .steps li::before{justify-content:flex-start!important;background:none!important;border:0!important;border-radius:0!important;width:auto!important;height:auto!important;display:block!important;
+  font-family:"Fraunces",var(--f-head)!important;font-style:italic;font-weight:300!important;font-variation-settings:"opsz" 144;font-size:56px!important;line-height:1!important;color:var(--wb-door)!important;margin:0 0 14px!important;font-synthesis:none}
+html[data-warm=b] .steps h3{font-size:19px!important}
+/* お問い合わせ：メディアは紙の地（下線ではなく枠の入力欄）、コンサルはオリーブの地に紙色の入力欄 */
+html[data-warm=b] .contact{padding:clamp(72px,9vw,128px) 0!important}
+html[data-warm=b] .contact .narrow{max-width:720px!important}
+html[data-warm=b] .free-badge{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;background:none!important;border:0!important;padding:0!important}
+html[data-warm=b] .free-badge b{background:none!important;padding:0!important;font-family:var(--f-head);font-weight:500;font-size:clamp(22px,2vw,28px)!important}
+html[data-warm=b] .cf7 label{font-weight:500!important}
+html[data-warm=b] .cf7 input:not([type=checkbox]),html[data-warm=b] .cf7 textarea,html[data-warm=b] .cf7 select{min-height:48px}
+html[data-warm=b] .cf7 input[type=checkbox]{width:20px;height:20px}
+/* 紙の地（メディア） */
+html[data-warm=b] body[data-page=media] .contact{background:var(--wb-paper)!important;color:var(--wb-board)!important}
+html[data-warm=b] body[data-page=media] .contact p,html[data-warm=b] body[data-page=media] .cf7 label{color:var(--wb-board)!important}
+html[data-warm=b] body[data-page=media] .cf7 label em{color:var(--wb-door)!important}
+html[data-warm=b] body[data-page=media] .contact .req-note,html[data-warm=b] body[data-page=media] .contact .note{color:var(--wb-mute)!important}
+html[data-warm=b] body[data-page=media] .cf7 input:not([type=checkbox]),html[data-warm=b] body[data-page=media] .cf7 textarea{background:#FFFCF5!important;color:var(--wb-board)!important;border:1px solid #8C7B69!important}
+html[data-warm=b] body[data-page=media] .cf7 input:focus,html[data-warm=b] body[data-page=media] .cf7 textarea:focus{outline:2px solid var(--wb-board)!important;outline-offset:2px;border-color:var(--wb-board)!important}
+html[data-warm=b] body[data-page=media] .cf7 input[type=checkbox]{accent-color:var(--wb-door)}
+html[data-warm=b] body[data-page=media] .contact a{color:var(--wb-board)!important}
+html[data-warm=b] body[data-page=media] .page-hero{background:var(--wb-paper)!important;color:var(--wb-board)!important;padding-bottom:clamp(24px,3vw,40px)!important;border-bottom:0!important}
+html[data-warm=b] body[data-page=media] .page-hero h1{color:var(--wb-board)!important}
+html[data-warm=b] body[data-page=media] .page-hero .eyebrow{color:var(--wb-door)!important}
+html[data-warm=b] body[data-page=media] .page-hero p:not(.eyebrow){color:var(--wb-mute)!important}
+html[data-warm=b] body[data-page=media] .contact{padding-top:clamp(24px,3vw,40px)!important}
+html[data-warm=b] body[data-page=media] .contact .narrow{max-width:var(--wb-max)!important;padding:0 var(--wb-gut)!important}
+html[data-warm=b] body[data-page=media] .contact .narrow>*{max-width:640px;margin-left:0!important}
+html[data-warm=b] body[data-page=media] .awards-band{border-top:1px solid var(--wb-rule)!important}
+/* オリーブの地（コンサル）：小さな文字も紙色（5.7:1） */
+html[data-warm=b] .contact.dark{background:var(--wb-olive)!important;color:var(--wb-paper)!important}
+html[data-warm=b] .contact.dark h2,html[data-warm=b] .contact.dark p,html[data-warm=b] .contact.dark .cf7 label,html[data-warm=b] .contact.dark .note,
+html[data-warm=b] .contact.dark .free-badge,html[data-warm=b] .contact.dark .free-badge b,html[data-warm=b] .contact.dark .cf7 label em{color:var(--wb-paper)!important}
+html[data-warm=b] .contact.dark .cf7 input:not([type=checkbox]),html[data-warm=b] .contact.dark .cf7 textarea{background:var(--wb-paper)!important;color:var(--wb-board)!important;border:1px solid var(--wb-paper)!important}
+html[data-warm=b] .contact.dark .cf7 input:focus,html[data-warm=b] .contact.dark .cf7 textarea:focus{outline:3px solid var(--wb-paper)!important;outline-offset:2px}
+html[data-warm=b] .contact.dark .cf7 input[type=checkbox]{accent-color:var(--wb-paper)}
+html[data-warm=b] .contact.dark .cf7 button.btn{background:var(--wb-paper)!important;color:var(--wb-board)!important;border-color:var(--wb-paper)!important;min-height:52px}
+html[data-warm=b] .contact.dark .cf7 button.btn:hover{background:var(--wb-paper2)!important;border-color:var(--wb-paper2)!important}
+html[data-warm=b] .cf7 button.btn{min-height:52px}
+
+/* ───────── 16. SP（900px 以下・640px 以下） ───────── */
+@media(max-width:900px){
+  html[data-warm=b] .hero{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .hero::after{grid-column:1!important;grid-row:1!important;aspect-ratio:1464/943!important;min-height:0!important;align-self:start!important}
+  html[data-warm=b] .hero-in{grid-column:1!important;grid-row:2!important;max-width:none!important;padding:32px var(--wb-gut) 40px!important}
+  html[data-warm=b][data-stores] .cards .card,html[data-warm=b][data-stores].js .cards .card{grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;grid-template-rows:auto!important}
+  html[data-warm=b][data-stores] .cards .card .ph{grid-row:1/4}
+  html[data-warm=b][data-stores] .cards .card table{grid-column:1/-1;grid-row:4;margin-top:20px!important}
+  html[data-warm=b][data-stores] .cards .card .acts{grid-column:1/-1;grid-row:5}
+  html[data-warm=b] body[data-page=index] .points{grid-template-columns:minmax(0,1fr)}
+  html[data-warm=b] body[data-page=index] .pt+.pt{margin-top:20px!important}
+  html[data-warm=b] .badges{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:24px!important}
+  html[data-warm=b] .cater{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .cater-vis{grid-column:1!important;grid-row:1!important;margin-bottom:32px!important}
+  html[data-warm=b] .cater>.tx{grid-row:2}
+}
+@media(max-width:640px){
+  html[data-warm=b] body{font-size:16px}
+  html[data-warm=b] .hd-in{padding:10px var(--wb-gut)!important}
+  html[data-warm=b] .logo{font-size:15px}
+  html[data-warm=b] .logo img{width:34px!important;height:34px!important}
+  html[data-warm=b] .hero h1{font-size:clamp(30px,8.6vw,38px)!important}
+  html[data-warm=b][data-lang=en] .hero h1{font-size:clamp(30px,8.6vw,38px)!important}
+  /* SP でもヒーローの予約ボタンを出す（renew9 が隠しているのを戻す・07） */
+  html[data-warm=b] .hero .row .btn.rsv{display:inline-flex!important;width:100%!important;justify-content:center;min-height:52px}
+  html[data-warm=b] .hero .row{gap:8px 24px!important}
+  /* 8名の注記：固定ボタンぶんの余白 */
+  html[data-warm=b] .hero .sub{padding-bottom:0!important}
+  html[data-warm=b][data-stores] .cards .card,html[data-warm=b][data-stores].js .cards .card{display:block!important;padding:28px 0!important}
+  html[data-warm=b][data-stores] .cards .card .ph{aspect-ratio:16/10!important;margin-bottom:18px!important}
+  html[data-warm=b][data-stores] .cards .card table{margin:14px 0 0!important}
+  html[data-warm=b][data-stores] .cards .card .closed{margin-top:10px}
+  html[data-warm=b][data-stores] .cards .card .acts{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px!important;margin-top:16px!important;justify-items:start}
+  html[data-warm=b][data-stores] .cards .acts a:not(.r){justify-content:flex-start!important}
+  html[data-warm=b][data-stores] .cards .acts a.r{display:flex!important;grid-column:1/-1;order:3!important;margin:8px 0 0!important;width:100%;min-height:48px}
+  html[data-warm=b] body[data-page=index] .about{grid-template-columns:96px minmax(0,1fr)!important;gap:0 20px!important}
+  html[data-warm=b] body[data-page=index] .about>.about-ph{grid-row:1!important}
+  html[data-warm=b] body[data-page=index] .about-ph .a1{max-width:96px}
+  html[data-warm=b] body[data-page=index] .about>img{grid-column:2!important;grid-row:1!important;align-self:end;margin:0!important}
+  html[data-warm=b] body[data-page=index] .about>div{grid-column:1/-1!important;grid-row:2!important;margin-top:28px}
+  html[data-warm=b] .badges{grid-template-columns:minmax(0,1fr)!important;row-gap:0!important}
+  html[data-warm=b] .badges li{grid-template-columns:56px minmax(0,1fr)!important;align-items:center;gap:16px;padding:16px 0!important;font-size:16px!important;word-break:keep-all!important;word-break:auto-phrase!important;overflow-wrap:anywhere!important;min-width:0}
+  html[data-warm=b] .badges li br{display:none}
+  html[data-warm=b] .badges li img{width:56px!important;height:56px!important}
+  html[data-warm=b] .shopbox{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .shopbox .ph{grid-column:1!important;grid-row:2!important;margin-top:24px}
+  html[data-warm=b] .sns-list{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .sns-list li+li .sns-item{border-top:0!important}
+  html[data-warm=b] .ig{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  html[data-warm=b] .cons-band-in{grid-template-columns:minmax(0,1fr)}
+  html[data-warm=b] .cons-band-in>img{grid-row:2;max-width:240px;margin-top:0}
+  html[data-warm=b] .cons-band-in>div{padding:56px 0 32px}
+  /* main の最後：固定ボタンぶんの余白（68px） */
+  html[data-warm=b] main{padding-bottom:0}
+  html[data-warm=b] footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))!important}
+}
+
+/* 下層ページの SP（900px 以下）：上で !important を付けた段組みを1列に戻す */
+@media(max-width:900px){
+  html[data-warm=b] body[data-page=about] .profile,html[data-warm=b] .sec.founder .profile,html[data-warm=b] .media,html[data-warm=b] .philosophy .wrap,
+  html[data-warm=b] .notice,html[data-warm=b] .svc-row{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .philosophy .wrap>*{grid-column:1!important;grid-row:auto!important}
+  html[data-warm=b] body[data-page=about] .profile .owner{position:static!important;max-width:280px!important;margin-bottom:32px!important}
+  html[data-warm=b] .notice b,html[data-warm=b] .notice p{grid-column:1!important;grid-row:auto!important}
+  html[data-warm=b] .notice b{margin-bottom:8px}
+  html[data-warm=b] .biz{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:28px!important}
+  html[data-warm=b] .biz>div{display:block!important}
+  html[data-warm=b] .media{gap:32px!important}
+  html[data-warm=b] .media .clip{max-width:260px;display:block}
+  html[data-warm=b] body[data-page=consulting] .founder .owner{max-width:300px!important}
+  html[data-warm=b] .nums,html[data-warm=b] .nums.nums3{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:32px!important}
+  html[data-warm=b] .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:32px!important}
+  html[data-warm=b] .steps li{display:block!important;padding:18px 0 0!important}
+}
+@media(max-width:640px){
+  html[data-warm=b] .nums b,html[data-warm=b] .nums.nums3 b{font-size:clamp(48px,14vw,64px)!important}
+  html[data-warm=b] .nums.nums3{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .steps{grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm=b] .timeline li{grid-template-columns:72px minmax(0,1fr)!important;gap:16px!important}
+  html[data-warm=b] .timeline time{font-size:28px!important}
+  html[data-warm=b] .page-hero h1{font-size:clamp(36px,11vw,48px)!important}
+  html[data-warm=b] .cons-hero h1{font-size:clamp(30px,8.6vw,40px)!important}
+  html[data-warm=b] .menu-stores{gap:0 18px!important}
+  html[data-warm=b] .menu-stores button{font-size:17px!important}
+  html[data-warm=b] .menu-stores{justify-content:flex-start!important;gap:0 16px!important}
+  html[data-warm=b] .menu-cats{flex-direction:row!important;flex-wrap:nowrap!important}
+  html[data-warm=b] .menu-cats button{flex:1 1 0!important;width:auto!important;min-width:0!important;padding:8px 6px!important}
+  html[data-warm=b] .cv-box+.cv-box{border-top:0!important;padding-top:0!important}
+}
+/* メニューの SP：固定ボタンが最初の画面で注意書き（アレルギーの説明）に重なるため、
+   このページだけ固定ボタンをやめ、ヘッダーに小さな予約ボタンを出す。メニュー画像の下の予約ボタンも出す */
+@media(max-width:640px){
+  html[data-warm=b] body[data-page=menu] .fab{display:none!important}
+  html[data-warm=b] body[data-page=menu] .tools .hd-rsv{display:inline-flex!important;min-height:40px;padding:0 12px!important;font-size:13px!important;letter-spacing:.02em}
+  html[data-warm=b] body[data-page=menu] .tools{gap:8px}
+  html[data-warm=b] body[data-page=menu] .logo span{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  html[data-warm=b] body[data-page=menu] .menu-actions{display:block!important}
+  html[data-warm=b] body[data-page=menu] .menu-actions .btn{display:flex!important;width:100%;justify-content:center}
+  html[data-warm=b] body[data-page=menu] footer{padding-bottom:40px!important}
+}
+/* 375：紹介の大きな文は改行（br）をやめ、文節で釣り合いよく折る。固定ボタンぶんの余白を本文の最後に */
+@media(max-width:640px){
+  html[data-warm=b] body[data-page=index] .about .lead br{display:none}
+  html[data-warm=b] body[data-page=index] .about .lead{text-wrap:balance;word-break:keep-all;word-break:auto-phrase}
+  html[data-warm=b] body[data-page=index] .cons-band{padding-bottom:88px!important}
+  html[data-warm=b] body[data-page=consulting] .contact.dark{padding-bottom:calc(72px + 88px)!important}
+  html[data-warm=b] body[data-page=consulting] main{padding-bottom:0!important}
+}
+/* オリーブの扉の中の小さな文字は紙色（.page-hero p の小麦がかった灰色より優先） */
+html[data-warm=b] .cons-hero p:not(.eyebrow){color:var(--wb-paper)!important}

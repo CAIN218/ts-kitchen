@@ -25,6 +25,7 @@
 - `src/`：本番（WordPress）用の元データ。`index.html` / `menu.html` / `about.html` / `consulting.html` / `media.html`、`style.css`、`script.js`、`anim/site.*`、`images/`
 - `tools/build_wp.py`：`src/` から WordPress に貼る断片（`wp/`）を作る
 - `split/`：新デザインのプレビュー（日本語は `split/`、英語は `split/en/`）。`python3 tools/build_preview.py` で `src/` から作り直す
+- `warm-a/`・`warm-b/`：Warm Editorial のデモ2案（A 白い食卓／B 黒板と赤い扉）。split/ と同じページに `assets/warm-a.css`・`warm-b.css`・`warm.js` と、build_preview.py の warm() のHTML変換を足して作る。フッター最下部で 今のデザイン / A / B を切り替え。yuga さんが選ぶまで src/ には入れない
 - `assets/`：プレビューが読み込むCSS・JS（renew〜renew14 の改修分と form.js）
 - ルートの `index.html`：プレビュー（`split/`）へ転送するだけのページ
 - 以前のデモ（concepts / refine / refresh / renew〜renew17 など）は削除済み（2026-11-22）。必要なら git の履歴から戻せます
