@@ -32,14 +32,16 @@ def sub1(pat, rep, s, **kw):
     return n
 
 WARM_V = '20261124a'
-WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard')}
+WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
     並べ替えなどのHTML変換は warm_a_html / warm_b_html に書く。"""
     x = x.replace('<html ', f'<html data-warm="{look}" ', 1)
     x = x.replace('</head>', f'<link rel="stylesheet" href="{up}assets/warm-{look}.css?v={WARM_V}"></head>', 1)
     x = warm_common(x, name, lang, up, rel)
-    x = (warm_a_html if look == 'a' else warm_b_html)(x, name, lang)
+    x = (warm_b_html if look == 'b' else warm_a_html)(x, name, lang)  # C（紺）は A と同じ組み方
+    # 電話・地図の 📞 📍 は全案で消す（yuga 2026-11-24「地図とか電話はどれも絵文字なし」）。番号と「地図」/「Map」は残す
+    x = re.sub(r'(?:📞|📍)[  ]?', '', x)
     # 元のフォントURLは Fraunces の指定（opsz,wght@9..144,500;600;700）が書式違いで 400 エラーになり、4書体とも読み込まれない。デモでは正しい書き方に直す（本番は要確認）
     x = x.replace('Fraunces:opsz,wght@9..144,500;600;700', 'Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700')
     x = x.replace('</body>', f'<script src="{up}assets/warm.js?v={WARM_V}"></script></body>', 1)
@@ -49,7 +51,8 @@ def warm(x, look, name, lang, up, rel):
               (f'<b aria-current="true">{lab}</b>' if k == look else f'<a href="{up}{d}/{cur_path(name, lang)}">{lab}</a>')
               for k, d, lab in (('split', 'split', '今のデザイン' if lang == 'ja' else 'Current'),
                                 ('a', 'warm-a', 'A ' + WARM_NAME['a'][0 if lang == 'ja' else 1]),
-                                ('b', 'warm-b', 'B ' + WARM_NAME['b'][0 if lang == 'ja' else 1])))
+                                ('b', 'warm-b', 'B ' + WARM_NAME['b'][0 if lang == 'ja' else 1]),
+                                ('c', 'warm-c', 'C ' + WARM_NAME['c'][0 if lang == 'ja' else 1])))
           + '</p>')
     return x.replace('</footer>', sw + '\n</footer>', 1)
 
@@ -73,17 +76,16 @@ def warm_common(x, name, lang, up, rel):
     x = x.replace(aw, '\n', 1).replace('<section class="blk" id="catering">', aw.strip('\n') + '\n<section class="blk" id="catering">', 1)
     # 3) コンサルティングへの入口（既存の文言だけ：コンサルページの見出しと、ナビの「コンサルティング」）
     h = ('貴社の売上と競争力を、<br>グルテンフリーで伸ばす。' if lang == 'ja' else 'Grow your sales and competitiveness with gluten-free.')
-    nav = 'コンサルティング' if lang == 'ja' else 'Consulting'
+    # リンクの文言は、何が起きるか分かるよう、コンサルページの既存のボタンの文言をそのまま使い、お問い合わせ欄へ飛ばす（2回目の批評）
+    nav = '初回30分 無料相談を予約' if lang == 'ja' else 'Book a free 30-minute consultation'
     band = (f'<section class="blk cons-band"><div class="wrap cons-band-in">'
             f'<img src="{up}src/images/owner.jpg" alt="" loading="lazy" width="538" height="807">'
-            f'<div><h2>{h}</h2><a class="cons-link" href="{rel("consulting", lang)}">{nav}</a></div></div></section>\n')
+            f'<div><h2>{h}</h2><a class="cons-link" href="{rel("consulting", lang)}#contact">{nav}</a></div></div></section>\n')
     x = x.replace('</main>', band + '</main>', 1)
     return x
 
 def warm_a_html(x, name, lang):
     """デモA「白い食卓」だけのHTML変換。文言・リンクは変えない。"""
-    # 📞 と 📍 の絵文字（とその後の空白）だけを消す。番号と「地図」/「Map」は残す（07：語は足さない）
-    x = re.sub(r'(?:📞|📍)[  ]?', '', x)
     if name == 'index':
         # ショップと SNS を1つの帯にまとめる（中身・id はそのまま、外側を div.shop-sns で包むだけ）
         m = re.search(r'<section class="blk shop" id="shop">.*?</section>\n+<section class="blk sns-sec">.*?\n</div></section>\n', x, flags=re.S)
@@ -163,8 +165,8 @@ for name in PAGES:
     h = h.replace('<div class="copy">', NAV + '\n  <div class="copy">', 1)
     h = h.replace('</body>', '<script src="form.js?v=' + V + '"></script></body>', 1)
     # ── 日本語・英語を別URLに分けた版（split/）：/ と /en/ の2系統。公開サイトと同じ並びのフォルダで、リンクは相対パス ──
-    #    Warm Editorial のデモ（warm-a/ 白い食卓、warm-b/ 夜の店）も、同じページに上乗せCSSとHTML変換（warm()）を足して作る（2026-11-24。yuga が選ぶまで src/ には入れない）
-    for out, look in (('split', None), ('warm-a', 'a'), ('warm-b', 'b')):
+    #    Warm Editorial のデモ（warm-a/ 白い食卓、warm-b/ 黒板と赤い扉、warm-c/ 紺の誌面）も、同じページに上乗せCSSとHTML変換（warm()）を足して作る（2026-11-24。yuga が選ぶまで src/ には入れない）
+    for out, look in (('split', None), ('warm-a', 'a'), ('warm-b', 'b'), ('warm-c', 'c')):
         for lang in ('ja', 'en'):
             d = root/out/(('en'/pathlib.Path(LS.SLUG[name])) if lang == 'en' else pathlib.Path(LS.SLUG[name]))
             def rel(page, l, _d=d, _o=out):
