@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261124a'
+WARM_V = '20261124b'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -40,11 +40,17 @@ def warm(x, look, name, lang, up, rel):
     x = x.replace('</head>', f'<link rel="stylesheet" href="{up}assets/warm-{look}.css?v={WARM_V}"></head>', 1)
     x = warm_common(x, name, lang, up, rel)
     x = (warm_b_html if look == 'b' else warm_a_html)(x, name, lang)  # C（紺）は A と同じ組み方
+    if look == 'c' and name == 'index':
+        x = warm_c_reserve(x, lang)
     # 電話・地図の 📞 📍 は全案で消す（yuga 2026-11-24「地図とか電話はどれも絵文字なし」）。番号と「地図」/「Map」は残す
     x = re.sub(r'(?:📞|📍)[  ]?', '', x)
     # 元のフォントURLは Fraunces の指定（opsz,wght@9..144,500;600;700）が書式違いで 400 エラーになり、4書体とも読み込まれない。デモでは正しい書き方に直す（本番は要確認）
     x = x.replace('Fraunces:opsz,wght@9..144,500;600;700', 'Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700')
     x = x.replace('</body>', f'<script src="{up}assets/warm.js?v={WARM_V}"></script></body>', 1)
+    if look == 'c':
+        # 案C：差し色の切り替え（デモ用）など。html[data-acc] は先に決めておき、読み込み時のちらつきを防ぐ
+        x = x.replace('<html ', '<html data-acc="3" ', 1)
+        x = x.replace('</body>', f'<script src="{up}assets/warm-c.js?v={WARM_V}"></script></body>', 1)
     cur = rel(name, lang)
     sw = ('<p class="demo-switch">' + ('デザイン案：' if lang == 'ja' else 'Design: ')
           + ' / '.join(
@@ -83,6 +89,20 @@ def warm_common(x, name, lang, up, rel):
             f'<div><h2>{h}</h2><a class="cons-link" href="{rel("consulting", lang)}#contact">{nav}</a></div></div></section>\n')
     x = x.replace('</main>', band + '</main>', 1)
     return x
+
+def warm_c_reserve(x, lang):
+    """案C：店舗ごとの「◯◯店を予約」（3つとも同じ TableCheck の店舗選択画面へのリンク）をやめ、
+    キャンセルポリシーの後に、既存の「ご予約はこちらから」/「Make a reservation」の共通ボタンを1つ置く（yuga の問いを ux・批評で検討、2026-11-24）"""
+    m = re.search(r'<section class="blk stores" id="stores">.*?\n</div></section>\n', x, flags=re.S)
+    st = m.group(0)
+    hrefs = set(re.findall(r'<a class="r rsv" href="([^"]+)"', st))
+    assert len(hrefs) == 1, hrefs
+    href = hrefs.pop()
+    new, n = re.subn(r'<a class="r rsv" href="[^"]+">.*?</a>', '', st)
+    assert n == 3
+    label = 'ご予約はこちらから' if lang == 'ja' else 'Make a reservation'
+    new = new[:-len('</div></section>\n')] + f'  <p class="stores-rsv"><a class="btn rsv" href="{href}"><span lang="{lang}">{label}</span></a></p>\n</div></section>\n'
+    return x.replace(st, new, 1)
 
 def warm_a_html(x, name, lang):
     """デモA「白い食卓」だけのHTML変換。文言・リンクは変えない。"""
