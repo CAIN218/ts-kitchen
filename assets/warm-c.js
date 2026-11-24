@@ -2,7 +2,7 @@
    - 差し色は 3（金茶）で固定。切り替えの UI はなくした（plan 12）
    - ヘッダーの高さを --hd-h に入れる（固定のドロワーと FV の高さに使う）
    - SP の固定予約ボタンを、店舗欄・コンサルの入口が見えている間は隠す（html に warm-c-stop）
-   - ドロワーにヘッダーと同じ SNS を写す
+   - ドロワーにヘッダーと同じ SNS を写す。開いている間は幕（.wc-scrim）と inert（3回目の批評・QA）
    - お問い合わせ：?type=catering などで「お問い合わせの種類」を選んだ状態にする（plan 13） */
 (function(){
   var d=document,r=d.documentElement;
@@ -24,14 +24,22 @@
   }
 
   /* ドロワーが開いている間、裏のページを止める（overflow:hidden だけでは iPhone で動くため、body を今の位置で固定し、閉じたら同じ位置に戻す） */
-  var dr=d.getElementById('drawer'),y=0;
+  /* 開いている間は、下に半透明の紺の幕（タップで閉じる）を出し、main・footer・固定ボタンを inert にして Tab が裏へ抜けないようにする */
+  var dr=d.getElementById('drawer'),mb=d.getElementById('menuBtn'),y=0,sc=null;
+  function behind(on){[].forEach.call(d.querySelectorAll('body>main,body>footer,body>.fab,body>.cta-float,body>.awards-band,body>section'),function(el){on?el.setAttribute('inert',''):el.removeAttribute('inert')})}
+  if(dr&&mb){sc=d.createElement('div');sc.className='wc-scrim';sc.setAttribute('aria-hidden','true');d.body.appendChild(sc);
+    sc.addEventListener('click',function(){if(dr.classList.contains('open')){dr.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.focus({preventScroll:true})}})}
   if(dr&&'MutationObserver' in window){
     new MutationObserver(function(){
       var open=dr.classList.contains('open'),locked=r.classList.contains('warm-c-lock');
-      if(open&&!locked){y=window.scrollY;d.body.style.top=(-y)+'px';r.classList.add('warm-c-lock')}
-      else if(!open&&locked){r.classList.remove('warm-c-lock');d.body.style.top='';var sb=r.style.scrollBehavior;r.style.scrollBehavior='auto';window.scrollTo(0,y);r.style.scrollBehavior=sb}
+      if(open&&!locked){y=window.scrollY;d.body.style.top=(-y)+'px';r.classList.add('warm-c-lock');behind(true)}
+      else if(!open&&locked){behind(false);r.classList.remove('warm-c-lock');d.body.style.top='';var sb=r.style.scrollBehavior;r.style.scrollBehavior='auto';window.scrollTo(0,y);r.style.scrollBehavior=sb}
     }).observe(dr,{attributes:true,attributeFilter:['class']});
   }
+
+  /* ケータリングのチラシ：サムネイルは「チラシを見る」と同じリンクなので、Tab 順と読み上げから外す（見た目とクリックはそのまま） */
+  var fl=d.querySelector('.wrap.cater .flyer');
+  if(fl&&d.querySelector('.wrap.cater .row a[href="'+fl.getAttribute('href')+'"]')){fl.setAttribute('tabindex','-1');fl.setAttribute('aria-hidden','true')}
 
   /* ドロワーにも SNS（リンク先・ラベルは同じ） */
   var f=d.querySelector('.drawer-foot');

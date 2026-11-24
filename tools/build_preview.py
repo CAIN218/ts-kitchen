@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261124c'
+WARM_V = '20261124e'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -162,6 +162,9 @@ def warm_c_html(x, name, lang, up, rel):
         x = sub1(r'(<form class="cf7 demo"[^>]*>\n\s*)', lambda m: m.group(1) + contact_type_field(lang), x)
         # 企業名は任意に（個人の方・ケータリングのお客様も送れるように。要確認）
         x = sub1(r'(<span lang="(?:ja|en)">(?:企業名|Company name)</span>) <em>\*</em>', r'\1', x)
+    if name == 'about':
+        # 数字帯の長い語がSPで「認証レ／ストラン」と切れないよう、折り返してよい位置だけを示す（文字は変えない）
+        x = x.replace('<span lang="ja">グルテンフリー認証レストラン</span></div>', '<span lang="ja">グルテンフリー<wbr>認証レストラン</span></div>', 1)
     if name == 'consulting':
         x = sub1(r'(<form class="cf7 demo"[^>]*>\n\s*)', lambda m: m.group(1) + contact_type_field(lang, 'consulting'), x)
     return x

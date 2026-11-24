@@ -944,3 +944,95 @@ html[data-warm="c"] .wrap.cater:not(#_) .flyer{display:inline-flex!important;jus
 @media(max-width:900px){html[data-warm="c"] .hero:not(#_) .hero-in .row{flex-direction:row!important;align-items:stretch!important}}
 @media(max-width:640px){html[data-warm="c"] .hd .logo:not(#_) span{white-space:normal!important}}
 @media(max-width:640px){html[data-warm="c"] .menu-cats:not(#_){gap:0 4px!important}html[data-warm="c"] .menu-cats button:not(#_){font-size:14px!important;padding:8px 0!important}}
+
+/* ════════════════ 3回目の批評・QA の手直し（c-r3/critic.md） ════════════════ */
+
+/* High-2 SP ドロワー：下に半透明の紺の幕（warm-c.js が .wc-scrim を作る。タップで閉じる）。ドロワーの下端に細い罫線 */
+html[data-warm="c"] .wc-scrim{display:none}
+@media(max-width:1100px){
+  html[data-warm="c"] .wc-scrim{display:block;position:fixed;left:0;right:0;bottom:0;top:var(--hd-h,64px);z-index:55;background:rgba(28,43,69,.55);
+    opacity:0;visibility:hidden;transition:opacity .22s ease,visibility 0s .22s;-webkit-tap-highlight-color:transparent}
+  html[data-warm="c"].warm-c-lock .wc-scrim{opacity:1;visibility:visible;transition:opacity .22s ease,visibility 0s}
+  html[data-warm="c"] .drawer:not(#_){border-bottom:1px solid rgba(247,243,236,.4)!important}
+}
+@media(prefers-reduced-motion:reduce){html[data-warm="c"] .wc-scrim{transition:none!important}}
+
+/* QA Medium：ヘッダーの部品にフォーカスしたとき、scroll-padding-top（renew9.css）でページが上に動かないようにする */
+html[data-warm="c"] .hd :is(a,button):not(#_){scroll-margin-top:-200px}
+
+/* Medium-2 PC FV：店舗欄の -40px の重なり（renew5.css の曲線の帯の名残）をやめ、写真の下端と紺の欄の下端をそろえる */
+html[data-warm="c"] .stores:not(#_),html[data-warm="c"] .contact.dark:not(#_){margin-top:0!important}
+/* PC FV：H1 の右端が写真に近いので、文字を少し小さく（文字欄の右に 60px 以上空く） */
+@media(min-width:901px){html[data-warm="c"] .hero:not(#_) .hero-in h1{font-size:clamp(34px,3.2vw,46px)!important}}
+
+/* Medium-1 SP 受賞：「フードアクションニッポン」を 1 行に（字間 0、列の間 12px） */
+@media(max-width:640px){
+  html[data-warm="c"] .awards-band .badges:not(#_){column-gap:12px!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_),html[data-warm="c"] .awards-band .badges li:not(#_)>span{letter-spacing:0!important}
+}
+
+/* Medium-3 ケータリングのチラシ：PC では「タップで拡大」を出さない（導線は「チラシを見る」と、隣のサムネイル）。
+   サムネイルは同じリンクの重複なので、warm-c.js で Tab 順と読み上げから外す */
+@media(min-width:901px){
+  html[data-warm="c"] .wrap.cater .cater-vis .flyer:not(#_)>span{display:none!important}
+}
+
+/* Medium-4 メニュー PC：予約ボタン → 受賞の空き 96px、受賞の中身を 960px の欄に、「ご注文の前に」の本文を箱いっぱいに */
+html[data-warm="c"] body[data-page=menu] .menu-actions:not(#_){margin-bottom:0!important}
+html[data-warm="c"] body[data-page=menu] .awards-band:not(#_) .wrap{max-width:calc(960px + 2*var(--gutter))!important}
+html[data-warm="c"] body[data-page=menu] .notice:not(#_) p,html[data-warm="c"] body[data-page=menu] .notice:not(#_) li{max-width:none!important}
+@media(max-width:640px){html[data-warm="c"] body[data-page=menu] .menu-sec:not(#_){padding-bottom:64px!important}}
+@media(min-width:1101px){
+  html[data-warm="c"] body[data-page=menu] .awards-band .badges:not(#_){gap:16px!important}
+  html[data-warm="c"] body[data-page=menu] .awards-band .badges li:not(#_) img{width:56px!important;height:56px!important}
+}
+
+/* Low-1 メニュー SP：店の切り替えと料理の種類のタブの左右の端をそろえる（本文の端 = --gutter） */
+html[data-warm="c"] .menu-stores:not(#_),html[data-warm="c"] .menu-cats:not(#_){padding-left:0!important;padding-right:0!important}
+
+/* Medium-5 TOP PC 紹介：認証マークだけの左の欄をやめ、1 つの欄に。見出し → マークと導入文 → 3 項目。店内の写真は右の列 */
+@media(min-width:1101px){
+  html[data-warm="c"] .wrap.about:not(#_){grid-template-columns:88px minmax(0,1fr) 360px!important;grid-template-areas:"h2 h2 ph" "mark lead ph" "pts pts pts"!important;grid-template-rows:auto auto auto!important;gap:0 32px!important}
+  html[data-warm="c"] .wrap.about:not(#_)>img{width:88px!important;height:88px!important;object-fit:contain;margin:6px 0 0!important}
+  html[data-warm="c"] .wrap.about:not(#_) .lead{margin:0 0 48px!important;max-width:28em}
+  html[data-warm="c"] .wrap.about:not(#_) .about-ph{width:360px!important;height:240px!important;margin:0 0 48px!important}
+}
+/* SP 紹介：店内の写真は本文の幅いっぱい（16:9）。左に寄って右が半端に空くのをやめる */
+@media(max-width:640px){
+  html[data-warm="c"] .wrap.about:not(#_) .about-ph{width:100%!important;height:auto!important;aspect-ratio:16/9!important}
+}
+
+/* Low-2 PC ケータリングのリード：最大 約28字、文節で折り返す */
+html[data-warm="c"] .wrap.cater:not(#_) .tx>p:not(.mail){max-width:28em}
+
+/* Low-3 金のボタン：クリームの地では枠を外す（紺の地は今までどおり枠なし） */
+html[data-warm="c"][data-acc="3"]{--acc-edge-on-cream:transparent}
+
+/* 日本語の不自然な改行：文節で折り返す（店舗のリード、フッター、メニューの注意書きなど） */
+html[data-warm="c"] :is(main,footer) :is(p,li,figcaption,dd):lang(ja),html[data-warm="c"] footer .ft>div:lang(ja){word-break:auto-phrase;overflow-wrap:break-word;text-wrap:pretty}
+
+/* media：ヘッダーの予約ボタンをほかのページと同じように出す */
+@media(min-width:641px){html[data-warm="c"] body[data-page=media] .tools .hd-rsv:not(#_){visibility:visible}}
+/* media PC：左に案内の文、右にフォーム（右半分が空かないように） */
+@media(min-width:1101px){
+  html[data-warm="c"] body[data-page=media] .contact .wrap.narrow:not(#_){display:grid!important;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:0 clamp(48px,6vw,96px);align-items:start}
+  html[data-warm="c"] body[data-page=media] .contact .wrap.narrow:not(#_)>.lead{font-family:var(--f-head);font-size:clamp(18px,1.6vw,22px);line-height:1.8;color:var(--ink)!important;margin:0!important;position:sticky;top:120px}
+  html[data-warm="c"] body[data-page=media] .contact .wrap.narrow:not(#_)>form,html[data-warm="c"] body[data-page=media] .contact .wrap.narrow:not(#_)>form>p{max-width:none!important}
+}
+
+/* 3回目 再評価の手直し（作る係） */
+/* High：英語のコンサル数字帯（SP）で「10+ years」と説明が重なる → 数字の欄は中身の幅、説明は残りの幅 */
+@media(max-width:640px){
+  html[data-warm="c"] .nums3>div:not(#_){display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;column-gap:16px!important;align-items:baseline}
+  html[data-warm="c"] .nums3>div:not(#_)>b{min-width:0;width:auto!important}
+}
+/* 文節での折り返しを、短い文字の要素（span・表・ラベル）にも広げる */
+html[data-warm="c"] :is(main,footer) :is(span,td,th,dt,b,h2,h3,a):lang(ja){word-break:auto-phrase;overflow-wrap:break-word}
+/* 主要取引先は「／」で区切った社名ごとに折り返す（文言はそのまま。区切りの後ろで改行できる） */
+html[data-warm="c"] body[data-page=about] td>span:lang(ja){line-break:strict}
+/* 長い本文（注意書き・コンサルの冒頭リード）は、文節ではなく通常の折り返しに戻す（行の長さをそろえる） */
+html[data-warm="c"] :is(.notice p,.cons-lead,.cons-lead span,.only-text,.only-text span,.policy span):lang(ja):not(#_){word-break:normal;line-break:strict;text-wrap:wrap}
+/* about 768：2つの欄の上をそろえる */
+@media(min-width:641px) and (max-width:1100px){html[data-warm="c"] body[data-page=about] .wrap.cv:not(#_){align-items:start!important}}
+@media(min-width:641px){html[data-warm="c"] body[data-page=about] .wrap.cv:not(#_)>.cv-box+.cv-box{margin-top:0!important}}
+html[data-warm="c"] .hero-in .hero-sub:not(#_){text-wrap:balance}
