@@ -745,7 +745,7 @@ html[data-warm="c"]:has(#menuBtn[aria-expanded="true"]) .fab,html[data-warm="c"]
 }
 
 /* 5. 英語トップ 375：H1 の固定の改行をやめ、balance で 3 行に均す（1 語だけの行を作らない） */
-@media(max-width:640px){html[data-warm="c"][lang="en"] .hero-in h1 br{display:none}}
+/* （英語 H1 の改行は warm-c.js で空白に置き換え、balance で均す） */
 
 /* 6. ドロワー：SNS（warm-c.js がヘッダーの SNS を写す）と予約を、375 と 768 で同じ中身に */
 html[data-warm="c"] .drawer-foot .sns{display:none}
@@ -779,3 +779,168 @@ html[data-warm="c"] .demo-switch a,html[data-warm="c"] .demo-switch b,html[data-
 /* 10. メニューの店舗切り替え：選択中の下線は PC・SP とも紺 2px（renew の金色の印は出さない） */
 html[data-warm="c"] .menu-stores .tab-ind:not(#_),html[data-warm="c"] .menu-stores button:not(#_)::after,html[data-warm="c"] .menu-stores button:not(#_)::before{display:none!important}
 html[data-warm="c"] .menu-stores button:not(#_){border-bottom:0!important}
+
+/* ════════════════ 3回目（c-r3/plan.md「CSS / JS」1〜13。yuga 2026-11-24） ════════════════ */
+
+/* 2. 角丸：一律 0（40行）は残し、役割ごとに値を決める。ボタン・入力 6／本文中の写真 8／サムネイル 4／タグ 3／全幅の写真・帯 0 */
+html[data-warm="c"] .btn:not(#_),html[data-warm="c"] .fab:not(#_),html[data-warm="c"] .cta-float:not(#_),html[data-warm="c"] .hd .lang:not(#_),
+html[data-warm="c"] .cf7 input:not([type=checkbox]):not(#_),html[data-warm="c"] .cf7 select:not(#_),html[data-warm="c"] .cf7 textarea:not(#_),
+html[data-warm="c"] .menu-view .zoom:not(#_),html[data-warm="c"] .menu-view button:not(#_){border-radius:6px!important}
+html[data-warm="c"] .cater-ph:not(#_),html[data-warm="c"] .wrap.about .about-ph:not(#_),html[data-warm="c"] .owner img:not(#_),html[data-warm="c"] .cons-band img:not(#_),
+html[data-warm="c"] .founder img:not(#_),html[data-warm="c"] .biz .ph:not(#_),html[data-warm="c"] .menu-view a:not(#_),html[data-warm="c"] .menu-view img:not(#_),html[data-warm="c"] .notice:not(#_){border-radius:8px!important}
+html[data-warm="c"][data-stores] .cards .card .ph:not(#_),html[data-warm="c"] .ig a:not(#_),html[data-warm="c"] .shopbox .ph:not(#_),html[data-warm="c"] .flyer img:not(#_),html[data-warm="c"] .clip:not(#_){border-radius:4px!important}
+html[data-warm="c"] .tag:not(#_),html[data-warm="c"] .free-badge b:not(#_){border-radius:3px!important}
+
+/* 1. FV：PC は左に紺の文字欄（5）、右に料理の写真を全高で大きく（7）。画面の高さに収める */
+@media(min-width:901px){
+  html[data-warm="c"] .hero:not(#_){display:grid!important;grid-template-columns:minmax(0,5fr) minmax(0,7fr);height:clamp(560px,calc(100svh - var(--hd-h,73px)),900px);min-height:0!important}
+  html[data-warm="c"] .hero:not(#_)::after{grid-column:2;grid-row:1;height:100%!important;order:0;background-position:38% 50%!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in{grid-column:1;grid-row:1;display:flex!important;flex-direction:column;justify-content:center;align-items:flex-start;max-width:none!important;width:auto;margin:0!important;
+    padding:48px clamp(32px,4.4vw,64px) 48px max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter)))!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in h1{font-size:clamp(36px,3.9vw,56px)!important;line-height:1.45;margin:0 0 24px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .hero-sub{font-size:17px;margin:0 0 32px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .row{gap:12px!important;flex-wrap:wrap}
+  html[data-warm="c"] .hero:not(#_) .hero-in .sub{margin-top:20px!important}
+}
+/* 「メニューを見る」：紺の上の枠線ボタン（予約と同じ 52px） */
+html[data-warm="c"] .hero .row .btn.line:not(#_){display:inline-flex!important;align-items:center;justify-content:center;min-height:52px;padding:0 24px!important;border:1px solid #F4EFE6!important;border-radius:6px!important;text-decoration:none!important;color:#F4EFE6!important;font-weight:600}
+html[data-warm="c"] .hero .row .btn.line:not(#_) span{text-decoration:none!important;color:#F4EFE6!important}
+html[data-warm="c"] .hero .row .btn.line:not(#_):hover{background:rgba(244,239,230,.1)!important}
+@media(max-width:900px){
+  html[data-warm="c"] .hero:not(#_)::after{height:clamp(240px,50svh,520px)!important;background-position:40% 45%!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in{padding:24px var(--gutter) 28px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in h1{margin-bottom:12px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .row{display:flex!important;flex-wrap:nowrap;gap:10px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .row .btn.rsv{flex:1.4 1 0;width:auto!important;min-width:0;padding:0 12px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .row .btn.line{flex:1 1 0;min-width:0;padding:0 12px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .sub{margin-top:14px!important}
+}
+@media(max-width:640px){
+  html[data-warm="c"] .hero:not(#_) .hero-in h1{font-size:30px!important;line-height:1.5}
+  html[data-warm="c"] .hero:not(#_) .hero-in .hero-sub{font-size:15px!important;line-height:1.75;margin-bottom:18px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .row .btn{font-size:15px!important}
+  html[data-warm="c"] .hero:not(#_) .hero-in .sub{font-size:13px}
+}
+
+/* 3. 受賞：PC は両端を本文の端（1296px の枠）にそろえて space-between、上下 56px。SP は 2 列、マークが上・文字が下で中央 */
+html[data-warm="c"] .awards-band:not(#_){padding:56px 0!important;margin:0!important;position:relative;z-index:1}
+html[data-warm="c"] .awards-band:not(#_) .wrap{max-width:1296px!important}
+html[data-warm="c"] #catering:not(#_){margin-top:0!important}
+@media(min-width:1101px){
+  html[data-warm="c"] .awards-band .badges:not(#_){display:flex!important;justify-content:space-between;gap:24px!important;max-width:none!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_){flex:0 1 auto;width:auto!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_) img{width:72px!important;height:72px!important}
+}
+@media(max-width:640px){
+  html[data-warm="c"] .awards-band:not(#_){padding:40px 0!important}
+  html[data-warm="c"] .awards-band .badges:not(#_){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 16px!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_){flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important;gap:10px!important;font-size:13px!important;line-height:1.6}
+  html[data-warm="c"] .awards-band .badges li:not(#_)>span{text-align:center}
+  html[data-warm="c"] .awards-band .badges li:not(#_) img{width:56px!important;height:56px!important}
+}
+
+/* 4. メニューページ PC：見出しも本文も 960px の欄で中央。説明文・予約ボタンも中央。予約→受賞の空き 96px */
+html[data-warm="c"] body[data-page=menu] .page-hero .wrap:not(#_),html[data-warm="c"] body[data-page=menu] .menu-sec .wrap:not(#_){max-width:calc(960px + 2*var(--gutter))!important;margin-left:auto!important;margin-right:auto!important}
+html[data-warm="c"] body[data-page=menu] .menu-sec .wrap:not(#_)>*{max-width:none!important}
+html[data-warm="c"] body[data-page=menu] .menu-sec .hint:not(#_),html[data-warm="c"] body[data-page=menu] .menu-view figcaption:not(#_){text-align:center}
+html[data-warm="c"] body[data-page=menu] .menu-actions:not(#_){justify-content:center!important;text-align:center!important;display:flex!important}
+html[data-warm="c"] body[data-page=menu] .menu-sec:not(#_){padding-bottom:96px!important}
+html[data-warm="c"] body[data-page=menu] main:not(#_){padding-bottom:0!important}
+
+/* 9. メニューの種類のタブ：何項目でも 1 段の等分（上野のモーニングが 2 段目に落ちない） */
+html[data-warm="c"] .menu-cats:not(#_){display:grid!important;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-template-columns:none!important;gap:0 8px!important}
+html[data-warm="c"] .menu-cats button:not(#_){margin:0!important;width:100%;white-space:nowrap;letter-spacing:0;padding:8px 2px!important}
+
+/* 5. SP ヘッダー：高さ 64、ロゴ 40、店名 Fraunces 600 17px の 2 行、メニューボタン 44×44 */
+@media(max-width:640px){
+  html[data-warm="c"] .hd-in:not(#_){min-height:64px;padding-top:10px!important;padding-bottom:10px!important}
+  html[data-warm="c"] .hd .logo:not(#_){gap:10px!important}
+  html[data-warm="c"] .hd .logo:not(#_) img{width:40px!important;height:40px!important}
+  html[data-warm="c"] .hd .logo:not(#_) span{display:block!important;font-family:"Fraunces","Zen Old Mincho",serif!important;font-weight:600!important;font-size:17px!important;line-height:1.15;max-width:6.6em;letter-spacing:0}
+}
+html[data-warm="c"] .menu-btn:not(#_){width:44px!important;height:44px!important;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+@media(max-width:1100px){html[data-warm="c"] .menu-btn:not(#_){display:inline-flex!important}}
+html[data-warm="c"] .menu-btn:not(#_) span{width:24px!important;margin:0!important;position:static!important}
+
+/* 6. ドロワー：ヘッダーの下に重ねる（ページを押し下げない）。中でスクロール、開いている間は裏を動かさない。動きは transform だけ */
+@media(max-width:1100px){
+  html[data-warm="c"] .drawer:not(#_){position:fixed!important;left:0;right:0;top:var(--hd-h,64px);z-index:60;max-height:calc(100dvh - var(--hd-h,64px))!important;overflow-y:auto!important;overscroll-behavior:contain;
+    transform:translateY(-12px);visibility:hidden;transition:transform .22s cubic-bezier(.2,.7,.2,1),visibility 0s .22s!important}
+  html[data-warm="c"] .drawer.open:not(#_){transform:none;visibility:visible;transition:transform .22s cubic-bezier(.2,.7,.2,1),visibility 0s!important}
+  /* 開いている間は裏のページを固定（warm-c.js が html に warm-c-lock を付け、body を今の位置のまま止める。iPhone でも動かない） */
+  html[data-warm="c"].warm-c-lock body{position:fixed!important;left:0;right:0;width:100%;overflow:hidden;padding-top:var(--hd-h,64px)}
+  html[data-warm="c"].warm-c-lock .hd:not(#_){position:fixed!important;top:0;left:0;right:0;z-index:70}
+}
+@media(prefers-reduced-motion:reduce){html[data-warm="c"] .drawer:not(#_){transition:none!important}}
+
+/* 7. SP 店舗：右の余白（固定ボタンよけ）をやめて全幅に。#stores が見えている間は固定ボタンを隠す（warm-c.js）。電話・地図は 2 等分 44px */
+@media(max-width:640px){
+  html[data-warm="c"][data-stores] #stores .cards:not(#_),html[data-warm="c"][lang="en"][data-stores] #stores .cards:not(#_){padding-right:0!important}
+  html[data-warm="c"][data-stores] .cards .card:not(#_) td:first-child{width:104px!important}
+  html[data-warm="c"][data-stores] .cards .card:not(#_) td{font-size:14px!important}
+  html[data-warm="c"] .cards .card:not(#_) .acts{display:grid!important;grid-template-columns:1fr 1fr;gap:0 12px!important}
+  html[data-warm="c"] .cards .card:not(#_) .acts a:not(.r){justify-content:center!important;align-items:center!important;min-height:44px;border:1px solid var(--rule)!important;border-radius:6px!important;text-decoration:none!important}
+  /* 固定ボタンは標準の大きさに戻す（店舗欄では隠すので、小さくする必要がなくなった） */
+  html[data-warm="c"] .fab:not(#_){height:auto;min-height:52px!important;padding:0 22px!important;font-size:16px!important;right:16px!important;bottom:calc(16px + env(safe-area-inset-bottom))!important}
+}
+
+/* 8. ケータリング：見出し → リード → 写真 → 一覧 → ボタン。PC は見出しとリードを 2 列の上に通す。チラシは 96×128 */
+html[data-warm="c"] .wrap.cater:not(#_){display:grid!important;grid-template-columns:minmax(0,7fr) minmax(0,5fr)!important;
+  grid-template-areas:"h2 h2" "lead lead" "ph list" "ph row" "ph mail" "ph flyer";grid-template-rows:auto auto auto auto auto 1fr;gap:0 clamp(32px,5vw,80px)!important;align-items:start!important}
+html[data-warm="c"] .wrap.cater:not(#_)>.tx,html[data-warm="c"] .wrap.cater:not(#_) .cater-vis{display:contents!important}
+html[data-warm="c"] .wrap.cater:not(#_) h2{grid-area:h2;margin:0 0 12px!important;font-size:clamp(30px,3.4vw,48px)!important}
+html[data-warm="c"] .wrap.cater:not(#_) .tx>p:not(.mail){grid-area:lead;font-family:var(--f-head);font-size:clamp(17px,1.5vw,20px);line-height:1.75;max-width:34em;margin:0 0 clamp(28px,3vw,40px)!important}
+html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{grid-area:ph;width:100%!important;aspect-ratio:3/2;object-fit:cover}
+html[data-warm="c"] .wrap.cater:not(#_) .tx>ul{grid-area:list;margin:0 0 24px!important}
+html[data-warm="c"] .wrap.cater:not(#_) .row{grid-area:row;margin:0!important;display:flex!important;flex-wrap:wrap;gap:12px 24px!important;align-items:center}
+html[data-warm="c"] .wrap.cater:not(#_) .mail{grid-area:mail;margin:12px 0 0!important}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer{grid-area:flyer;margin:24px 0 0!important;align-self:start}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer img{width:96px!important;height:128px!important;object-fit:cover}
+@media(max-width:900px){
+  html[data-warm="c"] .wrap.cater:not(#_){grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"h2" "lead" "ph" "list" "row" "mail" "flyer";grid-template-rows:none}
+  html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{margin:0 0 24px!important}
+  html[data-warm="c"] .wrap.cater:not(#_) .tx>p:not(.mail){margin-bottom:24px!important}
+}
+@media(max-width:640px){
+  html[data-warm="c"] .wrap.cater:not(#_) h2{font-size:30px!important}
+  html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{width:calc(100% + 2*var(--gutter))!important;max-width:none!important;margin:0 calc(-1*var(--gutter)) 24px!important;border-radius:0!important}
+}
+
+/* 10. 私たちのレストランについて：店内の写真は小さく（PC 300×200、SP 240×160）、見出しとリードの後ろ。元の扉の拡大トリミングは使わない */
+html[data-warm="c"] .wrap.about:not(#_){grid-template-columns:minmax(0,3fr) minmax(0,5fr)!important;grid-template-areas:"mark h2" "mark lead" "mark ph" "mark pts"!important;grid-template-rows:auto auto auto 1fr;gap:0 clamp(32px,5vw,96px)!important}
+html[data-warm="c"] .wrap.about:not(#_)>div:not(.about-ph){display:contents!important}
+html[data-warm="c"] .wrap.about:not(#_)>img{grid-area:mark!important;align-self:start}
+html[data-warm="c"] .wrap.about:not(#_) h2{grid-area:h2!important;margin:0 0 12px!important}
+html[data-warm="c"] .wrap.about:not(#_) .lead{grid-area:lead!important;margin:0 0 28px!important}
+html[data-warm="c"] .wrap.about:not(#_) .about-ph{grid-area:ph!important;display:block!important;position:relative;overflow:hidden;width:300px!important;max-width:100%!important;height:200px!important;aspect-ratio:auto!important;margin:0 0 40px!important;align-self:start}
+html[data-warm="c"] .wrap.about:not(#_) .about-ph img{position:static!important;width:100%!important;height:100%!important;max-width:none!important;margin:0!important;object-fit:cover;object-position:center!important;aspect-ratio:auto!important}
+html[data-warm="c"] .wrap.about:not(#_) .points{grid-area:pts!important}
+@media(max-width:1100px){
+  html[data-warm="c"] .wrap.about:not(#_){grid-template-columns:64px minmax(0,1fr)!important;grid-template-areas:"h2 h2" "mark lead" "ph ph" "pts pts"!important;grid-template-rows:none;gap:0 20px!important}
+  html[data-warm="c"] .wrap.about:not(#_)>img{width:64px!important;height:64px!important;margin:0!important}
+  html[data-warm="c"] .wrap.about:not(#_) .lead{margin:0 0 28px!important;font-size:clamp(18px,2.2vw,22px)}
+}
+@media(max-width:640px){
+  html[data-warm="c"] .wrap.about:not(#_) .about-ph{width:240px!important;height:160px!important;margin-bottom:32px!important}
+}
+
+/* 11. コンサルの入口：肩書き → 見出し → 3 領域（罫線で区切った文字の列。カードにしない）→ 初回無料 → ボタン */
+html[data-warm="c"] .cons-band-in:not(#_){align-items:center!important}
+html[data-warm="c"] .cons-band:not(#_) .cons-role{font-size:14px;color:var(--ink-2)!important;margin:0 0 12px!important;letter-spacing:.02em}
+html[data-warm="c"] .cons-band:not(#_) h2{margin:0 0 28px!important}
+html[data-warm="c"] .cons-band:not(#_) .cons-areas{list-style:none;padding:0!important;margin:0 0 20px!important;max-width:36em}
+html[data-warm="c"] .cons-band:not(#_) .cons-areas li{border-top:1px solid var(--rule-d,#C9BEA8);padding:12px 0!important;margin:0!important;font-family:var(--f-head);font-size:clamp(17px,1.5vw,20px);color:var(--ink)!important}
+html[data-warm="c"] .cons-band:not(#_) .cons-areas li:last-child{border-bottom:1px solid var(--rule-d,#C9BEA8)}
+html[data-warm="c"] .cons-band:not(#_) .cons-areas li::before{content:none!important;display:none!important}
+html[data-warm="c"] .cons-band:not(#_) .cons-free{font-size:14px;color:var(--ink-2)!important;margin:0 0 20px!important}
+html[data-warm="c"] .cons-band:not(#_) .btn.cons-link{background:var(--acc)!important;color:var(--acc-ink)!important;text-decoration:none!important;font-size:16px!important;min-height:52px;padding:0 28px!important;border:1px solid var(--acc-edge-on-cream)!important}
+html[data-warm="c"] .cons-band:not(#_) .btn.cons-link:hover{background:var(--acc-hover)!important}
+@media(max-width:640px){html[data-warm="c"] .cons-band:not(#_) .btn.cons-link{display:flex!important;width:100%}}
+
+/* 13. お問い合わせの種類（select）：入力欄と同じ見た目。矢印は文字色の三角（背景画像は使わず、ブラウザ標準を残す） */
+html[data-warm="c"] .cf7 select:not(#_){appearance:auto;-webkit-appearance:auto;cursor:pointer}
+html[data-warm="c"] .cf7 .ctype label:not(#_){display:block}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer{display:inline-flex!important;justify-self:start;align-items:flex-end;gap:14px!important;width:auto!important}
+@media(max-width:900px){html[data-warm="c"] .hero:not(#_) .hero-in .row{flex-direction:row!important;align-items:stretch!important}}
+@media(max-width:640px){html[data-warm="c"] .hd .logo:not(#_) span{white-space:normal!important}}
+@media(max-width:640px){html[data-warm="c"] .menu-cats:not(#_){gap:0 4px!important}html[data-warm="c"] .menu-cats button:not(#_){font-size:14px!important;padding:8px 0!important}}

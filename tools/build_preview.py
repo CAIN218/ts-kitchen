@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261124b'
+WARM_V = '20261124c'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -40,8 +40,10 @@ def warm(x, look, name, lang, up, rel):
     x = x.replace('</head>', f'<link rel="stylesheet" href="{up}assets/warm-{look}.css?v={WARM_V}"></head>', 1)
     x = warm_common(x, name, lang, up, rel)
     x = (warm_b_html if look == 'b' else warm_a_html)(x, name, lang)  # C（紺）は A と同じ組み方
-    if look == 'c' and name == 'index':
-        x = warm_c_reserve(x, lang)
+    if look == 'c':
+        if name == 'index':
+            x = warm_c_reserve(x, lang)
+        x = warm_c_html(x, name, lang, up, rel)
     # 電話・地図の 📞 📍 は全案で消す（yuga 2026-11-24「地図とか電話はどれも絵文字なし」）。番号と「地図」/「Map」は残す
     x = re.sub(r'(?:📞|📍)[  ]?', '', x)
     # 元のフォントURLは Fraunces の指定（opsz,wght@9..144,500;600;700）が書式違いで 400 エラーになり、4書体とも読み込まれない。デモでは正しい書き方に直す（本番は要確認）
@@ -103,6 +105,66 @@ def warm_c_reserve(x, lang):
     label = 'ご予約はこちらから' if lang == 'ja' else 'Make a reservation'
     new = new[:-len('</div></section>\n')] + f'  <p class="stores-rsv"><a class="btn rsv" href="{href}"><span lang="{lang}">{label}</span></a></p>\n</div></section>\n'
     return x.replace(st, new, 1)
+
+CONTACT_TYPES = (('media', '取材のお問い合わせ', 'Media inquiry'),
+                 ('consulting', 'コンサルティングのご相談', 'Consulting'),
+                 ('catering', 'ケータリング・お弁当', 'Catering & Bento'),
+                 ('other', 'その他', 'Other'))
+def contact_type_field(lang, sel=None):
+    """お問い合わせの種類（yuga 2026-11-24 の提案。デモのみ。本番のCF7は変えない）"""
+    lab = 'お問い合わせの種類' if lang == 'ja' else 'Type of inquiry'
+    ph = '選択してください' if lang == 'ja' else 'Please choose'
+    opts = ''.join(f'<option value="{k}"{" selected" if k == sel else ""}>{ja if lang == "ja" else en}</option>'
+                   for k, ja, en in CONTACT_TYPES)
+    first = '' if sel else f'<option value="" disabled selected>{ph}</option>'
+    return (f'<p class="ctype"><label><span lang="{lang}">{lab}</span> <em>*</em>'
+            f'<select name="type" required>{first}{opts}</select></label></p>\n    ')
+
+def warm_c_html(x, name, lang, up, rel):
+    """案C 3回目（yuga 2026-11-24）のHTML変換。文言は既存のもの＋yuga が指定した言葉だけ。"""
+    ja = lang == 'ja'
+    # 英字の小見出し（COMPANY / MENU など）は消す（「いらないかな」）。日付はそのまま残す
+    x = re.sub(r'\s*<p class="eyebrow">[A-Z ]+</p>', '', x)
+    x = x.replace('<p class="eyebrow">MEDIA ・ ', '<p class="eyebrow date">', 1)
+    # コンサルの3領域に付いた英字のタグ（GFCO · Certification / R&D / Advisory）も同じ扱いで消す
+    x = re.sub(r'<p class="svc-tag">[^<]*</p>', '', x)
+    # 「取材のお問い合わせ」を「お問い合わせ」に（ナビ・ドロワー・フッター）
+    x = x.replace('<span lang="ja">取材のお問い合わせ</span>', '<span lang="ja">お問い合わせ</span>')
+    x = x.replace('<span lang="en">Media inquiries</span>', '<span lang="en">Contact</span>')
+    if name == 'index':
+        # TOPの2つ目のボタン：店舗を見る → メニューを見る（menu へ）
+        x = sub1(r'<a class="btn line" href="#stores"><span lang="(ja|en)">(店舗を見る|See locations)</span></a>',
+                 f'<a class="btn line" href="{rel("menu", lang)}"><span lang="{lang}">{"メニューを見る" if ja else "See the menu"}</span></a>', x)
+        # 私たちのレストランについて：ドアの写真 → 店内の写真
+        x = sub1(r'<img class="a1" src="([^"]*?)entrance\.jpg"', r'<img class="a1" src="\1interior.jpg" width="450" height="303"', x)
+        # ケータリング：メールソフトを開くボタン → お問い合わせ（種類＝ケータリング）。メールアドレスの表記は残す
+        x = sub1(r'<a class="btn" href="mailto:glutenfree@glutenfree\.co\.jp\?subject=[^"]*"><span lang="(?:ja|en)">(?:メールで相談する|Email us)</span></a>',
+                 f'<a class="btn" href="{rel("media", lang)}?type=catering#contact"><span lang="{lang}">{"お問い合わせ" if ja else "Contact"}</span></a>', x)
+        # コンサルへの入口：誰が・何を・初回無料を、コンサルページの既存の文言で
+        role = ('アジア初GFFS認証レストラン創業者 ／ グルテンフリー専門コンサルタント' if ja
+                else "Founder of Asia's first GFFS-certified restaurant / Gluten-free consultant")
+        areas = (('GFCO認証 取得支援', 'グルテンフリー 商品開発', '現状診断・売上改善アドバイザリー') if ja
+                 else ('GFCO certification support', 'Gluten-free product development', 'Business review & sales advisory'))
+        free = '初回30分は無料 ・ オンライン相談OK' if ja else 'First 30 minutes free · Online consultations available'
+        x = sub1(r'(<section class="blk cons-band"><div class="wrap cons-band-in">.*?<div>)(<h2>.*?</h2>)(<a class="cons-link"[^>]*>.*?</a>)',
+                 lambda m: (m.group(1) + f'<p class="cons-role"><span lang="{lang}">{role}</span></p>' + m.group(2)
+                            + '<ul class="cons-areas">' + ''.join(f'<li><span lang="{lang}">{a.replace("&", "&amp;")}</span></li>' for a in areas) + '</ul>'
+                            + f'<p class="cons-free"><span lang="{lang}">{free}</span></p>' + m.group(3).replace('cons-link', 'btn cons-link')),
+                 x, flags=re.S)
+    if name == 'media':
+        x = x.replace('メディア・取材のお問い合わせ｜', 'お問い合わせ｜').replace('Media inquiries | ', 'Contact | ')
+        x = x.replace('<h1><span lang="ja">メディア・取材のお問い合わせ</span></h1>', '<h1><span lang="ja">お問い合わせ</span></h1>')
+        x = x.replace('<h1><span lang="en">Media and press inquiries</span></h1>', '<h1><span lang="en">Contact</span></h1>')
+        x = x.replace('取材・掲載などのご相談は、下のフォームからお送りください。',
+                      '取材・コンサルティング・ケータリングなどのご相談は、下のフォームからお送りください。')
+        x = x.replace('For interview requests, coverage and other media inquiries, please use the form below.',
+                      'For media, consulting, catering and other inquiries, please use the form below.')
+        x = sub1(r'(<form class="cf7 demo"[^>]*>\n\s*)', lambda m: m.group(1) + contact_type_field(lang), x)
+        # 企業名は任意に（個人の方・ケータリングのお客様も送れるように。要確認）
+        x = sub1(r'(<span lang="(?:ja|en)">(?:企業名|Company name)</span>) <em>\*</em>', r'\1', x)
+    if name == 'consulting':
+        x = sub1(r'(<form class="cf7 demo"[^>]*>\n\s*)', lambda m: m.group(1) + contact_type_field(lang, 'consulting'), x)
+    return x
 
 def warm_a_html(x, name, lang):
     """デモA「白い食卓」だけのHTML変換。文言・リンクは変えない。"""
