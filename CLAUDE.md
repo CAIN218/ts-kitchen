@@ -22,7 +22,7 @@
 | ui-designer | 画面構成・余白・文字組み・部品・レスポンシブ | Sonnet |
 | content | 日英の対応・情報の優先順位（文章は書き換えず要確認事項を出す） | Sonnet |
 | frontend-engineer | 実装・実装上の問題・速度・アクセシビリティ | Opus |
-| design-critic | 実装前と実装後の批評（Critical / High / Medium / Low） | Sonnet（Opus との比較で質が落ちたら Opus に戻す） |
+| design-critic | 実装前と実装後の批評（Critical / High / Medium / Low） | Opus（2026-11-24 に Sonnet と比較し、yuga さんの指摘の見落としがあったため Opus に戻した） |
 | qa | 表示崩れ・リンク・スマホ・操作の検証（Critical / High / Medium / Low） | Sonnet |
 
 ### 進め方
