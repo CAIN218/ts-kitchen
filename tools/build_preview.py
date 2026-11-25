@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125m'
+WARM_V = '20261125n'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -137,7 +137,7 @@ def warm_c_html(x, name, lang, up, rel):
     x = x.replace('</head>', '<script>(function(){var r=document.documentElement,q=new URLSearchParams(location.search),s=window.localStorage,g=function(k){try{return s.getItem(k)}catch(e){return null}},p=function(k,v){try{s.setItem(k,v)}catch(e){}};'
                   'r.setAttribute("data-bg","b");'  # 背景は B 玄米に決定（yuga 2026-11-25）。切り替えはやめた
                   
-                  'var f=q.get("fv");if(/^[78]$/.test(f||""))p("wc-fv2",f);else f=g("wc-fv2");r.setAttribute("data-fv",f==="8"?"8":"7")})()</script></head>', 1)
+                  'r.setAttribute("data-fv","8")})()</script></head>', 1)  # 12回目：FV は「全画面の写真からふわっと」（fv=8）に決定（yuga 2026-11-25）。切り替えはやめた
     if name == 'index':
         # TOPの2つ目のボタン：店舗を見る → メニューを見る（menu へ）
         x = sub1(r'<a class="btn line" href="#stores"><span lang="(ja|en)">(店舗を見る|See locations)</span></a>',
@@ -169,7 +169,7 @@ def warm_c_html(x, name, lang, up, rel):
         # 認証の文は、すぐ下の about の lead（既存の文）と同じもの
         cert = ('アジアで初めて、グルテンフリーの認証を取得したレストランです。' if ja
                 else 'We were the first restaurant in Asia to receive gluten-free certification.')
-        fvx = (f'<div class="fvx fvx-band"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></div>'
+        fvx = (f'<div class="fvx fvx-band"><picture><source media="(max-width:767px)" srcset="{up}assets/img/food-sp.jpg" width="943" height="1464"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></picture></div>'
                f'<img class="fvx fvx-har" src="{up}src/images/harajuku.jpg" alt="" width="1448" height="1086" loading="eager" decoding="async">'
                f'<p class="fvx fvx-cert"><img class="fvx-mark" src="{up}src/images/award-gig.png" alt="Validated Gluten Free Safe Spot" width="320" height="320" loading="eager" decoding="async">'
                f'<span class="fvx-cert-t"><span lang="{lang}">{cert}</span></span></p>')
@@ -324,6 +324,16 @@ for name in PAGES:
                     btn = '初回30分 無料相談を予約' if lang == 'ja' else 'Book a free 30-minute consultation'
                     x, n = re.subn(r'<form class="cf7 demo".*?</form>', f'<p class="cons-cta cons-go"><a class="btn" href="../media/?type=consulting#contact"><span lang="{lang}">{btn}</span></a></p>', x, count=1, flags=re.S)
                     assert n == 1, 'consulting: form not found'
+                    # 12回目：無料相談のボタン（ヘッダー・ドロワー・浮きボタン・本文）はどれもお問い合わせページへ（種類＝コンサルティング）
+                    x, n = re.subn(r'href="#contact"', 'href="../media/?type=consulting#contact"', x)
+                    assert n >= 4, ('consulting: #contact links', n)
+                if look == 'c' and name == 'media':
+                    # 12回目（yuga 2026-11-25）：フォームの上の案内文は外す（見出し「お問い合わせ」と種類の選択で足りる）。メッセージを必須に
+                    x, n = re.subn(r'\n\s*<p class="lead"><span lang="(?:ja|en)">(?:取材・コンサルティング・ケータリングなどのご相談は、下のフォームからお送りください。|For media, consulting, catering and other inquiries, please use the form below\.)</span></p>', '', x, count=1)
+                    assert n == 1, 'media: lead not found'
+                    x, n = re.subn(r'(<span lang="(?:ja|en)">(?:メッセージ|Message)</span>)(<textarea)', r'\1 <em>*</em>\2', x, count=1)
+                    assert n == 1, 'media: message label not found'
+                    x = x.replace('<textarea rows="6">', '<textarea rows="6" required>', 1)
                 if look == 'c' and name == 'index':
                     # 9回目：FV の文字（H1〜注記）を .fv8-panel で包む。試し案 ?fv=8 で「下からふわっと出る板」にするため。写真1枚の案（fv=7）では display:contents で今まで通り
                     x = re.sub(r'(<div class="hero-in">.*?</p>\n)(\s*<p lang="(?:ja|en)" class="hero-sub">.*?<div class="sub">.*?</div>)', lambda m: m.group(1) + '<div class="fv8-panel">' + m.group(2) + '</div>', x, count=1, flags=re.S)
