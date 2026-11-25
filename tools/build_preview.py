@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261126a'
+WARM_V = '20261126b'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -492,7 +492,6 @@ for name in PAGES:
                     dk1 = re.search(r"url\('(" + re.escape(WP) + r"2021/08/DK1-[^']+)'\)", x).group(1)
                     slides = [
                         (f'{up}src/images/harajuku.jpg', 1448, 1086, T('原宿店', 'Harajuku'), ''),
-                        (f'{up}assets/img/stores/counter.jpg', 648, 420, '', ''),
                         (dk1, 0, 0, T('六本木店', 'Roppongi'), ''),
                         (WP + '2025/10/S__104693771-1024x574.jpg', 1024, 574, T('上野広小路店', 'Ueno-Hirokoji'), WP + '2025/10/S__104693771.jpg'),
                         (f'{up}assets/img/stores/entrance.jpg', 1600, 1131, '', ''),

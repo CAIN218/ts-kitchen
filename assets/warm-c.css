@@ -1963,3 +1963,8 @@ html[data-warm="c"] .wc-car .car-s:not(#_):last-child{margin-right:0}
 html[data-warm="c"] .wc-car .car-nav:not(#_):not(#_){position:static;margin:10px 0 0 auto;width:max-content}
 @media(min-width:1024px){html[data-warm="c"] .wc-car .car-s:not(#_){flex-basis:82%}}
 html[data-warm="c"] .wrap.about .about-ph.wc-car:not(#_):not(#_):not(#_){background:none!important}
+
+/* 19回目：ビューアーの中ではブラウザの拡大・スクロールをさせない。ボタンは連打してもブラウザが拡大しない */
+html[data-warm="c"] .wc-zoom:not(#_){touch-action:none;overscroll-behavior:contain}
+html[data-warm="c"] .wc-zoom button:not(#_){touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+html[data-warm="c"] .wc-zoom .wz-bar button:disabled:not(#_){opacity:.35;cursor:default}
