@@ -166,7 +166,8 @@
   var stage=v.querySelector('.wz-stage'),im=stage.querySelector('img'),s=1,x=0,y=0,MAX=5,last=null,opener=null;
   function base(){var sw=stage.clientWidth,sh=stage.clientHeight,r=Math.min(sw/im.naturalWidth,sh/im.naturalHeight);return {w:im.naturalWidth*r,h:im.naturalHeight*r,sw:sw,sh:sh}}
   function clamp(){var b=base(),mx=Math.max(0,(b.w*s-b.sw)/2),my=Math.max(0,(b.h*s-b.sh)/2);x=Math.min(mx,Math.max(-mx,x));y=Math.min(my,Math.max(-my,y))}
-  function apply(anim){clamp();im.style.transition=anim?'transform .28s cubic-bezier(.2,.7,.2,1)':'none';im.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';v.classList.toggle('zoomed',s>1.01)}
+  function apply(anim){clamp();im.style.transition=anim?'transform .28s cubic-bezier(.2,.7,.2,1)':'none';im.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';v.classList.toggle('zoomed',s>1.01);
+    var bi=v.querySelector('.wz-in'),bo=v.querySelector('.wz-out'),bf=v.querySelector('.wz-fit');if(bi){bi.disabled=s>=MAX-.01;bo.disabled=s<=1.01;bf.disabled=s<=1.01}}
   /* 画面上の点 (cx,cy) を中心に倍率を変える */
   function zoomAt(ns,cx,cy,anim){ns=Math.min(MAX,Math.max(1,ns));var r=stage.getBoundingClientRect(),px=cx-r.left-r.width/2,py=cy-r.top-r.height/2;
     x=px-(px-x)*ns/s;y=py-(py-y)*ns/s;s=ns;apply(anim)}
@@ -176,6 +177,11 @@
   function close(){v.hidden=true;v.classList.remove('hint-off');d.documentElement.classList.remove('wz-open');if(opener&&opener.focus)opener.focus()}
   addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#menuLink')){e.preventDefault();e.stopImmediatePropagation();open()}},true);
   v.querySelector('.wz-close').addEventListener('click',close);
+  /* 19回目（yuga「プラスボタンでズームすると詰むことがある」）：ボタンを続けて押した時に、ブラウザ自体の拡大（ダブルタップ・ピンチ）が起きて、画面が固まったように見えていた。
+     ビューアーの中ではブラウザの拡大を止め、＋−は上限・下限で押せなくし、「全体」でいつでも元に戻せるようにする */
+  ['gesturestart','gesturechange','gestureend'].forEach(function(t){d.addEventListener(t,function(e){if(!v.hidden)e.preventDefault()},{passive:false})});
+  v.addEventListener('touchend',function(e){if(e.target.closest('button')){e.preventDefault();e.target.closest('button').click()}},{passive:false});
+  v.addEventListener('touchmove',function(e){if(e.touches.length>1||!e.target.closest('.wz-stage'))e.preventDefault()},{passive:false});
   v.querySelector('.wz-in').addEventListener('click',function(){var c=center();zoomAt(s*1.6,c[0],c[1],true)});
   v.querySelector('.wz-out').addEventListener('click',function(){var c=center();zoomAt(s/1.6,c[0],c[1],true)});
   v.querySelector('.wz-fit').addEventListener('click',function(){s=1;x=0;y=0;apply(true)});
@@ -229,6 +235,19 @@
     tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(idx()+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(idx()-1)}});
     var to;tr.addEventListener('scroll',function(){clearTimeout(to);to=setTimeout(upd,60)},{passive:true});
     addEventListener('resize',function(){go(idx())});
+    /* 19回目（yuga「勝手に秒数ごとで横にスライドするように」）：4.5秒ごとに次へ。最後まで行ったら最初に戻る。
+       指やマウスで触っている間・キーボードで操作中・画面の外にある時・タブが裏にある時は止める。動きを減らす設定の人には自動で送らない */
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,hold=false,timer=null,seen=false,resume=0;
+    function tick(){if(hold||!seen||d.hidden||Date.now()<resume)return;var n=slides().length,i=idx();if(n<2)return;go(i>=n-1?0:i+1)}
+    function pauseFor(ms){resume=Date.now()+ms}
+    if(!reduce){timer=setInterval(tick,4500);
+      if('IntersectionObserver' in window)new IntersectionObserver(function(es){seen=es[0].isIntersecting},{threshold:.4}).observe(car);else seen=true;
+      car.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')hold=true});
+      car.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')hold=false});
+      car.addEventListener('focusin',function(){hold=true});car.addEventListener('focusout',function(){hold=false});
+      tr.addEventListener('touchstart',function(){pauseFor(8000)},{passive:true});
+      [prev,next].forEach(function(b){b.addEventListener('click',function(){pauseFor(8000)})});
+    }
     upd();
   });
 })();
