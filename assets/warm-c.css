@@ -1473,3 +1473,12 @@ html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{fo
 @media(min-width:768px) and (max-width:1023px){html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{justify-self:end!important}}
 /* 案6 1600 以上：店内の写真が細くならないよう、料理と店内を 1:1 に */
 @media(min-width:1600px){html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:calc(var(--edge) + clamp(440px,38vw,620px)) minmax(0,1fr) minmax(0,1fr)!important}}
+/* ケータリングの帯の写真を、Canva の横長（お弁当・ボウル・スープ）に差し替え（yuga 2026-11-25 OK）。横長なので 2:1 で切る */
+html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{aspect-ratio:2/1!important;height:auto!important;object-position:45% 50%}
+/* 横長の写真なので、PC では写真を2列にまたがせ、その下に説明（左）とチラシ（右）を置く */
+@media(min-width:768px){
+  html[data-warm="c"] .wrap.cater:not(#_){grid-template-areas:"h2 h2" "lead lead" "ph ph" "list flyer" "row flyer" "mail flyer"!important;grid-template-rows:auto auto auto auto auto 1fr!important}
+  html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{aspect-ratio:1876/725!important;margin:0 0 clamp(28px,3vw,40px)!important}
+  html[data-warm="c"] .wrap.cater:not(#_) .flyer{margin:0!important;justify-self:end}
+}
+@media(max-width:767px){html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{aspect-ratio:16/9!important;object-position:40% 50%}}
