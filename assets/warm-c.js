@@ -151,3 +151,83 @@
     io.observe(tl);
   });
 })();
+
+/* 18回目（yuga 2026-11-25「メニューのズーム機能をもっと使いやすく」）：メニュー画像の拡大ビューアー。
+   ピンチ・ダブルタップ（ダブルクリック）・ホイールで拡大、ドラッグで移動、＋／−／全体ボタン、Esc で閉じる。元の lightbox の代わりに開く */
+(function(){
+  var d=document,link=d.getElementById('menuLink'),src=d.getElementById('menuImg');if(!link||!src)return;
+  var en=(d.documentElement.getAttribute('lang')||'').indexOf('en')===0,L=function(j,e){return en?e:j};
+  var v=d.createElement('div');v.className='wc-zoom';v.hidden=true;v.setAttribute('role','dialog');v.setAttribute('aria-modal','true');v.setAttribute('aria-label',L('メニュー画像','Menu image'));
+  v.innerHTML='<div class="wz-stage"><img alt="" draggable="false"></div>'+
+    '<div class="wz-bar"><button type="button" class="wz-out" aria-label="'+L('縮小','Zoom out')+'">−</button><button type="button" class="wz-fit">'+L('全体','Fit')+'</button><button type="button" class="wz-in" aria-label="'+L('拡大','Zoom in')+'">＋</button></div>'+
+    '<button type="button" class="wz-close" aria-label="'+L('閉じる','Close')+'">✕</button>'+
+    '<p class="wz-hint">'+L('ピンチ・ダブルタップで拡大、ドラッグで移動','Pinch or double-tap to zoom, drag to move')+'</p>';
+  d.body.appendChild(v);
+  var stage=v.querySelector('.wz-stage'),im=stage.querySelector('img'),s=1,x=0,y=0,MAX=5,last=null,opener=null;
+  function base(){var sw=stage.clientWidth,sh=stage.clientHeight,r=Math.min(sw/im.naturalWidth,sh/im.naturalHeight);return {w:im.naturalWidth*r,h:im.naturalHeight*r,sw:sw,sh:sh}}
+  function clamp(){var b=base(),mx=Math.max(0,(b.w*s-b.sw)/2),my=Math.max(0,(b.h*s-b.sh)/2);x=Math.min(mx,Math.max(-mx,x));y=Math.min(my,Math.max(-my,y))}
+  function apply(anim){clamp();im.style.transition=anim?'transform .28s cubic-bezier(.2,.7,.2,1)':'none';im.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';v.classList.toggle('zoomed',s>1.01)}
+  /* 画面上の点 (cx,cy) を中心に倍率を変える */
+  function zoomAt(ns,cx,cy,anim){ns=Math.min(MAX,Math.max(1,ns));var r=stage.getBoundingClientRect(),px=cx-r.left-r.width/2,py=cy-r.top-r.height/2;
+    x=px-(px-x)*ns/s;y=py-(py-y)*ns/s;s=ns;apply(anim)}
+  function center(){var r=stage.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]}
+  function open(){opener=d.activeElement;im.src=src.currentSrc||src.src;im.alt=src.alt;s=1;x=0;y=0;apply(false);v.hidden=false;d.documentElement.classList.add('wz-open');v.querySelector('.wz-close').focus();
+    setTimeout(function(){v.classList.add('hint-off')},2600)}
+  function close(){v.hidden=true;v.classList.remove('hint-off');d.documentElement.classList.remove('wz-open');if(opener&&opener.focus)opener.focus()}
+  addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#menuLink')){e.preventDefault();e.stopImmediatePropagation();open()}},true);
+  v.querySelector('.wz-close').addEventListener('click',close);
+  v.querySelector('.wz-in').addEventListener('click',function(){var c=center();zoomAt(s*1.6,c[0],c[1],true)});
+  v.querySelector('.wz-out').addEventListener('click',function(){var c=center();zoomAt(s/1.6,c[0],c[1],true)});
+  v.querySelector('.wz-fit').addEventListener('click',function(){s=1;x=0;y=0;apply(true)});
+  d.addEventListener('keydown',function(e){if(v.hidden)return;var c=center();
+    if(e.key==='Escape')close();else if(e.key==='+'||e.key==='=')zoomAt(s*1.6,c[0],c[1],true);else if(e.key==='-')zoomAt(s/1.6,c[0],c[1],true);
+    else if(/^Arrow/.test(e.key)){e.preventDefault();var k=60;if(e.key==='ArrowLeft')x+=k;if(e.key==='ArrowRight')x-=k;if(e.key==='ArrowUp')y+=k;if(e.key==='ArrowDown')y-=k;apply(true)}
+    else if(e.key==='Tab'){var f=[].slice.call(v.querySelectorAll('button')),i=f.indexOf(d.activeElement);e.preventDefault();f[(i+(e.shiftKey?f.length-1:1))%f.length].focus()}});
+  stage.addEventListener('wheel',function(e){e.preventDefault();zoomAt(s*Math.exp(-e.deltaY*.0022),e.clientX,e.clientY,false)},{passive:false});
+  /* ポインター：1本でドラッグ、2本でピンチ、素早く2回でダブルタップ */
+  var pts={},start=null,tap=0,moved=false;
+  stage.addEventListener('pointerdown',function(e){stage.setPointerCapture(e.pointerId);pts[e.pointerId]=[e.clientX,e.clientY];moved=false;
+    var ids=Object.keys(pts);if(ids.length===2){var a=pts[ids[0]],b=pts[ids[1]];start={dist:Math.hypot(a[0]-b[0],a[1]-b[1]),s:s}}else start=null});
+  stage.addEventListener('pointermove',function(e){if(!pts[e.pointerId])return;var p=pts[e.pointerId],dx=e.clientX-p[0],dy=e.clientY-p[1];pts[e.pointerId]=[e.clientX,e.clientY];
+    var ids=Object.keys(pts);if(Math.abs(dx)+Math.abs(dy)>2)moved=true;
+    if(ids.length===2&&start){var a=pts[ids[0]],b=pts[ids[1]],dist=Math.hypot(a[0]-b[0],a[1]-b[1]);zoomAt(start.s*dist/start.dist,(a[0]+b[0])/2,(a[1]+b[1])/2,false)}
+    else if(ids.length===1&&s>1){x+=dx;y+=dy;apply(false)}});
+  function up(e){var was=Object.keys(pts).length;delete pts[e.pointerId];if(Object.keys(pts).length<2)start=null;
+    if(was===1&&!moved){var now=Date.now();if(now-tap<320){zoomAt(s>1.01?1:2.5,e.clientX,e.clientY,true);tap=0}else tap=now}}
+  stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
+  addEventListener('resize',function(){if(!v.hidden)apply(false)});
+  /* 押せることがわかるように、メニュー画像に「タップで拡大」の札 */
+  var tag=d.createElement('span');tag.className='wz-tag';tag.setAttribute('aria-hidden','true');tag.textContent=L('タップで拡大','Tap to zoom');link.appendChild(tag);
+})();
+
+/* 18回目：写真の原寸への差し替え（data-hq）。原寸が読めた時だけ入れ替え、読めなければ今の画像のまま */
+(function(){
+  [].forEach.call(document.querySelectorAll('[data-hq]'),function(el){
+    var u=el.getAttribute('data-hq'),t=new Image();t.decoding='async';
+    t.onload=function(){if(el.tagName==='IMG'){el.removeAttribute('srcset');el.src=u}else el.style.backgroundImage='url("'+u+'")'};
+    t.src=u;
+  });
+})();
+
+/* 18回目：「私たちのレストランについて」の店舗写真カルーセル。指でスワイプ（scroll-snap）、‹ › ボタン、← → キー。自動では動かさない */
+(function(){
+  var d=document;
+  [].forEach.call(d.querySelectorAll('.wc-car'),function(car){
+    var tr=car.querySelector('.car-track'),cnt=car.querySelector('.car-count'),prev=car.querySelector('.car-prev'),next=car.querySelector('.car-next');
+    function slides(){return [].slice.call(tr.querySelectorAll('.car-s'))}
+    /* 読めない写真（本番サーバーの画像が表示できない時など）は、その1枚を外す */
+    [].forEach.call(tr.querySelectorAll('img[data-car-img]'),function(im){
+      function bad(){var f=im.closest('.car-s');if(f&&slides().length>1){f.remove();upd()}}
+      if(im.complete&&im.naturalWidth===0&&im.getAttribute('src'))bad();else im.addEventListener('error',bad);
+    });
+    function idx(){return Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth))}
+    function upd(){var n=slides().length,i=Math.min(n-1,idx());cnt.textContent=(i+1)+' / '+n;prev.disabled=i<=0;next.disabled=i>=n-1;
+      slides().forEach(function(s,k){s.setAttribute('aria-label',(k+1)+' / '+n);s.toggleAttribute('inert',k!==i)})}
+    function go(i){var n=slides().length;i=Math.max(0,Math.min(n-1,i));tr.scrollTo({left:i*tr.clientWidth,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+    prev.addEventListener('click',function(){go(idx()-1)});next.addEventListener('click',function(){go(idx()+1)});
+    tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(idx()+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(idx()-1)}});
+    var to;tr.addEventListener('scroll',function(){clearTimeout(to);to=setTimeout(upd,60)},{passive:true});
+    addEventListener('resize',function(){go(idx())});
+    upd();
+  });
+})();
