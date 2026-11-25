@@ -39,7 +39,7 @@ def main_html(lang, up):
 <section class="pd-fv" aria-labelledby="pd-h1">
   <div class="pd-wrap pd-fv-tx">
     <h1 id="pd-h1" class="pd-h1">{t("T&#39;sの商品", "T&#39;s Products")}</h1>
-    <p class="pd-lead">{t("お店で販売している、T&#39;sオリジナルの商品です。販売は店頭のみです。", "Original T&#39;s products, sold at our restaurants only.")}</p>
+    <p class="pd-lead">{t("T&#39;sオリジナルの商品です。販売は店頭のみです。", "Original T&#39;s products. Sold at our restaurants only.")}</p>
     <p class="pd-jump"><a class="pd-go" href="#wholesale">{t("卸売をご希望の事業者様へ", "For wholesale inquiries")}</a></p>
   </div>
 </section>
