@@ -1458,3 +1458,18 @@ html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{fo
   html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(36px,3.4vw,52px)!important;line-height:1.15!important}
   html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{font-size:16px}
 }
+/* FV 7回目 再評価の小さな直し（20261125g）：批評 Medium-A・B、Low-1・2 */
+@media(min-width:1024px){
+  /* 案4 英語：H1 が2行なので、下寄せだと左上が大きく空く。上下の真ん中に置く */
+  html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in{grid-template-rows:auto auto auto auto minmax(240px,100fr)}
+  html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{align-self:center}
+}
+@media(max-width:767px){
+  /* 案4・案6 SP：FV の下の空きを詰め、次の区画との間を一定にする */
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in{padding-bottom:32px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"]) .hero:not(#_):not(#_)+*{padding-top:56px!important}
+}
+/* 案5 768：マークの右端を本文の右端にそろえる */
+@media(min-width:768px) and (max-width:1023px){html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{justify-self:end!important}}
+/* 案6 1600 以上：店内の写真が細くならないよう、料理と店内を 1:1 に */
+@media(min-width:1600px){html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:calc(var(--edge) + clamp(440px,38vw,620px)) minmax(0,1fr) minmax(0,1fr)!important}}
