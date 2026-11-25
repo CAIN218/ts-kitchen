@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125s'
+WARM_V = '20261125t'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -475,6 +475,43 @@ for name in PAGES:
                     ]
                     for a_, b_ in NAME_FIX:
                         x = x.replace(a_, b_)
+                    # 18回目（yuga 2026-11-25「全ての写真は元データを使って画質の良いものに」）：
+                    # 店内・入口は、手元にある一番大きい元（Canva の書き出し）に。WP の縮小版（-1024x574・Instagram の low）は、原寸（full）が読めた時だけ差し替える（data-hq、warm-c.js）
+                    x = x.replace('src/images/interior.jpg" width="450" height="303"', 'assets/img/stores/counter.jpg" width="648" height="420"')
+                    x = x.replace('src/images/interior.jpg', 'assets/img/stores/counter.jpg')
+                    x = x.replace('src/images/entrance.jpg" alt="" width="1200" height="800"', 'assets/img/stores/entrance.jpg" alt="" width="1600" height="1131"')
+                    x = x.replace('src/images/entrance.jpg', 'assets/img/stores/entrance.jpg')
+                    x = re.sub(r"""style="background-image:url\('(https://glutenfree\.co\.jp/wp-content/uploads/2025/10/S__104693771)-1024x574\.jpg'\)\"""",
+                               lambda m: f"style=\"background-image:url('{m.group(1)}-1024x574.jpg')\" data-hq=\"{m.group(1)}.jpg\"", x)
+                    x = re.sub(r"""style="background-image:url\('(https://glutenfree\.co\.jp/wp-content/uploads/sb-instagram-feed-images/[^']+)low\.jpg'\)\"""",
+                               lambda m: f"style=\"background-image:url('{m.group(1)}low.jpg')\" data-hq=\"{m.group(1)}full.jpg\"", x)
+                if look == 'c' and name == 'index':
+                    # 18回目（yuga「私たちのレストランについての写真を、カルーセルのように店舗の写真を何枚も見られるように」）
+                    T = (lambda j, e: j if lang == 'ja' else e)
+                    WP = 'https://glutenfree.co.jp/wp-content/uploads/'
+                    dk1 = re.search(r"url\('(" + re.escape(WP) + r"2021/08/DK1-[^']+)'\)", x).group(1)
+                    slides = [
+                        (f'{up}src/images/harajuku.jpg', 1448, 1086, T('原宿店', 'Harajuku'), ''),
+                        (f'{up}assets/img/stores/counter.jpg', 648, 420, '', ''),
+                        (dk1, 0, 0, T('六本木店', 'Roppongi'), ''),
+                        (WP + '2025/10/S__104693771-1024x574.jpg', 1024, 574, T('上野広小路店', 'Ueno-Hirokoji'), WP + '2025/10/S__104693771.jpg'),
+                        (f'{up}assets/img/stores/entrance.jpg', 1600, 1131, '', ''),
+                    ]
+                    def slide(i, sl):
+                        u, w, h, cap, hq = sl
+                        wh = f' width="{w}" height="{h}"' if w else ''
+                        hqa = f' data-hq="{hq}"' if hq else ''
+                        alt = cap or T('店内の写真', 'Inside the restaurant')
+                        c = f'<figcaption>{cap}</figcaption>' if cap else ''
+                        return (f'<figure class="car-s" role="group" aria-roledescription="slide" aria-label="{i + 1} / {len(slides)}">'
+                                f'<img src="{u}"{wh}{hqa} alt="{alt}" loading="{"eager" if i == 0 else "lazy"}" decoding="async" data-car-img>{c}</figure>')
+                    car = (f'<div class="about-ph r3 wc-car" role="region" aria-roledescription="carousel" aria-label="{T("店舗の写真", "Restaurant photos")}">'
+                           f'<div class="car-track" tabindex="0">' + ''.join(slide(i, sl) for i, sl in enumerate(slides)) + '</div>'
+                           f'<div class="car-nav"><button type="button" class="car-prev" aria-label="{T("前の写真", "Previous photo")}">‹</button>'
+                           f'<span class="car-count" aria-live="polite">1 / {len(slides)}</span>'
+                           f'<button type="button" class="car-next" aria-label="{T("次の写真", "Next photo")}">›</button></div></div>')
+                    x, n = re.subn(r'<div class="about-ph r3"><img class="a1" [^>]*></div>', lambda m: car, x, count=1)
+                    assert n == 1, 'index: about-ph carousel'
                 if look == 'c' and name == 'menu':
                     # 15回目（yuga 2026-11-25「料理写真を主役に」）：見出しのすぐ下に料理写真の帯。メニュー表はその下にすぐ続く
                     x, n = re.subn(r'(<div class="page-hero"><div class="wrap">.*?</div></div>)', lambda m: m.group(1) + f'\n<figure class="menu-photo"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></figure>', x, count=1, flags=re.S)
