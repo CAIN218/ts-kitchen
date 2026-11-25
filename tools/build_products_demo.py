@@ -12,6 +12,12 @@ V = "20261125v3"
 
 NAV = {"ja": ("商品", "会社概要", "卸売・お取り扱い"), "en": ("Products", "About us", "Wholesale")}
 
+def slot_style(k, up):
+    """写真ファイルがある時だけ背景に指定する（無い間は空の枠だけで、404を出さない）。"""
+    f = R / "assets" / "img" / "products" / f"slot-{k}.jpg"
+    return f' style="background-image:url({up}assets/img/products/slot-{k}.jpg)"' if f.exists() else ""
+
+
 def main_html(lang, up):
     t = (lambda a, b: a if lang == "ja" else b)
     items = [
@@ -21,7 +27,7 @@ def main_html(lang, up):
         ("karaage", t("唐揚げ粉", "Karaage mix"), t("28品目アレルゲンフリー", "Free from the 28 Japanese-listed allergens")),
     ]
     lis = "".join(
-        f'<li class="pd-item"><div class="pd-slot" data-slot="{k}" role="img" aria-label="{n}"></div>'
+        f'<li class="pd-item"><div class="pd-slot" data-slot="{k}" role="img" aria-label="{n}"{slot_style(k, up)}></div>'
         f'<h2 class="pd-name">{n}</h2><p class="pd-note">{d}</p></li>' for k, n, d in items)
     return f'''<main id="top" class="pd">
 <section class="pd-fv" aria-labelledby="pd-h1">
