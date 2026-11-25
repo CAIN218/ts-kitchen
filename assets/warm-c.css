@@ -1954,3 +1954,12 @@ html[data-warm="c"] .wc-car .car-count{min-width:3.2em;text-align:center;font-si
 @media(min-width:1024px){
   html[data-warm="c"] .wrap.about:not(#_):not(#_){grid-template-columns:88px minmax(0,1fr) minmax(0,520px)!important;grid-template-rows:auto 1fr auto!important}
 }
+
+/* 18回目の続き（yuga「カルーセルになってない」）：次の写真が右に少し見えるようにして、めくれることが一目でわかるように */
+html[data-warm="c"] .wrap.about .about-ph.wc-car:not(#_):not(#_){aspect-ratio:auto!important;overflow:visible}
+html[data-warm="c"] .wc-car .car-track:not(#_){gap:8px;height:auto;position:relative}
+html[data-warm="c"] .wc-car .car-s:not(#_){flex:0 0 84%;height:auto;aspect-ratio:3/2}
+html[data-warm="c"] .wc-car .car-s:not(#_):last-child{margin-right:0}
+html[data-warm="c"] .wc-car .car-nav:not(#_):not(#_){position:static;margin:10px 0 0 auto;width:max-content}
+@media(min-width:1024px){html[data-warm="c"] .wc-car .car-s:not(#_){flex-basis:82%}}
+html[data-warm="c"] .wrap.about .about-ph.wc-car:not(#_):not(#_):not(#_){background:none!important}
