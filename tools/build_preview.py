@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125c'
+WARM_V = '20261125d'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
