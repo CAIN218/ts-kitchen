@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125i'
+WARM_V = '20261125j'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -133,11 +133,11 @@ def warm_c_html(x, name, lang, up, rel):
     x = x.replace('<span lang="en">Media inquiries</span>', '<span lang="en">Contact</span>')
     # 4回目：SP のメニューボタンを3本線に（2本だと切れて見える）
     x = x.replace('<span></span><span></span></button>', '<span></span><span></span><span></span></button>')
-    # 4回目：背景色（?bg=a|b|c|d、既定 b）と FV（?fv=1|2|3）のデモ。描画前に html の属性を決めて、ちらつきを防ぐ
+    # 背景は B 玄米、FV は 8回目の「写真1枚」（data-fv=7）に決定。切り替えはやめた（yuga 2026-11-25）。描画前に html の属性を決めて、ちらつきを防ぐ
     x = x.replace('</head>', '<script>(function(){var r=document.documentElement,q=new URLSearchParams(location.search),s=window.localStorage,g=function(k){try{return s.getItem(k)}catch(e){return null}},p=function(k,v){try{s.setItem(k,v)}catch(e){}};'
                   'r.setAttribute("data-bg","b");'  # 背景は B 玄米に決定（yuga 2026-11-25）。切り替えはやめた
                   
-                  'var f=q.get("fv");if(/^[0-6]$/.test(f||""))p("wc-fv",f);else f=g("wc-fv");if(f&&f!=="0")r.setAttribute("data-fv",f)})()</script></head>', 1)
+                  'r.setAttribute("data-fv","7");try{s.removeItem("wc-fv")}catch(e){}})()</script></head>', 1)
     if name == 'index':
         # TOPの2つ目のボタン：店舗を見る → メニューを見る（menu へ）
         x = sub1(r'<a class="btn line" href="#stores"><span lang="(ja|en)">(店舗を見る|See locations)</span></a>',

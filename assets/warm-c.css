@@ -1286,53 +1286,53 @@ html[data-warm="c"] .hero .fvx:not(#_):not(#_),html[data-warm="c"] .hero-in h1 b
 html[data-warm="c"][lang="en"] .hero-in h1 br.en-br:not(#_){display:none}
 
 /* ── 共通（4〜6） ── */
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_){display:block!important;height:auto!important;min-height:0!important;background:var(--paper)!important;color:var(--ink)!important;overflow:hidden}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_)::after,html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_)::before{display:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in{display:grid!important;width:100%;max-width:none!important;margin:0!important;background:none!important;animation:none!important;color:var(--ink)!important;
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_){display:block!important;height:auto!important;min-height:0!important;background:var(--paper)!important;color:var(--ink)!important;overflow:hidden}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_)::after,html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_)::before{display:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in{display:grid!important;width:100%;max-width:none!important;margin:0!important;background:none!important;animation:none!important;color:var(--ink)!important;
   grid-template-columns:minmax(0,1fr);gap:0!important;align-items:start}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in>*{grid-column:auto;grid-row:auto;margin:0!important;max-width:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in h1{grid-area:h1;font-weight:500;letter-spacing:.01em;color:var(--ink)!important;white-space:nowrap;text-wrap:nowrap}
-html[data-warm="c"][lang="ja"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero-in h1 br.fvx-br:not(#_):not(#_){display:inline!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .hero-sub{grid-area:sub;font-size:15px!important;line-height:1.8!important;color:rgba(28,43,69,.75)!important;padding:0!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row{grid-area:row;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:4px!important;padding:0!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .sub{grid-area:note;margin-top:10px!important;padding:0!important;font-size:13px!important;line-height:1.6;color:rgba(28,43,69,.75)!important;white-space:normal!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-band{display:block!important;grid-area:band;overflow:hidden;position:relative}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-band img{display:block;border-radius:0!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;display:flex!important;align-items:center;gap:12px}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-mark{display:block;flex:none;width:48px;height:auto;border-radius:0}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-cert-t{display:none}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in>*{grid-column:auto;grid-row:auto;margin:0!important;max-width:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in h1{grid-area:h1;font-weight:500;letter-spacing:.01em;color:var(--ink)!important;white-space:nowrap;text-wrap:nowrap}
+html[data-warm="c"][lang="ja"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero-in h1 br.fvx-br:not(#_):not(#_){display:inline!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .hero-sub{grid-area:sub;font-size:15px!important;line-height:1.8!important;color:rgba(28,43,69,.75)!important;padding:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row{grid-area:row;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:4px!important;padding:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .sub{grid-area:note;margin-top:10px!important;padding:0!important;font-size:13px!important;line-height:1.6;color:rgba(28,43,69,.75)!important;white-space:normal!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-band{display:block!important;grid-area:band;overflow:hidden;position:relative}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-band img{display:block;border-radius:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;display:flex!important;align-items:center;gap:12px}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-mark{display:block;flex:none;width:48px;height:auto;border-radius:0}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-cert-t{display:none}
 /* 予約：金茶のボタン。SP は幅いっぱい・高さ52px */
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{display:flex!important;flex:none!important;width:100%!important;min-height:52px!important;height:52px;padding:0 16px!important;align-items:center;justify-content:center;
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{display:flex!important;flex:none!important;width:100%!important;min-height:52px!important;height:52px;padding:0 16px!important;align-items:center;justify-content:center;
   background:var(--acc)!important;color:var(--acc-ink)!important;border:0!important;border-radius:2px!important;font-size:16px!important;font-weight:600;line-height:1.3;box-shadow:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv span{color:var(--acc-ink)!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv:hover{background:var(--acc-hover)!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv span{color:var(--acc-ink)!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv:hover{background:var(--acc-hover)!important}
 /* メニューを見る：文字のリンク（押せる範囲は高さ 44px） */
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{display:inline-flex!important;flex:none!important;align-self:flex-start;align-items:center;justify-content:flex-start;width:auto!important;min-height:44px!important;padding:0!important;
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{display:inline-flex!important;flex:none!important;align-self:flex-start;align-items:center;justify-content:flex-start;width:auto!important;min-height:44px!important;padding:0!important;
   border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;font-size:16px!important;font-weight:500;
   color:var(--ink)!important;text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:4px!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line span{color:inherit!important;text-decoration:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line:hover{background:none!important;text-decoration-thickness:2px!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) :focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line span{color:inherit!important;text-decoration:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line:hover{background:none!important;text-decoration-thickness:2px!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) :focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px!important}
 /* 英語の H1 は折り返す（SP は元の改行を見せず、balance で均す） */
-html[data-warm="c"][lang="en"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in h1{white-space:normal;text-wrap:balance;letter-spacing:0}
+html[data-warm="c"][lang="en"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in h1{white-space:normal;text-wrap:balance;letter-spacing:0}
 @media(min-width:768px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row{flex-direction:row!important;align-items:center!important;gap:12px 28px!important;flex-wrap:wrap!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{width:auto!important;height:56px;min-height:56px!important;padding:0 36px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{align-self:center}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row{flex-direction:row!important;align-items:center!important;gap:12px 28px!important;flex-wrap:wrap!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{width:auto!important;height:56px;min-height:56px!important;padding:0 36px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{align-self:center}
 }
 /* High-1：SP と 768 は「予約 → 注記 → メニューを見る」。.row を外し、ボタン2つを .hero-in の格子に直接置く（各案の areas に rsv・note・line） */
 @media(max-width:1023px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row{display:contents!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{grid-area:rsv;margin:20px 0 0!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .sub{margin-top:8px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{grid-area:line;justify-self:start;margin:8px 0 0!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row{display:contents!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{grid-area:rsv;margin:20px 0 0!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .sub{margin-top:8px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{grid-area:line;justify-self:start;margin:8px 0 0!important}
 }
 @media(min-width:768px) and (max-width:1023px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{justify-self:start}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{justify-self:start}
 }
 @media(min-width:1024px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .hero-sub{font-size:17px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .sub{font-size:14px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .hero-sub{font-size:17px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .sub{font-size:14px!important}
 }
 
 /* ── 案4「一行の店」：玄米色の地に大きな明朝の3行。写真は food の帯1本。SP は帯が H1 とサブの間 ── */
@@ -1466,8 +1466,8 @@ html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{fo
 }
 @media(max-width:767px){
   /* 案4・案6 SP：FV の下の空きを詰め、次の区画との間を一定にする */
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in{padding-bottom:32px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"]) .hero:not(#_):not(#_)+*{padding-top:56px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in{padding-bottom:32px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_)+*{padding-top:56px!important}
 }
 /* 案5 768：マークの右端を本文の右端にそろえる */
 @media(min-width:768px) and (max-width:1023px){html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{justify-self:end!important}}
@@ -1488,3 +1488,43 @@ html[data-warm="c"] :is(.btn,.fab,.cta-float,input,select,textarea,.tag,.free-ba
 }
 /* トリップアドバイザーの画像は周りに透明の余白があり、ほかのマークより小さく見える。余白の分だけ拡大して大きさをそろえる */
 html[data-warm="c"] .awards-band .badges:not(#_):not(#_) img[src*="award-tripadvisor"]{transform:scale(1.3)!important}
+
+/* ============================================================
+   8回目（20261125j）：トップの FV を作り直し（yuga「大きく写真一枚・シンプルでおしゃれ・紺は上のバーだけ」）
+   これまでの FV 案（今・1〜6）はすべてやめ、この形を既定にする（html[data-fv="7"] は head のスクリプトが常に付ける）
+   - 料理の写真1枚を画面の幅いっぱいに大きく置く。紺の面はヘッダーだけで、FV の地は玄米色
+   - 写真の下に H1（左）と、サブ・予約・メニュー・注記（右）。GIG の認証マークは写真の右下に小さく置く
+   - スマホは 375×667 でも予約ボタンが最初の画面に入る高さにする
+   ============================================================ */
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in{position:relative;grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"band" "h1" "sub" "rsv" "note" "line";padding:0 var(--gutter) 32px!important}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band{margin:0 calc(-1*var(--gutter))!important;height:clamp(200px,calc(100svh - 64px - 340px),420px)}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;margin:0}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-cert{grid-area:band;align-self:end;justify-self:end;margin:0 0 12px!important;position:relative;z-index:1}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-mark{width:52px}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(28px,8vw,36px)!important;line-height:1.4!important;margin:24px 0 0!important}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:12px!important}
+html[data-warm="c"][lang="en"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(26px,7vw,34px)!important;line-height:1.2!important}
+@media(min-width:768px){
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band{height:clamp(320px,calc(100svh - 72px - 300px),560px)}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-mark{width:72px}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-cert{margin:0 0 20px!important}
+}
+@media(min-width:1024px){
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_){height:max(600px,calc(100svh - var(--hd-h,72px)))!important}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in{height:100%;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:48px!important;
+    grid-template-rows:minmax(320px,1fr) auto auto auto;grid-template-areas:"band band" "h1 sub" "h1 row" "h1 note";padding:0 var(--edge) clamp(32px,5svh,56px)!important;align-content:stretch}
+  /* 写真は画面の端から端まで。高さは FV の残り（文字の段の分を引いた分）を全部使う */
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band{height:auto!important;margin:0 calc(-1*var(--edge)) clamp(32px,5svh,48px)!important;align-self:stretch}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band img{position:absolute;inset:0}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-cert{margin:0 0 clamp(52px,7svh,72px)!important;justify-self:end}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-mark{width:88px}
+  /* H1 は2行（「食の制限から、可能性を味わう／レストランです。」）。最初の改行だけ隠す */
+  html[data-warm="c"][lang="ja"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1 br:not(.fvx-br){display:none!important}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{margin:0!important;align-self:start;font-size:clamp(36px,calc((100vw - 2*var(--edge) - 48px)*7/12/14.6),60px)!important;line-height:1.45!important}
+  html[data-warm="c"][lang="en"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(34px,calc((100vw - 2*var(--edge) - 48px)*7/12/15),54px)!important;line-height:1.15!important}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin:.4em 0 0!important}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in .row{margin-top:20px!important}
+}
+/* 受賞マークの帯は、トップと会社概要だけに置く（yuga 2026-11-25、情報を減らす T1） */
+html[data-warm="c"] body:is([data-page="menu"],[data-page="consulting"],[data-page="media"],[data-page="products"]) .awards-band:not(#_){display:none!important}
