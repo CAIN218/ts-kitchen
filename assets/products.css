@@ -18,10 +18,6 @@ html[data-warm="c"] .pd .pd-lead:not(#_){font-family:var(--f-body);font-size:16p
 html[data-warm="c"] .pd-list{padding:40px 0 56px}
 html[data-warm="c"] .pd-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 16px}
 html[data-warm="c"] .pd-slot{aspect-ratio:4/5;background-color:var(--kinari);background-size:cover;background-position:center;background-repeat:no-repeat;margin-bottom:14px}
-html[data-warm="c"] .pd-slot[data-slot="tempura"]{background-image:url(img/products/slot-tempura.jpg)}
-html[data-warm="c"] .pd-slot[data-slot="hotsauce"]{background-image:url(img/products/slot-hotsauce.jpg)}
-html[data-warm="c"] .pd-slot[data-slot="takoyaki"]{background-image:url(img/products/slot-takoyaki.jpg)}
-html[data-warm="c"] .pd-slot[data-slot="karaage"]{background-image:url(img/products/slot-karaage.jpg)}
 html[data-warm="c"] .pd .pd-name:not(#_){font-family:var(--f-head);font-weight:500!important;font-size:18px!important;line-height:1.5;letter-spacing:.02em;color:var(--ink)!important;margin:0 0 4px!important}
 html[data-warm="c"] .pd .pd-note:not(#_){font-size:13px;line-height:1.7;color:var(--ink-2,var(--ink))!important;opacity:.85;word-break:auto-phrase;text-wrap:balance}
 
