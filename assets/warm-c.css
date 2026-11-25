@@ -1618,3 +1618,20 @@ html[data-warm="c"] body[data-page="menu"] .menu-sec:not(#_){padding-top:clamp(1
 html[data-warm="c"] body[data-page="menu"] .menu-sec .wrap:not(#_){display:flex!important;flex-direction:column}
 html[data-warm="c"] body[data-page="menu"] .menu-sec .notice:not(#_){order:5;margin:clamp(28px,3vw,40px) 0 0!important}
 html[data-warm="c"] body[data-page="menu"] .menu-sec .menu-actions:not(#_){order:6}
+
+/* 11回目（20261125m）
+   - スマホの FV（試し案 fv=8）：下から出る帯を小さくし、料理を大きく見せる（PC は変えない）
+   - コンサル：ページ下の相談フォームをやめ、お問い合わせページへのボタンにしたので、2列の組み方を外す */
+@media(max-width:767px){
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{padding:14px var(--gutter) 14px!important;grid-template-columns:minmax(0,1fr) auto!important;column-gap:16px;
+    grid-template-areas:"h1 h1" "sub sub" "rsv rsv" "note line"!important}
+  html[data-warm="c"][lang="ja"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1 br:not(.fvx-br){display:none!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{font-size:clamp(19px,5.6vw,23px)!important;line-height:1.45!important}
+  html[data-warm="c"][lang="en"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{font-size:clamp(18px,5vw,21px)!important;line-height:1.25!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .hero-sub{font-size:12px!important;line-height:1.6!important;margin-top:4px!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .row .btn.rsv{margin-top:10px!important;min-height:46px!important;height:46px}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .row .btn.line{margin-top:2px!important;min-height:36px!important;align-self:center;justify-self:end;font-size:12px!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .sub{font-size:11px!important;margin-top:6px!important}
+}
+html[data-warm="c"] #contact.contact .wrap.narrow:not(#_):not(#_){display:block!important}
+html[data-warm="c"] #contact .cons-go:not(#_){margin-top:28px!important}

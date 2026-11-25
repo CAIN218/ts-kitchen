@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125l'
+WARM_V = '20261125m'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -319,6 +319,11 @@ for name in PAGES:
             x = x.replace('</head>', alt + '</head>', 1)
             if look:
                 x = warm(x, look, name, lang, up, rel)
+                if look == 'c' and name == 'consulting':
+                    # 11回目（yuga 2026-11-25）：ページ下の相談フォームはやめ、お問い合わせページ（種類＝コンサルティング）へ送る。ボタンの文言は同じページの既存のもの
+                    btn = '初回30分 無料相談を予約' if lang == 'ja' else 'Book a free 30-minute consultation'
+                    x, n = re.subn(r'<form class="cf7 demo".*?</form>', f'<p class="cons-cta cons-go"><a class="btn" href="../media/?type=consulting#contact"><span lang="{lang}">{btn}</span></a></p>', x, count=1, flags=re.S)
+                    assert n == 1, 'consulting: form not found'
                 if look == 'c' and name == 'index':
                     # 9回目：FV の文字（H1〜注記）を .fv8-panel で包む。試し案 ?fv=8 で「下からふわっと出る板」にするため。写真1枚の案（fv=7）では display:contents で今まで通り
                     x = re.sub(r'(<div class="hero-in">.*?</p>\n)(\s*<p lang="(?:ja|en)" class="hero-sub">.*?<div class="sub">.*?</div>)', lambda m: m.group(1) + '<div class="fv8-panel">' + m.group(2) + '</div>', x, count=1, flags=re.S)
