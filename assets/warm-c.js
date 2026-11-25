@@ -69,7 +69,7 @@
       if(i)p.appendChild(d.createTextNode(' / '));
       var b=d.createElement('button');b.type='button';b.textContent=o[1];b.setAttribute('aria-pressed',String(o[0]===cur));
       b.addEventListener('click',function(){
-        if(o[0]===def)r.removeAttribute(attr);else r.setAttribute(attr,o[0]);
+        if(o[0]===def&&attr!=='data-fv')r.removeAttribute(attr);else r.setAttribute(attr,o[0]);
         try{localStorage.setItem(key,o[0])}catch(e){}
         [].forEach.call(p.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x===b))});
         dispatchEvent(new Event('scroll'));
@@ -79,7 +79,8 @@
     ft.appendChild(p);
   }
   if(ft){
-    /* FV の切り替えは、8回目の「写真1枚」に決まったのでやめた（yuga 2026-11-25） */
+    /* 9回目：FV の試し案（全画面の写真から文字がふわっと出る）を、写真1枚の案と切り替えて比べられるようにする */
+    if(page==='index')sw(en?'Hero: ':'FV：','wc-fv2','data-fv',[['7',en?'One photo':'写真1枚'],['8',en?'Full-screen photo':'全画面の写真からふわっと']],'7');
     /* 背景色の切り替えは、B 玄米に決まったのでやめた（yuga 2026-11-25） */
   }
 

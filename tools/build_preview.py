@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125j'
+WARM_V = '20261125k'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -137,7 +137,7 @@ def warm_c_html(x, name, lang, up, rel):
     x = x.replace('</head>', '<script>(function(){var r=document.documentElement,q=new URLSearchParams(location.search),s=window.localStorage,g=function(k){try{return s.getItem(k)}catch(e){return null}},p=function(k,v){try{s.setItem(k,v)}catch(e){}};'
                   'r.setAttribute("data-bg","b");'  # 背景は B 玄米に決定（yuga 2026-11-25）。切り替えはやめた
                   
-                  'r.setAttribute("data-fv","7");try{s.removeItem("wc-fv")}catch(e){}})()</script></head>', 1)
+                  'var f=q.get("fv");if(/^[78]$/.test(f||""))p("wc-fv2",f);else f=g("wc-fv2");r.setAttribute("data-fv",f==="8"?"8":"7")})()</script></head>', 1)
     if name == 'index':
         # TOPの2つ目のボタン：店舗を見る → メニューを見る（menu へ）
         x = sub1(r'<a class="btn line" href="#stores"><span lang="(ja|en)">(店舗を見る|See locations)</span></a>',
@@ -319,6 +319,10 @@ for name in PAGES:
             x = x.replace('</head>', alt + '</head>', 1)
             if look:
                 x = warm(x, look, name, lang, up, rel)
+                if look == 'c' and name == 'index':
+                    # 9回目：FV の文字（H1〜注記）を .fv8-panel で包む。試し案 ?fv=8 で「下からふわっと出る板」にするため。写真1枚の案（fv=7）では display:contents で今まで通り
+                    x = re.sub(r'(<div class="hero-in">.*?</p>\n)(\s*<p lang="(?:ja|en)" class="hero-sub">.*?<div class="sub">.*?</div>)', lambda m: m.group(1) + '<div class="fv8-panel">' + m.group(2) + '</div>', x, count=1, flags=re.S)
+                    x = re.sub(r'(<div class="hero-in">\n?\s*)(<h1 .*?</h1>)(.*?)(<div class="fv8-panel">)', lambda m: m.group(1) + m.group(3) + m.group(4) + m.group(2), x, count=1, flags=re.S)
             d.mkdir(parents=True, exist_ok=True)
             (d/'index.html').write_text(x, encoding='utf-8')
     print(name)
