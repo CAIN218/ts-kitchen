@@ -1077,35 +1077,8 @@ html[data-warm="c"] .wrap.cater:not(#_) .mail{margin:12px 0 0!important}
 }
 @media(max-width:640px){html[data-warm="c"] .wrap.cater:not(#_) .row .btn:not(.line){display:flex!important;width:100%}}
 
-/* B. 受賞：GIG を主役にした段差のある4列（ロゴの下端をそろえる）。トップは「私たちのレストランについて」の続き（地は --paper、要点との間 72px）。
-   ほかのページのフッター直前の帯は --kinari。ロゴは高さを決めて置く（読み込めなくても場所が変わらない） */
-html[data-warm="c"] .awards-band:not(#_){border:0!important;background:var(--kinari)!important;padding:40px 0!important}
-html[data-warm="c"] main .awards-band:not(#_){background:var(--paper)!important;padding:72px 0 clamp(64px,8vw,120px)!important}
-html[data-warm="c"] body[data-page=index] .blk:has(>.wrap.about):not(#_){padding-bottom:0!important}
-html[data-warm="c"] .awards-band .badges:not(#_){display:grid!important;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr))!important;grid-template-rows:auto auto;column-gap:48px!important;row-gap:0!important;
-  align-items:end;justify-content:stretch;max-width:none!important;margin:0!important;padding:0!important}
-html[data-warm="c"] .awards-band .badges li:not(#_){display:grid!important;grid-row:span 2;grid-template-rows:subgrid;row-gap:14px!important;justify-items:start;align-items:start;flex-direction:unset!important;
-  width:auto!important;padding:0!important;margin:0!important;text-align:left!important;font-family:var(--f-head);font-size:15px!important;line-height:1.6;letter-spacing:.02em!important;color:var(--ink)!important}
-html[data-warm="c"] .awards-band .badges li:not(#_) img{align-self:end;width:auto!important;height:56px!important;max-width:72px!important;object-fit:contain;object-position:left bottom}
-html[data-warm="c"] .awards-band .badges li:not(#_)>span{text-align:left!important;font-family:var(--f-head);align-self:start}
-html[data-warm="c"] .awards-band .badges li:first-child:not(#_){font-size:20px!important;line-height:1.5}
-html[data-warm="c"] .awards-band .badges li:first-child:not(#_) img{height:96px!important;max-width:120px!important}
-@media(min-width:641px) and (max-width:1100px){
-  /* 768：4列のまま。「フードアクションニッポン」「トリップアドバイザー」を途中で折らない大きさ */
-  html[data-warm="c"] .awards-band .badges:not(#_){grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr))!important;column-gap:16px!important}
-  html[data-warm="c"] .awards-band .badges li:not(#_){font-size:12.5px!important;letter-spacing:0!important}
-  html[data-warm="c"] .awards-band .badges li:not(#_) img{height:48px!important;max-width:64px!important}
-  html[data-warm="c"] .awards-band .badges li:first-child:not(#_){font-size:17px!important}
-  html[data-warm="c"] .awards-band .badges li:first-child:not(#_) img{height:80px!important;max-width:100px!important}
-}
-@media(max-width:640px){
-  html[data-warm="c"] main .awards-band:not(#_){padding:56px 0 64px!important}
-  html[data-warm="c"] .awards-band .badges:not(#_){grid-template-columns:minmax(0,1fr)!important;grid-template-rows:none;row-gap:16px!important}
-  html[data-warm="c"] .awards-band .badges li:not(#_){grid-row:auto;grid-template-rows:none;grid-template-columns:44px minmax(0,1fr);column-gap:16px;align-items:center;font-size:14px!important;line-height:1.5}
-  html[data-warm="c"] .awards-band .badges li:not(#_) img{width:44px!important;height:44px!important;max-width:none!important;align-self:center;object-position:center}
-  html[data-warm="c"] .awards-band .badges li:first-child:not(#_){grid-template-columns:72px minmax(0,1fr);font-size:17px!important;margin-bottom:8px!important}
-  html[data-warm="c"] .awards-band .badges li:first-child:not(#_) img{width:72px!important;height:72px!important}
-}
+/* B. 受賞：4回目の「GIG を主役にした段差の並び」は yuga さんの判断（2026-11-25「変だから戻して」）で取りやめ、3回目の並びに戻す。線だけは消したまま */
+html[data-warm="c"] .awards-band:not(#_){border:0!important}
 
 /* D. FV の3案（デモ。html[data-fv]。トップだけ）。写真は .fv-pics の img（今の FV では display:none なので読み込まない） */
 html[data-warm="c"] .fv-pics,html[data-warm="c"] .fv-pics img{display:none}
@@ -1230,8 +1203,6 @@ html[data-warm="c"][lang="ja"] .hero:not(#_) .hero-in .hero-sub{text-wrap:wrap!i
   html[data-warm="c"] .wrap.cater:not(#_) .row .btn:not(.line){min-width:200px;justify-content:center}
 }
 @media(min-width:1101px){
-  /* 2. TOP の受賞：1列目と2列目の始まりを、すぐ上の要点の3列（144 / 537）にそろえ、右端も 1296 にそろえる */
-  html[data-warm="c"] main .awards-band .badges:not(#_){grid-template-columns:calc((100% - 56px)/3) repeat(3,minmax(0,1fr))!important;column-gap:28px!important}
 }
 
 @media(max-width:640px){
@@ -1245,3 +1216,32 @@ html[data-warm="c"][lang="ja"] .hero:not(#_) .hero-in .hero-sub{text-wrap:wrap!i
 
 /* 7. PC のフッター：SNS のアイコンの左端をロゴの左端にそろえる（押せる範囲は同じ） */
 html[data-warm="c"] footer .sns:not(#_){justify-content:flex-start}
+
+/* ════════════════ 5回目（yuga 2026-11-25） ════════════════ */
+/* メニューの店のタブ：選んだ店の線（2px）と、下の線（1px）の位置をそろえる（親の下の余白 4px で、ずれていた） */
+html[data-warm="c"] .menu-stores:not(#_),html[data-warm="c"] .menu-cats:not(#_){padding-bottom:0!important;align-items:end}
+html[data-warm="c"] .menu-stores button:not(#_){margin-bottom:-1px!important;box-shadow:none!important;border-bottom:2px solid transparent!important}
+html[data-warm="c"] .menu-stores [aria-selected=true]:not(#_){border-bottom-color:var(--ink)!important}
+
+/* SP ヘッダー：店名を1行に（言語のボタンを少し詰めて、場所を作る） */
+@media(max-width:640px){
+  html[data-warm="c"] .hd .logo:not(#_){gap:8px!important;min-width:0}
+  html[data-warm="c"] .hd .logo:not(#_) img{width:34px!important;height:34px!important}
+  html[data-warm="c"] .hd .logo:not(#_) span{white-space:nowrap!important;font-size:clamp(14px,4.1vw,17px)!important;line-height:1.2!important;max-width:none!important}
+  html[data-warm="c"] .hd .logo:not(#_) span br{display:none}
+  html[data-warm="c"] .hd .lang:not(#_){padding:0 10px!important;min-width:0!important;font-size:12px!important}
+  html[data-warm="c"] .hd .tools:not(#_){gap:4px!important}
+}
+
+/* SP フッター：店舗を1店1ブロックの短い表に（店名｜住所と電話）。縦に長くならないように */
+@media(max-width:640px){
+  html[data-warm="c"] footer .ft:not(#_){row-gap:0!important}
+  html[data-warm="c"] footer .ft:not(#_)>div:not(:first-child){display:grid!important;grid-template-columns:7em minmax(0,1fr);column-gap:16px;row-gap:0;align-items:baseline;margin:0!important;padding:14px 0!important;border-top:1px solid rgba(255,255,255,.14)}
+  html[data-warm="c"] footer .ft:not(#_)>div:nth-child(2){margin-top:28px!important}
+  html[data-warm="c"] footer .ft:not(#_)>div:not(:first-child)>b{grid-row:1/3;margin:0!important;font-size:15px!important;white-space:nowrap;min-width:6em}
+  html[data-warm="c"] footer .ft:not(#_)>div:not(:first-child)>span{grid-column:2;margin:0!important;font-size:13px!important;line-height:1.6}
+  html[data-warm="c"] footer .ft:not(#_)>div:not(:first-child)>br{display:none}
+  html[data-warm="c"] footer .ft:not(#_)>div:not(:first-child)>a{grid-column:2;justify-self:start;margin:0!important;font-size:13px!important;padding:6px 0!important;min-height:0}
+}
+/* 360px 未満（ごく小さい画面）だけは、言語ボタンと重ならないよう2行に戻す */
+@media(max-width:359px){html[data-warm="c"] .hd .logo:not(#_) span{white-space:normal!important;font-size:14px!important;max-width:9em!important}}

@@ -79,7 +79,7 @@
   }
   if(ft){
     if(page==='index')sw(en?'Hero: ':'FV：','wc-fv','data-fv',[['0',en?'Current':'今'],['1',en?'1 Card':'1 札'],['2',en?'2 Noren':'2 暖簾'],['3',en?'3 Triptych':'3 三枚組']],'0');
-    sw(en?'Background: ':'背景：','wc-bg','data-bg',[['a',en?'A Current cream':'A 今の生成り'],['b',en?'B Brown rice':'B 玄米'],['c',en?'C Greens':'C 青菜'],['d',en?'D Pale indigo':'D 藍の淡']],'a');
+    /* 背景色の切り替えは、B 玄米に決まったのでやめた（yuga 2026-11-25） */
   }
 
   /* お問い合わせの種類：URL の ?type= で選ぶ */
