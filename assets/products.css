@@ -10,9 +10,7 @@ html[data-warm="c"] .pd-wrap{max-width:1296px;margin:0 auto;padding:0 var(--gutt
 
 /* FV：紺のヘッダーの下に写真1枚 */
 html[data-warm="c"] .pd-fv{position:relative}
-html[data-warm="c"] .pd-fv-pic,html[data-warm="c"] .pd-fv-pic img{width:100%}
-html[data-warm="c"] .pd-fv-pic img:not(#_){aspect-ratio:4/3;object-fit:cover;height:auto}
-html[data-warm="c"] .pd-fv-tx{padding-top:36px;padding-bottom:12px}
+html[data-warm="c"] .pd-fv-tx{padding-top:56px;padding-bottom:8px}
 html[data-warm="c"] .pd .pd-h1:not(#_){font-family:var(--f-head);font-weight:500;font-size:clamp(32px,4.4vw,56px)!important;line-height:1.3;letter-spacing:.03em;color:var(--ink)!important;margin:0 0 14px!important}
 html[data-warm="c"] .pd .pd-lead:not(#_){font-family:var(--f-body);font-size:16px;line-height:1.9;color:var(--ink-2,var(--ink))!important;max-width:34em}
 
@@ -45,8 +43,7 @@ html[data-warm="c"] .pd-entry p:not(#_){font-size:15px;line-height:1.9;margin:0 
 html[data-warm="c"] .pd-entry a.pd-go:not(#_){display:inline;color:var(--ink)!important;text-decoration:underline;text-underline-offset:6px}
 
 @media (min-width:768px){
-  html[data-warm="c"] .pd-fv-pic img:not(#_){aspect-ratio:auto;height:min(56vh,600px)}
-  html[data-warm="c"] .pd-fv-tx{padding-top:48px;padding-bottom:16px}
+  html[data-warm="c"] .pd-fv-tx{padding-top:96px;padding-bottom:16px}
   html[data-warm="c"] .pd-list{padding:56px 0 80px}
   html[data-warm="c"] .pd-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 28px}
   html[data-warm="c"] .pd .pd-name:not(#_){font-size:20px!important}
