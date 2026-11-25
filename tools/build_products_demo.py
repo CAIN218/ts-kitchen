@@ -5,10 +5,15 @@
 - 仮の文・数字には <span class="draft" data-draft>仮</span>（英語は Draft）。公開前に data-draft で一括検索して消す
 - FV は2案：?fv=a（既定・紺の舞台）／?fv=b（2商品分割）。選んだものは localStorage（wc-pdfv）に残し、html[data-pdfv] で切り替える
 - 店舗の住所・電話はフッター（既存）から読み取って使う（書き写さない）"""
-import re, pathlib
+import re, json, pathlib
 R = pathlib.Path(__file__).resolve().parent.parent
 C = R / "warm-c"
 V = "20261125v3"
+
+# 商品ごとの特徴・用途は tools/products_content.json に書くと表示される（無い間は何も出さない）。
+# 形：{"tempura": {"ja": "…", "en": "…"}, "hotsauce": {...}, ...}。文面は店からの正式なものだけを入れる
+_CF = R / "tools" / "products_content.json"
+CONTENT = json.loads(_CF.read_text()) if _CF.exists() else {}
 
 NAV = {"ja": ("商品", "会社概要", "卸売・お取り扱い"), "en": ("Products", "About us", "Wholesale")}
 
@@ -28,12 +33,14 @@ def main_html(lang, up):
     ]
     lis = "".join(
         f'<li class="pd-item"><div class="pd-slot" data-slot="{k}" role="img" aria-label="{n}"{slot_style(k, up)}></div>'
-        f'<h2 class="pd-name">{n}</h2><p class="pd-note">{d}</p></li>' for k, n, d in items)
+        f'<h2 class="pd-name">{n}</h2><p class="pd-note">{d}</p>'
+        + (f'<p class="pd-use">{CONTENT[k][lang]}</p>' if CONTENT.get(k, {}).get(lang) else "") + '</li>' for k, n, d in items)
     return f'''<main id="top" class="pd">
 <section class="pd-fv" aria-labelledby="pd-h1">
   <div class="pd-wrap pd-fv-tx">
     <h1 id="pd-h1" class="pd-h1">{t("T&#39;sの商品", "T&#39;s Products")}</h1>
-    <p class="pd-lead">{t("お店で販売している、T&#39;sオリジナルの商品です。販売は店頭のみです。", "Original T&#39;s products, sold at our restaurants only.")}</p>
+    <p class="pd-lead">{t("T&#39;sオリジナルの商品です。販売は店頭のみです。", "Original T&#39;s products. Sold at our restaurants only.")}</p>
+    <p class="pd-jump"><a class="pd-go" href="#wholesale">{t("卸売をご希望の事業者様へ", "For wholesale inquiries")}</a></p>
   </div>
 </section>
 <section class="pd-list" aria-label="{t("商品", "Products")}"><div class="pd-wrap"><ul class="pd-grid">{lis}</ul></div></section>
