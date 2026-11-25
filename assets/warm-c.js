@@ -220,10 +220,11 @@
       function bad(){var f=im.closest('.car-s');if(f&&slides().length>1){f.remove();upd()}}
       if(im.complete&&im.naturalWidth===0&&im.getAttribute('src'))bad();else im.addEventListener('error',bad);
     });
-    function idx(){return Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth))}
+    /* 次の写真が少し見えるので、位置は各写真の左端から求める */
+    function idx(){var ss=slides(),sl=tr.scrollLeft;if(sl>=tr.scrollWidth-tr.clientWidth-2)return ss.length-1;var b=0,bd=1e9;ss.forEach(function(s,k){var dd=Math.abs(s.offsetLeft-sl);if(dd<bd){bd=dd;b=k}});return b}
     function upd(){var n=slides().length,i=Math.min(n-1,idx());cnt.textContent=(i+1)+' / '+n;prev.disabled=i<=0;next.disabled=i>=n-1;
       slides().forEach(function(s,k){s.setAttribute('aria-label',(k+1)+' / '+n);s.toggleAttribute('inert',k!==i)})}
-    function go(i){var n=slides().length;i=Math.max(0,Math.min(n-1,i));tr.scrollTo({left:i*tr.clientWidth,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+    function go(i){var ss=slides(),n=ss.length;i=Math.max(0,Math.min(n-1,i));tr.scrollTo({left:ss[i].offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
     prev.addEventListener('click',function(){go(idx()-1)});next.addEventListener('click',function(){go(idx()+1)});
     tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(idx()+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(idx()-1)}});
     var to;tr.addEventListener('scroll',function(){clearTimeout(to);to=setTimeout(upd,60)},{passive:true});
