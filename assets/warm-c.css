@@ -1245,3 +1245,32 @@ html[data-warm="c"] .menu-stores [aria-selected=true]:not(#_){border-bottom-colo
 }
 /* 360px 未満（ごく小さい画面）だけは、言語ボタンと重ならないよう2行に戻す */
 @media(max-width:359px){html[data-warm="c"] .hd .logo:not(#_) span{white-space:normal!important;font-size:14px!important;max-width:9em!important}}
+
+/* ============================================================
+   6回目（20261125d）：PCで「中央にそろっていない」所を直す
+   左に寄って右が空いていた区画を、左右の釣り合いがとれる組み方にする。
+   文章・数字・リンクは変えない。スマホ（〜768px）の並びはそのまま。
+   ============================================================ */
+/* 日本語の見出しを文節で折り返す（「グルテンフリー／に」のような1文字だけの行をなくす）。対応していないブラウザは今まで通り */
+html[data-warm="c"] :is(h1,h2,h3,.motto,.only-text):not(#_){word-break:auto-phrase}
+@media(min-width:769px){
+  /* 数字の帯：各列の中で中央に置く（左寄せだと右端の列の後ろが空いて、帯全体が左に寄って見えた） */
+  html[data-warm="c"] .numbers .nums:not(#_)>div{text-align:center!important}
+  /* コンサル：「アジア初のGFFS認証…」の一文を、ページの中央に置く */
+  html[data-warm="c"] .only .only-text:not(#_){margin-inline:auto!important;text-align:center!important;max-width:34em!important}
+}
+@media(min-width:1101px){
+  /* 会社概要：沿革を「見出し｜年表」の2列にする（年表の右が大きく空いていた） */
+  html[data-warm="c"] .blk:has(.timeline)>.wrap:not(#_){display:grid!important;grid-template-columns:minmax(0,4fr) minmax(0,8fr)!important;column-gap:clamp(48px,6vw,96px)!important;align-items:start}
+  html[data-warm="c"] .blk:has(.timeline) .timeline:not(#_){max-width:none!important;margin-top:0!important}
+  /* 会社概要：The Japan Times。写真を少し大きく、文章を右端まで使う */
+  html[data-warm="c"] .media-sec .media:not(#_){grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;column-gap:clamp(48px,6vw,96px)!important;align-items:center!important}
+  html[data-warm="c"] .media-sec .media:not(#_) p{max-width:none!important}
+  html[data-warm="c"] .media-sec .media:not(#_) .clip img{width:100%!important}
+  /* コンサル：相談フォームを、お問い合わせページと同じ「説明｜フォーム」の2列にする（フォームが左半分だけだった） */
+  html[data-warm="c"] #contact.contact .wrap.narrow:not(#_){display:grid!important;grid-template-columns:minmax(0,4fr) minmax(0,7fr)!important;column-gap:96px!important;align-items:start}
+  html[data-warm="c"] #contact.contact .wrap.narrow:not(#_)>:is(h2,.free-badge,.lead){grid-column:1;max-width:none!important}
+  html[data-warm="c"] #contact.contact .wrap.narrow:not(#_)>:is(form,.note){grid-column:2;max-width:none!important}
+  html[data-warm="c"] #contact.contact .wrap.narrow:not(#_)>form{grid-row:1/span 4}
+  html[data-warm="c"] #contact.contact .wrap.narrow:not(#_)>.note{grid-row:5}
+}
