@@ -79,7 +79,7 @@
     ft.appendChild(p);
   }
   if(ft){
-    if(page==='index')sw(en?'Hero: ':'FV：','wc-fv','data-fv',[['0',en?'Current':'今'],['4',en?'4 One line':'4 一行の店'],['5',en?'5 Navy and seal':'5 紺と認証印'],['6',en?'6 Faces and certification':'6 店の顔と認証']],'0');
+    /* FV の切り替えは、8回目の「写真1枚」に決まったのでやめた（yuga 2026-11-25） */
     /* 背景色の切り替えは、B 玄米に決まったのでやめた（yuga 2026-11-25） */
   }
 
