@@ -97,7 +97,7 @@ html[data-warm="c"] .drawer>a.on{background:#24365a!important}
 
 /* ───────── 3. 固定予約ボタン（SP） ───────── */
 html[data-warm="c"] .fab,html[data-warm="c"] .cta-float{border-radius:2px!important;min-height:52px}
-html[data-warm="c"].warm-stop .fab,html[data-warm="c"].warm-stop .cta-float{display:none!important}
+/* （4回目：warm-stop での出し入れはやめた。下の「4回目 2.」） */
 
 /* ───────── 4. フッター（紺の地、4→2→1列） ───────── */
 html[data-warm="c"] footer{background:var(--navy)!important;color:var(--olive-ink)!important;margin-top:0!important;padding-top:clamp(56px,6vw,88px)!important}
@@ -120,7 +120,7 @@ html[data-warm="c"] footer .copy{margin-bottom:6px!important;padding-bottom:0!im
 @media(max-width:640px){html[data-warm="c"] .ft{grid-template-columns:1fr!important}}
 
 /* ───────── 5. 受賞・認証の帯（全ページ共通） ───────── */
-html[data-warm="c"] .awards-band{background:var(--paper)!important;border-top:1px solid var(--rule)!important;padding:clamp(40px,5vw,64px) 0!important;margin:0!important;border:0!important}
+html[data-warm="c"] .awards-band{background:var(--paper)!important;padding:clamp(40px,5vw,64px) 0!important;margin:0!important;border:0!important}
 html[data-warm="c"] .awards-band::before,html[data-warm="c"] .awards-band::after{display:none!important}
 html[data-warm="c"] .awards-band .badges{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;max-width:1296px!important;margin:0 auto!important;padding:0!important}
 html[data-warm="c"] .awards-band .badges li{display:flex!important;flex-direction:row!important;align-items:center;gap:16px;text-align:left!important;padding:4px clamp(12px,2vw,28px)!important;border:0!important;word-break:keep-all;word-break:auto-phrase;overflow-wrap:anywhere;background:none!important;color:var(--ink)!important;font-size:14px;line-height:1.6}
@@ -193,7 +193,7 @@ html[data-warm="c"][data-stores] .cards .card .bd{display:grid!important;grid-te
 html[data-warm="c"][data-stores] .cards .card h3{grid-area:h3;font-size:var(--h3)!important;color:var(--ink)!important;margin:0 0 8px!important;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 html[data-warm="c"][data-stores] .cards .card .addr{grid-area:addr;min-height:0!important;color:var(--ink-2);margin:0!important;font-size:15px}
 html[data-warm="c"][data-stores] .cards .card table{grid-area:tbl;border-collapse:collapse;width:100%;margin:0!important;font-size:15px}
-html[data-warm="c"][data-stores] .cards .card td{border:0!important;border-bottom:1px solid var(--rule)!important;padding:6px 0!important;color:var(--ink)!important;background:none!important;vertical-align:top}
+html[data-warm="c"][data-stores] .cards .card td{border:0!important;padding:4px 0!important;height:32px;box-sizing:border-box;color:var(--ink)!important;background:none!important;vertical-align:top}
 html[data-warm="c"][data-stores] .cards .card tr:first-child td{padding-top:2px!important}
 html[data-warm="c"][data-stores] .cards .card td:first-child{color:var(--ink-2)!important;width:7.4em}
 html[data-warm="c"] .cards .card .closed{grid-area:closed;margin-top:10px!important;font-weight:600;color:var(--ink)!important;font-size:15px}
@@ -201,7 +201,7 @@ html[data-warm="c"] .cards .acts{grid-area:acts;display:flex!important;flex-wrap
 html[data-warm="c"] .cards .acts a:not(.r){min-height:44px;display:inline-flex!important;align-items:center;color:var(--ink)!important;text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--rule);font-weight:500;font-variant-numeric:tabular-nums}
 html[data-warm="c"] .cards .acts a:not(.r):hover{text-decoration-color:currentColor}
 html[data-warm="c"] .cards .acts a.r{order:-1;flex-basis:100%;display:inline-flex!important;justify-content:center;align-items:center;min-height:52px;padding:0 20px!important;margin:0 0 4px!important}
-html[data-warm="c"][data-stores] .stores .policy{color:var(--ink-2)!important;border-top:1px solid var(--rule)!important;margin-top:clamp(56px,6vw,88px)!important;font-size:14px;max-width:68ch!important}
+html[data-warm="c"][data-stores] .stores .policy{color:var(--ink-2)!important;border-top:0!important;margin-top:clamp(56px,6vw,88px)!important;font-size:14px;max-width:68ch!important}
 html[data-warm="c"] .stores .policy b{color:var(--ink)}
 @media(max-width:1100px){
   html[data-warm="c"][data-stores] .cards .card .bd{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);grid-template-areas:"h3 tbl" "addr tbl" "addr closed" "acts acts";grid-template-rows:auto auto 1fr auto}
@@ -235,7 +235,7 @@ html[data-warm="c"] .wrap.about .pt p{font-size:15px;color:var(--ink-2)!importan
 }
 
 /* 受賞帯（トップでは main の中、ケータリングの前） */
-html[data-warm="c"] main .awards-band{background:var(--paper)!important;border-top:1px solid var(--rule)!important;border-bottom:1px solid var(--rule)!important;padding:36px 0!important}
+html[data-warm="c"] main .awards-band{background:var(--paper)!important;border:0!important;padding:36px 0!important}
 html[data-warm="c"] main .awards-band .wrap{max-width:1296px}
 
 /* ケータリング：お弁当の写真を大きく右に、文字は左（7:5 を逆に） */
@@ -244,8 +244,8 @@ html[data-warm="c"] .wrap.cater{display:grid!important;grid-template-columns:min
 html[data-warm="c"] .cater .tx{order:0}
 html[data-warm="c"] .cater .tx>p{max-width:34em}
 html[data-warm="c"] .cater ul{padding-left:0!important;margin:20px 0!important;list-style:none}
-html[data-warm="c"] .cater ul li{padding:8px 0!important;border-top:1px solid var(--rule);margin:0!important}
-html[data-warm="c"] .cater ul li:last-child{border-bottom:1px solid var(--rule)}
+html[data-warm="c"] .cater ul li{padding:8px 0!important;margin:0!important}
+html[data-warm="c"] .cater ul li+li{border-top:1px solid var(--rule)}
 html[data-warm="c"] .cater ul li::before{display:none!important}
 html[data-warm="c"] .cater .row{display:flex!important;flex-wrap:wrap;gap:12px 28px!important;align-items:center;margin-top:28px!important}
 html[data-warm="c"] .cater .row .btn:not(.line){order:0!important;padding:15px 28px!important;min-height:52px}
@@ -262,7 +262,7 @@ html[data-warm="c"] .wrap.cater .cater-vis .flyer>span{position:static!important
 }
 
 /* ショップ＋SNS：1つの帯（左に準備中のショップ、右に SNS と Instagram 4枚） */
-html[data-warm="c"] .shop-sns{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:0 clamp(32px,5vw,88px);max-width:1296px;margin:0 auto;padding:clamp(64px,8vw,112px) var(--gutter)}
+html[data-warm="c"] .shop-sns{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:0 64px;max-width:1296px;margin:0 auto;padding:clamp(64px,8vw,112px) var(--gutter)}
 html[data-warm="c"] .shop-sns>.blk{padding:0!important;background:none!important}
 html[data-warm="c"] .shop-sns .wrap{padding:0!important;max-width:none!important;margin:0!important}
 html[data-warm="c"] .shop-sns h2{font-size:clamp(24px,2.2vw,32px)!important;margin-bottom:12px!important}
@@ -271,10 +271,10 @@ html[data-warm="c"] .shopbox .ph{aspect-ratio:1/1;max-width:220px;background-col
 html[data-warm="c"] .shopbox .tx{padding:0!important}
 html[data-warm="c"] .shopbox .tag.soon{display:inline-block;margin:0 0 10px}
 html[data-warm="c"] .shopbox p{color:var(--ink-2)!important;font-size:15px}
-html[data-warm="c"] .sns-sec .wrap{border-left:1px solid var(--rule);padding-left:clamp(28px,4vw,64px)!important}
+html[data-warm="c"] .sns-sec .wrap{border-left:0;padding-left:0!important}
 html[data-warm="c"] .sns-list{display:grid!important;grid-template-columns:1fr 1fr!important;gap:0 28px!important;margin:0 0 24px!important;padding:0!important;border:0!important}
 html[data-warm="c"] .sns-list li{border:0!important;padding:0!important;margin:0!important}
-html[data-warm="c"] .sns-item{background:none!important;border:0!important;border-top:1px solid var(--rule)!important;padding:16px 0!important;color:var(--ink)!important;text-decoration:none;display:flex!important;gap:14px;align-items:flex-start}
+html[data-warm="c"] .sns-item{background:none!important;border:0!important;padding:20px 0!important;color:var(--ink)!important;text-decoration:none;display:flex!important;gap:14px;align-items:flex-start}
 html[data-warm="c"] .sns-logo{background:none!important;padding:0!important;width:36px!important;height:36px!important;flex:none}
 html[data-warm="c"] .sns-name{font-family:var(--f-head);font-weight:500;font-size:18px;color:var(--ink)!important}
 html[data-warm="c"] .sns-handle{color:var(--ink-2)!important}
@@ -284,8 +284,8 @@ html[data-warm="c"] .ig{display:grid!important;grid-template-columns:repeat(4,mi
 html[data-warm="c"] .ig a{aspect-ratio:1/1;background-color:var(--kinari)!important;background-size:cover!important;border:0!important;transform:none!important}
 html[data-warm="c"] .ig a:nth-child(n+5){display:none!important}
 @media(max-width:900px){
-  html[data-warm="c"] .shop-sns{grid-template-columns:minmax(0,1fr);gap:48px}
-  html[data-warm="c"] .sns-sec .wrap{border-left:0;padding-left:0!important;border-top:1px solid var(--rule);padding-top:40px!important}
+  html[data-warm="c"] .shop-sns{grid-template-columns:minmax(0,1fr);gap:64px}
+  html[data-warm="c"] .sns-sec .wrap{border-left:0;padding-left:0!important;border-top:0;padding-top:0!important}
   html[data-warm="c"] .shopbox{display:grid!important;grid-template-columns:120px minmax(0,1fr);gap:20px}
   html[data-warm="c"] .shopbox .ph{margin:0!important}
 }
@@ -310,7 +310,7 @@ html[data-warm="c"] .cons-link:hover{text-decoration-thickness:2px}
 }
 
 /* ════════════════ 下層ページ共通：ページの見出し ════════════════ */
-html[data-warm="c"] .page-hero{background:var(--paper)!important;color:var(--ink)!important;padding:clamp(56px,7vw,104px) 0 clamp(32px,4vw,56px)!important;border-bottom:1px solid var(--rule);text-align:left!important;min-height:0!important}
+html[data-warm="c"] .page-hero{background:var(--paper)!important;color:var(--ink)!important;padding:clamp(56px,7vw,104px) 0 clamp(32px,4vw,56px)!important;border-bottom:0;text-align:left!important;min-height:0!important}
 html[data-warm="c"] .page-hero .wrap{text-align:left!important}
 html[data-warm="c"] .page-hero h1{font-size:clamp(40px,5vw,72px)!important;color:var(--ink)!important;margin:6px 0 12px!important}
 html[data-warm="c"] .page-hero p:not(.eyebrow){color:var(--ink-2)!important;font-size:17px}
@@ -332,7 +332,7 @@ html[data-warm="c"] .menu-view a{background:var(--kinari)!important}
 html[data-warm="c"] .menu-view figcaption{background:none!important}
 html[data-warm="c"] .menu-view button,html[data-warm="c"] .menu-view .zoom{background:var(--ink)!important;color:var(--paper)!important}
 html[data-warm="c"] .menu-view figcaption,html[data-warm="c"] .menu-sec .hint{color:var(--ink-2)!important}
-html[data-warm="c"] .menu-actions{background:none!important;border-top:1px solid var(--rule)!important;padding:40px 0 0!important;text-align:left!important;justify-content:flex-start!important}
+html[data-warm="c"] .menu-actions{background:none!important;border-top:0!important;margin-top:56px!important;padding:0!important;text-align:left!important;justify-content:flex-start!important}
 html[data-warm="c"] .menu-actions .btn{padding:16px 36px!important;min-height:52px}
 @media(max-width:640px){html[data-warm="c"] body[data-page=menu] main{padding-bottom:72px}}
 
@@ -354,7 +354,7 @@ html[data-warm="c"] .philosophy .wrap{display:block!important;max-width:calc(880
 html[data-warm="c"] .philosophy .motto{word-break:keep-all;word-break:auto-phrase;overflow-wrap:anywhere;text-wrap:balance;font-family:var(--f-head);font-size:clamp(28px,3.6vw,52px)!important;line-height:1.45;color:var(--olive-ink)!important;margin:24px auto!important;font-weight:500}
 html[data-warm="c"] .philosophy p:not(.motto):not(.eyebrow){max-width:40em;margin-left:auto;margin-right:auto}
 /* 数字：Fraunces opsz144 */
-html[data-warm="c"] .numbers{background:var(--paper)!important;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+html[data-warm="c"] .numbers{background:var(--kinari)!important;border:0!important}
 html[data-warm="c"] .nums>div{border-color:var(--rule)!important;background:none!important}
 html[data-warm="c"] .nums b{font-family:"Fraunces","Zen Old Mincho",serif;font-variation-settings:"opsz" 144;font-weight:500;color:var(--ink)!important;font-size:clamp(44px,5vw,76px)!important;line-height:1}
 html[data-warm="c"] .nums b small{color:var(--terra)!important;font-size:.42em}
@@ -488,15 +488,7 @@ html[data-warm="c"] .wrap.cater .cater-vis .flyer:not(#_){flex-direction:row!imp
   html[data-warm="c"] .biz:not(#_) b{display:block;font-size:16px;margin-top:8px}
 }
 
-/* SP の固定ボタン：メニューのアレルギー注記・コンサルの最初の画面に重ならないよう、少しスクロールしてから出す。
-   CSS のスクロール連動アニメーション（対応していないブラウザでは今までどおり最初から表示） */
-@media(max-width:640px){
-  @supports (animation-timeline:scroll()){
-    html[data-warm="c"] body[data-page=menu] .fab,html[data-warm="c"] body[data-page=consulting] .cta-float{animation:wc-fab-late linear none;animation-timeline:scroll(root);animation-range:0 var(--fab-after,420px)}
-    html[data-warm="c"] body[data-page=menu]{--fab-after:560px}
-  }
-}
-@keyframes wc-fab-late{0%,100%{opacity:0;visibility:hidden}}
+/* （4回目：メニュー・コンサルのスクロール連動アニメでの出し入れはやめ、warm-c.js の wc-fab にまとめた） */
 html[data-warm="c"] h1:not(#_),html[data-warm="c"] main h2:not(#_){font-weight:500!important}
 html[data-warm="c"][lang="en"][data-stores] .cards .card td:first-child{width:9em!important}
 html[data-warm="c"] .contact .free-badge b:not(#_),html[data-warm="c"] .contact .free-badge b:not(#_) *{color:var(--olive-ink)!important}
@@ -612,7 +604,7 @@ html[data-warm="c"][data-stores] .cards:not(#_){border-bottom:0!important}
 
 /* 4・7. 私たちのレストランについて：上の線は 1 本だけ、本文の端（--gutter）にそろえる。641〜1100px は写真を先頭（左）に */
 html[data-warm="c"] .wrap.about:not(#_){border-top:0!important;position:relative}
-html[data-warm="c"] .wrap.about:not(#_)::before{content:"";position:absolute;top:0;left:var(--gutter);right:var(--gutter);height:1px;background:var(--rule)}
+/* （4回目：上の線は消した。店舗欄とは余白で区切る） */
 @media(min-width:641px) and (max-width:1100px){
   html[data-warm="c"] .wrap.about:not(#_){grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;grid-template-areas:"ph h2" "ph intro" "pts pts"!important;grid-template-rows:auto 1fr auto;gap:0 clamp(28px,4vw,48px)!important}
   html[data-warm="c"] .wrap.about:not(#_)>div:not(.about-ph){display:contents!important}
@@ -682,9 +674,8 @@ html[data-warm="c"] #services .svc-row:not(#_){border-bottom:0!important}
 html[data-warm="c"] #services .sec-head:not(#_){border-bottom:0!important}
 
 /* 14. コンサルの誘導：上の線を全幅に、ボタンは 52px */
-html[data-warm="c"] .more:not(#_){display:flex!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;width:100%;max-width:none!important;border-top:1px solid var(--rule)!important;margin-top:40px!important;padding:28px 0 0!important}
+html[data-warm="c"] .more:not(#_){display:flex!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;width:100%;max-width:none!important;border-top:0!important;margin-top:40px!important;padding:0!important}
 html[data-warm="c"] .more:not(#_) b{flex:1 1 20em;font-family:var(--f-head);font-weight:500;font-size:clamp(18px,1.6vw,22px)}
-html[data-warm="c"] .sec.tint .more:not(#_),html[data-warm="c"] .more:not(#_){border-color:var(--rule)!important}
 
 /* 15. フォーム：入力欄は薄い地と枠で統一（下線だけ・メッセージ欄だけ枠、をやめる） */
 html[data-warm="c"] .cf7 input[type=text]:not(#_),html[data-warm="c"] .cf7 input[type=email]:not(#_),html[data-warm="c"] .cf7 input[type=tel]:not(#_),html[data-warm="c"] .cf7 select:not(#_),html[data-warm="c"] .cf7 textarea:not(#_){
@@ -724,7 +715,6 @@ html[data-warm="c"] .cards .card:not(#_) .acts{align-self:start!important;align-
 html[data-warm="c"] .cater .row .btn.line:not(#_)::before{content:none!important;display:none!important}
 html[data-warm="c"] #services .svc-row:not(#_)>*{border:0!important;padding-top:0!important}
 @media(max-width:640px){html[data-warm="c"] .menu-stores button:not(#_){padding:10px 2px!important;white-space:nowrap;font-size:15px!important;letter-spacing:0}}
-html[data-warm="c"].warm-c-stop .fab,html[data-warm="c"].warm-c-stop .cta-float{display:none!important}
 
 /* ════════════════ 最後の修正（再点検・QA） ════════════════ */
 /* 1. 数字の帯：単位（年以上・店舗・万人など）を折り返さない */
@@ -732,7 +722,7 @@ html[data-warm="c"] .nums b:not(#_),html[data-warm="c"] .nums b small:not(#_){wh
 @media(max-width:640px){html[data-warm="c"] .nums b:not(#_){font-size:clamp(40px,12vw,56px)!important}}
 
 /* 2・7. 固定ボタンを隠す：ドロワーが開いている間（:has）と、コンサルの入口の帯が見えている間（warm-c.js が warm-c-stop を付ける） */
-html[data-warm="c"]:has(#menuBtn[aria-expanded="true"]) .fab,html[data-warm="c"]:has(#menuBtn[aria-expanded="true"]) .cta-float{display:none!important}
+/* （4回目：ドロワーが開いている間の非表示は「4回目 2.」で opacity に） */
 
 /* 3. SP の固定ボタンと店舗欄：ボタンを右下の小さな札（高さ 44px・右 12px）にし、店舗の文字の列の右にその幅ぶんの余白を取る。
    店舗欄を読んでいる間もボタンは出したまま、下に来る行（営業時間・定休日・住所）が隠れない */
@@ -929,8 +919,8 @@ html[data-warm="c"] .cons-band-in:not(#_){align-items:center!important}
 html[data-warm="c"] .cons-band:not(#_) .cons-role{font-size:14px;color:var(--ink-2)!important;margin:0 0 12px!important;letter-spacing:.02em}
 html[data-warm="c"] .cons-band:not(#_) h2{margin:0 0 28px!important}
 html[data-warm="c"] .cons-band:not(#_) .cons-areas{list-style:none;padding:0!important;margin:0 0 20px!important;max-width:36em}
-html[data-warm="c"] .cons-band:not(#_) .cons-areas li{border-top:1px solid var(--rule-d,#C9BEA8);padding:12px 0!important;margin:0!important;font-family:var(--f-head);font-size:clamp(17px,1.5vw,20px);color:var(--ink)!important}
-html[data-warm="c"] .cons-band:not(#_) .cons-areas li:last-child{border-bottom:1px solid var(--rule-d,#C9BEA8)}
+html[data-warm="c"] .cons-band:not(#_) .cons-areas li{padding:12px 0!important;margin:0!important;font-family:var(--f-head);font-size:clamp(17px,1.5vw,20px);color:var(--ink)!important}
+html[data-warm="c"] .cons-band:not(#_) .cons-areas li+li{border-top:1px solid var(--rule)}
 html[data-warm="c"] .cons-band:not(#_) .cons-areas li::before{content:none!important;display:none!important}
 html[data-warm="c"] .cons-band:not(#_) .cons-free{font-size:14px;color:var(--ink-2)!important;margin:0 0 20px!important}
 html[data-warm="c"] .cons-band:not(#_) .btn.cons-link{background:var(--acc)!important;color:var(--acc-ink)!important;text-decoration:none!important;font-size:16px!important;min-height:52px;padding:0 28px!important;border:1px solid var(--acc-edge-on-cream)!important}
@@ -1036,3 +1026,222 @@ html[data-warm="c"] :is(.notice p,.cons-lead,.cons-lead span,.only-text,.only-te
 @media(min-width:641px) and (max-width:1100px){html[data-warm="c"] body[data-page=about] .wrap.cv:not(#_){align-items:start!important}}
 @media(min-width:641px){html[data-warm="c"] body[data-page=about] .wrap.cv:not(#_)>.cv-box+.cv-box{margin-top:0!important}}
 html[data-warm="c"] .hero-in .hero-sub:not(#_){text-wrap:balance}
+
+/* ════════════════ 4回目（c-r4/plan.md。yuga 2026-11-25） ════════════════ */
+
+/* C. 背景色のデモ：html[data-bg]（<head> の小さなスクリプトが ?bg= と localStorage から付ける。既定は B）。地・帯・罫線の3つだけを上書きする */
+html[data-warm="c"][data-bg="b"]{--paper:#F2EADB;--kinari:#E5D6BC;--rule:#CDBB9C;--acc-text-on-cream:#76501A} /* 玄米。帯の上の金茶 #80571A は 4.45:1 → #76501A で 5.0:1 */
+html[data-warm="c"][data-bg="c"]{--paper:#F3F1E8;--kinari:#DFE4D5;--rule:#C4CCB8} /* 青菜 */
+html[data-warm="c"][data-bg="d"]{--paper:#F5F3EF;--kinari:#E1E6EC;--rule:#C6CDD7} /* 藍の淡 */
+
+/* A1. メニューの店のタブ（SP）：店名を1行に。320px でも「上野広小路店」「Ueno-Hirokoji」が収まる大きさ */
+@media(max-width:640px){
+  html[data-warm="c"] .menu-stores button:not(#_){font-size:clamp(13px,3.9vw,16px)!important;white-space:nowrap;letter-spacing:0!important;padding:10px 0!important}
+  html[data-warm="c"] .menu-stores button:not(#_) span{white-space:nowrap;word-break:keep-all}
+}
+
+/* A2. 固定の予約ボタン：出し入れは warm-c.js の wc-fab だけで決める（renew14 の fab-on、display の切り替えは使わない） */
+html[data-warm="c"] .fab:not(#_),html[data-warm="c"] body[data-page=consulting] .cta-float:not(#_){opacity:0!important;visibility:hidden!important;transform:translateY(12px)!important;pointer-events:none;animation:none!important;
+  transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s!important}
+html[data-warm="c"].wc-fab .fab:not(#_),html[data-warm="c"].wc-fab body[data-page=consulting] .cta-float:not(#_){opacity:1!important;visibility:visible!important;transform:none!important;pointer-events:auto;
+  transition:opacity .2s ease,transform .2s ease,visibility 0s!important}
+/* 入力中とドロワーが開いている間は隠す */
+html[data-warm="c"].wc-fab.typing .fab:not(#_),html[data-warm="c"].wc-fab.typing body[data-page=consulting] .cta-float:not(#_),
+html[data-warm="c"].wc-fab:has(#menuBtn[aria-expanded="true"]) .fab:not(#_),html[data-warm="c"].wc-fab:has(#menuBtn[aria-expanded="true"]) body[data-page=consulting] .cta-float:not(#_){opacity:0!important;visibility:hidden!important;pointer-events:none}
+@media(prefers-reduced-motion:reduce){html[data-warm="c"] .fab:not(#_),html[data-warm="c"] .cta-float:not(#_){transition:none!important}}
+/* 重なる所（ケータリングのボタン・SNS の YouTube）は、区画の下の余白で逃がす */
+@media(max-width:640px){
+  html[data-warm="c"] #catering:not(#_){padding-bottom:96px!important}
+  html[data-warm="c"] .shop-sns:not(#_){padding-bottom:96px}
+}
+
+/* A3. SP のメニューボタン：3本線（22×2px、間 5px）。開いたら上下の線を回して ×、真ん中は消す */
+html[data-warm="c"] .menu-btn:not(#_){gap:5px!important;padding:0!important;overflow:visible}
+html[data-warm="c"] .menu-btn:not(#_) span{display:block;width:22px!important;height:2px!important;top:auto!important;right:auto!important;transform:none;opacity:1;transition:transform .2s ease,opacity .2s ease}
+html[data-warm="c"] .menu-btn[aria-expanded=true]:not(#_) span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+html[data-warm="c"] .menu-btn[aria-expanded=true]:not(#_) span:nth-child(2){opacity:0}
+html[data-warm="c"] .menu-btn[aria-expanded=true]:not(#_) span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(prefers-reduced-motion:reduce){html[data-warm="c"] .menu-btn:not(#_) span{transition:none}}
+
+/* A4. ケータリング：「ご相談」→ チラシ（サムネイル 64×88 ＋「チラシを見る」で1つのリンク）→ メールアドレス。PC も同じ並び */
+html[data-warm="c"] .wrap.cater:not(#_){grid-template-areas:"h2 h2" "lead lead" "ph list" "ph row" "ph flyer" "ph mail" "ph ."!important;grid-template-rows:auto auto auto auto auto auto 1fr!important}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer{grid-area:flyer;display:inline-flex!important;align-items:center;gap:14px!important;justify-self:start;align-self:start;width:auto!important;max-width:none!important;margin:16px 0 0!important;padding:0!important;
+  position:static!important;transform:none!important;background:none!important;text-decoration:none;color:var(--ink)!important;text-align:left}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer img{width:64px!important;height:88px!important;object-fit:cover;object-position:center top;margin:0!important;padding:0!important;border:1px solid var(--rule)!important;background:var(--kinari)!important;flex:none}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer .flyer-go{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;color:var(--ink)!important}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer:hover .flyer-go{text-decoration-thickness:2px}
+html[data-warm="c"] .wrap.cater:not(#_) .flyer .flyer-tap{display:none!important}
+html[data-warm="c"] .wrap.cater:not(#_) .mail{margin:12px 0 0!important}
+@media(max-width:900px){
+  html[data-warm="c"] .wrap.cater:not(#_){grid-template-areas:"h2" "lead" "ph" "list" "row" "flyer" "mail"!important;grid-template-rows:none!important}
+}
+@media(max-width:640px){html[data-warm="c"] .wrap.cater:not(#_) .row .btn:not(.line){display:flex!important;width:100%}}
+
+/* B. 受賞：GIG を主役にした段差のある4列（ロゴの下端をそろえる）。トップは「私たちのレストランについて」の続き（地は --paper、要点との間 72px）。
+   ほかのページのフッター直前の帯は --kinari。ロゴは高さを決めて置く（読み込めなくても場所が変わらない） */
+html[data-warm="c"] .awards-band:not(#_){border:0!important;background:var(--kinari)!important;padding:40px 0!important}
+html[data-warm="c"] main .awards-band:not(#_){background:var(--paper)!important;padding:72px 0 clamp(64px,8vw,120px)!important}
+html[data-warm="c"] body[data-page=index] .blk:has(>.wrap.about):not(#_){padding-bottom:0!important}
+html[data-warm="c"] .awards-band .badges:not(#_){display:grid!important;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr))!important;grid-template-rows:auto auto;column-gap:48px!important;row-gap:0!important;
+  align-items:end;justify-content:stretch;max-width:none!important;margin:0!important;padding:0!important}
+html[data-warm="c"] .awards-band .badges li:not(#_){display:grid!important;grid-row:span 2;grid-template-rows:subgrid;row-gap:14px!important;justify-items:start;align-items:start;flex-direction:unset!important;
+  width:auto!important;padding:0!important;margin:0!important;text-align:left!important;font-family:var(--f-head);font-size:15px!important;line-height:1.6;letter-spacing:.02em!important;color:var(--ink)!important}
+html[data-warm="c"] .awards-band .badges li:not(#_) img{align-self:end;width:auto!important;height:56px!important;max-width:72px!important;object-fit:contain;object-position:left bottom}
+html[data-warm="c"] .awards-band .badges li:not(#_)>span{text-align:left!important;font-family:var(--f-head);align-self:start}
+html[data-warm="c"] .awards-band .badges li:first-child:not(#_){font-size:20px!important;line-height:1.5}
+html[data-warm="c"] .awards-band .badges li:first-child:not(#_) img{height:96px!important;max-width:120px!important}
+@media(min-width:641px) and (max-width:1100px){
+  /* 768：4列のまま。「フードアクションニッポン」「トリップアドバイザー」を途中で折らない大きさ */
+  html[data-warm="c"] .awards-band .badges:not(#_){grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr))!important;column-gap:16px!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_){font-size:12.5px!important;letter-spacing:0!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_) img{height:48px!important;max-width:64px!important}
+  html[data-warm="c"] .awards-band .badges li:first-child:not(#_){font-size:17px!important}
+  html[data-warm="c"] .awards-band .badges li:first-child:not(#_) img{height:80px!important;max-width:100px!important}
+}
+@media(max-width:640px){
+  html[data-warm="c"] main .awards-band:not(#_){padding:56px 0 64px!important}
+  html[data-warm="c"] .awards-band .badges:not(#_){grid-template-columns:minmax(0,1fr)!important;grid-template-rows:none;row-gap:16px!important}
+  html[data-warm="c"] .awards-band .badges li:not(#_){grid-row:auto;grid-template-rows:none;grid-template-columns:44px minmax(0,1fr);column-gap:16px;align-items:center;font-size:14px!important;line-height:1.5}
+  html[data-warm="c"] .awards-band .badges li:not(#_) img{width:44px!important;height:44px!important;max-width:none!important;align-self:center;object-position:center}
+  html[data-warm="c"] .awards-band .badges li:first-child:not(#_){grid-template-columns:72px minmax(0,1fr);font-size:17px!important;margin-bottom:8px!important}
+  html[data-warm="c"] .awards-band .badges li:first-child:not(#_) img{width:72px!important;height:72px!important}
+}
+
+/* D. FV の3案（デモ。html[data-fv]。トップだけ）。写真は .fv-pics の img（今の FV では display:none なので読み込まない） */
+html[data-warm="c"] .fv-pics,html[data-warm="c"] .fv-pics img{display:none}
+html[data-warm="c"][data-fv] .hero:not(#_)::after{display:none!important}
+html[data-warm="c"][data-fv] .hero:not(#_) .hero-in{animation:none}
+html[data-warm="c"][data-fv] .fv-pics img{width:100%;height:100%;object-fit:cover;border-radius:0!important}
+/* サブの文は元の改行（「方々が、」の後）で折る。SP で「方／々」と切れないように */
+html[data-warm="c"][lang="ja"] .hero:not(#_) .hero-in .hero-sub br{display:inline}
+html[data-warm="c"][data-fv] .hero:not(#_) .hero-in .sub{max-width:none!important}
+/* 予約以外のボタン（メニューを見る）は、SP では文字のリンクにする */
+@media(max-width:900px){
+  html[data-warm="c"][data-fv] .hero:not(#_) .hero-in .row{flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap;gap:4px!important}
+  html[data-warm="c"][data-fv] .hero:not(#_) .hero-in .row .btn.rsv{flex:none;width:100%!important;padding:0 16px!important}
+  html[data-warm="c"][data-fv] .hero:not(#_) .hero-in .row .btn.line{flex:none;justify-content:flex-start;align-self:flex-start;min-height:44px;padding:0!important;border:0!important;text-decoration:underline!important;text-underline-offset:6px;background:none!important}
+  html[data-warm="c"][data-fv] .hero:not(#_) .hero-in .row .btn.line span{text-decoration:none!important}
+}
+
+/* FV1「卓の上に置いた紺の札」：料理の写真を端から端まで。その下端に紺の札（H1・ボタン）を重ねる */
+html[data-warm="c"][data-fv="1"] .hero:not(#_){display:block!important;height:auto!important;background:var(--paper)!important;overflow:hidden}
+html[data-warm="c"][data-fv="1"] .fv-pics{display:block;height:58svh;min-height:340px;overflow:hidden;background:var(--navy)}
+html[data-warm="c"][data-fv="1"] .fv-pics .fv-food{display:block;object-position:42% 45%}
+html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in{position:relative;z-index:1;display:block!important;width:auto;max-width:none!important;margin:-64px 16px 0!important;padding:24px 20px!important;background:var(--navy)!important}
+html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in h1{font-size:30px!important;line-height:1.45;margin:0 0 12px!important}
+html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in .hero-sub{font-size:15px!important;line-height:1.8;margin:0 0 20px!important}
+html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in .sub{font-size:13px;margin-top:8px!important;color:var(--navy-2)!important}
+html[data-warm="c"][data-fv="1"][lang="en"] .hero:not(#_) .hero-in h1{font-size:28px!important;line-height:1.15}
+@media(min-width:901px){
+  /* 1440×900 で予約ボタンが最初の画面に入るよう、写真は「画面の高さ − ヘッダー − 160px」、札は 240px 重ねる（art-2 の 78svh・160px から変えた） */
+  html[data-warm="c"][data-fv="1"] .fv-pics{height:clamp(480px,calc(100svh - var(--hd-h,72px) - 160px),860px);min-height:0}
+  html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in{width:660px;box-sizing:border-box;margin:-240px 0 0 max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter)))!important;padding:44px 48px!important}
+  html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in h1{font-size:clamp(32px,2.5vw,36px)!important;line-height:1.45;margin:0 0 16px!important}
+  html[data-warm="c"][data-fv="1"][lang="en"] .hero:not(#_) .hero-in h1{font-size:clamp(36px,3.2vw,48px)!important;line-height:1.1}
+  html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in .hero-sub{font-size:17px!important;margin:0 0 28px!important}
+  html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in .sub{font-size:14px;margin-top:16px!important}
+}
+/* 動きは1つだけ：スクロールに合わせて写真が 1.06 倍から等倍に戻る（CSS のみ。動きを減らす設定では止める） */
+@media(prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:scroll()){
+    html[data-warm="c"][data-fv="1"] .fv-pics .fv-food{animation:wc-fv1 linear both;animation-timeline:scroll(root);animation-range:0 70svh}
+  }
+}
+@keyframes wc-fv1{from{transform:scale(1.06)}to{transform:none}}
+
+/* FV2「縦組みの暖簾」：日本語の H1 を縦組みにして、紺の柱として写真の脇に掛ける。英語は横組みの帯 */
+html[data-warm="c"][data-fv="2"] .hero:not(#_){display:grid!important;grid-template-columns:minmax(0,64fr) minmax(0,36fr);grid-template-rows:520px auto auto auto;height:auto!important;background:var(--paper)!important;color:var(--ink)!important}
+html[data-warm="c"][data-fv="2"] .fv-pics,html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in{display:contents!important}
+html[data-warm="c"][data-fv="2"] .fv-pics .fv-food{display:block;grid-column:1;grid-row:1;object-position:40% 50%}
+html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in h1{grid-column:2;grid-row:1;writing-mode:vertical-rl;text-orientation:mixed;display:flex;justify-content:flex-start;align-items:center;white-space:nowrap;text-wrap:nowrap;
+  margin:0!important;padding:28px 0!important;background:var(--navy);color:var(--olive-ink)!important;font-size:clamp(24px,7vw,28px)!important;line-height:1.7;letter-spacing:.12em}
+html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .hero-sub{grid-column:1/-1;margin:0!important;padding:24px var(--gutter) 20px!important;color:var(--ink)!important;font-size:15px!important;line-height:1.8}
+html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .row{grid-column:1/-1;margin:0!important;padding:0 var(--gutter)!important}
+html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .row .btn.line,html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .row .btn.line span{color:var(--ink)!important;border-color:var(--ink)!important}
+html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .sub{grid-column:1/-1;margin:0!important;padding:8px var(--gutter) 40px!important;color:var(--ink-2)!important;font-size:13px}
+html[data-warm="c"][data-fv="2"] .hero :focus-visible:not(#_){outline-color:var(--ink)!important}
+/* 英語：縦組みにせず、写真の上の紺の帯に横組みの H1 */
+html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_){grid-template-columns:minmax(0,1fr);grid-template-rows:auto 300px auto auto auto}
+html[data-warm="c"][data-fv="2"][lang="en"] .fv-pics .fv-food{grid-row:2}
+html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_) .hero-in h1{grid-column:1;grid-row:1;writing-mode:horizontal-tb;display:block;white-space:normal;text-wrap:balance;padding:24px var(--gutter)!important;font-size:28px!important;line-height:1.15;letter-spacing:0}
+@media(min-width:901px){
+  html[data-warm="c"][data-fv="2"] .hero:not(#_){grid-template-columns:300px minmax(0,1fr) 240px;grid-template-rows:clamp(520px,calc(100svh - var(--hd-h,72px) - 170px),820px) auto auto}
+  html[data-warm="c"][data-fv="2"] .fv-pics .fv-food{grid-column:2}
+  html[data-warm="c"][data-fv="2"] .fv-pics .fv-ent{display:block;grid-column:3;grid-row:1;object-position:28% 50%}
+  html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in h1{grid-column:1;grid-row:1/-1;padding:48px 0!important;font-size:clamp(30px,calc((100svh - var(--hd-h,72px) - 96px)/17),44px)!important}
+  html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .hero-sub{grid-column:2/4;grid-row:2;align-self:center;justify-self:start;max-width:calc(100% - 420px);padding:32px 0 0 48px!important;font-size:17px!important}
+  html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .row{grid-column:2/4;grid-row:2;align-self:end;justify-self:end;display:flex!important;flex-wrap:nowrap;gap:12px!important;padding:32px max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter))) 0 0!important}
+  html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .sub{grid-column:2/4;grid-row:3;padding:16px 48px 40px!important;font-size:14px}
+  html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_){grid-template-columns:minmax(0,1fr) 240px;grid-template-rows:auto clamp(400px,calc(100svh - var(--hd-h,72px) - 330px),700px) auto auto}
+  html[data-warm="c"][data-fv="2"][lang="en"] .fv-pics .fv-food{grid-column:1;grid-row:2}
+  html[data-warm="c"][data-fv="2"][lang="en"] .fv-pics .fv-ent{grid-column:2;grid-row:2}
+  html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_) .hero-in h1{grid-column:1/-1;grid-row:1;padding:40px max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter)))!important;font-size:clamp(36px,3.4vw,52px)!important}
+  html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_) .hero-in .hero-sub{grid-column:1/-1;grid-row:3;padding-left:max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter)))!important}
+  html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_) .hero-in .row{grid-column:1/-1;grid-row:3}
+  html[data-warm="c"][data-fv="2"][lang="en"] .hero:not(#_) .hero-in .sub{grid-column:1/-1;grid-row:4;padding-left:max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter)))!important}
+}
+
+/* FV3「料理・店・お弁当の3枚組」：SP は紺の帯（H1・ボタン）→ 料理 4:3 → 店とお弁当 1:1 の2枚。PC は左 5 列が文字、右 7 列が写真の組 */
+html[data-warm="c"][data-fv="3"] .hero:not(#_){display:flex!important;flex-direction:column;height:auto!important}
+html[data-warm="c"][data-fv="3"] .hero:not(#_) .hero-in{order:1;padding:28px var(--gutter) 32px!important}
+html[data-warm="c"][data-fv="3"] .hero:not(#_) .hero-in h1{font-size:26px!important;line-height:1.5;margin:0 0 12px!important}
+html[data-warm="c"][data-fv="3"][lang="en"] .hero:not(#_) .hero-in h1{font-size:28px!important;line-height:1.15}
+html[data-warm="c"][data-fv="3"] .fv-pics{order:2;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--navy);padding-bottom:3px}
+html[data-warm="c"][data-fv="3"] .fv-pics .fv-food{display:block;grid-column:1/-1;aspect-ratio:4/3;height:auto}
+html[data-warm="c"][data-fv="3"] .fv-pics .fv-har,html[data-warm="c"][data-fv="3"] .fv-pics .fv-bento{display:block;aspect-ratio:1/1;height:auto}
+html[data-warm="c"][data-fv="3"] .fv-pics .fv-har{object-position:50% 60%}
+@media(min-width:901px){
+  html[data-warm="c"][data-fv="3"] .hero:not(#_){display:grid!important;grid-template-columns:minmax(0,5fr) minmax(0,7fr);height:max(640px,calc(100svh - var(--hd-h,72px)))!important}
+  html[data-warm="c"][data-fv="3"] .hero:not(#_) .hero-in{grid-column:1;grid-row:1}
+  html[data-warm="c"][data-fv="3"] .hero:not(#_) .hero-in h1{font-size:clamp(34px,3.2vw,46px)!important;line-height:1.45;margin:0 0 24px!important}
+  html[data-warm="c"][data-fv="3"] .fv-pics{grid-column:2;grid-row:1;grid-template-rows:2fr 1fr;padding:0 0 0 3px;min-height:0}
+  html[data-warm="c"][data-fv="3"] .fv-pics img:not(#_){aspect-ratio:auto;height:100%;min-height:0}
+}
+
+/* 768 の英語：コンサルの入口のボタン（Book a free 30-minute consultation）が右にはみ出す（3回目からの残り）→ 欄の幅で折り返す */
+html[data-warm="c"] .cons-band:not(#_) .btn.cons-link{max-width:100%;white-space:normal;text-align:center}
+
+/* ════════════════ 4回目の批評（20261125b） ════════════════ */
+/* 本文の左端・右端（ヘッダーのロゴ・予約ボタンと同じ。1440 で 144px / 1296px） */
+html[data-warm="c"]{--edge:max(var(--gutter),calc((100vw - 1296px)/2 + var(--gutter)))}
+
+/* 1. サブの文：元の改行だけで折る。balance で「方／々」と割られないよう、日本語は通常の折り返し＋厳格な禁則 */
+html[data-warm="c"][lang="ja"] .hero:not(#_) .hero-in .hero-sub{text-wrap:wrap!important;line-break:strict;word-break:auto-phrase;overflow-wrap:normal}
+
+@media(min-width:901px){
+  /* 3. FV1：写真を札の下端まで伸ばす（札は写真の左下に載る。右に地の帯を作らない）。写真の最低の高さは今と同じ */
+  html[data-warm="c"][data-fv="1"] .hero:not(#_){display:grid!important;grid-template:1fr/1fr}
+  html[data-warm="c"][data-fv="1"] .fv-pics{grid-area:1/1;position:relative;height:auto;min-height:clamp(480px,calc(100svh - var(--hd-h,72px) - 160px),860px)}
+  html[data-warm="c"][data-fv="1"] .fv-pics .fv-food{position:absolute;inset:0}
+  html[data-warm="c"][data-fv="1"] .hero:not(#_) .hero-in{grid-area:1/1;align-self:end;margin:calc(clamp(480px,calc(100svh - var(--hd-h,72px) - 160px),860px) - 240px) 0 0 var(--edge)!important}
+
+  /* 2. FV2：縦組みの H1 の左端を 144px に。紺の柱の幅は「左端＋文字＋56px」 */
+  html[data-warm="c"][data-fv="2"][lang="ja"] .hero:not(#_){grid-template-columns:calc(var(--edge) + 176px) minmax(0,1fr) 240px}
+  html[data-warm="c"][data-fv="2"][lang="ja"] .hero:not(#_) .hero-in h1{align-items:flex-end;padding:48px 56px 48px calc(var(--edge) - .26em)!important} /* .26em は縦組みの行間の半分（字面を 144px に） */
+  /* 4. FV2：注記を1行に */
+  html[data-warm="c"][data-fv="2"] .hero:not(#_) .hero-in .sub{white-space:nowrap}
+
+  /* 2. FV3：文字欄の左端を 144px に（H1 は欄に収まる大きさ） */
+  html[data-warm="c"][data-fv="3"] .hero:not(#_) .hero-in{padding-left:var(--edge)!important;padding-right:48px!important}
+  html[data-warm="c"][data-fv="3"] .hero:not(#_) .hero-in h1{font-size:clamp(30px,2.8vw,40px)!important}
+
+  /* 5. ケータリング PC：右の列を写真の縦の中央に。「ご相談」は最小 200px */
+  html[data-warm="c"] .wrap.cater:not(#_){grid-template-areas:"h2 h2" "lead lead" "ph ." "ph list" "ph row" "ph flyer" "ph mail" "ph ."!important;grid-template-rows:auto auto 1fr auto auto auto auto 1fr!important}
+  html[data-warm="c"] .wrap.cater:not(#_) .row .btn:not(.line){min-width:200px;justify-content:center}
+}
+@media(min-width:1101px){
+  /* 2. TOP の受賞：1列目と2列目の始まりを、すぐ上の要点の3列（144 / 537）にそろえ、右端も 1296 にそろえる */
+  html[data-warm="c"] main .awards-band .badges:not(#_){grid-template-columns:calc((100% - 56px)/3) repeat(3,minmax(0,1fr))!important;column-gap:28px!important}
+}
+
+@media(max-width:640px){
+  /* 5. ケータリング SP：「ご相談」は全幅 */
+  html[data-warm="c"] .wrap.cater:not(#_) .row .btn:not(.line){width:100%;justify-content:center}
+  /* 6. about：写真の直後の1本目の線は消し、写真との間は余白で区切る（2本目からは残す） */
+  html[data-warm="c"] .wrap.about:not(#_) .pt:first-child{border-top:0!important;padding-top:8px!important}
+  /* 6. コンサルの入口：3項目の間の線は細く薄く */
+  html[data-warm="c"] .cons-band:not(#_) .cons-areas li+li{border-top:.5px solid color-mix(in srgb,var(--rule) 55%,transparent)}
+}
+
+/* 7. PC のフッター：SNS のアイコンの左端をロゴの左端にそろえる（押せる範囲は同じ） */
+html[data-warm="c"] footer .sns:not(#_){justify-content:flex-start}

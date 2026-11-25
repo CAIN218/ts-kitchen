@@ -3,7 +3,7 @@
    使い方（リポジトリの一番上で）:
      node tools/shots.js --site warm-c --pages index,menu --widths 375,390 --langs ja,en --out /mnt/project-files/<作業>/shots/qa
    省略時: --site split  --pages index,menu,about,consulting,media  --widths 375,390,430,768,1440  --langs ja,en
-   オプション: --top（ファーストビューだけ撮る。省略時はページ全体） --drawer（SP幅でメニューを開いた状態も撮る）
+   オプション: --query "fv=2&bg=b"（URL に付けて撮る） --top（ファーストビューだけ撮る。省略時はページ全体） --drawer（SP幅でメニューを開いた状態も撮る）
    出力: {out}/{page}-{lang}-{width}.png と {out}/report.json。
    各画面で、横スクロール（はみ出し）、コンソールのエラー、読み込めなかったローカルのファイルを記録し、最後に一覧を表示する。
    撮っただけで終わりにしない。QA は画像を必ず開いて、実際の表示を確認する。 */
@@ -17,6 +17,7 @@ const site = arg('site', 'split');
 const pages = arg('pages', 'index,menu,about,consulting,media').split(',');
 const widths = arg('widths', '375,390,430,768,1440').split(',').map(Number);
 const langs = arg('langs', 'ja,en').split(',');
+const query = arg('query', '');  // 例: --query "fv=2&bg=b"（デモの切り替えを指定して撮る。名前の末尾に付く）
 const out = path.resolve(arg('out', path.join(ROOT, '.shots', site)));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png',
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.json': 'application/json' };
@@ -39,7 +40,7 @@ const server = http.createServer((req, res) => {
   const browser = await pw.chromium.launch();
   const report = [];
   for (const lang of langs) for (const page of pages) for (const w of widths) {
-    const url = base + (lang === 'en' ? 'en/' : '') + (page === 'index' ? '' : page + '/');
+    const url = base + (lang === 'en' ? 'en/' : '') + (page === 'index' ? '' : page + '/') + (query ? '?' + query : '');
     const mobile = w < 768;
     const ctx = await browser.newContext({ viewport: { width: w, height: mobile ? 844 : (w < 1200 ? 1024 : 900) },
       deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile });
@@ -53,8 +54,11 @@ const server = http.createServer((req, res) => {
     pg.on('response', r => { if (r.status() >= 400 && r.url().startsWith(base.split('/' + site)[0])) missing.push(r.status() + ' ' + r.url().replace(/^https?:\/\/[^/]+/, '')); });
     const res = await pg.goto(url, { waitUntil: 'networkidle', timeout: 30000 }).catch(e => null);
     await pg.waitForTimeout(600);
+    // 遅延読み込みの画像も写るように、loading=lazy を外す
+    await pg.evaluate(() => document.querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager'));
     // 遅延表示の要素を出すため、一度下まで流してから上に戻す
     await pg.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise(r => setTimeout(r, 40)); } scrollTo(0, 0); });
+    await pg.waitForLoadState('networkidle').catch(() => {});
     await pg.waitForTimeout(400);
     const over = await pg.evaluate(() => {
       const W = document.documentElement.clientWidth, list = [];
@@ -62,12 +66,12 @@ const server = http.createServer((req, res) => {
         if (r.width && (r.right > W + 1 || r.left < -1) && getComputedStyle(el).position !== 'fixed') list.push((el.className && typeof el.className === 'string' ? el.tagName.toLowerCase() + '.' + el.className.split(' ')[0] : el.tagName.toLowerCase()) + ' ' + Math.round(r.left) + '–' + Math.round(r.right)); });
       return { scrollWidth: document.documentElement.scrollWidth, clientWidth: W, height: document.documentElement.scrollHeight, overflowing: list.slice(0, 8) };
     });
-    const name = `${page}-${lang}-${w}.png`;
+    const name = `${page}-${lang}-${w}${query ? '-' + query.replace(/[^a-z0-9]+/gi, '') : ''}.png`;
     await pg.screenshot({ path: path.join(out, name), fullPage: !flag('top') });
     let drawer = null;
     if (flag('drawer') && mobile) {
       const btn = await pg.$('.hd .menu-btn, .hd [aria-controls], .burger, .nav-toggle');
-      if (btn) { await btn.click(); await pg.waitForTimeout(500); drawer = `${page}-${lang}-${w}-drawer.png`; await pg.screenshot({ path: path.join(out, drawer) }); }
+      if (btn) { await btn.click(); await pg.waitForTimeout(500); drawer = name.replace('.png', '-drawer.png'); await pg.screenshot({ path: path.join(out, drawer) }); }
     }
     report.push({ page, lang, width: w, url, status: res ? res.status() : 'error', shot: name, drawer,
       hScroll: over.scrollWidth > over.clientWidth, scrollWidth: over.scrollWidth, height: over.height, overflowing: over.overflowing, errors, missing, external });

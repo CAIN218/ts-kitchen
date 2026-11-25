@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261124e'
+WARM_V = '20261125b'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -131,6 +131,12 @@ def warm_c_html(x, name, lang, up, rel):
     # 「取材のお問い合わせ」を「お問い合わせ」に（ナビ・ドロワー・フッター）
     x = x.replace('<span lang="ja">取材のお問い合わせ</span>', '<span lang="ja">お問い合わせ</span>')
     x = x.replace('<span lang="en">Media inquiries</span>', '<span lang="en">Contact</span>')
+    # 4回目：SP のメニューボタンを3本線に（2本だと切れて見える）
+    x = x.replace('<span></span><span></span></button>', '<span></span><span></span><span></span></button>')
+    # 4回目：背景色（?bg=a|b|c|d、既定 b）と FV（?fv=1|2|3）のデモ。描画前に html の属性を決めて、ちらつきを防ぐ
+    x = x.replace('</head>', '<script>(function(){var r=document.documentElement,q=new URLSearchParams(location.search),s=window.localStorage,g=function(k){try{return s.getItem(k)}catch(e){return null}},p=function(k,v){try{s.setItem(k,v)}catch(e){}};'
+                  'var b=q.get("bg");if(/^[abcd]$/.test(b||""))p("wc-bg",b);else b=g("wc-bg")||"b";if(b!=="a")r.setAttribute("data-bg",b);'
+                  'var f=q.get("fv");if(/^[0123]$/.test(f||""))p("wc-fv",f);else f=g("wc-fv");if(f&&f!=="0")r.setAttribute("data-fv",f)})()</script></head>', 1)
     if name == 'index':
         # TOPの2つ目のボタン：店舗を見る → メニューを見る（menu へ）
         x = sub1(r'<a class="btn line" href="#stores"><span lang="(ja|en)">(店舗を見る|See locations)</span></a>',
@@ -138,8 +144,25 @@ def warm_c_html(x, name, lang, up, rel):
         # 私たちのレストランについて：ドアの写真 → 店内の写真
         x = sub1(r'<img class="a1" src="([^"]*?)entrance\.jpg"', r'<img class="a1" src="\1interior.jpg" width="450" height="303"', x)
         # ケータリング：メールソフトを開くボタン → お問い合わせ（種類＝ケータリング）。メールアドレスの表記は残す
+        # 4回目：ボタンの文言は「ご相談」/「Ask us」（yuga 2026-11-25「お問い合わせではなく、ご相談に」。英語は要確認）
         x = sub1(r'<a class="btn" href="mailto:glutenfree@glutenfree\.co\.jp\?subject=[^"]*"><span lang="(?:ja|en)">(?:メールで相談する|Email us)</span></a>',
-                 f'<a class="btn" href="{rel("media", lang)}?type=catering#contact"><span lang="{lang}">{"お問い合わせ" if ja else "Contact"}</span></a>', x)
+                 f'<a class="btn" href="{rel("media", lang)}?type=catering#contact"><span lang="{lang}">{"ご相談" if ja else "Ask us"}</span></a>', x)
+        # 4回目：チラシは「チラシを見る」とサムネイルを1つのリンクにまとめ、「ご相談」のすぐ下（メールアドレスの上）へ。
+        # 「タップで拡大」の文言は残し、表示だけ CSS で消す
+        m_fl = re.search(r'\n\s*<a class="flyer" href="([^"]+)"[^>]*>\n\s*(<img [^>]*>)\n\s*(<span><span lang="(?:ja|en)">[^<]*</span></span>)\n\s*</a>', x)
+        assert m_fl
+        m_bl = re.search(r'\n\s*<a class="btn line" href="' + re.escape(m_fl.group(1)) + r'"[^>]*><span lang="(?:ja|en)">([^<]*)</span></a>', x)
+        assert m_bl
+        x = x.replace(m_bl.group(0), '', 1).replace(m_fl.group(0), '', 1)
+        flyer = (f'\n    <a class="flyer" href="{m_fl.group(1)}" target="_blank" rel="noopener">{m_fl.group(2)}'
+                 f'<span class="flyer-go"><span lang="{lang}">{m_bl.group(1)}</span></span>'
+                 + m_fl.group(3).replace('<span>', '<span class="flyer-tap">', 1) + '</a>')
+        x = sub1(r'(<div class="row">\s*<a class="btn" href="[^"]*type=catering#contact">.*?</a>\s*</div>)', lambda m: m.group(1) + flyer, x, flags=re.S)
+        # 4回目：FV の3案（?fv=1|2|3）用の写真。今の FV（fv なし）では表示しない（display:none と loading=lazy で読み込まない）
+        pics = ''.join(f'<img class="fv-{k}" src="{up}src/images/{f}" alt="" width="{w}" height="{h}" loading="lazy" decoding="async">'
+                       for k, f, w, h in (('food', 'food.jpg', 1464, 943), ('ent', 'entrance.jpg', 1200, 800),
+                                          ('har', 'harajuku.jpg', 1448, 1086), ('bento', 'bento.jpg', 1200, 800)))
+        x = sub1(r'<div class="hero"><div class="hero-in">', f'<div class="hero"><div class="fv-pics" aria-hidden="true">{pics}</div><div class="hero-in">', x)
         # コンサルへの入口：誰が・何を・初回無料を、コンサルページの既存の文言で
         role = ('アジア初GFFS認証レストラン創業者 ／ グルテンフリー専門コンサルタント' if ja
                 else "Founder of Asia's first GFFS-certified restaurant / Gluten-free consultant")
