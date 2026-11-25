@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125q'
+WARM_V = '20261125r'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -62,6 +62,9 @@ def warm(x, look, name, lang, up, rel):
                                 ('b', 'warm-b', 'B ' + WARM_NAME['b'][0 if lang == 'ja' else 1]),
                                 ('c', 'warm-c', 'C ' + WARM_NAME['c'][0 if lang == 'ja' else 1])))
           + '</p>')
+    if look == 'c':
+        # 16回目（yuga 2026-11-25「開発者用のデザイン選択など消して」）：案Cでは切り替えの行を出さない
+        return x
     return x.replace('</footer>', sw + '\n</footer>', 1)
 
 def cur_path(name, lang):
@@ -417,7 +420,8 @@ for name in PAGES:
                         for i, dv in enumerate(divs):
                             if i in links:
                                 biz = biz.replace(dv, '<a class="biz-go" href="' + links[i] + '">' + dv[5:-6] + '</a>', 1)
-                        new = [hero, phil, cv, nums, biz, hist, prof, honors, jt, pol]
+                        # 16回目（yuga 2026-11-25「会社概要って会社情報が最初のイメージ」）：見出しの直後に会社情報
+                        new = [hero, prof, phil, cv, nums, biz, hist, honors, jt, pol]
                         x = x.replace(mm.group(2), '\n\n'.join(new) + '\n', 1)
                 if look == 'c' and name == 'index':
                     # TOP のコンサル入口：無料の1行はコンサルページと同じ文なので外す。見出しはコンサルページへ、ボタンはお問い合わせ（コンサル）へ
@@ -446,6 +450,11 @@ for name in PAGES:
                         ('*', 'Business review &amp; sales advisory', 'Current-state assessment &amp; sales improvement advisory'),
                         ('*', 'Business review &amp;<br>sales advisory', 'Current-state assessment &amp;<br>sales improvement advisory'),
                         ('consulting', 'Embassies &amp; Ministry of Foreign Affairs', 'Embassies &amp; Ministry of Foreign Affairs-related'),
+                        # 16回目（yuga 2026-11-25）：取引先の英語表記は任せる → 各社の英文社名に。著作権表記は英語でOK
+                        ('about', 'Amazon Japan G.K. / 日本酒類販売株式会社 / 国分グループ本社株式会社 / 井辻食産 / 新潟製粉',
+                         'Amazon Japan G.K. / Nippon Shurui Hanbai Co., Ltd. / Kokubu Group Corp. / Itsuji Shokusan / Niigata Seifun'),
+                        ('about', '<td><span lang="en">株式会社たいのいかこ</span></td>', '<td><span lang="en">Tainoikako Co., Ltd.</span></td>'),
+                        ('*', '<div class="copy">© 株式会社飯野 / 株式会社たいのいかこ</div>', '<div class="copy">© Iino Co., Ltd. / Tainoikako Co., Ltd.</div>'),
                     ]
                     for pg, a, b in EN_FIX:
                         if pg in ('*', name):
@@ -454,6 +463,9 @@ for name in PAGES:
                     # 15回目（yuga 2026-11-25「料理写真を主役に」）：見出しのすぐ下に料理写真の帯。メニュー表はその下にすぐ続く
                     x, n = re.subn(r'(<div class="page-hero"><div class="wrap">.*?</div></div>)', lambda m: m.group(1) + f'\n<figure class="menu-photo"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></figure>', x, count=1, flags=re.S)
                     assert n == 1, 'menu: hero'
+                    # 16回目（yuga 2026-11-25「新しいほうを採用」）：上野広小路店の料理メニューは英語ページも2026年8月版（日本語と同じ画像）
+                    x, n = re.subn(r"ueno:\[\['dish',\{ja:'2026/08/1\.png',en:'2021/08/[^']*'\}\]", "ueno:[['dish','2026/08/1.png']", x)
+                    assert n == 1, 'menu: ueno image'
                 if look == 'c' and name == 'media':
                     # 12回目（yuga 2026-11-25）：フォームの上の案内文は外す（見出し「お問い合わせ」と種類の選択で足りる）。メッセージを必須に
                     x, n = re.subn(r'\n\s*<p class="lead"><span lang="(?:ja|en)">(?:取材・コンサルティング・ケータリングなどのご相談は、下のフォームからお送りください。|For media, consulting, catering and other inquiries, please use the form below\.)</span></p>', '', x, count=1)
