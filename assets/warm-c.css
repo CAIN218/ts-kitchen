@@ -1799,3 +1799,81 @@ html[data-warm="c"] .wc-steps li:not(#_):not(#_)::before{box-sizing:border-box;b
 html[data-warm="c"] .wc-steps li[aria-current="step"]:not(#_):not(#_)::before{border-color:var(--acc,#C9963E)!important;background:var(--acc,#C9963E)!important}
 html[data-warm="c"] .wc-steps li.done:not(#_):not(#_)::before{border-color:rgba(28,43,69,.45)!important;background:rgba(28,43,69,.45)!important}
 @media(min-width:1024px){html[data-warm="c"] .wc-steps:not(#_):not(#_)::before{bottom:auto;height:calc(100% - var(--wc-last,39px));top:8px}}
+
+/* 15回目（20261125q）お問い合わせ：スマホで入力しやすく（16px で iPhone の拡大を防ぐ・押せる大きさ 44px 以上） */
+html[data-warm="c"] .cf7 select:not(#_):not(#_):not(#_){font-size:16px!important;min-height:54px}
+html[data-warm="c"] .cf7 .chk label:not(#_){display:flex!important;align-items:center;gap:10px;min-height:44px;flex-wrap:wrap}
+html[data-warm="c"] .cf7 input[type=checkbox]:not(#_):not(#_){width:24px!important;height:24px!important;flex:none;margin:0!important}
+html[data-warm="c"] .gdpr-open:not(#_){min-height:44px;padding:0 2px!important}
+@media(max-width:767px){
+  html[data-warm="c"] .cf7 label>:is(input,select,textarea):not(#_):not(#_){margin-top:8px!important}
+  html[data-warm="c"] .wc-steps li{font-size:11px}
+}
+/* メニュー：料理写真の帯 → 店舗 → 種類（ピル形）→ メニュー表 → 予約 → ご注文の前に（箱にしない） */
+html[data-warm="c"] .menu-photo{margin:0 auto;max-width:calc(1040px + 2*var(--gutter));padding:0 var(--gutter);box-sizing:border-box}
+html[data-warm="c"] .menu-photo img{display:block;width:100%;height:clamp(160px,22vw,300px);object-fit:cover;object-position:50% 45%}
+html[data-warm="c"] body[data-page="menu"] :is(.page-hero .wrap,.menu-sec .wrap):not(#_):not(#_){max-width:calc(1040px + 2*var(--gutter))!important}
+html[data-warm="c"] body[data-page="menu"] .page-hero:not(#_):not(#_){padding-bottom:16px!important}
+html[data-warm="c"] body[data-page="menu"] .menu-sec .menu-actions:not(#_):not(#_){order:4;margin-top:24px!important}
+html[data-warm="c"] body[data-page="menu"] .menu-sec .notice:not(#_):not(#_){order:5;background:none!important;border:0!important;border-top:1px solid var(--ink)!important;padding:24px 0 0!important;border-radius:0!important}
+html[data-warm="c"] .menu-cats:not(#_):not(#_){display:flex!important;flex-wrap:wrap;gap:8px!important;margin-top:16px!important}
+html[data-warm="c"] .menu-cats button:not(#_):not(#_){width:auto!important;border:1px solid var(--ink-2)!important;border-radius:999px!important;padding:8px 20px!important;min-height:44px;color:var(--ink)!important;font-size:14px!important}
+html[data-warm="c"] .menu-cats button[aria-selected=true]:not(#_):not(#_){background:var(--ink)!important;border-color:var(--ink)!important;color:var(--paper)!important}
+html[data-warm="c"] .lightbox:not(#_){overflow:auto;touch-action:pan-x pan-y pinch-zoom}
+html[data-warm="c"] .lightbox .lb-close:not(#_){width:48px;height:48px;border-radius:999px!important;font-size:18px}
+/* コンサル：スマホでも最後の相談ボタンと「もっと」のボタンを出す */
+@media(max-width:640px){
+  html[data-warm="c"] #contact .cons-go:not(#_):not(#_){display:block!important}
+  html[data-warm="c"] #contact .cons-go .btn:not(#_):not(#_){display:flex!important;width:100%;min-height:52px;justify-content:center}
+  html[data-warm="c"] .more .btn:not(#_):not(#_){display:flex!important;width:100%;justify-content:center;min-height:52px;margin-top:16px}
+}
+/* トップ：店舗の「電話」「地図」もピル形に */
+html[data-warm="c"] .cards .card .acts a:not(.r):not(#_):not(#_):not(#_){border-radius:999px!important}
+/* お問い合わせ：枠はつけず、下に細い線で入力欄の場所を分かりやすく（yuga の「枠なし・少し暗め」は保つ） */
+html[data-warm="c"] .cf7 :is(input:not([type=checkbox]),select,textarea):not(#_):not(#_):not(#_){background:rgba(28,43,69,.08)!important;box-shadow:inset 0 -1px 0 var(--ink-2)!important}
+/* トップ：キャンセルポリシーを読みやすく／チラシの画像が読めないときに alt を見せない */
+html[data-warm="c"] .flyer img:not(#_){color:transparent;font-size:0;background:var(--kinari)}
+/* 英語：営業時間の表のラベルと時間がくっつかない／コンサルの引用の太さを日本語にそろえる */
+html[data-warm="c"][lang="en"] .hours td:first-child:not(#_),html[data-warm="c"][lang="en"] .hours th:not(#_){padding-right:12px!important}
+html[data-warm="c"][lang="en"] .quote:not(#_){font-weight:400!important}
+html[data-warm="c"][lang="en"] .cards .card table td:first-child:not(#_):not(#_){padding-right:14px!important;white-space:nowrap}
+html[data-warm="c"] .policy:not(#_):not(#_){font-size:14px!important;line-height:1.85!important;color:var(--ink)!important;letter-spacing:.02em}
+/* 15回目：重複の整理で動かした部分 */
+html[data-warm="c"] .cases .cases-nums:not(#_){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1296px;margin:0 auto 40px;padding:0 0 32px;border-bottom:1px solid rgba(28,43,69,.18);text-align:left}
+html[data-warm="c"] .cases .cases-nums b:not(#_){display:block;font-family:var(--f-head);font-size:clamp(36px,4vw,56px);font-weight:500;line-height:1.1;color:var(--ink)}
+html[data-warm="c"] .cases .cases-nums b small:not(#_){font-size:.45em;margin-left:2px}
+html[data-warm="c"] .cases .cases-nums span:not(#_){font-size:14px;color:var(--ink)}
+html[data-warm="c"] .cases>.wrap:first-child:not(#_){padding-bottom:0!important}
+html[data-warm="c"] .cases .more:not(#_){margin-top:32px!important}
+html[data-warm="c"] .founder .founder-bio:not(#_){margin:20px 0 0;font-size:15px;line-height:1.9;color:var(--ink)}
+html[data-warm="c"] .founder .book-h:not(#_){font-family:var(--f-head);font-weight:500;font-size:clamp(18px,1.6vw,22px);margin:32px 0 6px;padding-top:24px;border-top:1px solid rgba(28,43,69,.18)}
+html[data-warm="c"] .founder .book-card:not(#_){margin-top:16px}
+html[data-warm="c"] .nums.nums2:not(#_):not(#_){grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:760px}
+html[data-warm="c"] .biz .biz-go:not(#_){display:block;color:inherit;text-decoration:none}
+html[data-warm="c"] .biz .biz-go b:not(#_){text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+html[data-warm="c"] .biz .biz-go:hover .ph:not(#_){filter:brightness(1.04)}
+html[data-warm="c"] .cons-band .cons-h:not(#_){color:inherit;text-decoration:none}
+html[data-warm="c"] .cons-band .cons-h:hover:not(#_){text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+html[data-warm="c"] .pd-entry:not(#_){display:flex;flex-direction:column}
+html[data-warm="c"] .pd-entry-ph:not(#_){display:flex;gap:16px;margin-top:24px;align-items:flex-end}
+html[data-warm="c"] .pd-entry-ph img:not(#_){width:auto;height:clamp(140px,14vw,200px);max-width:48%;object-fit:contain;display:block}
+@media(max-width:767px){html[data-warm="c"] .cases .cases-nums:not(#_){gap:8px}html[data-warm="c"] .cases .cases-nums span:not(#_){font-size:12px}}
+html[data-warm="c"] body[data-page=consulting] main>.founder:not(#_){order:5!important}
+html[data-warm="c"] .philosophy .phil-more:not(#_){max-width:640px;margin:28px auto 0;padding-top:24px;border-top:1px solid rgba(242,234,219,.25);text-align:left}
+html[data-warm="c"] .philosophy .phil-more p:not(#_){margin:0 0 12px}
+html[data-warm="c"] .philosophy .phil-more .ticks:not(#_){margin:0;padding:0}
+html[data-warm="c"] .philosophy .phil-more .ticks li:not(#_){color:inherit!important}
+html[data-warm="c"] .wrap.cv:not(#_):not(#_){grid-template-columns:minmax(0,1fr)!important;max-width:760px}
+/* 15回目・実装後の批評への対応 */
+html[data-warm="c"] .shop-sns>.pd-entry:not(#_):not(#_){display:flex!important;flex-direction:column;align-items:flex-start}
+html[data-warm="c"] .shop-sns>.pd-entry .pd-entry-in:not(#_):not(#_){margin:0!important;width:100%}
+html[data-warm="c"] .shop-sns>.pd-entry .pd-entry-ph:not(#_){margin-left:0}
+@media(max-width:1023px){html[data-warm="c"] .shop-sns:not(#_):not(#_){grid-template-columns:minmax(0,1fr)!important;row-gap:56px}}
+html[data-warm="c"] .cases .cases-nums:not(#_):not(#_){margin:0 0 32px!important}
+html[data-warm="c"] .cases .cases-nums b small:not(#_):not(#_){font-size:.42em;color:var(--terra,#B0712E)}
+html[data-warm="c"][lang="en"] .nums b small:not(#_):not(#_){font-size:1em!important;color:inherit!important;margin:0!important}
+html[data-warm="c"] .wrap.cv .ticks:not(#_){list-style:none;padding:0!important}
+html[data-warm="c"] .wrap.cv .ticks li:not(#_)::before{display:none!important}
+html[data-warm="c"] .wrap.cv .ticks li:not(#_){padding-left:0!important}
+@media(max-width:767px){html[data-warm="c"] .philosophy .wrap:not(#_):not(#_){text-align:left!important}html[data-warm="c"] .philosophy .motto:not(#_){text-align:left!important}}
+@media (max-width:767px){html[data-warm="c"][lang="en"] footer .ft>div:not(:first-child):not(#_):not(#_){grid-template-columns:124px minmax(0,1fr)!important;column-gap:8px}}

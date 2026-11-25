@@ -87,7 +87,9 @@ def entry(lang, up):
     return (f'<section class="pd-entry" id="shop" aria-labelledby="pd-entry-h"><div class="pd-entry-in">'
             f'<h2 id="pd-entry-h"><span lang="{lang}">{t("T&#39;sの商品", "T&#39;s Products")}</span></h2>'
             f'<p><span lang="{lang}">{t("お店で販売している、T&#39;sオリジナルの商品です。", "Original T&#39;s products, sold at our restaurants.")}</span></p>'
-            f'<a class="pd-go" href="products/"><span lang="{lang}">{t("商品を見る", "See the products")}</span></a></div></section>\n')
+            f'<a class="pd-go" href="products/"><span lang="{lang}">{t("商品を見る", "See the products")}</span></a></div>'
+            # 15回目（HP全体 作る係）：代表的な商品の写真（既存の画像）
+            f'<a class="pd-entry-ph" href="products/" tabindex="-1" aria-hidden="true"><img src="{up}src/images/hotsauce.png" alt="" loading="lazy"><img src="{up}src/images/tempura-mix.png" alt="" loading="lazy"></a></section>\n')
 
 def main():
     for lang in ("ja", "en"):

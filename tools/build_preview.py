@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125p'
+WARM_V = '20261125q'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -327,6 +327,133 @@ for name in PAGES:
                     # 12回目：無料相談のボタン（ヘッダー・ドロワー・浮きボタン・本文）はどれもお問い合わせページへ（種類＝コンサルティング）
                     x, n = re.subn(r'href="#contact"', 'href="../media/?type=consulting#contact"', x)
                     assert n >= 4, ('consulting: #contact links', n)
+                # ── 15回目（yuga 2026-11-25「重複コンテンツ整理」）：同じ実績・強み・説明を繰り返さず、節ごとに役割を持たせる。文は変えず、移動・統合・削除だけ。
+                #    一覧（どこに何が重複し、どこに集約したか）は /mnt/project-files/warm-editorial/c-r15/dup-map.md と r15-changes.md
+                if look == 'c' and name in ('consulting', 'about'):
+                    mm = re.search(r'(<main id="top">\n)(.*?)(</main>)', x, flags=re.S)
+                    blocks = re.findall(r'<div class="page-hero.*?</div></div>|<section[^>]*>.*?</section>', mm.group(2), flags=re.S)
+                    def pick(pat):
+                        hit = [b for b in blocks if re.search(pat, b, flags=re.S)]
+                        assert len(hit) == 1, (name, lang, pat, len(hit))
+                        return hit[0]
+                    if name == 'consulting':
+                        hero = pick(r'cons-hero'); nums = pick(r'class="numbers"'); only = pick(r'class="only"')
+                        why = pick(r'class="ticks".*?</ul>\s*</div>\s*</div></section>$') if False else [b for b in blocks if 'class="quote"' in b and 'ticks' in b][0]
+                        svc = pick(r'id="services"'); reasons = pick(r'class="dl-grid".*class="more"'); cases = [b for b in blocks if 'class="sec tint"' in b and 'dl-grid' in b][0]
+                        book = pick(r'book-card'); founder = pick(r'class="sec founder"'); flow = pick(r'class="steps"'); contact = pick(r'id="contact"')
+                        # 取り組む理由（市場背景は1回だけ）：GFCO の項目はサービス（GFCO認証取得支援）へ移す。商品開発の項目の末尾「700以上…」は数字と重なるので外す
+                        gfco = re.search(r'<div><h3><span lang="(?:ja|en)">[^<]*GFCO[^<]*</span></h3><p><span lang="(?:ja|en)">(.*?)</span></p></div>\s*', reasons, flags=re.S)
+                        assert gfco, 'cons: gfco item'
+                        reasons = reasons.replace(gfco.group(0), '')
+                        reasons, n = re.subn(r'(<div><h3><span lang="(?:ja|en)">(?:商品開発で市場の先を行く|[^<]*product development[^<]*)</span></h3><p><span lang="(?:ja|en)">.*?)\s*(?:700以上のレシピ開発経験から、売れる商品づくりを直接支援します。|With[^<]*700[^<]*\.)(</span></p></div>)', r'\1\2', reasons, count=1, flags=re.S | re.I)
+                        more = re.search(r'\s*<p class="more">.*?</p>', reasons, flags=re.S).group(0)
+                        reasons = reasons.replace(more, '')
+                        svc, n = re.subn(r'(<article class="svc-row"><div><h3><span lang="(?:ja|en)">[^<]*GFCO.*?<p><span lang="(?:ja|en)">.*?)(</span></p></article>)', lambda m: m.group(1) + ('' if lang == 'ja' else ' ') + gfco.group(1) + m.group(2), svc, count=1, flags=re.S)
+                        assert n == 1, 'cons: svc gfco'
+                        # 支援実績：数字帯を実績の節の頭に。「大使館・省庁…相談できます」＋ボタンは実績の後ろへ
+                        cases = cases.replace('<div class="sec-head">', nums.replace('<section class="numbers"><div class="wrap nums nums3">', '<div class="nums nums3 cases-nums">').replace('</div></section>', '</div>') + '<div class="sec-head">', 1) if False else cases
+                        cases = re.sub(r'(</div>\s*)(</div></section>)$', lambda m: m.group(1) + more.strip() + m.group(2), cases.rstrip(), count=1, flags=re.S)
+                        # 選ばれる理由＝依頼するメリット：実績の項目（大使館…）は実績の節にあるので外す。現役オーナーの項目のうち、ここにない3つを合わせる
+                        why, n = re.subn(r'\s*<li><span lang="(?:ja|en)">(?:大使館・省庁・大手企業・海外著名アーティストからの実績と信頼|[^<]*embass[^<]*)</span></li>', '', why, count=1, flags=re.I)
+                        assert n == 1, 'cons: why embassy'
+                        ow = re.findall(r'<li>.*?</li>', re.search(r'<ul class="ticks">(.*?)</ul>', book, flags=re.S).group(1), flags=re.S)
+                        assert len(ow) == 5, 'cons: owner ticks'
+                        why = why.replace('</ul>', ''.join('\n      ' + li for li in ow[2:]) + '\n    </ul>', 1)
+                        # 代表者紹介：経歴の要約（only）と書籍を、写真と引用の節に集める
+                        bk_h = re.search(r'<h2>(.*?)</h2>', book, flags=re.S).group(1)
+                        bk_p = re.search(r'<p class="muted">(.*?)</p>', book, flags=re.S).group(1)
+                        bk_card = re.search(r'<div class="book-card">.*?</div>', book, flags=re.S).group(0)
+                        only_t = re.search(r'<p class="only-text">.*?</p>', only, flags=re.S).group(0)
+                        founder, n = re.subn(r'(<p class="muted" style="margin-top:20px">)', lambda m: only_t.replace('class="only-text"', 'class="founder-bio"') + f'\n    <h3 class="book-h">{bk_h}</h3>\n    <p class="muted">{bk_p}</p>\n    ' + bk_card + '\n    ' + m.group(1), founder, count=1)
+                        assert n == 1, 'cons: founder'
+                        # 相談：同じ案内（初回30分無料・オンライン）は下の1行にまとめる
+                        contact = re.sub(r'\s*<p class="free-badge">.*?</p>', '', contact, count=1, flags=re.S)
+                        new = [hero, reasons, svc, cases.replace('<section class="sec tint">', '<section class="sec tint cases">', 1), why.replace('<section class="sec">', '<section class="sec why">', 1), founder, flow, contact]
+                        x = x.replace(mm.group(2), '\n\n'.join(new) + '\n', 1)
+                        # 数字帯は実績の節の頭へ
+                        x, n = re.subn(r'(<section class="sec tint cases"><div class="wrap sec-in">\s*<div class="sec-head">.*?</div>\s*)(<div class="dl-grid">)', lambda m: m.group(1) + '<div class="cases-body">' + nums.replace('<section class="numbers"><div class="wrap nums nums3">', '<div class="nums nums3 cases-nums">').replace('</div></section>', '</div>') + m.group(2), x, count=1, flags=re.S)
+                        assert n == 1, 'cons: nums'
+                        x, n = re.subn(r'(<div class="cases-body">.*?</div>\s*</div>\s*)(<p class="more">.*?</p>)(</div></section>)', r'\1\2</div>\3', x, count=1, flags=re.S)
+                        assert n == 1, 'cons: cases-body end'
+                    if name == 'about':
+                        hero = pick(r'class="page-hero"'); prof = pick(r'wrap profile'); phil = pick(r'philosophy'); nums = pick(r'class="numbers"')
+                        cv = pick(r'wrap cv'); biz = pick(r'biz-sec'); hist = pick(r'class="timeline"'); jt = pick(r'media-sec'); pol = pick(r'class="policy"')
+                        # 受賞歴は会社情報から外し、沿革の受賞・掲載の行（年つき）とまとめて「受賞歴」の節に
+                        aw_h = re.search(r'<h3 class="sub-h">(.*?)</h3>', prof, flags=re.S).group(1)
+                        prof = re.sub(r'\s*<h3 class="sub-h">.*?</ul>', '', prof, count=1, flags=re.S)
+                        items = re.findall(r'<li><time>(\d{4})</time>(.*?)</li>', hist, flags=re.S)
+                        biz_kw = ('オープン', 'Uber', '書籍', 'opened', 'open', 'moved', 'book', 'Opened', 'Moved')
+                        keep, award = [], []
+                        for yr, body in items:
+                            ps = re.findall(r'<p[^>]*>.*?</p>', body, flags=re.S) or [body]
+                            for ptxt in ps:
+                                inner = re.sub(r'^<p[^>]*>|</p>$', '', ptxt) if ptxt.startswith('<p') else re.sub(r'^\s*<div[^>]*>|</div>\s*$', '', ptxt)
+                                hl = ' class="hl"' if 'class="hl"' in ptxt else ''
+                                (keep if any(k in inner for k in biz_kw) else award).append((yr, inner.strip(), hl))
+                        assert len(award) >= 7, ('about: awards', len(award))
+                        def tl(rows):
+                            out = []
+                            for yr in dict.fromkeys(r[0] for r in rows):
+                                ps = [r for r in rows if r[0] == yr]
+                                out.append(f'    <li><time>{yr}</time><div>' + ''.join(f'<p{h}>{t}</p>' for _, t, h in ps) + '</div></li>')
+                            return '<ol class="timeline">\n' + '\n'.join(out) + '\n  </ol>'
+                        hist = re.sub(r'<ol class="timeline">.*?</ol>', lambda m: tl(keep), hist, count=1, flags=re.S)
+                        honors = f'<section class="blk honors"><div class="wrap">\n  <h2>{aw_h}</h2>\n  ' + tl(award) + '\n</div></section>'
+                        # 理念：TOP の H1 と同じ見出しは外す。数字（700+）と重なる1行も外す
+                        b1 = re.search(r'<div class="cv-box">\s*<h2>.*?</h2>\s*(.*?)\s*</div>\s*(?=<div class="cv-box">)', cv, flags=re.S)
+                        assert b1, 'about: cv box1'
+                        cv = cv.replace(b1.group(0), '', 1)
+                        phil = phil.replace('</div></section>', '  <div class="phil-more">' + b1.group(1) + '</div>\n</div></section>', 1)
+                        cv, n = re.subn(r'\s*<li><span lang="(?:ja|en)">(?:700を超えるオリジナルレシピ・商品を開発|[^<]*700[^<]*)</span></li>', '', cv, count=1)
+                        assert n == 1, 'about: cv 700'
+                        # 数字：トリップアドバイザー No.1 とアジア初は受賞歴の節にあるので外す
+                        nums, n = re.subn(r'\s*<div><b>No\.1</b>.*?</div>|\s*<div><b><span lang="(?:ja|en)">(?:アジア初|1st)</span></b>.*?</div>', '', nums, flags=re.S)
+                        assert n == 2, ('about: nums', n)
+                        nums = nums.replace('class="wrap nums"', 'class="wrap nums nums2"')
+                        # 事業内容：概要だけ。詳しいページへつなぐ（文言はそのまま、写真と名前をリンクに）
+                        links = {0: rel('menu', lang), 1: rel('index', lang) + '#catering', 2: rel('menu', lang)[:-5] + 'products/'}
+                        divs = re.findall(r'<div><div class="ph.*?</b></div>', biz, flags=re.S)
+                        assert len(divs) == 4
+                        for i, dv in enumerate(divs):
+                            if i in links:
+                                biz = biz.replace(dv, '<a class="biz-go" href="' + links[i] + '">' + dv[5:-6] + '</a>', 1)
+                        new = [hero, phil, cv, nums, biz, hist, prof, honors, jt, pol]
+                        x = x.replace(mm.group(2), '\n\n'.join(new) + '\n', 1)
+                if look == 'c' and name == 'index':
+                    # TOP のコンサル入口：無料の1行はコンサルページと同じ文なので外す。見出しはコンサルページへ、ボタンはお問い合わせ（コンサル）へ
+                    x, n = re.subn(r'<p class="cons-free">.*?</p>', '', x, count=1, flags=re.S)
+                    assert n == 1, 'index: cons-free'
+                    x, n = re.subn(r'(<section class="blk cons-band">.*?)<h2>(.*?)</h2>', lambda m: m.group(1) + f'<h2><a class="cons-h" href="{rel("consulting", lang)}">' + m.group(2) + '</a></h2>', x, count=1, flags=re.S)
+                    assert n == 1, 'index: cons h2'
+                    x, n = re.subn(r'(<a class="btn cons-link" href=")[^"]*(")', r'\1' + rel('media', lang) + r'?type=consulting#contact\2', x, count=1)
+                    assert n == 1, 'index: cons-link'
+                if look == 'c' and lang == 'en':
+                    # 15回目（yuga 2026-11-25「違ってたら日本語が正しいので直して」）：英語を日本語の意味に合わせる。一覧は /mnt/project-files/warm-editorial/c-r15/ja-en-audit.md
+                    EN_FIX = [
+                        ('menu', '<p lang="en">We are a gluten-free restaurant. Our dishes and drinks are made without wheat, barley, rye or MSG. We try to accommodate all food allergies — including nuts, egg, dairy, soy and shellfish — as much as possible, but due to our limited kitchen space we cannot guarantee every meal. Please use your own judgment.</p>',
+                         '<p lang="en">We serve dishes and drinks made without wheat, barley or rye. We select ingredients based on gluten-free and allergen labeling, but some ingredients are processed in facilities that also handle wheat. Thank you for your understanding.</p>\n    <p lang="en">We accommodate allergies other than gluten wherever possible, but because we cook in a limited space, we cannot guarantee every dish with respect to allergens. Please use your own judgment.</p>'),
+                        ('index', '100% gluten-free', 'Gluten-free'),
+                        ('about', 'Iino Corporation — Gluten Free T&#x27;s Kitchen', 'Iino Co., Ltd. — Gluten Free T&#x27;s Kitchen'),
+                        ('about', "Iino Corporation — Gluten Free T's Kitchen", "Iino Co., Ltd. — Gluten Free T's Kitchen"),
+                        ('about', "as someone bringing true gluten-free to Japan, our owner was featured on the front page of The Japan Times and recognized internationally.",
+                         "as someone who brought a groundbreaking approach to gluten-free in Japan, we were featured on the front page of The Japan Times and recognized overseas."),
+                        ('about', '<th><span lang="en">Restaurants</span></th>', '<th><span lang="en">Major locations</span></th>'),
+                        ('about', 'Takako Iino, CEO', 'Takako Iino, Representative Director'),
+                        ('*', 'Gluten-free restaurant in Tokyo, made without wheat, barley or rye', 'Gluten-free restaurant made without wheat, barley or rye'),
+                        ('*', '<span lang="en">4-28-14 Jingumae, Shibuya</span>', '<span lang="en">B1F, 4-28-14 Jingumae, Shibuya-ku</span>'),
+                        ('*', '<span lang="en">7-8-5 Roppongi, Minato</span>', '<span lang="en">2F, 7-8-5 Roppongi, Minato-ku</span>'),
+                        ('*', '<span lang="en">5-3-3 Sotokanda, Chiyoda</span>', '<span lang="en">5-3-3 Sotokanda, Chiyoda-ku</span>'),
+                        ('*', 'Business review &amp; sales advisory', 'Current-state assessment &amp; sales improvement advisory'),
+                        ('*', 'Business review &amp;<br>sales advisory', 'Current-state assessment &amp;<br>sales improvement advisory'),
+                        ('consulting', 'Embassies &amp; Ministry of Foreign Affairs', 'Embassies &amp; Ministry of Foreign Affairs-related'),
+                    ]
+                    for pg, a, b in EN_FIX:
+                        if pg in ('*', name):
+                            x = x.replace(a, b)
+                if look == 'c' and name == 'menu':
+                    # 15回目（yuga 2026-11-25「料理写真を主役に」）：見出しのすぐ下に料理写真の帯。メニュー表はその下にすぐ続く
+                    x, n = re.subn(r'(<div class="page-hero"><div class="wrap">.*?</div></div>)', lambda m: m.group(1) + f'\n<figure class="menu-photo"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></figure>', x, count=1, flags=re.S)
+                    assert n == 1, 'menu: hero'
                 if look == 'c' and name == 'media':
                     # 12回目（yuga 2026-11-25）：フォームの上の案内文は外す（見出し「お問い合わせ」と種類の選択で足りる）。メッセージを必須に
                     x, n = re.subn(r'\n\s*<p class="lead"><span lang="(?:ja|en)">(?:取材・コンサルティング・ケータリングなどのご相談は、下のフォームからお送りください。|For media, consulting, catering and other inquiries, please use the form below\.)</span></p>', '', x, count=1)
@@ -345,6 +472,13 @@ for name in PAGES:
                     nxt = '確認画面へ進む' if lang == 'ja' else 'Review your message'
                     x, n = re.subn(r'<button type="button" class="btn"><span lang="(?:ja|en)">(?:送信する|Send)</span></button>', f'<button type="button" class="btn wc3-next"><span lang="{lang}">{nxt}</span></button>', x, count=1)
                     assert n == 1, 'media: send button'
+                    # 15回目：スマホで入力しやすく（自動入力・キーボードの種類・改行キーの表示。見た目の文言は同じ）
+                    for lab, attrs in ((('企業名', 'Company name'), 'autocomplete="organization" enterkeyhint="next"'),
+                                       (('お名前', 'Name'), 'autocomplete="name" enterkeyhint="next" required'),
+                                       (('メールアドレス', 'Email'), 'autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" enterkeyhint="next" required'),
+                                       (('題名', 'Subject'), 'enterkeyhint="next"')):
+                        x, n = re.subn(r'(<span lang="(?:ja|en)">(?:' + '|'.join(lab) + r')</span>(?: <em>\*</em>)?<input type="(?:text|email)")', r'\1 ' + attrs, x, count=1)
+                        assert n == 1, ('media: input', lab)
                     # GDPR：中身を開いて読めるように（本文は本番に無いので仮置き。要確認）
                     if lang == 'ja':
                         g_old, g_new = '<span lang="ja">GDPRに同意する</span>', '<span lang="ja"><button type="button" class="gdpr-open" aria-expanded="false" aria-controls="gdpr-txt">GDPR</button>に同意する</span>'
