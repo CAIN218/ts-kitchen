@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125r'
+WARM_V = '20261125s'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -459,6 +459,22 @@ for name in PAGES:
                     for pg, a, b in EN_FIX:
                         if pg in ('*', name):
                             x = x.replace(a, b)
+                if look == 'c':
+                    # 17回目（yuga 2026-11-25「GIGでOK」「カナダのも更新してOK」）：認証名は GIG に、カナダの賞は受賞マークどおりの正式名にそろえる（日英）
+                    NAME_FIX = [
+                        ('GFFS認証（Gluten-Free Food Service・飲食店向け）', 'GIG認証（Gluten Free Safe Spot・飲食店向け）'),
+                        ('GFFS認証', 'GIG認証'),
+                        ('GFFS (Gluten-Free Food Service) certified', 'GIG (Gluten Free Safe Spot) certified'),
+                        ('GFFS-certified', 'GIG-certified'),
+                        ('プロダクト・オブ・ザ・イヤー<br>2020 グランプリ', 'グルテンフリーオブザイヤー<br>カナダ2020 グランプリ'),
+                        ('Product of the Year<br>2020 Grand Prix', 'Gluten-Free Canada Product<br>of the Year 2020 Grand Prix'),
+                        ('alt="Gluten-Free Product of the Year 2020"', 'alt="Gluten-Free Canada Product of the Year 2020"'),
+                        ('カナダ グルテンフリーオブザイヤー2020 パントリー部門 グランプリ', 'グルテンフリーオブザイヤー カナダ2020 パントリー部門 グランプリ'),
+                        ('Gluten-Free Product of the Year 2020 Canada, Pantry category Grand Prix', 'Gluten-Free Canada Product of the Year 2020, Pantry Items Grand Prix'),
+                        ('Gluten-Free Product of the Year 2020, Canada — Pantry category Grand Prix', 'Gluten-Free Canada Product of the Year 2020, Pantry Items Grand Prix'),
+                    ]
+                    for a_, b_ in NAME_FIX:
+                        x = x.replace(a_, b_)
                 if look == 'c' and name == 'menu':
                     # 15回目（yuga 2026-11-25「料理写真を主役に」）：見出しのすぐ下に料理写真の帯。メニュー表はその下にすぐ続く
                     x, n = re.subn(r'(<div class="page-hero"><div class="wrap">.*?</div></div>)', lambda m: m.group(1) + f'\n<figure class="menu-photo"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></figure>', x, count=1, flags=re.S)
