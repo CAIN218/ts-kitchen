@@ -202,8 +202,6 @@
     if(was===1&&!moved){var now=Date.now();if(now-tap<320){zoomAt(s>1.01?1:2.5,e.clientX,e.clientY,true);tap=0}else tap=now}}
   stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
   addEventListener('resize',function(){if(!v.hidden)apply(false)});
-  /* 押せることがわかるように、メニュー画像に「タップで拡大」の札 */
-  var tag=d.createElement('span');tag.className='wz-tag';tag.setAttribute('aria-hidden','true');tag.textContent=L('タップで拡大','Tap to zoom');link.appendChild(tag);
 })();
 
 /* 18回目：写真の原寸への差し替え（data-hq）。原寸が読めた時だけ入れ替え、読めなければ今の画像のまま */
@@ -215,39 +213,39 @@
   });
 })();
 
-/* 18回目：「私たちのレストランについて」の店舗写真カルーセル。指でスワイプ（scroll-snap）、‹ › ボタン、← → キー。自動では動かさない */
+/* 「私たちのレストランについて」の店舗写真カルーセル（18回目、20回目に作り直し）
+   写真の下に小さな丸（今の写真は塗り）。指でスワイプ、丸を押す、← → キー。4.5秒ごとに自動で次へ、最後の次は最初へ。
+   送りはなめらかに（自前のイージングで動かし、その間だけ scroll-snap を外す）。触っている間・操作の直後・画面外・タブが裏の時は止める */
 (function(){
-  var d=document;
+  var d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   [].forEach.call(d.querySelectorAll('.wc-car'),function(car){
-    var tr=car.querySelector('.car-track'),cnt=car.querySelector('.car-count'),prev=car.querySelector('.car-prev'),next=car.querySelector('.car-next');
+    var tr=car.querySelector('.car-track'),dots=car.querySelector('.car-dots'),en=(d.documentElement.getAttribute('lang')||'').indexOf('en')===0;
     function slides(){return [].slice.call(tr.querySelectorAll('.car-s'))}
-    /* 読めない写真（本番サーバーの画像が表示できない時など）は、その1枚を外す */
+    function build(){dots.innerHTML='';slides().forEach(function(s,k){var b=d.createElement('button');b.type='button';b.className='car-dot';
+      b.setAttribute('aria-label',en?('Photo '+(k+1)):((k+1)+'枚目の写真'));b.addEventListener('click',function(){pauseFor(8000);go(k)});dots.appendChild(b)});upd()}
     [].forEach.call(tr.querySelectorAll('img[data-car-img]'),function(im){
-      function bad(){var f=im.closest('.car-s');if(f&&slides().length>1){f.remove();upd()}}
+      function bad(){var f=im.closest('.car-s');if(f&&slides().length>1){f.remove();build()}}
       if(im.complete&&im.naturalWidth===0&&im.getAttribute('src'))bad();else im.addEventListener('error',bad);
     });
-    /* 次の写真が少し見えるので、位置は各写真の左端から求める */
     function idx(){var ss=slides(),sl=tr.scrollLeft;if(sl>=tr.scrollWidth-tr.clientWidth-2)return ss.length-1;var b=0,bd=1e9;ss.forEach(function(s,k){var dd=Math.abs(s.offsetLeft-sl);if(dd<bd){bd=dd;b=k}});return b}
-    function upd(){var n=slides().length,i=Math.min(n-1,idx());cnt.textContent=(i+1)+' / '+n;prev.disabled=i<=0;next.disabled=i>=n-1;
-      slides().forEach(function(s,k){s.setAttribute('aria-label',(k+1)+' / '+n);s.toggleAttribute('inert',k!==i)})}
-    function go(i){var ss=slides(),n=ss.length;i=Math.max(0,Math.min(n-1,i));tr.scrollTo({left:ss[i].offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
-    prev.addEventListener('click',function(){go(idx()-1)});next.addEventListener('click',function(){go(idx()+1)});
-    tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(idx()+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(idx()-1)}});
-    var to;tr.addEventListener('scroll',function(){clearTimeout(to);to=setTimeout(upd,60)},{passive:true});
-    addEventListener('resize',function(){go(idx())});
-    /* 19回目（yuga「勝手に秒数ごとで横にスライドするように」）：4.5秒ごとに次へ。最後まで行ったら最初に戻る。
-       指やマウスで触っている間・キーボードで操作中・画面の外にある時・タブが裏にある時は止める。動きを減らす設定の人には自動で送らない */
-    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,hold=false,timer=null,seen=false,resume=0;
-    function tick(){if(hold||!seen||d.hidden||Date.now()<resume)return;var n=slides().length,i=idx();if(n<2)return;go(i>=n-1?0:i+1)}
-    function pauseFor(ms){resume=Date.now()+ms}
-    if(!reduce){timer=setInterval(tick,4500);
+    function upd(){var i=idx();[].forEach.call(dots.children,function(b,k){if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});
+      slides().forEach(function(s,k){s.toggleAttribute('inert',k!==i)})}
+    var anim=null;
+    function go(i){var ss=slides();if(!ss.length)return;i=(i+ss.length)%ss.length;var to=Math.min(ss[i].offsetLeft,tr.scrollWidth-tr.clientWidth),from=tr.scrollLeft;
+      if(anim)cancelAnimationFrame(anim);if(reduce||Math.abs(to-from)<1){tr.scrollLeft=to;upd();return}
+      var t0=null,dur=Math.min(1100,700+Math.abs(to-from)*.5);tr.style.scrollSnapType='none';
+      function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+      function step(ts){if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/dur);tr.scrollLeft=from+(to-from)*ease(k);if(k<1)anim=requestAnimationFrame(step);else{anim=null;tr.style.scrollSnapType='';upd()}}
+      anim=requestAnimationFrame(step)}
+    tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();pauseFor(8000);go(idx()+1)}else if(e.key==='ArrowLeft'){e.preventDefault();pauseFor(8000);go(idx()-1)}});
+    var to;tr.addEventListener('scroll',function(){if(anim)return;clearTimeout(to);to=setTimeout(upd,60)},{passive:true});
+    addEventListener('resize',function(){tr.scrollLeft=slides()[idx()].offsetLeft});
+    var hold=false,seen=false,resume=0;function pauseFor(ms){resume=Date.now()+ms}
+    if(!reduce){setInterval(function(){if(hold||!seen||d.hidden||Date.now()<resume||anim)return;go(idx()+1)},4500);
       if('IntersectionObserver' in window)new IntersectionObserver(function(es){seen=es[0].isIntersecting},{threshold:.4}).observe(car);else seen=true;
-      car.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')hold=true});
-      car.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')hold=false});
-      car.addEventListener('focusin',function(){hold=true});car.addEventListener('focusout',function(){hold=false});
-      tr.addEventListener('touchstart',function(){pauseFor(8000)},{passive:true});
-      [prev,next].forEach(function(b){b.addEventListener('click',function(){pauseFor(8000)})});
-    }
-    upd();
+      car.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')hold=true});car.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')hold=false});
+      tr.addEventListener('focusin',function(){hold=true});tr.addEventListener('focusout',function(){hold=false});
+      tr.addEventListener('touchstart',function(){pauseFor(8000);if(anim){cancelAnimationFrame(anim);anim=null;tr.style.scrollSnapType=''}},{passive:true});}
+    build();
   });
 })();

@@ -1968,3 +1968,15 @@ html[data-warm="c"] .wrap.about .about-ph.wc-car:not(#_):not(#_):not(#_){backgro
 html[data-warm="c"] .wc-zoom:not(#_){touch-action:none;overscroll-behavior:contain}
 html[data-warm="c"] .wc-zoom button:not(#_){touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 html[data-warm="c"] .wc-zoom .wz-bar button:disabled:not(#_){opacity:.35;cursor:default}
+
+/* 20回目（yuga 2026-11-26）：カルーセルの「1/5」と矢印をやめ、写真の下に小さな丸 */
+html[data-warm="c"] .wc-car .car-dots{display:flex;justify-content:center;gap:2px;margin-top:10px}
+html[data-warm="c"] .wc-car .car-dot:not(#_):not(#_){width:24px;height:24px;padding:0;border:0;background:none;border-radius:50%!important;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent}
+html[data-warm="c"] .wc-car .car-dot::before{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;border:1px solid rgba(28,43,69,.45);background:transparent;box-sizing:border-box;transition:background .3s,border-color .3s,transform .3s}
+html[data-warm="c"] .wc-car .car-dot[aria-current]::before{background:var(--ink);border-color:var(--ink);transform:scale(1.15)}
+html[data-warm="c"] .wc-car .car-dot:focus-visible{outline:2px solid var(--acc,#C9963E);outline-offset:0}
+/* 20回目（yuga「文章が横まで行ってない」「中途半端に折り返されてる」）：行の長さをそろえる指定（balance・pretty）をやめ、本文は横幅いっぱいまで使って折り返す。
+   iPhone の Safari は pretty で行を短めにそろえるため、行末が早く切れて見えていた */
+html[data-warm="c"] :is(main,footer,.fv8-panel) :is(p,li,dd,td,figcaption,blockquote):not(#_):not(#_),html[data-warm="c"] :is(main,footer,.fv8-panel) :is(p,li,dd,td,figcaption,blockquote) span:not(#_):not(#_){text-wrap:wrap!important}
+html[data-warm="c"] main :is(.lead,.body-lg,.cons-role,.cons-lead,.cons-areas li,.tx>p:first-of-type,.page-hero p,.hero-sub,.quote):not(#_):not(#_):not(#_),html[data-warm="c"] main :is(.lead,.body-lg,.cons-role,.cons-lead,.quote) :lang(ja):not(#_):not(#_):not(#_){word-break:normal!important;line-break:strict;text-wrap:wrap!important}
+html[data-warm="c"] .wc-car .car-dot:not(#_):not(#_)::before{border-radius:50%!important}
