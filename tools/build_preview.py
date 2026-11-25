@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125d'
+WARM_V = '20261125g'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -137,7 +137,7 @@ def warm_c_html(x, name, lang, up, rel):
     x = x.replace('</head>', '<script>(function(){var r=document.documentElement,q=new URLSearchParams(location.search),s=window.localStorage,g=function(k){try{return s.getItem(k)}catch(e){return null}},p=function(k,v){try{s.setItem(k,v)}catch(e){}};'
                   'r.setAttribute("data-bg","b");'  # 背景は B 玄米に決定（yuga 2026-11-25）。切り替えはやめた
                   
-                  'var f=q.get("fv");if(/^[0123]$/.test(f||""))p("wc-fv",f);else f=g("wc-fv");if(f&&f!=="0")r.setAttribute("data-fv",f)})()</script></head>', 1)
+                  'var f=q.get("fv");if(/^[0-6]$/.test(f||""))p("wc-fv",f);else f=g("wc-fv");if(f&&f!=="0")r.setAttribute("data-fv",f)})()</script></head>', 1)
     if name == 'index':
         # TOPの2つ目のボタン：店舗を見る → メニューを見る（menu へ）
         x = sub1(r'<a class="btn line" href="#stores"><span lang="(ja|en)">(店舗を見る|See locations)</span></a>',
@@ -164,6 +164,17 @@ def warm_c_html(x, name, lang, up, rel):
                        for k, f, w, h in (('food', 'food.jpg', 1464, 943), ('ent', 'entrance.jpg', 1200, 800),
                                           ('har', 'harajuku.jpg', 1448, 1086), ('bento', 'bento.jpg', 1200, 800)))
         x = sub1(r'<div class="hero"><div class="hero-in">', f'<div class="hero"><div class="fv-pics" aria-hidden="true">{pics}</div><div class="hero-in">', x)
+        # 7回目：FV の新しい3案（?fv=4|5|6）。H1 の直後に、案ごとに使う写真・認証マーク・認証の文を置く（.fvx。fv=4〜6 以外は display:none）。
+        # 帯は div（中の img を拡大して切り出す）。FV の画像なので eager。food.jpg・award-gig.png はページ内でも使うので、fv=0 でも余分な通信はほぼ増えない（harajuku.jpg だけ増える）
+        # 認証の文は、すぐ下の about の lead（既存の文）と同じもの
+        cert = ('アジアで初めて、グルテンフリーの認証を取得したレストランです。' if ja
+                else 'We were the first restaurant in Asia to receive gluten-free certification.')
+        fvx = (f'<div class="fvx fvx-band"><img src="{up}src/images/food.jpg" alt="" width="1464" height="943" loading="eager" decoding="async"></div>'
+               f'<img class="fvx fvx-har" src="{up}src/images/harajuku.jpg" alt="" width="1448" height="1086" loading="eager" decoding="async">'
+               f'<p class="fvx fvx-cert"><img class="fvx-mark" src="{up}src/images/award-gig.png" alt="Validated Gluten Free Safe Spot" width="320" height="320" loading="eager" decoding="async">'
+               f'<span class="fvx-cert-t"><span lang="{lang}">{cert}</span></span></p>')
+        # 日本語の H1 は案4〜6だけ3行（「可能性を味わう／レストランです。」の間の改行は .fvx-br。ほかの案では表示しない）
+        x = sub1(r'(<h1 lang="(?:ja|en)">.*?</h1>)', lambda m: m.group(1).replace('可能性を味わうレストランです。', '可能性を味わう<br class="fvx-br">レストランです。') + fvx, x)
         # コンサルへの入口：誰が・何を・初回無料を、コンサルページの既存の文言で
         role = ('アジア初GFFS認証レストラン創業者 ／ グルテンフリー専門コンサルタント' if ja
                 else "Founder of Asia's first GFFS-certified restaurant / Gluten-free consultant")

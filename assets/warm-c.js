@@ -56,9 +56,10 @@
   if(f)[].forEach.call(d.querySelectorAll('.hd .tools .sns'),function(a){f.appendChild(a.cloneNode(true))});
 
   /* 英語の H1：固定の改行を空白に置き換え、text-wrap:balance で均す（1 語だけの行と、語のくっつきを防ぐ。文言は同じ） */
-  if((r.getAttribute('lang')||'').indexOf('en')===0){var h1=d.querySelector('.hero-in h1');if(h1)[].forEach.call(h1.querySelectorAll('br'),function(b){b.parentNode.replaceChild(d.createTextNode(' '),b)})}
+  if((r.getAttribute('lang')||'').indexOf('en')===0){var h1=d.querySelector('.hero-in h1');if(h1)[].forEach.call(h1.querySelectorAll('br'),function(b){b.parentNode.insertBefore(d.createTextNode(' '),b);b.className='en-br'})}
+  /* ↑ 7回目：br は消さずに空白を前に足し、CSS で隠す（.en-br）。FV4・5 の PC だけ、元の改行（2行）を見せる */
 
-  /* デモ用の切り替え（4回目）：背景色（html[data-bg]）と FV（html[data-fv]、トップだけ）。フッター最下部に置き、選んだものは localStorage に残す。
+  /* デモ用の切り替え（4回目。7回目に 4〜6 へ入れ替え。旧1〜3 は ?fv=1〜3 で開ける）：背景色（html[data-bg]）と FV（html[data-fv]、トップだけ）。フッター最下部に置き、選んだものは localStorage に残す。
      最初の値は <head> の小さなスクリプトが ?bg= ?fv= と localStorage から決めている */
   var ft=d.querySelector('footer'),en=(r.getAttribute('lang')||'').indexOf('en')===0;
   function sw(label,key,attr,opts,def){
@@ -78,7 +79,7 @@
     ft.appendChild(p);
   }
   if(ft){
-    if(page==='index')sw(en?'Hero: ':'FV：','wc-fv','data-fv',[['0',en?'Current':'今'],['1',en?'1 Card':'1 札'],['2',en?'2 Noren':'2 暖簾'],['3',en?'3 Triptych':'3 三枚組']],'0');
+    if(page==='index')sw(en?'Hero: ':'FV：','wc-fv','data-fv',[['0',en?'Current':'今'],['4',en?'4 One line':'4 一行の店'],['5',en?'5 Navy and seal':'5 紺と認証印'],['6',en?'6 Faces and certification':'6 店の顔と認証']],'0');
     /* 背景色の切り替えは、B 玄米に決まったのでやめた（yuga 2026-11-25） */
   }
 
