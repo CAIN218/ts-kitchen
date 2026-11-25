@@ -25,7 +25,6 @@ def main_html(lang, up):
         f'<h2 class="pd-name">{n}</h2><p class="pd-note">{d}</p></li>' for k, n, d in items)
     return f'''<main id="top" class="pd">
 <section class="pd-fv" aria-labelledby="pd-h1">
-  <picture class="pd-fv-pic"><source srcset="{up}assets/img/products/hero-food.webp" type="image/webp"><img src="{up}assets/img/products/hero-food.jpg" alt="{t("お店の料理", "Dishes from our restaurants")}" width="1600" height="996" fetchpriority="high"></picture>
   <div class="pd-wrap pd-fv-tx">
     <h1 id="pd-h1" class="pd-h1">{t("T&#39;sの商品", "T&#39;s Products")}</h1>
     <p class="pd-lead">{t("お店で販売している、T&#39;sオリジナルの商品です。販売は店頭のみです。", "Original T&#39;s products, sold at our restaurants only.")}</p>
