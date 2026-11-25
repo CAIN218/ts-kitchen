@@ -21,6 +21,10 @@ html[data-warm="c"] .pd-slot{aspect-ratio:4/5;background-color:var(--kinari);bac
 html[data-warm="c"] .pd .pd-name:not(#_){font-family:var(--f-head);font-weight:500!important;font-size:18px!important;line-height:1.5;letter-spacing:.02em;color:var(--ink)!important;margin:0 0 4px!important}
 html[data-warm="c"] .pd .pd-note:not(#_){font-size:13px;line-height:1.7;color:var(--ink-2,var(--ink))!important;opacity:.85;word-break:auto-phrase;text-wrap:balance}
 
+/* 商品ごとの特徴・用途（products_content.json に文面が入った時だけ出る） */
+html[data-warm="c"] .pd .pd-use:not(#_){font-size:14px;line-height:1.8;margin-top:8px!important}
+html[data-warm="c"] .pd .pd-jump:not(#_){margin-top:16px!important}
+
 /* 卸 */
 html[data-warm="c"] .pd-ws{padding:48px 0 72px}
 html[data-warm="c"] .pd-ws .pd-wrap{border-top:0}
