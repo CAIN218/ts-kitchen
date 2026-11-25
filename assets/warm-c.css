@@ -1774,3 +1774,28 @@ html[data-warm="c"][data-fv="8"].fv-wait .hero:not(#_):not(#_) .fv8-panel,html[d
 html[data-warm="c"][data-fv="8"].fv-wait .hero:not(#_):not(#_) .fvx-band img{animation-play-state:paused!important}
 html[data-warm="c"] .wc3-acts .btn.line:not(#_):not(#_):not(#_){border-radius:999px!important;text-decoration:none!important}
 html[data-warm="c"] .wc3-done p:not(#_){word-break:keep-all;word-break:auto-phrase;overflow-wrap:anywhere}
+
+/* 14回目（20261125p）
+   - スマホ FV：PC と同じく、最初は写真が画面いっぱい → 1.4 秒後に帯（見出しと一言）が下からふわっと上がる。速さも PC と同じ
+   - お問い合わせ（PC）：左の STEP は細い線1本に、今いる段階を点で示す（見本と同じ） */
+@media(max-width:767px){
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band,html[data-warm="c"][data-fv="8"][lang="en"] .hero:not(#_):not(#_) .fvx-band{height:100svh!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{position:relative;z-index:2;margin-top:-150px!important;animation:wc-fv8-up .9s cubic-bezier(.2,.7,.2,1) 1.4s both!important}
+  html[data-warm="c"][data-fv="8"][lang="en"] .hero:not(#_):not(#_) .fv8-panel{margin-top:-140px!important}
+  html[data-warm="c"][data-fv="8"].fv-wait .hero:not(#_):not(#_) .fv8-panel{animation-play-state:paused!important}
+}
+@media(prefers-reduced-motion:reduce){html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{animation:none!important}}
+@media(min-width:1024px){
+  html[data-warm="c"] .wc-steps:not(#_){border-left:0!important;padding:0 0 0 22px!important}
+  html[data-warm="c"] .wc-steps:not(#_)::before{content:"";position:absolute;left:3px;top:8px;bottom:8px;width:1px;background:rgba(28,43,69,.22)}
+  html[data-warm="c"] .wc-steps li:not(#_){position:relative;margin:0 0 24px!important;padding:0!important;border:0!important}
+  html[data-warm="c"] .wc-steps li:not(#_):last-child{margin-bottom:0!important}
+  html[data-warm="c"] .wc-steps li:not(#_)::before{content:"";position:absolute;left:-22px;top:5px;width:7px;height:7px;border-radius:50%;background:#F2EADB;box-shadow:0 0 0 1px rgba(28,43,69,.3)}
+  html[data-warm="c"] .wc-steps li[aria-current="step"]:not(#_)::before{background:var(--acc,#C9963E);box-shadow:none}
+  html[data-warm="c"] .wc-steps li.done:not(#_)::before{background:rgba(28,43,69,.45);box-shadow:none}
+}
+html[data-warm="c"] .wc-steps li:not(#_):not(#_)::before{border-radius:50%!important}
+html[data-warm="c"] .wc-steps li:not(#_):not(#_)::before{box-sizing:border-box;border:1px solid rgba(28,43,69,.4)!important;background:#F2EADB!important}
+html[data-warm="c"] .wc-steps li[aria-current="step"]:not(#_):not(#_)::before{border-color:var(--acc,#C9963E)!important;background:var(--acc,#C9963E)!important}
+html[data-warm="c"] .wc-steps li.done:not(#_):not(#_)::before{border-color:rgba(28,43,69,.45)!important;background:rgba(28,43,69,.45)!important}
+@media(min-width:1024px){html[data-warm="c"] .wc-steps:not(#_):not(#_)::before{bottom:auto;height:calc(100% - var(--wc-last,39px));top:8px}}
