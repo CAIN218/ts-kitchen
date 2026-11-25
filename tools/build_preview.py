@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261126b'
+WARM_V = '20261126c'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -506,9 +506,7 @@ for name in PAGES:
                                 f'<img src="{u}"{wh}{hqa} alt="{alt}" loading="{"eager" if i == 0 else "lazy"}" decoding="async" data-car-img>{c}</figure>')
                     car = (f'<div class="about-ph r3 wc-car" role="region" aria-roledescription="carousel" aria-label="{T("店舗の写真", "Restaurant photos")}">'
                            f'<div class="car-track" tabindex="0">' + ''.join(slide(i, sl) for i, sl in enumerate(slides)) + '</div>'
-                           f'<div class="car-nav"><button type="button" class="car-prev" aria-label="{T("前の写真", "Previous photo")}">‹</button>'
-                           f'<span class="car-count" aria-live="polite">1 / {len(slides)}</span>'
-                           f'<button type="button" class="car-next" aria-label="{T("次の写真", "Next photo")}">›</button></div></div>')
+                           f'<div class="car-dots"></div></div>')
                     x, n = re.subn(r'<div class="about-ph r3"><img class="a1" [^>]*></div>', lambda m: car, x, count=1)
                     assert n == 1, 'index: about-ph carousel'
                 if look == 'c' and name == 'menu':
