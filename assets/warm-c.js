@@ -129,3 +129,25 @@
   var done=false,go=function(){if(done)return;done=true;requestAnimationFrame(function(){r.classList.remove('fv-wait')})};
   var im=document.querySelector('.fvx-band img'),ps=[];if(im&&im.decode)ps.push(im.decode().catch(function(){}));if(document.fonts&&document.fonts.ready)ps.push(document.fonts.ready);
   Promise.all(ps).then(go);setTimeout(go,1200)})();
+
+/* 16回目（yuga 2026-11-25「受賞歴のアニメーションの線がない」）：renew14.js は最初の年表（沿革）だけに線を引く。2つ目以降（会社概要の受賞歴）にも同じ線と表示の流れを付ける */
+(function(){
+  var d=document,tls=[].slice.call(d.querySelectorAll('.timeline')).slice(1);if(!tls.length)return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  tls.forEach(function(tl){
+    var lis=[].slice.call(tl.children);
+    lis.forEach(function(li,i){li.removeAttribute('data-rv');li.classList.remove('in');li.style.setProperty('--i',i)});
+    function mark(){lis.forEach(function(li){var t=li.querySelector('time');if(!t)return;
+      var fs=parseFloat(getComputedStyle(t).fontSize),m=parseFloat(getComputedStyle(t,'::before').height)||11;
+      li.style.setProperty('--mk',(t.getBoundingClientRect().top-li.getBoundingClientRect().top+fs*.62+m/2)+'px')})}
+    mark();var mw=innerWidth;addEventListener('resize',function(){if(innerWidth!==mw){mw=innerWidth;mark()}});d.addEventListener('langchange',function(){setTimeout(mark,0)});if(d.fonts&&d.fonts.ready)d.fonts.ready.then(mark);
+    tl.classList.add('tl-line');
+    if(reduce||!('IntersectionObserver' in window)){tl.classList.add('tl-done');return}
+    tl.classList.add('tl-wait');
+    var io=new IntersectionObserver(function(es){var e=es[0];
+      if(e.isIntersecting||e.boundingClientRect.top<0){tl.classList.add('tl-go');io.disconnect();
+        setTimeout(function(){tl.classList.add('tl-done')},lis.length*240+1200)}
+    },{threshold:0,rootMargin:'0px 0px -12% 0px'});
+    io.observe(tl);
+  });
+})();
