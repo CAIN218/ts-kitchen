@@ -1,33 +1,277 @@
-/* 商品ページ（warm-c の上に重ねる）。ページ専用のクラス pd-* だけを使い、既存の部品は変えない */
-html[data-warm="c"] .pd-tag:not(#_){display:inline-block;margin:14px 0 0!important;font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--acc-text-on-cream)!important}
+/* 商品ページ（warm-c/products/）2回目 2026-11-25（r2：批評・QA の修正）。warm-c.css の後に読み込む。
+   - クラスは .pd-* だけ。warm-c.css・renew*.css の部品（.sec .blk .hero .page-hero .steps）は使わない
+   - warm-c.css の main h2{font-size:…!important} や全体の色に負けないよう、文字の大きさと色だけ :not(#_) と !important で上書きする
+   - 色：紺 var(--ink) #1c2b45／玄米 var(--paper)／濃い玄米 var(--kinari)。金茶は卸のボタン1つだけ（.btn の既存の色）
+   - 角丸・影・光は使わない。袋の切り抜きだけ filter:drop-shadow で地から少し浮かせる
+   - SP が先。1024px から PC の2分割 */
 
-html[data-warm="c"] .pd-list:not(#_){padding-top:clamp(24px,3vw,40px)!important}
-html[data-warm="c"] .pd-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 16px}
-html[data-warm="c"] .pd-item{margin:0;padding:0;list-style:none}
-html[data-warm="c"] .pd-pic{display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;background:var(--kinari);padding:12% 14%}
-html[data-warm="c"] .pd-pic img:not(#_){display:block;width:auto;max-width:100%;max-height:100%;height:auto;object-fit:contain}
-html[data-warm="c"] .pd-pic.is-empty{background:var(--kinari)}
-html[data-warm="c"] .pd-soon{font-size:13px;line-height:1.6;color:var(--ink-2);text-align:center}
-html[data-warm="c"] .pd-name:not(#_){margin:14px 0 0!important;font-size:clamp(17px,4.6vw,20px)!important;line-height:1.5;font-weight:700;color:var(--ink)!important;text-align:left}
+html[data-warm="c"] .pd{background:var(--paper);--pd-rule:rgba(28,43,69,.2);--pd-rule-navy:rgba(247,243,236,.24);
+  --pd-edge:max(var(--gutter),calc((100vw - 1296px) / 2 + var(--gutter)))}  /* 画面の端からヘッダーの左右端（1440 で 144px）まで */
+html[data-warm="c"] .pd img{display:block;max-width:100%;height:auto}
+html[data-warm="c"] .pd picture{display:block}
+html[data-warm="c"] .pd section{scroll-margin-top:var(--hd-h,64px)}
+html[data-warm="c"] .pd-wrap{max-width:1296px;margin:0 auto;padding:0 var(--gutter);box-sizing:border-box}
+html[data-warm="c"] .pd :where(p,ul,ol,dl,dd,figure):not(#_){margin:0!important;padding:0}
+html[data-warm="c"] .pd li{list-style:none}
 
-/* 卸売の募集：紺の帯 */
-html[data-warm="c"] .pd-ws{background:var(--ink);color:var(--olive-ink);padding:clamp(56px,8vw,104px) 0}
-html[data-warm="c"] .pd-ws .wrap{padding-left:var(--gutter);padding-right:var(--gutter);max-width:1296px;margin:0 auto}
-html[data-warm="c"] .pd-ws h2:not(#_){color:var(--olive-ink)!important;font-size:clamp(24px,2.6vw,36px)!important;line-height:1.5;margin:0 0 14px!important}
-html[data-warm="c"] .pd-ws p:not(#_){color:var(--navy-2)!important;margin:0 0 28px!important;font-size:16px}
-html[data-warm="c"] .pd-ws .btn:not(#_){display:inline-flex}
+/* 仮の印：12px、文字＋1px の枠。仮の文は点線の下線 */
+html[data-warm="c"] .pd .draft:not(#_){display:inline-block;vertical-align:.15em;margin-left:.35em;padding:0 5px;border:1px solid currentColor;
+  font:500 12px/1.5 var(--f-body)!important;letter-spacing:.04em;color:var(--ink)!important;opacity:.85;text-decoration:none;white-space:nowrap}
+html[data-warm="c"] .pd .pd-fv .draft:not(#_),html[data-warm="c"] .pd .pd-ws .draft:not(#_),html[data-warm="c"] .pd .is-navy .draft:not(#_){color:var(--olive-ink)!important}
+html[data-warm="c"] .pd .pd-tx[data-draft]{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:rgba(28,43,69,.5)}
+html[data-warm="c"] .pd .pd-ws .pd-tx[data-draft]{text-decoration-color:var(--pd-rule-navy)}
 
-/* TOP の入口 */
-html[data-warm="c"] .pd-entry-pics{display:flex;align-items:flex-end;justify-content:center;gap:clamp(16px,3vw,32px);background:var(--kinari);padding:28px 20px;margin:0 0 20px}
-html[data-warm="c"] .pd-entry-pics img:not(#_){display:block;width:auto;height:clamp(110px,30vw,150px);max-width:45%;object-fit:contain}
-html[data-warm="c"] .pd-entry-tx p:not(#_){color:var(--ink-2)!important;font-size:15px;margin:0 0 14px!important}
+/* 見出しと本文 */
+html[data-warm="c"] .pd .pd-h2:not(#_){font-family:var(--f-head);font-weight:500;font-size:clamp(26px,3vw,40px)!important;line-height:1.4;color:var(--ink)!important;margin:0 0 20px!important;letter-spacing:.02em}
+html[data-warm="c"][lang="en"] .pd .pd-h2:not(#_){line-height:1.15}
+html[data-warm="c"] .pd .pd-h2-sm:not(#_){font-size:clamp(20px,2vw,24px)!important}
+html[data-warm="c"] .pd .pd-h3:not(#_){font-family:var(--f-head);font-weight:500!important;letter-spacing:.02em;font-size:20px!important;line-height:1.5;color:var(--ink)!important;margin:0 0 10px!important}
+html[data-warm="c"] .pd .pd-name-sub{display:block;margin-top:6px;font-weight:500;font-family:var(--f-head);font-size:max(14px,.42em);letter-spacing:.02em;line-height:1.4;opacity:.8}
+html[data-warm="c"] .pd .pd-lead:not(#_){font-family:var(--f-head);font-size:clamp(18px,1.6vw,21px);line-height:1.85;color:var(--ink)!important;max-width:30em}
+html[data-warm="c"] .pd .pd-tx,html[data-warm="c"] .pd .pd-tx-plain{font-size:16px;line-height:1.9;max-width:34em}
+html[data-warm="c"] .pd a{color:inherit;text-underline-offset:5px}
 
-@media(min-width:768px){
-  html[data-warm="c"] .pd-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:48px 24px}
-  html[data-warm="c"] .pd-name:not(#_){font-size:20px!important}
-  html[data-warm="c"] .pd-ws .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:0 clamp(48px,6vw,96px);align-items:start}
-  html[data-warm="c"] .pd-ws h2:not(#_){grid-row:1/3;margin:0!important}
-  html[data-warm="c"] .pd-ws p:not(#_){margin:0 0 24px!important}
-  html[data-warm="c"] .pd-ws .btn:not(#_){justify-self:start}
+/* ───── S1 FV A：紺の舞台 ───── */
+html[data-warm="c"] .pd-fv{background:var(--ink);color:var(--olive-ink);overflow:hidden;
+  --ph:clamp(184px,50vw,340px);   /* SP：野菜天の帯の高さ */
+  --bw:clamp(104px,29vw,190px)}   /* SP：袋の幅（高さは 1.684 倍） */
+html[data-warm="c"] .pd-fv *{color:inherit}
+html[data-warm="c"] .pd-fv-in{position:relative}
+html[data-warm="c"] .pd-fv-pics{position:relative;height:var(--ph)}
+html[data-warm="c"] .pd-fv-photo,html[data-warm="c"] .pd-fv-photo img{width:100%;height:100%}
+html[data-warm="c"] .pd-fv-photo img:not(#_){object-fit:cover;object-position:50% 58%}
+html[data-warm="c"] .pd-fv-bag{position:absolute;z-index:2;right:var(--gutter);top:calc(var(--ph) - var(--bw) * 1.684 * .48);width:var(--bw);
+  filter:drop-shadow(0 10px 14px rgba(8,14,26,.45))}
+html[data-warm="c"] .pd-fv-tx{padding:18px var(--gutter) 20px}
+html[data-warm="c"] .pd-fv-head{padding-right:calc(var(--bw) + 12px)}
+html[data-warm="c"] .pd .pd-h1:not(#_){font-family:var(--f-body);font-weight:500;font-size:14px!important;line-height:1.6;letter-spacing:.06em;margin:0 0 6px!important;color:inherit!important}
+/* 商品名は h2（H1「T'sの商品」は見えない見出し）。英語の副題は 13px で1行 */
+html[data-warm="c"] .pd .pd-name:not(#_){font-family:var(--f-head);font-weight:500!important;font-size:22px!important;line-height:1.3!important;letter-spacing:.02em;color:inherit!important;margin:0!important}
+html[data-warm="c"] .pd .pd-name .pd-name-sub{font-size:13px;margin-top:4px;white-space:nowrap}
+/* 併記の副題は lang を付ける（英語ページで日本語、日本語ページで英語）。src/style.css の [lang] を隠す規則に負けないよう表示を戻す */
+html[data-warm="c"] .pd .pd-name-sub[lang]:not(#_){display:block!important}
+html[data-warm="c"] .pd .pd-ing-label:not(#_){font-size:12px;letter-spacing:.08em;margin:10px 0 2px!important;opacity:.85}
+html[data-warm="c"] .pd .pd-ing:not(#_){font-family:var(--f-head);font-weight:500;letter-spacing:-.01em;font-feature-settings:"palt";line-height:1.15;
+  font-size:clamp(32px,calc((100vw - 2 * var(--gutter)) / 9.3),56px)}
+html[data-warm="c"][lang="en"] .pd .pd-ing:not(#_){letter-spacing:-.01em}
+html[data-warm="c"] .pd .pd-ing li{white-space:nowrap}
+html[data-warm="c"] .pd .pd-fv-facts:not(#_){margin-top:12px!important;font-size:15px;line-height:1.7;font-weight:500}
+/* 事実の並び：折り返した時に字下げしないよう flex で並べる */
+html[data-warm="c"] .pd .pd-fv-facts:not(#_),html[data-warm="c"] .pd .pd-facts:not(#_){display:flex;flex-wrap:wrap;column-gap:1em}
+html[data-warm="c"] .pd .pd-fv-buy:not(#_){margin-top:8px!important;display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;font-size:14px}
+html[data-warm="c"] .pd .pd-fv-buy span{opacity:.85}
+html[data-warm="c"] .pd-fv-buy a,html[data-warm="c"] .pd-fv-more a,html[data-warm="c"] .pd-fvb-buy a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:rgba(247,243,236,.5)}
+html[data-warm="c"] .pd-fv-buy a:hover,html[data-warm="c"] .pd-fv-more a:hover,html[data-warm="c"] .pd-fvb-buy a:hover{text-decoration-color:currentColor}
+html[data-warm="c"] .pd-fv-more{display:flex;flex-wrap:wrap;align-items:center;gap:0 16px;font-size:14px;border-top:1px solid var(--pd-rule-navy);margin-top:4px}
+html[data-warm="c"] .pd-fv-more span{opacity:.7;font-size:13px}
+html[data-warm="c"] .pd-fv :focus-visible,html[data-warm="c"] .pd-ws :focus-visible,html[data-warm="c"] .pd-fvb .is-navy :focus-visible{outline-color:var(--olive-ink)!important}
+
+/* 高さの低い SP（375x667 級）：原材料 32px・写真帯を詰め、「ほかの商品」まで1画面に収める */
+@media(max-width:767px) and (max-height:700px){
+  html[data-warm="c"] .pd-fv{--ph:148px;--bw:92px}
+  html[data-warm="c"] .pd-fv-tx{padding-top:12px;padding-bottom:6px}
+  html[data-warm="c"] .pd .pd-ing-label:not(#_){margin-top:6px!important}
+  html[data-warm="c"] .pd .pd-ing:not(#_){font-size:32px}
+  html[data-warm="c"] .pd .pd-fv-facts:not(#_){margin-top:8px!important;font-size:14px}
+  html[data-warm="c"] .pd .pd-fv-buy:not(#_){margin-top:0!important;font-size:13px}
+  html[data-warm="c"] .pd-fv-more{margin-top:0;font-size:13px}
 }
-html[data-warm="c"] body[data-page=products] .page-hero .wrap,html[data-warm="c"] body[data-page=products] .pd-list .wrap{max-width:1296px;margin-left:auto;margin-right:auto}
+/* 768〜1023：写真は 560px まで（元 624px を拡大しない）。袋は写真の右端にまたがる */
+@media(min-width:768px) and (max-width:1023px){
+  html[data-warm="c"] .pd-fv{--ph:clamp(300px,40vw,380px);--bw:200px}
+  html[data-warm="c"] .pd-fv-photo{max-width:560px}
+  html[data-warm="c"] .pd-fv-bag{right:auto;left:calc(min(560px,100%) - var(--bw) / 2)}
+  html[data-warm="c"] .pd-fv-head{padding-right:0;max-width:calc(560px - var(--bw) / 2 - var(--gutter) - 16px)}
+  html[data-warm="c"] .pd .pd-name:not(#_){font-size:30px!important}
+  html[data-warm="c"] .pd .pd-ing:not(#_){font-size:56px}
+  html[data-warm="c"] .pd-fv-tx{padding-top:28px;padding-bottom:28px}
+}
+/* PC：左右 6:6。右列は左の文字の高さに合わせて伸び、写真の上端＝商品名の上端、袋の下端＝「ほかの商品」の下端。
+   袋は写真の下辺の中央から上 1/4 がのぞく（写真 54%、袋 61% → 重なり 15% ≒ 袋の 1/4） */
+@media(min-width:1024px){
+  html[data-warm="c"] .pd-fv-in{max-width:1296px;margin:0 auto;padding:clamp(32px,6svh,72px) var(--gutter);box-sizing:border-box;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(32px,4.5vw,64px);align-content:center;align-items:stretch;
+    min-height:clamp(560px,calc(100svh - var(--hd-h,72px)),820px)}
+  html[data-warm="c"] .pd-fv-tx{grid-column:1;grid-row:1;padding:0}
+  html[data-warm="c"] .pd-fv-head{padding:0}
+  html[data-warm="c"] .pd-fv-pics{grid-column:2;grid-row:1;height:auto;min-height:440px}
+  html[data-warm="c"] .pd-fv-photo{position:absolute;left:0;right:0;top:0;width:auto;height:54%}
+  html[data-warm="c"] .pd-fv-photo img:not(#_){width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+  html[data-warm="c"] .pd-fv-bag{top:auto;right:auto;left:50%;bottom:0;width:auto;height:61%;transform:translateX(-50%)}
+  html[data-warm="c"] .pd-fv-bag img:not(#_){height:100%;width:auto}
+  html[data-warm="c"] .pd .pd-name:not(#_){font-size:clamp(34px,2.7vw,40px)!important}
+  html[data-warm="c"] .pd .pd-name .pd-name-sub{font-size:13px;margin-top:8px}
+  html[data-warm="c"] .pd .pd-ing-label:not(#_){margin-top:clamp(16px,3svh,32px)!important;font-size:13px}
+  html[data-warm="c"] .pd .pd-ing:not(#_){font-size:clamp(44px,min(5.6vw,9.5svh),88px)}
+  html[data-warm="c"] .pd .pd-fv-facts:not(#_){margin-top:clamp(14px,2.4svh,24px)!important;font-size:17px}
+  html[data-warm="c"] .pd .pd-fv-buy:not(#_){font-size:15px;margin-top:6px!important}
+  html[data-warm="c"] .pd-fv-more{margin-top:clamp(8px,2svh,20px);font-size:15px}
+}
+
+/* ───── S1 FV B：2商品分割（デモ。html[data-pdfv="b"] の時だけ）─────
+   B はデモとして残す。素材は A より弱い：瓶は 450x590 の1本の写真（白い地）しかなく、PC で大きくするとぼやける。
+   袋も切り抜き1枚で、料理の写真がないため「お店の味」が伝わりにくい */
+html[data-warm="c"] .pd-fvb{display:none}
+html[data-warm="c"][data-pdfv="b"] .pd-fv{display:none}
+html[data-warm="c"][data-pdfv="b"] .pd-fvb{display:grid;grid-template-columns:minmax(0,1fr);background:var(--kinari)}
+html[data-warm="c"] .pd .pd-fvb-h1:not(#_){grid-column:1/-1;background:var(--ink);color:var(--olive-ink)!important;margin:0!important;padding:14px var(--gutter) 0}
+html[data-warm="c"] .pd-fvb-half{display:grid;grid-template-columns:minmax(0,34%) minmax(0,1fr);gap:18px;align-items:center;padding:16px var(--gutter) 22px}
+html[data-warm="c"] .pd-fvb-half.is-navy{background:var(--ink);color:var(--olive-ink)}
+html[data-warm="c"] .pd-fvb-half.is-navy *{color:inherit}
+html[data-warm="c"] .pd-fvb-half .pd-fvb-pic{max-height:200px}
+html[data-warm="c"] .pd-fvb-half .pd-fvb-pic img:not(#_){max-height:200px;width:auto;margin:0 auto}
+html[data-warm="c"] .pd-fvb-half.is-navy .pd-fvb-pic{filter:drop-shadow(0 8px 12px rgba(8,14,26,.45))}
+html[data-warm="c"] .pd .pd-fvb-name:not(#_){font-family:var(--f-head);font-weight:500!important;font-size:clamp(20px,2.4vw,32px)!important;line-height:1.35!important;margin:0 0 8px!important;color:inherit!important}
+html[data-warm="c"] .pd-fvb-half p{font-size:14px;line-height:1.7}
+html[data-warm="c"] .pd-fvb-half a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;text-decoration:underline;text-decoration-thickness:1px}
+html[data-warm="c"] .pd .pd-fvb-buy:not(#_){grid-column:1/-1;max-width:none!important;display:flex;flex-wrap:wrap;gap:0 18px;align-items:center;padding:4px var(--gutter) 8px;font-size:14px;background:var(--paper)}
+html[data-warm="c"] .pd-fvb-buy a{text-decoration-color:rgba(28,43,69,.5)}
+@media(max-width:767px) and (max-height:700px){
+  html[data-warm="c"] .pd-fvb-half{padding-top:10px;padding-bottom:12px}
+  html[data-warm="c"] .pd-fvb-half .pd-fvb-pic,html[data-warm="c"] .pd-fvb-half .pd-fvb-pic img:not(#_){max-height:168px}
+  html[data-warm="c"] .pd .pd-fvb-h1:not(#_){padding-top:10px}
+}
+/* 768 以上：左右の端はヘッダー（1440 で 144〜1296）に揃える。袋と瓶は半分の中の主役として大きく */
+@media(min-width:768px){
+  html[data-warm="c"][data-pdfv="b"] .pd-fvb{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  html[data-warm="c"] .pd-fvb-half{grid-template-columns:minmax(0,1fr);justify-items:start;align-content:start;gap:24px;padding:32px var(--gutter) 40px var(--pd-edge);
+    box-sizing:border-box}
+  html[data-warm="c"] .pd-fvb-half:not(.is-navy){padding:32px var(--pd-edge) 40px var(--gutter)}
+  html[data-warm="c"] .pd-fvb-half .pd-fvb-pic,html[data-warm="c"] .pd-fvb-half .pd-fvb-pic img:not(#_){max-height:clamp(260px,calc(100svh - var(--hd-h,72px) - 380px),460px);margin:0}
+  html[data-warm="c"] .pd .pd-fvb-h1:not(#_){padding:24px var(--pd-edge) 0}
+  html[data-warm="c"] .pd-fvb-half p{font-size:16px}
+  html[data-warm="c"] .pd .pd-fvb-buy:not(#_){padding:14px var(--pd-edge);font-size:15px}
+}
+
+/* ───── S2 てんぷら粉（玄米の地。導入 → 作り方（右にエビ天）→ 仕様） ───── */
+html[data-warm="c"] .pd-s2{padding:clamp(56px,8vw,112px) 0 clamp(48px,6vw,88px)}
+html[data-warm="c"] .pd-s2-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
+html[data-warm="c"] .pd-s2-intro>*+*:not(#_){margin-top:18px!important}
+html[data-warm="c"] .pd-s2-intro>.pd-tx:not(#_){margin-top:10px!important}
+html[data-warm="c"] .pd-s2-how>.pd-steps:not(#_){margin-top:4px!important}
+html[data-warm="c"] .pd-s2-how>.pd-tx-plain:not(#_){margin-top:16px!important}
+/* 作り方は罫線なし。行の間隔だけで区切る */
+html[data-warm="c"] .pd .pd-steps:not(#_){counter-reset:st;max-width:34em}
+html[data-warm="c"] .pd .pd-steps li{counter-increment:st;display:grid;grid-template-columns:2em minmax(0,1fr);padding:6px 0;font-size:16px;line-height:1.8}
+html[data-warm="c"] .pd .pd-steps li::before{content:counter(st) ".";font-family:var(--f-body);font-weight:600;color:var(--ink)}
+html[data-warm="c"] .pd-s2-ebi img{width:100%;max-width:301px}
+html[data-warm="c"] .pd-s2-ebi figcaption{margin-top:12px;font-size:15px;line-height:1.85;max-width:24em}
+html[data-warm="c"] .pd-s2-ebi .pd-note{display:block;margin-top:10px;font-size:14px;line-height:1.8;color:var(--ink-2);text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:rgba(28,43,69,.45)}
+html[data-warm="c"] .pd .pd-spec:not(#_){border-top:1px solid var(--pd-rule);border-bottom:1px solid var(--pd-rule);padding:8px 0}
+html[data-warm="c"] .pd-spec>div{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:12px;padding:8px 0}
+html[data-warm="c"] .pd-spec dt{font-size:13px;line-height:1.9;color:var(--ink-2);font-weight:500}
+html[data-warm="c"] .pd .pd-spec dd:not(#_){font-family:var(--f-head);font-size:17px;line-height:1.75;color:var(--ink)}
+html[data-warm="c"][lang="en"] .pd-spec>div{grid-template-columns:7.5em minmax(0,1fr)}
+@media(min-width:1024px){
+  html[data-warm="c"] .pd-s2-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:clamp(48px,6vw,96px);row-gap:48px;align-items:start}
+  html[data-warm="c"] .pd-s2-intro{grid-column:1;grid-row:1}
+  html[data-warm="c"] .pd-s2-how{grid-column:1;grid-row:2}
+  html[data-warm="c"] .pd-s2-ebi{grid-column:2;grid-row:2;padding-top:6px}  /* 上端を「作り方」の文字の上端に揃える */
+  html[data-warm="c"] .pd .pd-spec:not(#_){grid-column:1/-1;grid-row:3;margin-top:8px!important;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-flow:column;grid-template-rows:repeat(3,auto);column-gap:clamp(48px,6vw,96px);padding:12px 0}
+  html[data-warm="c"] .pd .pd-spec dd:not(#_){font-size:18px}
+}
+
+/* ───── S3 ホットソース（玄米のまま）─────
+   主役は瓶2本の写真（700x520。拡大しない）。SP は全幅の帯で節の頭に置き、S2〜S4 の単調さを切る。PC は左列の画面端まで寄せる。
+   瓶1本（白い地の 450x590）は表示 200px 以下の添え物にして、白い四角を目立たせない */
+html[data-warm="c"] .pd-s3{padding:0 0 clamp(48px,7vw,104px)}
+html[data-warm="c"] .pd-s3-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+html[data-warm="c"] .pd-s3-pic{max-width:700px}
+html[data-warm="c"] .pd-s3-pic img:not(#_){width:100%;height:auto}
+html[data-warm="c"] .pd-s3-tx{padding:0 var(--gutter)}
+html[data-warm="c"] .pd-s3-tx>*+*:not(#_){margin-top:16px!important}
+html[data-warm="c"] .pd-s3-tx>.pd-tx-plain:not(#_),html[data-warm="c"] .pd-s3-tx>.pd-tx:not(#_){margin-top:8px!important}
+html[data-warm="c"] .pd .pd-s3 .pd-h2 .pd-name-sub{font-size:15px}
+html[data-warm="c"] .pd .pd-facts:not(#_){font-size:15px;font-weight:500;line-height:1.8}
+html[data-warm="c"] .pd-s3-tx>.pd-s3-jar:not(#_){margin-top:28px!important}
+html[data-warm="c"] .pd-s3-jar img:not(#_){width:140px}
+@media(min-width:1024px){
+  html[data-warm="c"] .pd-s3{padding-top:clamp(48px,7vw,104px)}
+  html[data-warm="c"] .pd-s3-grid{--off:max(var(--gutter),calc((100vw - 1296px) / 2 + var(--gutter)));max-width:1296px;margin:0 auto;padding:0 var(--gutter);box-sizing:border-box;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(48px,6vw,96px);align-items:center}
+  /* 左列＋左の余白ぶんまで広げる（700px まで。超える広い画面では列の右端に揃えたまま左に玄米が残る） */
+  html[data-warm="c"] .pd .pd-s3-pic:not(#_){max-width:none;width:min(700px,calc(100% + var(--off)));margin-left:calc(100% - min(700px,calc(100% + var(--off))))!important}
+  html[data-warm="c"] .pd-s3-tx{padding:0}
+  html[data-warm="c"] .pd-s3-jar img:not(#_){width:180px}
+}
+
+/* ───── S4 たこ焼き粉・唐揚げ粉（詳しい情報は確認中。文字が主。小さく） ───── */
+html[data-warm="c"] .pd-s4{padding:clamp(48px,6vw,88px) 0;background:var(--paper);border-top:1px solid var(--pd-rule)}
+html[data-warm="c"] .pd .pd-s4 .pd-h2:not(#_){margin-bottom:4px!important}
+html[data-warm="c"] .pd-s4-list{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;margin-top:24px}
+html[data-warm="c"] .pd-s4-item{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+html[data-warm="c"] .pd-s4-item:has(.pd-s4-pic){grid-template-columns:104px minmax(0,1fr)}
+html[data-warm="c"] .pd-s4-pic img{width:104px}
+html[data-warm="c"] .pd-s4-item p{font-size:15px;line-height:1.8}
+html[data-warm="c"] .pd-s4-item p+p:not(#_){margin-top:6px!important}
+html[data-warm="c"] .pd-s4-item .pd-h3:not(#_){margin-bottom:6px!important}
+@media(min-width:768px){
+  html[data-warm="c"] .pd-s4-list{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
+  html[data-warm="c"] .pd-s4-item:has(.pd-s4-pic){grid-template-columns:140px minmax(0,1fr);gap:24px}
+  html[data-warm="c"] .pd-s4-pic img{width:140px}
+}
+
+/* ───── S5 店頭（濃い玄米。3店舗を同時に、電話は1タップ） ───── */
+html[data-warm="c"] .pd-s5{background:var(--kinari);padding:clamp(48px,6vw,88px) 0}
+html[data-warm="c"] .pd-s5-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+html[data-warm="c"] .pd .pd-stores:not(#_){border-top:1px solid var(--pd-rule)}
+html[data-warm="c"] .pd-stores li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--pd-rule)}
+html[data-warm="c"] .pd-stores b{grid-column:1;font-family:var(--f-head);font-weight:500;font-size:19px;line-height:1.5}
+html[data-warm="c"] .pd-stores span{grid-column:1;font-size:14px;color:var(--ink-2);line-height:1.6}
+html[data-warm="c"] .pd-stores a{grid-column:2;grid-row:1/3;display:inline-flex;align-items:center;min-height:44px;font-family:"Fraunces",var(--f-head);font-variant-numeric:lining-nums tabular-nums;font-size:18px;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:rgba(28,43,69,.4)}
+@media(min-width:1024px){
+  html[data-warm="c"] .pd-s5-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(48px,6vw,96px);align-items:start}
+  html[data-warm="c"] .pd-stores li{grid-template-columns:9em minmax(0,1fr) auto}
+  html[data-warm="c"] .pd-stores b{grid-column:1;grid-row:1}
+  html[data-warm="c"] .pd-stores span{grid-column:2;grid-row:1}
+  html[data-warm="c"] .pd-stores a{grid-column:3;grid-row:1}
+}
+
+/* ───── S6 卸（紺。ページで唯一の金茶ボタン） ───── */
+html[data-warm="c"] .pd-ws{background:var(--ink);color:var(--olive-ink);padding:clamp(56px,8vw,112px) 0}
+html[data-warm="c"] .pd-ws *:not(.btn):not(.btn *){color:inherit}
+html[data-warm="c"] .pd .pd-ws .pd-h2:not(#_){color:var(--olive-ink)!important}
+html[data-warm="c"] .pd-ws-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+html[data-warm="c"] .pd-ws-grid p{font-size:16px;line-height:1.9;color:var(--navy-2)}
+html[data-warm="c"] .pd .pd-ws-dl:not(#_){border-top:1px solid var(--pd-rule-navy);margin-bottom:28px!important}
+html[data-warm="c"] .pd-ws-dl>div{display:grid;grid-template-columns:7em minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--pd-rule-navy)}
+html[data-warm="c"][lang="en"] .pd-ws-dl>div{grid-template-columns:9em minmax(0,1fr)}
+html[data-warm="c"] .pd-ws-dl dt{font-size:13px;line-height:1.9;color:var(--navy-2)}
+html[data-warm="c"] .pd-ws-dl dd{font-size:16px;line-height:1.8}
+html[data-warm="c"] .pd .pd-ws-btn:not(#_){display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 32px!important}
+@media(max-width:767px){
+  html[data-warm="c"] .pd .pd-ws-btn:not(#_){width:100%}
+  html[data-warm="c"] .pd-ws-dl>div,html[data-warm="c"][lang="en"] .pd-ws-dl>div{grid-template-columns:minmax(0,1fr);gap:2px}  /* 項目名を上、内容を下 */
+}
+@media(min-width:1024px){
+  html[data-warm="c"] .pd-ws-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(48px,6vw,96px);align-items:start}
+}
+
+/* ───── TOP の入口：SNS の帯から外した独立の紺の帯（ケータリングのきなり → 紺 → SNS の玄米）─────
+   袋と瓶の写真を同じ高さに揃え、リンクは「商品を見る」だけ。.blk は使わない */
+html[data-warm="c"] .pd-entry{background:var(--ink);color:var(--olive-ink);scroll-margin-top:var(--hd-h,64px);--eh:clamp(150px,40vw,280px)}
+html[data-warm="c"] .pd-entry-in{max-width:1296px;margin:0 auto;padding:clamp(48px,7vw,96px) var(--gutter);box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:center}
+html[data-warm="c"] .pd-entry-pics{display:flex;align-items:flex-end;gap:clamp(16px,3vw,40px)}
+html[data-warm="c"] .pd-entry-pics picture{display:block;flex:none}
+html[data-warm="c"] .pd-entry-pics img:not(#_){display:block;height:var(--eh);width:auto;max-width:none}
+html[data-warm="c"] .pd-entry-bag{filter:drop-shadow(0 8px 12px rgba(8,14,26,.45))}
+html[data-warm="c"] .pd-entry h2:not(#_){color:var(--olive-ink)!important;font-size:clamp(28px,3vw,40px)!important;margin:0 0 12px!important}
+html[data-warm="c"] .pd-entry p:not(#_){color:var(--navy-2)!important;font-size:16px;line-height:1.85;margin:0 0 12px!important}
+html[data-warm="c"] .pd-entry .draft:not(#_){display:inline-block;vertical-align:.15em;margin-left:.35em;padding:0 5px;border:1px solid currentColor;font:500 12px/1.5 var(--f-body)!important;letter-spacing:.04em;color:var(--olive-ink)!important;opacity:.85;white-space:nowrap}
+html[data-warm="c"] .pd-entry-go:not(#_){display:inline-flex;align-items:center;min-height:44px;font-size:16px;font-weight:600;letter-spacing:.04em;color:var(--olive-ink)!important;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;text-decoration-color:rgba(247,243,236,.5)}
+html[data-warm="c"] .pd-entry-go:hover{text-decoration-color:currentColor}
+html[data-warm="c"] .pd-entry :focus-visible{outline-color:var(--olive-ink)!important}
+@media(min-width:900px){
+  html[data-warm="c"] .pd-entry{--eh:clamp(200px,19vw,280px)}
+  html[data-warm="c"] .pd-entry-in{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:clamp(40px,5vw,72px)}
+}
+/* 入口が外れた SNS の帯：1列。901px 以上は見出し＋アカウントを左、Instagram 4枚を右 */
+html[data-warm="c"] .pd-entry+.shop-sns:not(#_){grid-template-columns:minmax(0,1fr)}
+@media(min-width:901px){
+  html[data-warm="c"] .pd-entry+.shop-sns .sns-sec .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:start}
+  html[data-warm="c"] .pd-entry+.shop-sns .sns-sec .wrap>h2{grid-column:1;grid-row:1}
+  html[data-warm="c"] .pd-entry+.shop-sns .sns-list:not(#_){grid-column:1;grid-row:2;grid-template-columns:minmax(0,1fr)!important}
+  html[data-warm="c"] .pd-entry+.shop-sns .ig:not(#_){grid-column:2;grid-row:1/4}
+}
+
+@media(prefers-reduced-motion:reduce){html[data-warm="c"] .pd *{transition:none!important;animation:none!important}}
