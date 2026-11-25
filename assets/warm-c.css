@@ -1980,3 +1980,11 @@ html[data-warm="c"] .wc-car .car-dot:focus-visible{outline:2px solid var(--acc,#
 html[data-warm="c"] :is(main,footer,.fv8-panel) :is(p,li,dd,td,figcaption,blockquote):not(#_):not(#_),html[data-warm="c"] :is(main,footer,.fv8-panel) :is(p,li,dd,td,figcaption,blockquote) span:not(#_):not(#_){text-wrap:wrap!important}
 html[data-warm="c"] main :is(.lead,.body-lg,.cons-role,.cons-lead,.cons-areas li,.tx>p:first-of-type,.page-hero p,.hero-sub,.quote):not(#_):not(#_):not(#_),html[data-warm="c"] main :is(.lead,.body-lg,.cons-role,.cons-lead,.quote) :lang(ja):not(#_):not(#_):not(#_){word-break:normal!important;line-break:strict;text-wrap:wrap!important}
 html[data-warm="c"] .wc-car .car-dot:not(#_):not(#_)::before{border-radius:50%!important}
+
+/* 21回目（yuga 2026-11-26）：コンサルのスマホ下の「無料相談」ボタンも、予約ボタンと同じ丸い形に */
+html[data-warm="c"] body .cta-float:not(#_):not(#_):not(#_){border-radius:999px!important}
+/* 21回目（yuga「ファーストビューのアニメーション二秒にして。終わるまでスクロールできないように」）：写真・帯・ヘッダーの動きを合わせて2秒で終える */
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band img{animation-duration:2s!important}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{animation-delay:1.2s!important;animation-duration:.8s!important}
+html[data-warm="c"][data-fv="8"]:has(body[data-page="index"]) .hd:not(#_):not(#_){animation-delay:1.2s!important;animation-duration:.8s!important}
+html.fv-lock,html.fv-lock body{overflow:hidden!important;overscroll-behavior:none}

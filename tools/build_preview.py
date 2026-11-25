@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261126c'
+WARM_V = '20261126d'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -472,6 +472,12 @@ for name in PAGES:
                         ('カナダ グルテンフリーオブザイヤー2020 パントリー部門 グランプリ', 'グルテンフリーオブザイヤー カナダ2020 パントリー部門 グランプリ'),
                         ('Gluten-Free Product of the Year 2020 Canada, Pantry category Grand Prix', 'Gluten-Free Canada Product of the Year 2020, Pantry Items Grand Prix'),
                         ('Gluten-Free Product of the Year 2020, Canada — Pantry category Grand Prix', 'Gluten-Free Canada Product of the Year 2020, Pantry Items Grand Prix'),
+                    ]
+                    # 21回目（yuga 2026-11-26「グルテンフリーシェフが考えた 米粉レシピのヘルシープレート これ本の正式名」）：本の名前を正式名に。英題は正式なものが無いので、コンサルの書き方にそろえる（要確認）
+                    NAME_FIX += [
+                        ('グルテンフリーシェフが教える 米粉のヘルシープレート', 'グルテンフリーシェフが考えた 米粉レシピのヘルシープレート'),
+                        ('グルテンフリーシェフが教える米粉のヘルシープレート', 'グルテンフリーシェフが考えた 米粉レシピのヘルシープレート'),
+                        ('December: first book, a rice-flour healthy plate cookbook by a gluten-free chef, published by', 'December: first book, "Healthy Rice-Flour Plates from a Gluten-Free Chef" (in Japanese), published by'),
                     ]
                     for a_, b_ in NAME_FIX:
                         x = x.replace(a_, b_)
