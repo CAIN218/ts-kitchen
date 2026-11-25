@@ -1574,7 +1574,7 @@ html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{position:absol
   animation:wc-fv8-up .9s cubic-bezier(.2,.7,.2,1) 1.4s both}
 html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.4!important;margin:0!important}
 html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .hero-sub{margin-top:8px!important}
-html[data-warm="c"][data-fv="8"] header.hd:not(#_),html[data-warm="c"][data-fv="8"] .hd:not(#_){animation:wc-fv8-down .8s cubic-bezier(.2,.7,.2,1) 1.4s both}
+html[data-warm="c"][data-fv="8"]:has(body[data-page="index"]) .hd:not(#_){animation:wc-fv8-down .8s cubic-bezier(.2,.7,.2,1) 1.4s both}
 @keyframes wc-fv8-zoom{from{transform:scale(1.06)}to{transform:none}}
 @keyframes wc-fv8-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
 @keyframes wc-fv8-down{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
@@ -1594,16 +1594,27 @@ html[data-warm="c"] main .btn:not(.line):not(#_):not(#_):not(#_),html[data-warm=
   html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:calc(28px + .4em)!important}
 }
 
-/* メニューのページ（9回目）：殺風景・余白が多い → 見出しの下に料理の写真の帯を入れて温かみを出し、上下の余白を詰める。
-   見出し・写真・注意書き・タブ・メニュー画像を、すべて同じ 960px の中央の列にそろえる */
-html[data-warm="c"] body[data-page="menu"] .page-hero:not(#_){padding:clamp(40px,6vw,72px) 0 0!important}
-html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_){max-width:calc(960px + 2*var(--gutter))!important;margin:0 auto!important;padding:0 var(--gutter)!important;box-sizing:border-box}
-html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_)::after{content:"";display:block;margin-top:clamp(24px,3vw,36px);aspect-ratio:1464/520;
-  background:url("../src/images/food.jpg") 50% 48%/cover no-repeat}
-html[data-warm="c"] body[data-page="menu"] main>section:first-child:not(#_),html[data-warm="c"] body[data-page="menu"] main>.blk:first-of-type:not(#_){padding-top:clamp(32px,4vw,48px)!important}
-html[data-warm="c"] body[data-page="menu"] .notice:not(#_){padding:clamp(20px,2.4vw,28px) clamp(20px,2.4vw,32px)!important;margin-bottom:clamp(28px,3vw,40px)!important}
-@media(max-width:767px){
-  html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_)::after{margin-left:calc(-1*var(--gutter));margin-right:calc(-1*var(--gutter));aspect-ratio:16/9}
-}
 /* 認証マークを消した分、リード文を左端から始める */
 html[data-warm="c"] .wrap.about .lead:not(#_):not(#_){grid-column:1/-1!important;margin-left:0!important;padding-left:0!important}
+
+/* 10回目（20261125l）
+   - FV の試し案（fv=8）：後から出てくる部分は箱ではなく、写真1枚の案と同じ「玄米色の帯（左に H1、右にサブ・予約・注記）」が画面の下から上がってくる形に
+   - ヘッダーの遅れて出る動きはトップだけ（上で :has(body[data-page=index]) に限定）
+   - メニュー：開いてすぐメニューが見えるように。見出しを小さく詰め、店舗のタブ→メニューの画像を先に、注意書きはその下へ */
+@media(min-width:1024px){
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{left:0!important;right:0!important;bottom:0!important;width:auto!important;
+    grid-template-columns:minmax(0,7fr) minmax(0,5fr)!important;column-gap:48px;grid-template-areas:"h1 sub" "h1 row" "h1 note"!important;
+    padding:clamp(28px,4svh,44px) var(--edge) clamp(28px,4svh,44px)!important}
+  html[data-warm="c"][data-fv="8"][lang="ja"] .hero:not(#_):not(#_) .fv8-panel h1 br:not(.fvx-br){display:none!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{font-size:clamp(30px,calc((100vw - 2*var(--edge) - 48px)*7/12/14.8),52px)!important;align-self:start}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .hero-sub{margin-top:.4em!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .row{margin-top:16px!important}
+}
+html[data-warm="c"] body[data-page="menu"] .page-hero:not(#_){padding:clamp(24px,3vw,40px) 0 0!important}
+html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_){max-width:calc(960px + 2*var(--gutter))!important;margin:0 auto!important;padding:0 var(--gutter)!important;box-sizing:border-box}
+html[data-warm="c"] body[data-page="menu"] .page-hero h1:not(#_){font-size:clamp(28px,3vw,40px)!important;margin:0 0 4px!important}
+html[data-warm="c"] body[data-page="menu"] .page-hero p:not(#_){margin:0!important}
+html[data-warm="c"] body[data-page="menu"] .menu-sec:not(#_){padding-top:clamp(16px,2vw,24px)!important}
+html[data-warm="c"] body[data-page="menu"] .menu-sec .wrap:not(#_){display:flex!important;flex-direction:column}
+html[data-warm="c"] body[data-page="menu"] .menu-sec .notice:not(#_){order:5;margin:clamp(28px,3vw,40px) 0 0!important}
+html[data-warm="c"] body[data-page="menu"] .menu-sec .menu-actions:not(#_){order:6}
