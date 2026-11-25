@@ -79,8 +79,7 @@
     ft.appendChild(p);
   }
   if(ft){
-    /* 9回目：FV の試し案（全画面の写真から文字がふわっと出る）を、写真1枚の案と切り替えて比べられるようにする */
-    if(page==='index')sw(en?'Hero: ':'FV：','wc-fv2','data-fv',[['7',en?'One photo':'写真1枚'],['8',en?'Full-screen photo':'全画面の写真からふわっと']],'7');
+    /* FV は「全画面の写真からふわっと」に決定したので、切り替えはやめた（yuga 2026-11-25） */
     /* 背景色の切り替えは、B 玄米に決まったのでやめた（yuga 2026-11-25） */
   }
 
@@ -88,3 +87,5 @@
   var m=/[?&]type=([a-z]+)/.exec(location.search),sel=d.querySelector('.cf7 select[name=type]');
   if(m&&sel){[].forEach.call(sel.options,function(o){if(o.value===m[1])sel.value=m[1]})}
 })();
+/* お問い合わせ：送信が終わったら完了の文が見える位置へ（デモ） */
+(function(){document.querySelectorAll('form.cf7.demo').forEach(function(f){new MutationObserver(function(){if(f.classList.contains('sent')){var o=f.querySelector('.wpcf7-response-output.ok');if(o)o.scrollIntoView({block:'center',behavior:'smooth'})}}).observe(f,{attributes:true,attributeFilter:['class']})})})();
