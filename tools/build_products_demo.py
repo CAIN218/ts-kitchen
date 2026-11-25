@@ -68,9 +68,12 @@ def make_page(lang):
 
 def add_nav(path, lang, prefix):
     s = path.read_text(); nav, about, _ = NAV[lang]
-    if f'products/"><span lang="{lang}">{nav}</span></a>' in s or f'aria-current="page"><span lang="{lang}">{nav}</span>' in s: return
-    pat = re.compile(r'(<a(?: class="[^"]*")? href="[^"]*"(?: aria-current="page")?><span lang="%s">%s</span></a>)' % (lang, about))
-    s, n = pat.subn(lambda m: f'<a href="{prefix}products/"><span lang="{lang}">{nav}</span></a>' + m.group(1), s)
+    if f'aria-current="page"><span lang="{lang}">{nav}</span>' in s: return
+    # 会社概要のリンクの直前に「商品」を足す。会社概要のページでは class="on" が href の後ろに付くので、その形も拾う。
+    # すでに「商品」が直前にあるリンクには足さない（ヘッダー・ドロワー・フッターのどれか1つだけ足りない場合もあるため、1か所ずつ見る）
+    link = f'<a href="{prefix}products/"><span lang="{lang}">{nav}</span></a>'
+    pat = re.compile(r'(?<!%s)(<a(?: class="[^"]*")? href="[^"]*"(?: class="[^"]*")?(?: aria-current="page")?><span lang="%s">%s</span></a>)' % (re.escape(link), lang, about))
+    s, n = pat.subn(lambda m: link + m.group(1), s)
     path.write_text(s); print(path, "nav", n)
 
 def entry(lang, up):
@@ -101,7 +104,8 @@ def main():
         s = p.read_text()
         # 前の版の入口（SNS の帯の中）を消し、SNS の帯（div.shop-sns）の直前に独立の帯として置く
         s, n = re.subn(r'<section class="(?:blk )?(?:shop|pd-entry)" id="shop".*?</section>\n?', "", s, count=1, flags=re.S)
-        s = s.replace('<div class="shop-sns">', entry(lang, up) + '<div class="shop-sns">', 1)
+        # 9回目（HP全体 作る係）：SNS の帯（div.shop-sns）の中の先頭に置き、「商品｜公式SNS」の2列にする（帯の外だと SNS が左の細い列に寄って小さくなっていた）
+        s = s.replace('<div class="shop-sns">', '<div class="shop-sns">\n' + entry(lang, up), 1)
         s = re.sub(r'<link rel="stylesheet" href="[./]*assets/products\.css[^"]*">', "", s)
         s = re.sub(r'(<link rel="stylesheet" href="[./]*assets/warm-c\.css[^"]*">)', r'\1<link rel="stylesheet" href="%sassets/products.css?v=%s">' % (up, V), s, count=1)
         p.write_text(s); print(p, "entry", n)

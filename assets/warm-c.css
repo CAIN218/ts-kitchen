@@ -1286,53 +1286,53 @@ html[data-warm="c"] .hero .fvx:not(#_):not(#_),html[data-warm="c"] .hero-in h1 b
 html[data-warm="c"][lang="en"] .hero-in h1 br.en-br:not(#_){display:none}
 
 /* ── 共通（4〜6） ── */
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_){display:block!important;height:auto!important;min-height:0!important;background:var(--paper)!important;color:var(--ink)!important;overflow:hidden}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_)::after,html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_)::before{display:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in{display:grid!important;width:100%;max-width:none!important;margin:0!important;background:none!important;animation:none!important;color:var(--ink)!important;
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_){display:block!important;height:auto!important;min-height:0!important;background:var(--paper)!important;color:var(--ink)!important;overflow:hidden}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_)::after,html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_)::before{display:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in{display:grid!important;width:100%;max-width:none!important;margin:0!important;background:none!important;animation:none!important;color:var(--ink)!important;
   grid-template-columns:minmax(0,1fr);gap:0!important;align-items:start}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in>*{grid-column:auto;grid-row:auto;margin:0!important;max-width:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in h1{grid-area:h1;font-weight:500;letter-spacing:.01em;color:var(--ink)!important;white-space:nowrap;text-wrap:nowrap}
-html[data-warm="c"][lang="ja"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero-in h1 br.fvx-br:not(#_):not(#_){display:inline!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .hero-sub{grid-area:sub;font-size:15px!important;line-height:1.8!important;color:rgba(28,43,69,.75)!important;padding:0!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row{grid-area:row;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:4px!important;padding:0!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .sub{grid-area:note;margin-top:10px!important;padding:0!important;font-size:13px!important;line-height:1.6;color:rgba(28,43,69,.75)!important;white-space:normal!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-band{display:block!important;grid-area:band;overflow:hidden;position:relative}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-band img{display:block;border-radius:0!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;display:flex!important;align-items:center;gap:12px}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-mark{display:block;flex:none;width:48px;height:auto;border-radius:0}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .fvx-cert-t{display:none}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in>*{grid-column:auto;grid-row:auto;margin:0!important;max-width:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in h1{grid-area:h1;font-weight:500;letter-spacing:.01em;color:var(--ink)!important;white-space:nowrap;text-wrap:nowrap}
+html[data-warm="c"][lang="ja"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero-in h1 br.fvx-br:not(#_):not(#_){display:inline!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .hero-sub{grid-area:sub;font-size:15px!important;line-height:1.8!important;color:rgba(28,43,69,.75)!important;padding:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row{grid-area:row;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:4px!important;padding:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .sub{grid-area:note;margin-top:10px!important;padding:0!important;font-size:13px!important;line-height:1.6;color:rgba(28,43,69,.75)!important;white-space:normal!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .fvx-band{display:block!important;grid-area:band;overflow:hidden;position:relative}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .fvx-band img{display:block;border-radius:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;display:flex!important;align-items:center;gap:12px}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .fvx-mark{display:block;flex:none;width:48px;height:auto;border-radius:0}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .fvx-cert-t{display:none}
 /* 予約：金茶のボタン。SP は幅いっぱい・高さ52px */
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{display:flex!important;flex:none!important;width:100%!important;min-height:52px!important;height:52px;padding:0 16px!important;align-items:center;justify-content:center;
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{display:flex!important;flex:none!important;width:100%!important;min-height:52px!important;height:52px;padding:0 16px!important;align-items:center;justify-content:center;
   background:var(--acc)!important;color:var(--acc-ink)!important;border:0!important;border-radius:2px!important;font-size:16px!important;font-weight:600;line-height:1.3;box-shadow:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv span{color:var(--acc-ink)!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv:hover{background:var(--acc-hover)!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv span{color:var(--acc-ink)!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv:hover{background:var(--acc-hover)!important}
 /* メニューを見る：文字のリンク（押せる範囲は高さ 44px） */
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{display:inline-flex!important;flex:none!important;align-self:flex-start;align-items:center;justify-content:flex-start;width:auto!important;min-height:44px!important;padding:0!important;
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{display:inline-flex!important;flex:none!important;align-self:flex-start;align-items:center;justify-content:flex-start;width:auto!important;min-height:44px!important;padding:0!important;
   border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;font-size:16px!important;font-weight:500;
   color:var(--ink)!important;text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:4px!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line span{color:inherit!important;text-decoration:none!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line:hover{background:none!important;text-decoration-thickness:2px!important}
-html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) :focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.line span{color:inherit!important;text-decoration:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.line:hover{background:none!important;text-decoration-thickness:2px!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) :focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px!important}
 /* 英語の H1 は折り返す（SP は元の改行を見せず、balance で均す） */
-html[data-warm="c"][lang="en"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in h1{white-space:normal;text-wrap:balance;letter-spacing:0}
+html[data-warm="c"][lang="en"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in h1{white-space:normal;text-wrap:balance;letter-spacing:0}
 @media(min-width:768px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row{flex-direction:row!important;align-items:center!important;gap:12px 28px!important;flex-wrap:wrap!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{width:auto!important;height:56px;min-height:56px!important;padding:0 36px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{align-self:center}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row{flex-direction:row!important;align-items:center!important;gap:12px 28px!important;flex-wrap:wrap!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{width:auto!important;height:56px;min-height:56px!important;padding:0 36px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{align-self:center}
 }
 /* High-1：SP と 768 は「予約 → 注記 → メニューを見る」。.row を外し、ボタン2つを .hero-in の格子に直接置く（各案の areas に rsv・note・line） */
 @media(max-width:1023px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row{display:contents!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{grid-area:rsv;margin:20px 0 0!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .sub{margin-top:8px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{grid-area:line;justify-self:start;margin:8px 0 0!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row{display:contents!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{grid-area:rsv;margin:20px 0 0!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .sub{margin-top:8px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{grid-area:line;justify-self:start;margin:8px 0 0!important}
 }
 @media(min-width:768px) and (max-width:1023px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{justify-self:start}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{justify-self:start}
 }
 @media(min-width:1024px){
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .hero-sub{font-size:17px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in .sub{font-size:14px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .hero-sub{font-size:17px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in .sub{font-size:14px!important}
 }
 
 /* ── 案4「一行の店」：玄米色の地に大きな明朝の3行。写真は food の帯1本。SP は帯が H1 とサブの間 ── */
@@ -1466,8 +1466,8 @@ html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{fo
 }
 @media(max-width:767px){
   /* 案4・案6 SP：FV の下の空きを詰め、次の区画との間を一定にする */
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_) .hero-in{padding-bottom:32px!important}
-  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"],[data-fv="7"]) .hero:not(#_):not(#_)+*{padding-top:56px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_) .hero-in{padding-bottom:32px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"],[data-fv="7"],[data-fv="8"]) .hero:not(#_):not(#_)+*{padding-top:56px!important}
 }
 /* 案5 768：マークの右端を本文の右端にそろえる */
 @media(min-width:768px) and (max-width:1023px){html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{justify-self:end!important}}
@@ -1528,3 +1528,82 @@ html[data-warm="c"][lang="en"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{fo
 }
 /* 受賞マークの帯は、トップと会社概要だけに置く（yuga 2026-11-25、情報を減らす T1） */
 html[data-warm="c"] body:is([data-page="menu"],[data-page="consulting"],[data-page="media"],[data-page="products"]) .awards-band:not(#_){display:none!important}
+
+/* ============================================================
+   9回目（20261125k）：yuga さんの指摘
+   ============================================================ */
+/* ボタン：真四角も角丸の四角もやめ、両端が丸い形（カプセル）にする。入力欄は四角のまま */
+html[data-warm="c"] :is(.btn,.fab,.cta-float,.cf7 button,.cf7 [type=submit],.wpcf7-submit):not(#_):not(#_){border-radius:999px!important}
+html[data-warm="c"] .hero .row .btn.line:not(#_):not(#_){border-radius:0!important}
+
+/* トップ「私たちのレストランについて」の認証マーク1つは、下の受賞マーク4つと重なるので消す */
+html[data-warm="c"] .wrap.about>img[src*="GIG1"]:not(#_){display:none!important}
+
+/* 商品｜公式SNS：1つの帯の2列に（商品の入口を SNS の帯の中の先頭に置いた） */
+html[data-warm="c"] .shop-sns>.pd-entry:not(#_){padding:0!important;background:none!important}
+html[data-warm="c"] .shop-sns>.pd-entry .pd-entry-in:not(#_){padding:0!important;max-width:none!important}
+html[data-warm="c"] .shop-sns>.pd-entry h2:not(#_){font-size:clamp(24px,2.2vw,32px)!important;margin:0 0 12px!important}
+
+/* FV（写真1枚）：認証マークはやめる。写真はできるだけ引きで（切らずに全体を）見せる。
+   PC は写真を元の縦横比のまま、FV の高さに合わせて中央に置く（拡大しすぎないので画質も保てる） */
+html[data-warm="c"]:is([data-fv="7"],[data-fv="8"]) .hero .fvx-cert:not(#_):not(#_){display:none!important}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band{height:auto!important;aspect-ratio:1464/943}
+html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band img{object-position:50% 50%}
+@media(min-width:768px) and (max-width:1023px){
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band{margin:24px 0 0!important;width:100%}
+}
+@media(min-width:1024px){
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in{grid-template-rows:minmax(0,1fr) auto auto auto;padding-top:clamp(24px,4svh,40px)!important;
+    --fv-w:min(100%,calc((100svh - var(--hd-h,72px) - 260px)*1464/943));grid-template-columns:minmax(0,1fr) var(--fv-w) minmax(0,1fr);
+    grid-template-areas:"band band band" ". h1 ." ". sub ." ". row ." ". note .";}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .fvx-band{grid-area:band;justify-self:center;align-self:stretch;width:auto!important;height:100%!important;aspect-ratio:1464/943;max-width:100%;margin:0 0 32px!important}
+  /* 文字は写真の幅にそろえ、H1 を左、サブ〜注記を右に */
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:minmax(0,1fr) calc(var(--fv-w)*.58) calc(var(--fv-w)*.42) minmax(0,1fr);column-gap:0!important;
+    grid-template-areas:"band band band band" ". h1 sub ." ". h1 row ." ". h1 note ."}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(28px,calc(var(--fv-w)*.58/14.8),52px)!important;padding-right:24px}
+  html[data-warm="c"][data-fv="7"][lang="en"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(26px,calc(var(--fv-w)*.58/15.5),46px)!important}
+}
+
+/* FV の試し案（?fv=8）：開くと写真が画面いっぱい → 少し経つと、ヘッダーが上から、文字と予約が下からふわっと出る */
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_){position:relative;height:100svh!important;margin-top:calc(-1*var(--hd-h,64px))}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .hero-in{position:static;display:block!important;height:100%;padding:0!important}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band{position:absolute!important;inset:0;margin:0!important;height:auto!important}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;margin:0;animation:wc-fv8-zoom 2.4s cubic-bezier(.2,.6,.2,1) both}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{position:absolute;left:0;right:0;bottom:0;z-index:2;background:var(--paper);display:grid;
+  grid-template-columns:minmax(0,1fr);grid-template-areas:"h1" "sub" "rsv" "note" "line";padding:22px var(--gutter) 24px;
+  animation:wc-fv8-up .9s cubic-bezier(.2,.7,.2,1) 1.4s both}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.4!important;margin:0!important}
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel .hero-sub{margin-top:8px!important}
+html[data-warm="c"][data-fv="8"] header.hd:not(#_),html[data-warm="c"][data-fv="8"] .hd:not(#_){animation:wc-fv8-down .8s cubic-bezier(.2,.7,.2,1) 1.4s both}
+@keyframes wc-fv8-zoom{from{transform:scale(1.06)}to{transform:none}}
+@keyframes wc-fv8-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes wc-fv8-down{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
+@media(min-width:1024px){
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{left:var(--edge);right:auto;bottom:clamp(32px,6svh,64px);width:min(620px,calc(100vw - 2*var(--edge)));
+    grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"h1 h1" "sub sub" "row row" "note note";padding:36px 40px 32px}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{font-size:clamp(30px,2.6vw,40px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-warm="c"][data-fv="8"] :is(.fv8-panel,.fvx-band img,.hd):not(#_):not(#_){animation:none!important}
+}
+html[data-warm="c"]:not([data-fv="8"]) .hero .fv8-panel:not(#_){display:contents!important}
+html[data-warm="c"] .hero:not(#_):not(#_) .hero-in .row .btn.rsv:not(#_),html[data-warm="c"] .hd .btn:not(#_):not(#_):not(#_),html[data-warm="c"] .drawer .btn:not(#_):not(#_):not(#_),
+html[data-warm="c"] main .btn:not(.line):not(#_):not(#_):not(#_),html[data-warm="c"] .fab:not(#_):not(#_):not(#_){border-radius:999px!important}
+@media(min-width:1024px){
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in h1{margin-top:28px!important}
+  html[data-warm="c"][data-fv="7"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:calc(28px + .4em)!important}
+}
+
+/* メニューのページ（9回目）：殺風景・余白が多い → 見出しの下に料理の写真の帯を入れて温かみを出し、上下の余白を詰める。
+   見出し・写真・注意書き・タブ・メニュー画像を、すべて同じ 960px の中央の列にそろえる */
+html[data-warm="c"] body[data-page="menu"] .page-hero:not(#_){padding:clamp(40px,6vw,72px) 0 0!important}
+html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_){max-width:calc(960px + 2*var(--gutter))!important;margin:0 auto!important;padding:0 var(--gutter)!important;box-sizing:border-box}
+html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_)::after{content:"";display:block;margin-top:clamp(24px,3vw,36px);aspect-ratio:1464/520;
+  background:url("../src/images/food.jpg") 50% 48%/cover no-repeat}
+html[data-warm="c"] body[data-page="menu"] main>section:first-child:not(#_),html[data-warm="c"] body[data-page="menu"] main>.blk:first-of-type:not(#_){padding-top:clamp(32px,4vw,48px)!important}
+html[data-warm="c"] body[data-page="menu"] .notice:not(#_){padding:clamp(20px,2.4vw,28px) clamp(20px,2.4vw,32px)!important;margin-bottom:clamp(28px,3vw,40px)!important}
+@media(max-width:767px){
+  html[data-warm="c"] body[data-page="menu"] .page-hero .wrap:not(#_)::after{margin-left:calc(-1*var(--gutter));margin-right:calc(-1*var(--gutter));aspect-ratio:16/9}
+}
+/* 認証マークを消した分、リード文を左端から始める */
+html[data-warm="c"] .wrap.about .lead:not(#_):not(#_){grid-column:1/-1!important;margin-left:0!important;padding-left:0!important}
