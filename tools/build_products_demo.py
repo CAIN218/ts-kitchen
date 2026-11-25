@@ -8,7 +8,7 @@
 import re, pathlib
 R = pathlib.Path(__file__).resolve().parent.parent
 C = R / "warm-c"
-V = "20261125r1"
+V = "20261125r2"
 
 NAV = {"ja": ("商品", "会社概要", "卸売・お取り扱い"), "en": ("Products", "About us", "Wholesale")}
 
@@ -18,11 +18,14 @@ def stores_from_footer(html, lang):
     assert len(out) == 3, out
     return out
 
-def pic(up, name, alt, w, h, cls="", eager=False, png=False):
+def pic(up, name, alt, w, h, cls="", eager=False, png=False, lazy=False):
+    """eager=True は FV（fetchpriority=high）。lazy=True は TOP の入口だけ。
+    商品ページの S2 以降は撮影時に空白になるため loading=lazy・decoding=async を付けない（どれも 70KB 以下）"""
     ext = "png" if png else "jpg"
-    return (f'<picture{f" class={chr(34)}{cls}{chr(34)}" if cls else ""}><source srcset="{up}assets/img/products/{name}.webp" type="image/webp">'
-            f'<img src="{up}assets/img/products/{name}.{ext}" alt="{alt}" width="{w}" height="{h}" '
-            f'{"fetchpriority=" + chr(34) + "high" + chr(34) if eager else "loading=" + chr(34) + "lazy" + chr(34)} decoding="async"></picture>')
+    attrs = ' fetchpriority="high"' if eager else (' loading="lazy" decoding="async"' if lazy else "")
+    cl = f' class="{cls}"' if cls else ""
+    return (f'<picture{cl}><source srcset="{up}assets/img/products/{name}.webp" type="image/webp">'
+            f'<img src="{up}assets/img/products/{name}.{ext}" alt="{alt}" width="{w}" height="{h}"{attrs}></picture>')
 
 def main_html(lang, up, stores):
     ja = lang == "ja"
@@ -40,12 +43,12 @@ def main_html(lang, up, stores):
   </div>
   <div class="pd-fv-tx">
     <div class="pd-fv-head">
-      <h1 class="pd-h1" id="pd-h1">{t("T'sの商品", "T's Products")}</h1>
-      <p class="pd-name">{t("T'sてんぷら粉", "T's Tempura Batter Mix")}<span class="pd-name-sub">{t("Tempura Batter Mix", "T'sてんぷら粉")}</span></p>
+      <h1 class="vh" id="pd-h1">{t("T'sの商品", "T's Products")}</h1>
+      <h2 class="pd-name">{t("T'sてんぷら粉", "T's Tempura Batter Mix")} <span class="pd-name-sub" lang="{t('en', 'ja')}">{t("Tempura Batter Mix", "T'sてんぷら粉")}</span></h2>
     </div>
     <p class="pd-ing-label">{t("原材料", "Ingredients")} {D}</p>
     <ul class="pd-ing" data-draft>{ing_li}</ul>
-    <p class="pd-fv-facts">{t("28品目アレルゲン不使用", "Free from 28 allergens")}<span>{t("内容量 140g", "140 g")}</span></p>
+    <p class="pd-fv-facts"><span>{t("28品目アレルゲン不使用", "Free from 28 allergens")}</span><span>{t("内容量 140g", "140 g")}</span></p>
     <p class="pd-fv-buy"><span>{t("販売は店頭のみ", "In store only")}</span><a href="#buy">{t("買えるお店", "Where to buy")}</a><a href="#wholesale">{t("お取り扱いをご希望の事業者様へ", "For businesses")}</a></p>
     <nav class="pd-fv-more" aria-label="{t('ほかの商品', 'Other products')}"><span>{t("ほかの商品", "Also")}</span><a href="#hotsauce">{t("ホットソース", "Hot Sauce")}</a><a href="#takoyaki">{t("たこ焼き粉", "Takoyaki Mix")}</a><a href="#karaage">{t("唐揚げ粉", "Karaage Mix")}</a></nav>
   </div>
@@ -56,13 +59,13 @@ def main_html(lang, up, stores):
 <h1 class="pd-h1 pd-fvb-h1" id="pd-h1b">{t("T'sの商品", "T's Products")}</h1>
 <div class="pd-fvb-half is-navy">
   {pic(up, "tempura-bag", t("T'sてんぷら粉の袋（140g）", "T's Tempura Batter Mix pouch (140 g)"), 481, 810, "pd-fvb-pic", png=True)}
-  <div><p class="pd-fvb-name">{t("T'sてんぷら粉", "T's Tempura Batter Mix")}</p>
+  <div class="pd-fvb-tx"><h2 class="pd-fvb-name">{t("T'sてんぷら粉", "T's Tempura Batter Mix")}</h2>
   <p>{t("28品目アレルゲン不使用", "Free from 28 allergens")}<br>{t("内容量 140g", "140 g")}</p>
   <a href="#tempura-detail">{t("てんぷら粉について", "About the batter mix")}</a></div>
 </div>
 <div class="pd-fvb-half">
   {pic(up, "hotsauce-original", t("T'sホットソース（オリジナル）の瓶", "A jar of T's HOT SAUCE ORIGINAL"), 450, 590, "pd-fvb-pic")}
-  <div><p class="pd-fvb-name">{t("T'sホットソース（オリジナル）", "T's HOT SAUCE ORIGINAL")}</p>
+  <div class="pd-fvb-tx"><h2 class="pd-fvb-name">{t("T'sホットソース（オリジナル）", "T's HOT SAUCE ORIGINAL")}</h2>
   <p>{t("無添加・グルテンフリー・ヴィーガン", "Additive-free, gluten-free, vegan")}<br>{t("内容量 160g", "160 g")}</p>
   <a href="#hotsauce">{t("ホットソースについて", "About the hot sauce")}</a></div>
 </div>
@@ -71,12 +74,14 @@ def main_html(lang, up, stores):
 
     s2 = f'''<section class="pd-s2" id="tempura-detail" aria-labelledby="pd-s2-h">
 <div class="pd-wrap pd-s2-grid">
-  <div class="pd-s2-main">
-    <h2 class="pd-h2" id="pd-s2-h">{t("てんぷら粉について", "About the tempura batter mix")}</h2>
+  <div class="pd-s2-intro">
+    <h3 class="pd-h2" id="pd-s2-h">{t("てんぷら粉について", "About the tempura batter mix")}</h3>
     <p class="pd-lead">{t("無添加、グルテンフリー、ヴィーガン、ハラールなど様々な食の多様化に対応しています。",
       "It suits a wide range of diets, such as additive-free, gluten-free, vegan and halal.")}</p>
     <p class="pd-tx" data-draft>{t("小麦由来の天ぷら粉に比べ、吸油量が約40%少なくなります。", "It absorbs about 40% less oil than wheat-based tempura flour.")} {D}</p>
-    <h3 class="pd-h3">{t("作り方", "How to use")} {D}</h3>
+  </div>
+  <div class="pd-s2-how">
+    <h4 class="pd-h3">{t("作り方", "How to use")} {D}</h4>
     <ol class="pd-steps" data-draft>
       <li>{t("粉70gに、油15gと水または炭酸水60〜70mlを加えて混ぜます。", "Mix 70 g of the batter mix with 15 g of oil and 60–70 ml of water or sparkling water.")}</li>
       <li>{t("具材に衣をつけ、170℃以上の油で揚げます。", "Coat your ingredients and fry at 170°C or higher.")}</li>
@@ -103,26 +108,28 @@ def main_html(lang, up, stores):
 </section>'''
 
     s3 = f'''<section class="pd-s3" id="hotsauce" aria-labelledby="pd-s3-h">
-<div class="pd-wrap pd-s3-grid">
-  <figure class="pd-s3-pic">{pic(up, "hotsauce-original", t("T'sホットソース（オリジナル）の瓶", "A jar of T's HOT SAUCE ORIGINAL"), 450, 590)}</figure>
+<div class="pd-s3-grid">
+  <figure class="pd-s3-pic">{pic(up, "hotsauce-jars", t("T'sホットソース（オリジナル）の瓶2本", "Two jars of T's HOT SAUCE ORIGINAL"), 700, 520)}</figure>
   <div class="pd-s3-tx">
-    <h2 class="pd-h2" id="pd-s3-h">{t("T'sホットソース（オリジナル）", "T's HOT SAUCE ORIGINAL")}<span class="pd-name-sub">{t("T's HOT SAUCE ORIGINAL", "T'sホットソース（オリジナル）")}</span></h2>
+    <h2 class="pd-h2" id="pd-s3-h">{t("T'sホットソース（オリジナル）", "T's HOT SAUCE ORIGINAL")} <span class="pd-name-sub" lang="{t('en', 'ja')}">{t("T's HOT SAUCE ORIGINAL", "T'sホットソース（オリジナル）")}</span></h2>
     <p class="pd-lead">{t("野菜の旨みを最大限に活かした無添加万能調味料。", "An additive-free, all-purpose sauce that makes the most of the flavour of vegetables.")}</p>
     <p class="pd-tx-plain">{t("餃子・サラダ・ヴィーガン寿司・パスタなどに。", "Try it with gyoza, salads, vegan sushi, pasta and more.")}</p>
-    <p class="pd-facts">{t("無添加・グルテンフリー・ヴィーガン", "Additive-free, gluten-free, vegan")}<span>{t("内容量 160g", "160 g / 5.6 oz")}</span></p>
-    <p class="pd-tx" data-draft>{t("（仮）原材料・アレルギー表記は確認中です", "(Draft) Ingredients and allergen labelling are being confirmed.")} {D}</p>
+    <p class="pd-facts"><span>{t("無添加・グルテンフリー・ヴィーガン", "Additive-free, gluten-free, vegan")}</span><span>{t("内容量 160g", "160 g / 5.6 oz")}</span></p>
+    <p class="pd-tx" data-draft>{t("原材料・アレルギー表記は確認中です", "Ingredients and allergen labelling are being confirmed.")} {D}</p>
+    <figure class="pd-s3-jar">{pic(up, "hotsauce-original", t("T'sホットソース（オリジナル）の瓶", "A jar of T's HOT SAUCE ORIGINAL"), 450, 590)}</figure>
   </div>
 </div>
 </section>'''
 
     s4 = f'''<section class="pd-s4" aria-labelledby="pd-s4-h">
 <div class="pd-wrap">
-  <h2 class="pd-h2 pd-h2-sm" id="pd-s4-h">{t("詳しい情報は確認中", "Details being confirmed")} {D}</h2>
+  <h2 class="pd-h2 pd-h2-sm" id="pd-s4-h">{t("たこ焼き粉・唐揚げ粉", "Takoyaki Mix and Karaage Mix")}</h2>
+  <p class="pd-tx pd-s4-note" data-draft>{t("詳しい情報は確認中", "Details being confirmed")} {D}</p>
   <div class="pd-s4-list">
     <div class="pd-s4-item" id="takoyaki">
-      {pic(up, "takoyaki-pack", t("T'sたこ焼き粉のパッケージ（246g）", "Takoyaki mix package (246 g)"), 462, 572, "pd-s4-pic")}
+      {pic(up, "takoyaki-pack", t("T'sたこ焼き粉のパッケージ（246g）", "Takoyaki mix package (246 g)"), 462, 564, "pd-s4-pic")}
       <div><h3 class="pd-h3">{t("たこ焼き粉", "Takoyaki Mix")}</h3>
-      <p>{t("28品目アレルゲン不使用", "Free from 28 allergens")}<span class="pd-sep">{t("内容量 246g", "246 g")}</span></p>
+      <p class="pd-facts"><span>{t("28品目アレルゲン不使用", "Free from 28 allergens")}</span><span>{t("内容量 246g", "246 g")}</span></p>
       <p class="pd-tx" data-draft>{t("販売状況は確認中です。", "Availability is being confirmed.")} {D}</p></div>
     </div>
     <div class="pd-s4-item" id="karaage">
@@ -205,14 +212,16 @@ def add_nav(path, lang, prefix):
     path.write_text(s); print(path, "nav", n)
 
 def entry(lang, up):
+    """TOP の入口：SNS の帯から外した独立の紺の帯。袋と瓶（2本の写真）を同じ高さで並べ、リンクは「商品を見る」1つだけ"""
     t = (lambda a, b: a if lang == "ja" else b)
-    return (f'<section class="blk pd-entry" id="shop" aria-labelledby="pd-entry-h"><div class="wrap pd-entry-in">'
-            f'<a class="pd-entry-pics" href="products/" tabindex="-1" aria-hidden="true">'
-            + pic(up, "tempura-bag", "", 481, 810, "pd-entry-bag", png=True)
-            + pic(up, "hotsauce-original", "", 450, 590, "pd-entry-jar") +
-            f'</a><div class="pd-entry-tx"><h2 id="pd-entry-h"><span lang="{lang}">{t("T&#39;sの商品", "T&#39;s Products")}</span></h2>'
-            f'<p><span lang="{lang}">{t("てんぷら粉、ホットソースなど。お店で販売しています。", "Tempura batter mix, hot sauce and more, sold at our restaurants.")}</span></p>'
-            f'<a class="btn line" href="products/"><span lang="{lang}">{t("商品を見る", "See the products")}</span></a></div></div></section>')
+    D = t('<span class="draft" data-draft>仮</span>', '<span class="draft" data-draft>Draft</span>')
+    return (f'<section class="pd-entry" id="shop" aria-labelledby="pd-entry-h"><div class="pd-entry-in">'
+            f'<div class="pd-entry-pics">'
+            + pic(up, "tempura-bag", "", 481, 810, "pd-entry-bag", png=True, lazy=True)
+            + pic(up, "hotsauce-jars", "", 700, 520, "pd-entry-jar", lazy=True) +
+            f'</div><div class="pd-entry-tx"><h2 id="pd-entry-h"><span lang="{lang}">{t("T&#39;sの商品", "T&#39;s Products")}</span></h2>'
+            f'<p data-draft><span lang="{lang}">{t("てんぷら粉、ホットソースなど。お店で販売しています。", "Tempura batter mix, hot sauce and more, sold at our restaurants.")}</span>{D}</p>'
+            f'<a class="pd-entry-go" href="products/"><span lang="{lang}">{t("商品を見る", "See the products")}</span></a></div></div></section>\n')
 
 def main():
     for lang in ("ja", "en"):
@@ -232,7 +241,9 @@ def main():
     # TOP の入口（前の版の入口、またはオンラインショップ準備中の帯を置き換える）
     for lang, p, up in (("ja", C / "index.html", "../"), ("en", C / "en/index.html", "../../")):
         s = p.read_text()
-        s, n = re.subn(r'<section class="blk (?:shop|pd-entry)" id="shop".*?</section>', lambda m: entry(lang, up), s, count=1, flags=re.S)
+        # 前の版の入口（SNS の帯の中）を消し、SNS の帯（div.shop-sns）の直前に独立の帯として置く
+        s, n = re.subn(r'<section class="(?:blk )?(?:shop|pd-entry)" id="shop".*?</section>\n?', "", s, count=1, flags=re.S)
+        s = s.replace('<div class="shop-sns">', entry(lang, up) + '<div class="shop-sns">', 1)
         s = re.sub(r'<link rel="stylesheet" href="[./]*assets/products\.css[^"]*">', "", s)
         s = re.sub(r'(<link rel="stylesheet" href="[./]*assets/warm-c\.css[^"]*">)', r'\1<link rel="stylesheet" href="%sassets/products.css?v=%s">' % (up, V), s, count=1)
         p.write_text(s); print(p, "entry", n)

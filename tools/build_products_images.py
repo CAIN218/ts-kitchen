@@ -43,8 +43,9 @@ def main():
     bag.quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).save(OUT / "tempura-bag.png", optimize=True); bag.save(OUT / "tempura-bag.webp", quality=86, method=6); print("tempura-bag", bag.size)
     save(t.crop((104, 1250, 728, 1678)), "tempura-vegetables")  # 野菜天
     save(t.crop((1036, 1356, 1518, 1684)), "tempura-ebi")       # エビ天
-    save(h.crop((975, 1955, 1425, 2545)), "hotsauce-original")  # ORIGINAL 瓶1本（白い地）
+    save(h.crop((975, 1955, 1425, 2545)), "hotsauce-original")  # ORIGINAL 瓶1本（白い地）。小さく（280px 以下）だけ使う
+    save(h.crop((780, 400, 1480, 920)), "hotsauce-jars", q=84)  # ORIGINAL 瓶2本（石の地）。S3 の主役・TOP の入口
     tk = Image.open(CP / "crops/takoyaki-mix-pack-front_flyer-p5.png")  # 490x620。左上の NEW! の赤を外す
-    save(tk.crop((14, 40, 476, 612)), "takoyaki-pack")
+    save(tk.crop((14, 40, 476, 604)), "takoyaki-pack")  # 下の白い帯を 8px 切る
 
 if __name__ == "__main__": main()
