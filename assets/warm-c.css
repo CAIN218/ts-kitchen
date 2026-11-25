@@ -1473,12 +1473,18 @@ html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{fo
 @media(min-width:768px) and (max-width:1023px){html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{justify-self:end!important}}
 /* 案6 1600 以上：店内の写真が細くならないよう、料理と店内を 1:1 に */
 @media(min-width:1600px){html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:calc(var(--edge) + clamp(440px,38vw,620px)) minmax(0,1fr) minmax(0,1fr)!important}}
-/* ケータリングの帯の写真を、Canva の横長（お弁当・ボウル・スープ）に差し替え（yuga 2026-11-25 OK）。横長なので 2:1 で切る */
-html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{aspect-ratio:2/1!important;height:auto!important;object-position:45% 50%}
-/* 横長の写真なので、PC では写真を2列にまたがせ、その下に説明（左）とチラシ（右）を置く */
-@media(min-width:768px){
-  html[data-warm="c"] .wrap.cater:not(#_){grid-template-areas:"h2 h2" "lead lead" "ph ph" "list flyer" "row flyer" "mail flyer"!important;grid-template-rows:auto auto auto auto auto 1fr!important}
-  html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{aspect-ratio:1876/725!important;margin:0 0 clamp(28px,3vw,40px)!important}
-  html[data-warm="c"] .wrap.cater:not(#_) .flyer{margin:0!important;justify-self:end}
+
+
+/* ============================================================
+   7回目（20261125i）：yuga さんの指摘
+   - 角を丸めた四角は使わない（写真・枠・ボタン・入力欄の角はすべて直角に。丸いロゴと認証の円はそのまま）
+   - 受賞マークの間隔がばらばらなので、4つの間を同じ幅にそろえる
+   ケータリングの写真は前の写真（bento.jpg）に戻した
+   ============================================================ */
+html[data-warm="c"] :is(.btn,.fab,.cta-float,input,select,textarea,.tag,.free-badge b,.notice,.clip,.flyer img,.ig a,.shopbox .ph,.cards .card .ph,.cards .card .acts a,.menu-view a,.menu-view img,.menu-view button,.menu-view .zoom,.cater-ph,.about-ph,.owner img,.cons-band img,.founder img,.biz .ph,.fvx-band,.fvx-band img,.fvx-har,.fvx-har img,.hero .row .btn.line,img:not(.fvx-mark):not(.ft-logo)):not(.logo img):not(#_):not(#_){border-radius:0!important}
+@media(min-width:769px){
+  html[data-warm="c"] .awards-band .badges:not(#_):not(#_){display:flex!important;justify-content:space-between!important;column-gap:32px!important}
+  html[data-warm="c"] .awards-band .badges:not(#_):not(#_) li{flex:0 1 auto!important;padding:4px 0!important;border-left:0!important}
 }
-@media(max-width:767px){html[data-warm="c"] .wrap.cater:not(#_) .cater-ph{aspect-ratio:16/9!important;object-position:40% 50%}}
+/* トリップアドバイザーの画像は周りに透明の余白があり、ほかのマークより小さく見える。余白の分だけ拡大して大きさをそろえる */
+html[data-warm="c"] .awards-band .badges:not(#_):not(#_) img[src*="award-tripadvisor"]{transform:scale(1.3)!important}

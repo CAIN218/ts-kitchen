@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125h'
+WARM_V = '20261125i'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -319,10 +319,6 @@ for name in PAGES:
             x = x.replace('</head>', alt + '</head>', 1)
             if look:
                 x = warm(x, look, name, lang, up, rel)
-                if look == 'c':
-                    # ケータリングの帯の写真を、Canva の横長（1876×725）に差し替え（yuga 2026-11-25 OK。デモのみ）
-                    x = x.replace(f'<img class="cater-ph r3" src="{up}src/images/bento.jpg" alt=""',
-                                  f'<img class="cater-ph r3" src="{up}assets/img/catering.jpg" alt="" width="1876" height="725"', 1)
             d.mkdir(parents=True, exist_ok=True)
             (d/'index.html').write_text(x, encoding='utf-8')
     print(name)
