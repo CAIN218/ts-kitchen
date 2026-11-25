@@ -1702,3 +1702,75 @@ html[data-warm="c"] .cf7 .wpcf7-response-output.ok:not(#_):not(#_):not(#_){backg
   html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"h1" "sub" "row" "note"!important}
   html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel h1{white-space:normal!important;margin-bottom:6px!important}
 }
+
+/* 13回目（20261125o）
+   - お問い合わせ：3段階（入力→確認→完了）。PC は左に縦の STEP、SP は上に横並び
+   - GDPR：開いて読める（本文は仮置き）
+   - TOP の商品・SNS の帯：余白を詰める（中の節に 12回目の余白が付いていたのを外す）
+   - スマホ FV：写真を 180 度回し、最初の画面に見出しと一言まで入る高さに
+   - ドロワー・PC FV の帯：動きをなめらかに */
+html[data-warm="c"] body[data-page=media] #contact .wrap.narrow:not(#_):not(#_){max-width:calc(1000px + 2*var(--gutter))!important}
+html[data-warm="c"] .wc-steps{list-style:none;margin:0 0 32px;padding:0;display:flex;gap:0;counter-reset:none}
+html[data-warm="c"] .wc-steps li{flex:1 1 0;padding:10px 0 0;border-top:2px solid rgba(28,43,69,.15);color:rgba(28,43,69,.45);font-size:12px;line-height:1.5}
+html[data-warm="c"] .wc-steps li+li{margin-left:8px}
+html[data-warm="c"] .wc-steps li b{display:block;font-family:var(--f-head);font-weight:600;font-size:13px;letter-spacing:.04em}
+html[data-warm="c"] .wc-steps li[aria-current="step"]{color:var(--ink);border-top-color:var(--acc,#C9963E)}
+html[data-warm="c"] .wc-steps li.done{color:rgba(28,43,69,.7);border-top-color:rgba(28,43,69,.45)}
+@media(min-width:1024px){
+  html[data-warm="c"] body[data-page=media] #contact .wrap.narrow:not(#_):not(#_){display:grid!important;grid-template-columns:200px minmax(0,1fr)!important;column-gap:64px!important;align-items:start}
+  html[data-warm="c"] .wc-steps{flex-direction:column;margin:0;position:sticky;top:calc(var(--hd-h,64px) + 32px);border-left:2px solid rgba(28,43,69,.12)}
+  html[data-warm="c"] .wc-steps li{border-top:0;padding:4px 0 4px 18px;margin:0 0 22px -2px!important;border-left:2px solid transparent;font-size:13px}
+  html[data-warm="c"] .wc-steps li[aria-current="step"]{border-left-color:var(--acc,#C9963E)}
+  html[data-warm="c"] .wc3-body{max-width:720px}
+}
+html[data-warm="c"] .wc3-body[data-step="2"] form.wc3,html[data-warm="c"] .wc3-body[data-step="3"] form.wc3{display:none!important}
+html[data-warm="c"] .wc3-confirm h2,html[data-warm="c"] .wc3-done h2{font-family:var(--f-head);font-weight:500;font-size:clamp(22px,2.2vw,28px);margin:0 0 8px;color:var(--ink);outline:none}
+html[data-warm="c"] .wc3-lead{margin:0 0 20px;font-size:14px;color:rgba(28,43,69,.75)}
+html[data-warm="c"] .wc3-confirm dl{margin:0;display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid rgba(28,43,69,.15)}
+html[data-warm="c"] .wc3-confirm dt{font-size:13px;color:rgba(28,43,69,.65);padding:14px 0 2px}
+html[data-warm="c"] .wc3-confirm dd{margin:0;padding:0 0 14px;border-bottom:1px solid rgba(28,43,69,.15);white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);font-size:16px}
+html[data-warm="c"] .wc3-confirm dd .none{color:rgba(28,43,69,.45)}
+@media(min-width:768px){
+  html[data-warm="c"] .wc3-confirm dl{grid-template-columns:180px minmax(0,1fr)}
+  html[data-warm="c"] .wc3-confirm dt{padding:16px 0;border-bottom:1px solid rgba(28,43,69,.15)}
+  html[data-warm="c"] .wc3-confirm dd{padding:16px 0}
+}
+html[data-warm="c"] .wc3-acts{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin:28px 0 0}
+html[data-warm="c"] .wc3-acts .btn:not(#_):not(#_){min-height:52px;padding:0 36px!important;font:inherit;font-weight:600;cursor:pointer;border-radius:999px!important}
+html[data-warm="c"] .wc3-acts .btn.line:not(#_):not(#_){background:none!important;border:1px solid var(--ink)!important;color:var(--ink)!important}
+html[data-warm="c"] .wc3-acts .btn.sending{opacity:.6}
+html[data-warm="c"] .wc3-done{padding:40px 32px;background:rgba(28,43,69,.07);text-align:center}
+html[data-warm="c"] .wc3-done p{margin:8px 0 0;color:var(--ink)}
+html[data-warm="c"] .wc3-done .wc3-demo{font-size:13px;color:rgba(28,43,69,.6)}
+@media(max-width:767px){html[data-warm="c"] .wc3-acts .btn:not(#_):not(#_){flex:1 1 100%;justify-content:center}}
+html[data-warm="c"] .gdpr-open{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+html[data-warm="c"] .gdpr-txt{margin:-8px 0 0;padding:14px 16px;background:rgba(28,43,69,.05);font-size:13px;line-height:1.7;color:rgba(28,43,69,.8)}
+html[data-warm="c"] .gdpr-txt p{margin:0}
+html[data-warm="c"] .cf7 select.not-valid:not(#_):not(#_):not(#_){background:rgba(176,58,46,.10)!important;box-shadow:inset 0 -2px 0 #b03a2e}
+/* 商品・SNS の帯 */
+html[data-warm="c"] .shop-sns>.blk:not(#_):not(#_):not(#_){padding:0!important}
+@media(min-width:768px){html[data-warm="c"] .shop-sns:not(#_):not(#_){padding-top:56px!important;padding-bottom:56px!important}}
+/* スマホ FV：写真の高さ＝画面から見出しと一言の分を引いたもの */
+@media(max-width:767px){
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band{height:calc(100svh - 150px)!important}
+  html[data-warm="c"][data-fv="8"][lang="en"] .hero:not(#_):not(#_) .fvx-band{height:calc(100svh - 140px)!important}
+  html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{padding-top:16px!important}
+}
+/* ドロワー：少し下がりながら、ふわっと出る／消える */
+@media(max-width:1100px){
+  html[data-warm="c"] .drawer:not(#_):not(#_){opacity:0;transform:translate3d(0,-10px,0);will-change:transform,opacity;
+    transition:transform .34s cubic-bezier(.22,.61,.36,1),opacity .26s ease,visibility 0s .34s!important}
+  html[data-warm="c"] .drawer.open:not(#_):not(#_){opacity:1;transform:none;transition:transform .34s cubic-bezier(.22,.61,.36,1),opacity .26s ease,visibility 0s!important}
+  html[data-warm="c"] .wc-scrim:not(#_){transition:opacity .3s ease,visibility 0s .3s!important}
+  html[data-warm="c"].warm-c-lock .wc-scrim:not(#_){transition:opacity .3s ease,visibility 0s!important}
+}
+@media(prefers-reduced-motion:reduce){html[data-warm="c"] .drawer:not(#_):not(#_),html[data-warm="c"] .wc-scrim:not(#_){transition:none!important}}
+/* PC FV：写真の読み込み・文字の準備ができてから帯を動かす（warm-c.js が html.fv-wait を外す）。GPU で動かす */
+html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel,html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band img,html[data-warm="c"][data-fv="8"]:has(body[data-page="index"]) .hd:not(#_){will-change:transform,opacity;backface-visibility:hidden}
+html[data-warm="c"][data-fv="8"].fv-wait .hero:not(#_):not(#_) .fv8-panel,html[data-warm="c"][data-fv="8"].fv-wait:has(body[data-page="index"]) .hd:not(#_){animation-play-state:paused!important}
+@keyframes wc-fv8-up{from{opacity:0;transform:translate3d(0,40px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes wc-fv8-down{from{opacity:0;transform:translate3d(0,-100%,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes wc-fv8-zoom{from{transform:scale3d(1.06,1.06,1)}to{transform:scale3d(1,1,1)}}
+html[data-warm="c"][data-fv="8"].fv-wait .hero:not(#_):not(#_) .fvx-band img{animation-play-state:paused!important}
+html[data-warm="c"] .wc3-acts .btn.line:not(#_):not(#_):not(#_){border-radius:999px!important;text-decoration:none!important}
+html[data-warm="c"] .wc3-done p:not(#_){word-break:keep-all;word-break:auto-phrase;overflow-wrap:anywhere}

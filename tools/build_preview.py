@@ -31,7 +31,7 @@ def sub1(pat, rep, s, **kw):
     assert c == 1, pat
     return n
 
-WARM_V = '20261125n'
+WARM_V = '20261125o'
 WARM_NAME = {'a': ('白い食卓', 'Light'), 'b': ('黒板と赤い扉', 'Chalkboard'), 'c': ('紺の誌面', 'Navy')}
 def warm(x, look, name, lang, up, rel):
     """Warm Editorial のデモ用。文言は変えず、上乗せCSS・data属性・デモの切り替え（フッター最下部）だけを足す。
@@ -334,6 +334,28 @@ for name in PAGES:
                     x, n = re.subn(r'(<span lang="(?:ja|en)">(?:メッセージ|Message)</span>)(<textarea)', r'\1 <em>*</em>\2', x, count=1)
                     assert n == 1, 'media: message label not found'
                     x = x.replace('<textarea rows="6">', '<textarea rows="6" required>', 1)
+                    # 13回目（yuga 2026-11-25）：お問い合わせを3段階（入力→確認→完了）に。左（SP は上）に STEP 表示。動きは warm-c.js（.wc3）。form.js（1段階のデモ）は使わない
+                    st = (('入力情報', '入力内容の確認', '送信・完了') if lang == 'ja' else ('Your details', 'Review', 'Sent'))
+                    steps = ('<ol class="wc-steps" aria-label="' + ('お問い合わせの手順' if lang == 'ja' else 'Steps') + '">'
+                             + ''.join(f'<li data-s="{i+1}"' + (' aria-current="step"' if i == 0 else '') + f'><b>STEP {i+1}</b><span lang="{lang}">{t}</span></li>' for i, t in enumerate(st)) + '</ol>')
+                    x, n = re.subn(r'<form class="cf7 demo" onsubmit="return false">', steps + '<div class="wc3-body"><form class="cf7 wc3" onsubmit="return false" novalidate>', x, count=1)
+                    assert n == 1, 'media: form tag'
+                    x, n = re.subn(r'(</form>)(\s*<!--/CF7-->)', r'\1</div>\2', x, count=1)
+                    assert n == 1, 'media: form end'
+                    nxt = '確認画面へ進む' if lang == 'ja' else 'Review your message'
+                    x, n = re.subn(r'<button type="button" class="btn"><span lang="(?:ja|en)">(?:送信する|Send)</span></button>', f'<button type="button" class="btn wc3-next"><span lang="{lang}">{nxt}</span></button>', x, count=1)
+                    assert n == 1, 'media: send button'
+                    # GDPR：中身を開いて読めるように（本文は本番に無いので仮置き。要確認）
+                    if lang == 'ja':
+                        g_old, g_new = '<span lang="ja">GDPRに同意する</span>', '<span lang="ja"><button type="button" class="gdpr-open" aria-expanded="false" aria-controls="gdpr-txt">GDPR</button>に同意する</span>'
+                        g_txt = '（仮）ここに個人情報の取り扱い（プライバシーポリシー・GDPR）の本文が入ります。本文はお店に確認してから載せます。'
+                    else:
+                        g_old, g_new = '<span lang="en">I agree to the GDPR terms</span>', '<span lang="en">I agree to the <button type="button" class="gdpr-open" aria-expanded="false" aria-controls="gdpr-txt">GDPR terms</button></span>'
+                        g_txt = '(Placeholder) The privacy policy / GDPR text will go here once confirmed with the restaurant.'
+                    assert g_old in x, 'media: gdpr'
+                    x = x.replace(g_old, g_new, 1)
+                    x, n = re.subn(r'(<p class="chk">.*?</p>)', lambda m: m.group(1) + f'\n    <div class="gdpr-txt" id="gdpr-txt" hidden><p><span lang="{lang}">{g_txt}</span></p></div>', x, count=1, flags=re.S)
+                    assert n == 1
                 if look == 'c' and name == 'index':
                     # 9回目：FV の文字（H1〜注記）を .fv8-panel で包む。試し案 ?fv=8 で「下からふわっと出る板」にするため。写真1枚の案（fv=7）では display:contents で今まで通り
                     x = re.sub(r'(<div class="hero-in">.*?</p>\n)(\s*<p lang="(?:ja|en)" class="hero-sub">.*?<div class="sub">.*?</div>)', lambda m: m.group(1) + '<div class="fv8-panel">' + m.group(2) + '</div>', x, count=1, flags=re.S)

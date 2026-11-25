@@ -87,5 +87,45 @@
   var m=/[?&]type=([a-z]+)/.exec(location.search),sel=d.querySelector('.cf7 select[name=type]');
   if(m&&sel){[].forEach.call(sel.options,function(o){if(o.value===m[1])sel.value=m[1]})}
 })();
-/* お問い合わせ：送信が終わったら完了の文が見える位置へ（デモ） */
-(function(){document.querySelectorAll('form.cf7.demo').forEach(function(f){new MutationObserver(function(){if(f.classList.contains('sent')){var o=f.querySelector('.wpcf7-response-output.ok');if(o)o.scrollIntoView({block:'center',behavior:'smooth'})}}).observe(f,{attributes:true,attributeFilter:['class']})})})();
+/* 13回目：お問い合わせを3段階に（入力 → 確認 → 送信・完了）。デモなので、どこにも送らない。本番は Contact Form 7 の確認画面のしくみに置き換える */
+(function(){
+  var d=document,f=d.querySelector('form.cf7.wc3');if(!f)return;
+  var en=(d.documentElement.getAttribute('lang')||'').indexOf('en')===0,L=function(j,e){return en?e:j};
+  var body=f.parentNode,steps=d.querySelectorAll('.wc-steps li'),sec=f.closest('section')||body;
+  /* GDPR：開いて読める */
+  var g=f.querySelector('.gdpr-open'),gt=d.getElementById('gdpr-txt');
+  if(g&&gt)g.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var o=gt.hidden;gt.hidden=!o;g.setAttribute('aria-expanded',o?'true':'false')});
+  function step(n){[].forEach.call(steps,function(li){var k=+li.getAttribute('data-s');li.classList.toggle('done',k<n);if(k===n)li.setAttribute('aria-current','step');else li.removeAttribute('aria-current')});
+    body.setAttribute('data-step',n);var top=sec.getBoundingClientRect().top+window.scrollY-(parseInt(getComputedStyle(d.documentElement).getPropertyValue('--hd-h'))||64)-8;
+    if(window.scrollY>top)window.scrollTo({top:top,behavior:'smooth'})}
+  function clear(){[].forEach.call(f.querySelectorAll('.wpcf7-not-valid-tip,.wpcf7-response-output'),function(t){t.remove()});[].forEach.call(f.querySelectorAll('.not-valid'),function(i){i.classList.remove('not-valid');i.removeAttribute('aria-invalid')})}
+  function tip(el,msg){var t=d.createElement('span');t.className='wpcf7-not-valid-tip';t.setAttribute('role','alert');t.textContent=msg;(el.closest('label')||el.parentNode).appendChild(t);el.classList.add('not-valid');el.setAttribute('aria-invalid','true')}
+  f.addEventListener('input',function(e){var l=e.target.closest('label');if(l){var x=l.querySelector('.wpcf7-not-valid-tip');if(x)x.remove();e.target.classList.remove('not-valid');e.target.removeAttribute('aria-invalid')}});
+  f.addEventListener('change',function(e){f.dispatchEvent(new Event('input'));var l=e.target.closest('label');if(l){var x=l.querySelector('.wpcf7-not-valid-tip');if(x)x.remove();e.target.classList.remove('not-valid')}});
+  function rows(){var out=[];[].forEach.call(f.querySelectorAll('p>label'),function(l){var el=l.querySelector('select,input:not([type=checkbox]),textarea');if(!el)return;var name=l.querySelector('span').textContent;
+    var v=el.tagName==='SELECT'?(el.value?el.options[el.selectedIndex].text:''):el.value.trim();out.push([name,v])});return out}
+  f.querySelector('.wc3-next').addEventListener('click',function(){
+    clear();var bad=[];
+    [].forEach.call(f.querySelectorAll('p>label'),function(l){var el=l.querySelector('select,input:not([type=checkbox]),textarea');if(!el)return;var req=!!l.querySelector('em');
+      if(el.tagName==='SELECT'){if(!el.value){tip(el,L('お問い合わせの種類を選んでください。','Please choose a type of inquiry.'));bad.push(el)}}
+      else if(req&&!el.value.trim()){tip(el,L('この項目は必須です。','This field is required.'));bad.push(el)}
+      else if(el.type==='email'&&el.value&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)){tip(el,L('メールアドレスの形式をご確認ください。','Please check the email address.'));bad.push(el)}});
+    var cb=f.querySelector('input[type=checkbox]');if(cb&&!cb.checked){tip(cb,L('同意が必要です。','Consent is required.'));bad.push(cb)}
+    if(bad.length){var o=d.createElement('div');o.className='wpcf7-response-output ng';o.setAttribute('role','alert');o.textContent=L('入力内容をご確認ください。','Please check the highlighted fields.');this.parentNode.appendChild(o);bad[0].focus();return}
+    var c=body.querySelector('.wc3-confirm');if(c)c.remove();c=d.createElement('div');c.className='wc3-confirm';
+    var h='<h2 tabindex="-1">'+L('入力内容の確認','Review your message')+'</h2><p class="wc3-lead">'+L('以下の内容でよろしければ「送信する」を押してください。','If everything looks right, press “Send”.')+'</p><dl>';
+    rows().forEach(function(r){var v=r[1]?r[1].replace(/[&<>"]/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]}):'<span class="none">'+L('（未入力）','(not provided)')+'</span>';h+='<dt>'+r[0]+'</dt><dd>'+v+'</dd>'});
+    h+='<dt>GDPR</dt><dd>'+L('同意する','Agreed')+'</dd></dl><p class="wc3-acts"><button type="button" class="btn line wc3-back">'+L('入力画面に戻る','Back to edit')+'</button><button type="button" class="btn wc3-send">'+L('送信する','Send')+'</button></p>';
+    c.innerHTML=h;body.appendChild(c);step(2);c.querySelector('h2').focus({preventScroll:true});
+    c.querySelector('.wc3-back').addEventListener('click',function(){c.remove();step(1);f.querySelector('.wc3-next').focus({preventScroll:true})});
+    c.querySelector('.wc3-send').addEventListener('click',function(){var b=this;b.disabled=true;b.classList.add('sending');b.firstChild&&(b.textContent=L('送信中…','Sending…'));
+      setTimeout(function(){c.remove();f.reset();var dn=d.createElement('div');dn.className='wc3-done';
+        dn.innerHTML='<h2 tabindex="-1">'+L('送信が完了しました','Your message has been sent')+'</h2><p>'+L('お問い合わせありがとうございます。内容を確認のうえ、ご連絡いたします。','Thank you for contacting us. We will get back to you after reviewing your message.')+'</p><p class="wc3-demo">'+L('※ これはデモです。実際には送信されていません。','* This is a demo. Nothing was actually sent.')+'</p>';
+        body.appendChild(dn);step(3);dn.querySelector('h2').focus({preventScroll:true})},900)})
+  });
+})();
+/* 13回目：FV の帯とヘッダーは、写真の表示と文字の読み込みが済んでから動かす（途中で読み込みが重なると、がくっと止まるため）。最大 1.2 秒待つ */
+(function(){var r=document.documentElement;if(r.getAttribute('data-fv')!=='8'||!document.querySelector('.fv8-panel'))return;r.classList.add('fv-wait');
+  var done=false,go=function(){if(done)return;done=true;requestAnimationFrame(function(){r.classList.remove('fv-wait')})};
+  var im=document.querySelector('.fvx-band img'),ps=[];if(im&&im.decode)ps.push(im.decode().catch(function(){}));if(document.fonts&&document.fonts.ready)ps.push(document.fonts.ready);
+  Promise.all(ps).then(go);setTimeout(go,1200)})();
