@@ -249,3 +249,18 @@
     build();
   });
 })();
+
+/* 21回目：ファーストビューの動き（2秒）が終わるまでスクロールさせない。写真の読み込み待ち（fv-wait）が解けてから2秒で解除。
+   途中まで読み込み済みで下にいる時・動きを減らす設定の時はロックしない。万一のため最長4.5秒で必ず解除 */
+(function(){
+  var d=document,r=d.documentElement;if(r.getAttribute('data-fv')!=='8'||!d.querySelector('.fv8-panel')||!d.querySelector('body[data-page="index"]'))return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||scrollY>10||location.hash)return;
+  r.classList.add('fv-lock');
+  var keys={ArrowDown:1,ArrowUp:1,PageDown:1,PageUp:1,Home:1,End:1,' ':1};
+  function block(e){if(r.classList.contains('fv-lock')&&(e.type!=='keydown'||keys[e.key]))e.preventDefault()}
+  addEventListener('wheel',block,{passive:false});addEventListener('touchmove',block,{passive:false});addEventListener('keydown',block);
+  function unlock(){r.classList.remove('fv-lock');removeEventListener('wheel',block);removeEventListener('touchmove',block);removeEventListener('keydown',block)}
+  var started=false;function start(){if(started)return;started=true;setTimeout(unlock,2000)}
+  if(!r.classList.contains('fv-wait'))start();else new MutationObserver(function(m,o){if(!r.classList.contains('fv-wait')){o.disconnect();start()}}).observe(r,{attributes:true,attributeFilter:['class']});
+  setTimeout(unlock,4500);
+})();
