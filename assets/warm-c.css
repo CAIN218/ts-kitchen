@@ -1274,3 +1274,202 @@ html[data-warm="c"] :is(h1,h2,h3,.motto,.only-text):not(#_){word-break:auto-phra
   html[data-warm="c"] #contact.contact .wrap.narrow:not(#_)>form{grid-row:1/span 4}
   html[data-warm="c"] #contact.contact .wrap.narrow:not(#_)>.note{grid-row:5}
 }
+
+/* ============================================================
+   FV 7回目（fv4〜6）20261125e：比較用の最小デモ。?fv=4|5|6
+   20261125f：実装後の批評（critic-post.md）High-1〜6・Medium-1〜4 を反映。PC は帯・写真の左右を --edge（ヘッダーのロゴ左端・予約右端）にそろえ、FV を画面の高さにする
+   - 写真・帯・認証マークは .hero-in の中の .fvx（build_preview.py が H1 の直後に置く）。fv=4〜6 以外では出さない
+   - 旧 FV の詳細度（:not(#_) と !important、L786-812・L1083-1216）に勝つよう、ここは .hero:not(#_):not(#_)（id 2つ分）で書く
+   - セレクタは 4〜6 共通（[data-fv] を :is でまとめる）と、各案（[data-fv="4"] など）の2種類
+   ============================================================ */
+html[data-warm="c"] .hero .fvx:not(#_):not(#_),html[data-warm="c"] .hero-in h1 br.fvx-br:not(#_):not(#_){display:none!important}
+html[data-warm="c"][lang="en"] .hero-in h1 br.en-br:not(#_){display:none}
+
+/* ── 共通（4〜6） ── */
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_){display:block!important;height:auto!important;min-height:0!important;background:var(--paper)!important;color:var(--ink)!important;overflow:hidden}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_)::after,html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_)::before{display:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in{display:grid!important;width:100%;max-width:none!important;margin:0!important;background:none!important;animation:none!important;color:var(--ink)!important;
+  grid-template-columns:minmax(0,1fr);gap:0!important;align-items:start}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in>*{grid-column:auto;grid-row:auto;margin:0!important;max-width:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in h1{grid-area:h1;font-weight:500;letter-spacing:.01em;color:var(--ink)!important;white-space:nowrap;text-wrap:nowrap}
+html[data-warm="c"][lang="ja"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero-in h1 br.fvx-br:not(#_):not(#_){display:inline!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .hero-sub{grid-area:sub;font-size:15px!important;line-height:1.8!important;color:rgba(28,43,69,.75)!important;padding:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row{grid-area:row;display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:4px!important;padding:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .sub{grid-area:note;margin-top:10px!important;padding:0!important;font-size:13px!important;line-height:1.6;color:rgba(28,43,69,.75)!important;white-space:normal!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-band{display:block!important;grid-area:band;overflow:hidden;position:relative}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-band img{display:block;border-radius:0!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;display:flex!important;align-items:center;gap:12px}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-mark{display:block;flex:none;width:48px;height:auto;border-radius:0}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .fvx-cert-t{display:none}
+/* 予約：金茶のボタン。SP は幅いっぱい・高さ52px */
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{display:flex!important;flex:none!important;width:100%!important;min-height:52px!important;height:52px;padding:0 16px!important;align-items:center;justify-content:center;
+  background:var(--acc)!important;color:var(--acc-ink)!important;border:0!important;border-radius:2px!important;font-size:16px!important;font-weight:600;line-height:1.3;box-shadow:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv span{color:var(--acc-ink)!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv:hover{background:var(--acc-hover)!important}
+/* メニューを見る：文字のリンク（押せる範囲は高さ 44px） */
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{display:inline-flex!important;flex:none!important;align-self:flex-start;align-items:center;justify-content:flex-start;width:auto!important;min-height:44px!important;padding:0!important;
+  border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;font-size:16px!important;font-weight:500;
+  color:var(--ink)!important;text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:4px!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line span{color:inherit!important;text-decoration:none!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line:hover{background:none!important;text-decoration-thickness:2px!important}
+html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) :focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px!important}
+/* 英語の H1 は折り返す（SP は元の改行を見せず、balance で均す） */
+html[data-warm="c"][lang="en"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in h1{white-space:normal;text-wrap:balance;letter-spacing:0}
+@media(min-width:768px){
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row{flex-direction:row!important;align-items:center!important;gap:12px 28px!important;flex-wrap:wrap!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{width:auto!important;height:56px;min-height:56px!important;padding:0 36px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{align-self:center}
+}
+/* High-1：SP と 768 は「予約 → 注記 → メニューを見る」。.row を外し、ボタン2つを .hero-in の格子に直接置く（各案の areas に rsv・note・line） */
+@media(max-width:1023px){
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row{display:contents!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{grid-area:rsv;margin:20px 0 0!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .sub{margin-top:8px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.line{grid-area:line;justify-self:start;margin:8px 0 0!important}
+}
+@media(min-width:768px) and (max-width:1023px){
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .row .btn.rsv{justify-self:start}
+}
+@media(min-width:1024px){
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .hero-sub{font-size:17px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="5"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in .sub{font-size:14px!important}
+}
+
+/* ── 案4「一行の店」：玄米色の地に大きな明朝の3行。写真は food の帯1本。SP は帯が H1 とサブの間 ── */
+html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in{grid-template-areas:"h1" "band" "sub" "rsv" "note" "line";padding:28px var(--gutter) 24px!important}
+html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(34px,10.4vw,44px)!important;line-height:1.32!important;margin-bottom:12px!important}
+html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-band{margin:0 calc(-1*var(--gutter))!important;aspect-ratio:880/380}
+/* SP：food.jpg の x230-1110・y240-620 をそのまま切る（ui.md） */
+html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-band img{width:166.36%;max-width:none;height:auto;margin-left:-26.14%;margin-top:-27.28%}
+html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:14px!important;padding-right:64px!important}
+/* High-5：SP・768 はマークをサブの右上に（注記の下に孤立させない） */
+html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-cert{display:flex!important;grid-area:sub;justify-self:end;align-self:start;margin-top:14px!important}
+html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(32px,8.8vw,40px)!important;line-height:1.18!important}
+@media(min-width:768px){
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(34px,10.4vw,52px)!important}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-band{aspect-ratio:auto;height:clamp(180px,22vw,360px)}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-band img{width:100%;height:100%;margin:0;object-fit:cover;object-position:50% 43%}
+  /* Medium-1：サブと帯の間を 28px（1024 以上は下の PC の指定で 0 に戻る） */
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:28px!important}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-cert{margin-top:28px!important}
+}
+@media(min-width:1024px){
+  /* PC：H1 は左 7 列、右 5 列に マーク→サブ→予約→注記 を H1 の下端にそろえる。
+     High-6：FV を画面の高さにし、帯（最後の行）が残りの高さをすべて取る（100fr。1行目の 1fr は H1 の高さ分だけ）。
+     High-3：帯の左右は --edge（ヘッダーのロゴの左端・予約の右端）。1280・1440・1920 で同じ考え方 */
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_){height:max(560px,calc(100svh - var(--hd-h,72px)))!important}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in{height:100%;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:32px!important;grid-template-rows:1fr auto auto auto minmax(240px,100fr);
+    grid-template-areas:"h1 cert" "h1 sub" "h1 row" "h1 note" "band band";padding:clamp(40px,6svh,72px) var(--edge) 0!important}
+  /* 8字（nowrap）が 7 列に収まる大きさ。列幅÷8.4（1280〜1920 で約78px） */
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(56px,calc((100vw - 2*var(--edge) - 32px)*7/12/8.4),88px)!important;line-height:1.25!important;margin:0!important;align-self:end}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;justify-self:start;align-self:end;margin:0 0 24px!important}
+  /* High-5：マーク 88px */
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-mark{width:88px}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:0!important;padding-right:0!important}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .hero-in .row{margin-top:24px!important}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-band{align-self:stretch;height:auto!important;margin:56px 0 0!important}
+  html[data-warm="c"][data-fv="4"] .hero:not(#_):not(#_) .fvx-band img{position:absolute;inset:0}
+  /* 英語も日本語と同じ並び（H1 は 7 列に収まる大きさ。最長行 25 字） */
+  html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(40px,calc((100vw - 2*var(--edge) - 32px)*7/12/12.6),64px)!important;line-height:1.15!important;white-space:nowrap;text-wrap:nowrap}
+  html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1 br.en-br{display:inline}
+}
+
+/* ── 案5「紺の一行＋認証印」：紺の全面。上に food の帯、生成りの大きな明朝、GIG を印のように ── */
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_){background:var(--navy)!important;color:#F4EFE6!important}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in{grid-template-areas:"band" "h1" "sub" "rsv" "note" "line";padding:0 var(--gutter) 32px!important;color:#F4EFE6!important}
+/* Medium-3：SP の帯は 160px */
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-band{margin:0 calc(-1*var(--gutter)) 24px!important;height:160px}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-band img{width:100%;height:100%;object-fit:cover;object-position:50% 43%}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(34px,10.4vw,44px)!important;line-height:1.32!important;color:#F4EFE6!important}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:16px!important;padding-right:70px!important;letter-spacing:.01em;color:rgba(244,239,230,.8)!important}
+/* SP は最後の行の右に置く幅がないので、サブの右に置く。マークは 50px（円を含めて 62px） */
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{display:flex!important;grid-area:sub;justify-self:end;align-self:start;margin-top:14px!important}
+/* 紺の上ではマークの紫（#250858）が地に溶けるので、後ろに生成りの円を敷く */
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-mark{width:50px;box-sizing:content-box;padding:6px;background:#F4EFE6;border-radius:50%!important}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in .sub{color:rgba(244,239,230,.75)!important}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in .row .btn.line{color:#F4EFE6!important}
+html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) :focus-visible{outline-color:#F4EFE6!important}
+html[data-warm="c"][lang="en"][data-fv="5"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(30px,8.4vw,38px)!important;line-height:1.18!important}
+@media(min-width:768px){
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-band{height:160px;margin-bottom:40px!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(34px,10.4vw,56px)!important}
+  /* 円は 96px（マーク 80px＋余白 8px） */
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-mark{width:80px;padding:8px}
+}
+@media(min-width:768px) and (max-width:1023px){
+  /* Medium-2：768 はマークを右端に離さず、PC と同じく H1 のすぐ右・1行目の高さに（H1 の列は字の幅） */
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:auto minmax(96px,1fr);column-gap:32px!important;grid-template-areas:"band band" "h1 cert" "sub sub" "rsv rsv" "note note" "line line"}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;justify-self:start;align-self:start;margin:0!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in .hero-sub{padding-right:0!important;margin-top:24px!important}
+}
+@media(min-width:1024px){
+  /* PC（High-2）：H1 の右の列に、上にマーク（H1 の1行目にそろえる）、下に予約と注記（H1 の下端にそろえる）。サブは H1 の下。
+     High-6：FV を画面の高さに。帯が残りの高さを取る（100fr。3行目の 1fr は H1 の高さの余り分だけ）。
+     High-3：帯の左右は --edge */
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_){height:max(560px,calc(100svh - var(--hd-h,72px)))!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in{height:100%;grid-template-columns:auto minmax(0,1fr);column-gap:40px!important;grid-template-rows:minmax(200px,100fr) auto 1fr auto auto auto;
+    grid-template-areas:"band band" "h1 cert" "h1 ." "h1 row" "h1 note" "sub .";padding:0 var(--edge) 56px!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-band{align-self:stretch;height:auto;margin:0 0 48px!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-band img{position:absolute;inset:0}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(56px,6vw,88px)!important;line-height:1.25!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{grid-area:cert;justify-self:start;align-self:start;margin:.15em 0 0!important}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:28px!important;padding-right:0!important;letter-spacing:inherit}
+  html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .hero-in .row{align-self:end;margin-top:24px!important;column-gap:24px!important}
+  html[data-warm="c"][lang="en"][data-fv="5"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(44px,4.6vw,68px)!important;line-height:1.15!important;white-space:nowrap;text-wrap:nowrap}
+  html[data-warm="c"][lang="en"][data-fv="5"] .hero:not(#_):not(#_) .hero-in h1 br.en-br{display:inline}
+}
+
+/* ── 案6「店の顔と認証」：料理と原宿店の2枚を天地いっぱい（3:2、間 4px）。認証マークと既存の文を H1 の上に ── */
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:minmax(0,3fr) minmax(0,2fr);column-gap:4px!important;grid-template-areas:"band har" "cert cert" "h1 h1" "sub sub" "rsv rsv" "note note" "line line";padding:0 0 28px!important}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in>:not(.fvx-band):not(.fvx-har){margin-left:var(--gutter)!important;margin-right:var(--gutter)!important}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-band,html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-har{display:block!important;height:200px}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-band img{width:100%;height:100%;object-fit:cover;object-position:55% 50%}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-har{grid-area:har;width:100%;object-fit:cover;object-position:55% 35%;border-radius:0!important}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert{display:flex!important;margin-top:20px!important}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-mark{width:72px}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{display:block;font-size:14px;line-height:1.6;color:var(--ink)}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(30px,9.2vw,40px)!important;line-height:1.3!important;margin-top:16px!important}
+html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:14px!important}
+html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(28px,8vw,36px)!important;line-height:1.18!important}
+html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{font-size:13px}
+@media(max-width:1023px){
+  /* High-1：.row を外したので、ボタンにも左右の余白（幅いっぱいは stretch で） */
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in .row .btn:is(.rsv,.line){margin-left:var(--gutter)!important;margin-right:var(--gutter)!important}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in .row .btn.rsv{width:auto!important}
+}
+@media(min-width:768px){
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-band,html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-har{height:clamp(240px,36vw,360px)}
+}
+@media(min-width:1024px){
+  /* PC：左に文字の列（ロゴの左端から）、右に2枚を天地いっぱい。
+     High-4：写真の右端は --edge（ヘッダーの予約の右端）。High-6：FV を画面の高さに。Medium-4：列を clamp(440px,38vw,620px) */
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_){height:max(560px,calc(100svh - var(--hd-h,72px)))!important}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in{height:100%;grid-template-columns:calc(var(--edge) + clamp(440px,38vw,620px)) minmax(0,3fr) minmax(0,2fr);grid-template-rows:1fr auto auto auto auto auto 1fr;
+    grid-template-areas:". band har" "cert band har" "h1 band har" "sub band har" "row band har" "note band har" ". band har";padding:0 var(--edge) 0 0!important}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in>:not(.fvx-band):not(.fvx-har){margin-left:var(--edge)!important;margin-right:48px!important}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-band,html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-har{height:100%;min-height:0}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert{margin:0 0 28px!important;gap:20px;max-width:30em}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-mark{width:112px}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{font-size:16px;line-height:1.7}
+  /* H1 は列の幅に8字が収まる大きさ（列 clamp(440px,38vw,620px)−48px） */
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(40px,calc((clamp(440px,38vw,620px) - 48px)/8.3),64px)!important;margin-top:0!important}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in .hero-sub{margin-top:24px!important}
+  html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in .row{margin-top:28px!important}
+  html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .hero-in h1{font-size:clamp(36px,3.4vw,52px)!important;line-height:1.15!important}
+  html[data-warm="c"][lang="en"][data-fv="6"] .hero:not(#_):not(#_) .fvx-cert-t{font-size:16px}
+}
+/* FV 7回目 再評価の小さな直し（20261125g）：批評 Medium-A・B、Low-1・2 */
+@media(min-width:1024px){
+  /* 案4 英語：H1 が2行なので、下寄せだと左上が大きく空く。上下の真ん中に置く */
+  html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in{grid-template-rows:auto auto auto auto minmax(240px,100fr)}
+  html[data-warm="c"][lang="en"][data-fv="4"] .hero:not(#_):not(#_) .hero-in h1{align-self:center}
+}
+@media(max-width:767px){
+  /* 案4・案6 SP：FV の下の空きを詰め、次の区画との間を一定にする */
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"]) .hero:not(#_):not(#_) .hero-in{padding-bottom:32px!important}
+  html[data-warm="c"]:is([data-fv="4"],[data-fv="6"]) .hero:not(#_):not(#_)+*{padding-top:56px!important}
+}
+/* 案5 768：マークの右端を本文の右端にそろえる */
+@media(min-width:768px) and (max-width:1023px){html[data-warm="c"][data-fv="5"] .hero:not(#_):not(#_) .fvx-cert{justify-self:end!important}}
+/* 案6 1600 以上：店内の写真が細くならないよう、料理と店内を 1:1 に */
+@media(min-width:1600px){html[data-warm="c"][data-fv="6"] .hero:not(#_):not(#_) .hero-in{grid-template-columns:calc(var(--edge) + clamp(440px,38vw,620px)) minmax(0,1fr) minmax(0,1fr)!important}}
