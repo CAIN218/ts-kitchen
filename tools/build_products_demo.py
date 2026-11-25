@@ -90,7 +90,7 @@ def main():
         (out / "index.html").write_text(make_page(lang))
     for lang, base in (("ja", C), ("en", C / "en")):
         for p in [base / "index.html"] + sorted(base.glob("*/index.html")):
-            if p.parent.name == "en": continue
+            if lang == "ja" and p.parent.name == "en": continue
             top = p.parent == base
             add_nav(p, lang, "" if top else "../")
     # お問い合わせの種類に「卸売」を足す
