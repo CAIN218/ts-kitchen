@@ -251,16 +251,4 @@
   });
 })();
 
-/* 21b回目（yuga 2026-11-26：ロックはやめる）：ファーストビューの動き（2秒）の途中でスクロール・スワイプ・ホイール・キー操作があったら、
-   動きをすぐ終わらせて写真・帯・文字・ヘッダーを最後の状態で出し、そのまま普通にスクロールさせる（操作は止めない） */
-(function(){
-  var d=document,r=d.documentElement;if(r.getAttribute('data-fv')!=='8'||!d.querySelector('.fv8-panel'))return;
-  var evs=['wheel','touchstart','keydown','scroll'],done=false;
-  function off(){evs.forEach(function(t){removeEventListener(t,skip,true)})}
-  function skip(e){if(done)return;if(e&&e.type==='keydown'&&/^(Tab|Shift|Control|Alt|Meta)$/.test(e.key))return;done=true;off();
-    r.classList.remove('fv-wait');
-    [].forEach.call(d.querySelectorAll('.fvx-band img,.fv8-panel,body[data-page="index"] .hd'),function(el){
-      if(el.getAnimations)el.getAnimations().forEach(function(a){try{a.finish()}catch(_){}})});}
-  evs.forEach(function(t){addEventListener(t,skip,{capture:true,passive:true})});
-  setTimeout(function(){done=true;off()},6000);
-})();
+/* 21c回目（yuga 2026-11-26）：ファーストビューは触ってもスクロールでき、動き（2秒）は止めずに最後まで再生する（ロック・スキップなし） */
