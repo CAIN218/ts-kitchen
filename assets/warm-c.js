@@ -227,11 +227,12 @@
       function bad(){var f=im.closest('.car-s');if(f&&slides().length>1){f.remove();build()}}
       if(im.complete&&im.naturalWidth===0&&im.getAttribute('src'))bad();else im.addEventListener('error',bad);
     });
-    function idx(){var ss=slides(),sl=tr.scrollLeft;if(sl>=tr.scrollWidth-tr.clientWidth-2)return ss.length-1;var b=0,bd=1e9;ss.forEach(function(s,k){var dd=Math.abs(s.offsetLeft-sl);if(dd<bd){bd=dd;b=k}});return b}
+    function pos(s){return Math.max(0,Math.min(s.offsetLeft-(tr.clientWidth-s.offsetWidth)/2,tr.scrollWidth-tr.clientWidth))}
+    function idx(){var ss=slides(),sl=tr.scrollLeft;var b=0,bd=1e9;ss.forEach(function(s,k){var dd=Math.abs(pos(s)-sl);if(dd<bd){bd=dd;b=k}});return b}
     function upd(){var i=idx();[].forEach.call(dots.children,function(b,k){if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});
       slides().forEach(function(s,k){s.toggleAttribute('inert',k!==i)})}
     var anim=null;
-    function go(i){var ss=slides();if(!ss.length)return;i=(i+ss.length)%ss.length;var to=Math.min(ss[i].offsetLeft,tr.scrollWidth-tr.clientWidth),from=tr.scrollLeft;
+    function go(i){var ss=slides();if(!ss.length)return;i=(i+ss.length)%ss.length;var to=pos(ss[i]),from=tr.scrollLeft;
       if(anim)cancelAnimationFrame(anim);if(reduce||Math.abs(to-from)<1){tr.scrollLeft=to;upd();return}
       var t0=null,dur=Math.min(1100,700+Math.abs(to-from)*.5);tr.style.scrollSnapType='none';
       function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
@@ -239,7 +240,7 @@
       anim=requestAnimationFrame(step)}
     tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();pauseFor(8000);go(idx()+1)}else if(e.key==='ArrowLeft'){e.preventDefault();pauseFor(8000);go(idx()-1)}});
     var to;tr.addEventListener('scroll',function(){if(anim)return;clearTimeout(to);to=setTimeout(upd,60)},{passive:true});
-    addEventListener('resize',function(){tr.scrollLeft=slides()[idx()].offsetLeft});
+    addEventListener('resize',function(){tr.scrollLeft=pos(slides()[idx()])});
     var hold=false,seen=false,resume=0;function pauseFor(ms){resume=Date.now()+ms}
     if(!reduce){setInterval(function(){if(hold||!seen||d.hidden||Date.now()<resume||anim)return;go(idx()+1)},4500);
       if('IntersectionObserver' in window)new IntersectionObserver(function(es){seen=es[0].isIntersecting},{threshold:.4}).observe(car);else seen=true;
@@ -250,17 +251,16 @@
   });
 })();
 
-/* 21回目：ファーストビューの動き（2秒）が終わるまでスクロールさせない。写真の読み込み待ち（fv-wait）が解けてから2秒で解除。
-   途中まで読み込み済みで下にいる時・動きを減らす設定の時はロックしない。万一のため最長4.5秒で必ず解除 */
+/* 21b回目（yuga 2026-11-26：ロックはやめる）：ファーストビューの動き（2秒）の途中でスクロール・スワイプ・ホイール・キー操作があったら、
+   動きをすぐ終わらせて写真・帯・文字・ヘッダーを最後の状態で出し、そのまま普通にスクロールさせる（操作は止めない） */
 (function(){
-  var d=document,r=d.documentElement;if(r.getAttribute('data-fv')!=='8'||!d.querySelector('.fv8-panel')||!d.querySelector('body[data-page="index"]'))return;
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches||scrollY>10||location.hash)return;
-  r.classList.add('fv-lock');
-  var keys={ArrowDown:1,ArrowUp:1,PageDown:1,PageUp:1,Home:1,End:1,' ':1};
-  function block(e){if(r.classList.contains('fv-lock')&&(e.type!=='keydown'||keys[e.key]))e.preventDefault()}
-  addEventListener('wheel',block,{passive:false});addEventListener('touchmove',block,{passive:false});addEventListener('keydown',block);
-  function unlock(){r.classList.remove('fv-lock');removeEventListener('wheel',block);removeEventListener('touchmove',block);removeEventListener('keydown',block)}
-  var started=false;function start(){if(started)return;started=true;setTimeout(unlock,2000)}
-  if(!r.classList.contains('fv-wait'))start();else new MutationObserver(function(m,o){if(!r.classList.contains('fv-wait')){o.disconnect();start()}}).observe(r,{attributes:true,attributeFilter:['class']});
-  setTimeout(unlock,4500);
+  var d=document,r=d.documentElement;if(r.getAttribute('data-fv')!=='8'||!d.querySelector('.fv8-panel'))return;
+  var evs=['wheel','touchstart','keydown','scroll'],done=false;
+  function off(){evs.forEach(function(t){removeEventListener(t,skip,true)})}
+  function skip(e){if(done)return;if(e&&e.type==='keydown'&&/^(Tab|Shift|Control|Alt|Meta)$/.test(e.key))return;done=true;off();
+    r.classList.remove('fv-wait');
+    [].forEach.call(d.querySelectorAll('.fvx-band img,.fv8-panel,body[data-page="index"] .hd'),function(el){
+      if(el.getAnimations)el.getAnimations().forEach(function(a){try{a.finish()}catch(_){}})});}
+  evs.forEach(function(t){addEventListener(t,skip,{capture:true,passive:true})});
+  setTimeout(function(){done=true;off()},6000);
 })();
