@@ -2001,3 +2001,14 @@ html[data-warm="c"] .wc-car .car-s:not(#_):not(#_){scroll-snap-align:center;flex
   html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .about-ph.wc-car{grid-area:ph!important;width:100%!important;margin:0!important;align-self:start}
   html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .wc-car .car-s{aspect-ratio:4/3!important}
 }
+/* 22b回目（yuga「無駄に余白ができてる」）：PC は写真の高さを左の文字の列にそろえ、写真の下・項目の間の空きをなくす */
+@media(min-width:1024px){
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .lead{margin:0 0 28px!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .points{gap:14px!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .pt{padding-top:12px!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .about-ph.wc-car{align-self:stretch!important;display:flex!important;flex-direction:column;min-height:340px}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .wc-car .car-track{flex:1 1 auto;min-height:0;align-items:stretch}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .wc-car .car-s{aspect-ratio:auto!important;height:auto!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .wc-car .car-dots{flex:none}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_){column-gap:clamp(16px,2vw,32px)!important}
+}
