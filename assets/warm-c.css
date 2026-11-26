@@ -1987,4 +1987,7 @@ html[data-warm="c"] body .cta-float:not(#_):not(#_):not(#_){border-radius:999px!
 html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fvx-band img{animation-duration:2s!important}
 html[data-warm="c"][data-fv="8"] .hero:not(#_):not(#_) .fv8-panel{animation-delay:1.2s!important;animation-duration:.8s!important}
 html[data-warm="c"][data-fv="8"]:has(body[data-page="index"]) .hd:not(#_):not(#_){animation-delay:1.2s!important;animation-duration:.8s!important}
-html.fv-lock,html.fv-lock body{overflow:hidden!important;overscroll-behavior:none}
+/* 21b回目（yuga「スライドの写真を中央に揃えて」）：今の写真を枠の中央に置き、左右に前後の写真を少しずつ見せる */
+html[data-warm="c"] .wc-car .car-track:not(#_):not(#_){padding-inline:8%;scroll-padding-inline:8%}
+html[data-warm="c"] .wc-car .car-s:not(#_):not(#_){scroll-snap-align:center;flex-basis:100%}
+@media(min-width:1024px){html[data-warm="c"] .wc-car .car-track:not(#_):not(#_){padding-inline:9%;scroll-padding-inline:9%}}
