@@ -1991,3 +1991,13 @@ html[data-warm="c"][data-fv="8"]:has(body[data-page="index"]) .hd:not(#_):not(#_
 html[data-warm="c"] .wc-car .car-track:not(#_):not(#_){padding-inline:8%;scroll-padding-inline:8%}
 html[data-warm="c"] .wc-car .car-s:not(#_):not(#_){scroll-snap-align:center;flex-basis:100%}
 @media(min-width:1024px){html[data-warm="c"] .wc-car .car-track:not(#_):not(#_){padding-inline:9%;scroll-padding-inline:9%}}
+/* 22回目（yuga「パソコンの私たちのレストランでカルーセルがかぶってる」）：PC は2列に組み直す。
+   左＝見出し・導入文・3つの注意（縦に並べる）、右＝店舗写真のカルーセル（上端を見出しにそろえる）。文字と写真が同じ列に入らないので重ならない */
+@media(min-width:1024px){
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_){grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;grid-template-areas:"h2 ph" "lead ph" "pts ph"!important;grid-template-rows:auto auto 1fr!important;gap:0 clamp(40px,5vw,88px)!important;align-items:start!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) h2{grid-area:h2!important;margin:0 0 16px!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .lead{grid-area:lead!important;grid-column:auto!important;max-width:none!important;margin:0 0 40px!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .points{grid-area:pts!important;grid-template-columns:minmax(0,1fr)!important;gap:22px!important}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .about-ph.wc-car{grid-area:ph!important;width:100%!important;margin:0!important;align-self:start}
+  html[data-warm="c"] .wrap.about:not(#_):not(#_):not(#_) .wc-car .car-s{aspect-ratio:4/3!important}
+}
